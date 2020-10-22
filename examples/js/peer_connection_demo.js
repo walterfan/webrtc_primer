@@ -5,6 +5,7 @@ const stopButton = document.getElementById('stopButton');
 const callButton = document.getElementById('callButton');
 const hangupButton = document.getElementById('hangupButton');
 
+stopButton.disabled = true;
 callButton.disabled = true;
 hangupButton.disabled = true;
 
@@ -62,6 +63,7 @@ const remoteVideo = document.getElementById('remoteVideo')
   async function start() {
     console.log('Requesting local stream');
     startButton.disabled = true;
+    stopButton.disabled = false;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
       console.log('Received local stream');
