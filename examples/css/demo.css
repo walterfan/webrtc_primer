@@ -1,16 +1,69 @@
+/*
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+ */
+ button {
+    margin: 0 20px 0 0;
+    width: 136px;
+  }
+  
+  button#hangupButton {
+      margin: 0;
+  }
+  
+  video,canvas {
+    --width: 100%;
+    width: var(--width);
+    height: calc(var(--width) * 0.75);
+    margin: 0 0 20px 0;
+    vertical-align: top;
+  }
+  
+  video#localVideo {
+    margin: 0 20px 20px 0;
+  }
+  
+  div.box {
+    margin: 1em;
+  }
+  
+  @media screen and (max-width: 400px) {
+    button {
+      width: 83px;
+      margin: 0 11px 10px 0;
+    }
+  
+    video {
+      height: 90px;
+      margin: 0 0 10px 0;
+      width: calc(50% - 7px);
+    }
+    video#localVideo {
+      margin: 0 10px 20px 0;
+    }
+  
+  }
+
 button#open {
-    margin: 0 10px 25px 0;
-    width: 120px;
+    margin-right:10px;
+    width: 136px;
     color: blue;
 }
 button#close {
-    margin: 0 10px 25px 0;
-    width: 120px;
+    margin-right:10px;
+    width: 136px;
     color: blue;
 }
 button#snapshot {
-    margin: 0 10px 25px 0;
-    width: 120px;
+    margin-right:10px;
+    width: 136px;
+    color: blue;
+}
+select#filter {
+    margin-right:10px;
     color: blue;
 }
 

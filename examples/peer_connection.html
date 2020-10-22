@@ -13,7 +13,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script type="text/javascript" src="js/util.js" ></script>
-<script type="text/javascript" src="js/media_stream_demo.js"></script>
 <script>
 	$(function() {
 		$(".navbar-static-top").load("navbar.html", function() {
@@ -23,25 +22,7 @@
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
 
-    weblog("-------- Available User Devices -----------")
-    listUserDevices();
-
-    const constraints = window.constraints = {
-      audio: false,
-      video: true
-    };
-
-    const filterSelect = document.querySelector('select#filter');
-    filterSelect.onchange = function() {
-      const video = document.querySelector('video');
-      video.className = filterSelect.value;
-    };
-
-    document.querySelector('#open').addEventListener('click', e => openCamera(e, constraints));
-
-    document.querySelector('#close').addEventListener('click', e => closeCamera(e, constraints));
-
-    document.querySelector('#snapshot').addEventListener('click', e => takeSnapshot(e));
+    
     
 	});
 </script>
@@ -59,39 +40,45 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-lg-12">
 			<div class="page-header">
-				<h1>WebRTC example of User Media </h1>
+				<h1>WebRTC example of Peer Connection </h1>
 			</div>
 			<div class="container" id="details">
           <div class="row">
 
               <div class="col-lg-12">
 
-                <p>Click the button to open, close camera or take snapshot</p>
+                <p>Click the button to open or close connection</p>
                 <div>
 
-                      <button class="btn btn-default" autocomplete="off" id="open">Open Camera</button>
-                      <button class="btn btn-default" autocomplete="off" id="close">Close Camera</button>
-                      <button class="btn btn-default" autocomplete="off" id="snapshot">Take Snapshort</button>
+                    <button class="btn btn-default" autocomplete="off" id="startButton">Start Video</button>
+                    <button class="btn btn-default" autocomplete="off" id="stopButton">Stop Video</button>
+                      <button class="btn btn-default" autocomplete="off" id="callButton">Call</button>
+                      <button class="btn btn-default" autocomplete="off" id="hangupButton">Hangup</button>
+
                      
-                      <label for="filter">Filter: </label>
-                      <select id="filter">
-                          <option value="none">None</option>
-                          <option value="blur">Blur</option>
-                          <option value="grayscale">Grayscale</option>
-                          <option value="invert">Invert</option>
-                          <option value="sepia">Sepia</option>
-                      </select>                   
 
                 </div>
                 <br/>
               </div>
               <div class="col-lg-12">
-               
-                <div class="col-lg-6"><video id="localVideo" autoplay playsinline controls="true"></video></div>
-                <div class="col-lg-6"><canvas id="localCanvas"></canvas></div>
-              </div>
+                    <div class="col-lg-6"><video id="localVideo" autoplay></video></div>
+                    <div class="col-lg-6"><video id="remoteVideo" autoplay></video></div>
+               </div>
+               <div>
+
+                    <div class="box">
+                        <span>SDP Semantics:</span>
+                        <select id="sdpSemantics">
+                            <option selected value="">Default</option>
+                            <option value="unified-plan">Unified Plan</option>
+                            <option value="plan-b">Plan B</option>
+                        </select>
+                    </div>
+                    
+               </div>
+
           </div>
                 
           <div class="note">
@@ -113,6 +100,6 @@
 	<div class="footer">
 	</div>
 </div>
-
+<script type="text/javascript" src="js/peer_connection_demo.js"></script>
 </body>
 </html>
