@@ -8,13 +8,13 @@
 ### 相关协议
 
 * [I-D.ietf-avtext-rid]	Roach, A., Nandakumar, S. and P. Thatcher, "RTP Stream Identifier Source Description (SDES)", Internet-Draft draft-ietf-avtext-rid-09, October 2016.
-  - RTP流标识符源描述（SDES）
+  - [RTP流标识符源描述（SDES）](https://tools.ietf.org/html/draft-ietf-avtext-rid-09)
 
 * [I-D.ietf-ice-trickle]	Ivov, E., Rescorla, E., Uberti, J. and P. Saint-Andre, "Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol", Internet-Draft draft-ietf-ice-trickle-21, April 2018.
-  - 点滴ICE: 针对交互式连接建立协议的增量式提供候选者
+  - [点滴ICE: 针对交互式连接建立协议的增量式提供候选者](https://tools.ietf.org/html/draft-ietf-ice-trickle-21)
 
 * [I-D.ietf-mmusic-dtls-sdp]	Holmberg, C. and R. Shpount, "Session Description Protocol (SDP) Offer/Answer Considerations for Datagram Transport Layer Security (DTLS) and Transport Layer Security (TLS)", Internet-Draft draft-ietf-mmusic-dtls-sdp-32, October 2017.
-  - 对于 DTLS 和 TLS 的会话描述协议（SDP）要约/应答 的考虑
+  - [对于 DTLS 和 TLS 的会话描述协议（SDP）要约/应答 的考虑](https://tools.ietf.org/html/draft-ietf-mmusic-dtls-sdp-32)
 
 * [I-D.ietf-mmusic-ice-sip-sdp]	Petit-Huguenin, M., Nandakumar, S. and A. Keranen, "Session Description Protocol (SDP) Offer/Answer procedures for Interactive Connectivity Establishment (ICE)", Internet-Draft draft-ietf-mmusic-ice-sip-sdp-24, November 2018.
   - 对于 ICE 的 SDP 的要约/应答过程
