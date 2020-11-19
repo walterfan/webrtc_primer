@@ -3,7 +3,7 @@
 WebRTC Primer
 
 ## WebRTC examples
-Just did a little change based on https://github.com/webrtc/samples
+Just did a little change based on https://github.com/webrtc/samples and book "Real-Time Communication with WebRTC"
 
 
 * Media Stream example:
