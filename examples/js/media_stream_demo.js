@@ -32,7 +32,7 @@ function handleError(error) {
 }
 
 function errorMsg(msg, error) {
-  const errorElement = document.querySelector('#errorMsg');
+  const errorElement = document.querySelector('#logDiv');
   errorElement.innerHTML += `<p>${msg}</p>`;
   if (typeof error !== 'undefined') {
     console.error(error);

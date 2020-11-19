@@ -17,7 +17,7 @@
 	$(function() {
 		$(".navbar-static-top").load("navbar.html", function() {
 			$(".navbar-static-top li.dropdown").addClass("active");
-			$(".navbar-static-top a[href='echotest.html']").parent().addClass("active");
+			$(".navbar-static-top a[href='peer_connection.html']").parent().addClass("active");
 		});
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
@@ -27,6 +27,7 @@
 	});
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/main.css" type="text/css"/>
 <link rel="stylesheet" href="css/demo.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
@@ -75,7 +76,23 @@
                             <option value="unified-plan">Unified Plan</option>
                             <option value="plan-b">Plan B</option>
                         </select>
+
+
                     </div>
+                   <div>
+                        <button class="btn btn-default" autocomplete="off" id="sdpButton">Display SDP</button>
+                       <textarea id="output"></textarea>
+                       <code><pre>
+                           interface RTCOfferAnswerOptions {
+                                voiceActivityDetection?: boolean;
+                           }
+                           interface RTCOfferOptions extends RTCOfferAnswerOptions {
+                                iceRestart?: boolean;
+                                offerToReceiveAudio?: boolean;
+                                offerToReceiveVideo?: boolean;
+                            }
+                       </pre></code>
+                   </div>
                     
                </div>
 

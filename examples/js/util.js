@@ -66,3 +66,15 @@ async function getConnectedDevices(type) {
    return devices.filter(device => device.kind === type)
 }
 
+
+async function createOffer(offerOptions) {
+    try {
+        const offer = await peerConnection.createOffer(offerOptions);
+        await peerConnection.setLocalDescription(offer);
+        console.log(offer.sdp);
+        return offer;
+      } catch (e) {
+        console.log(`Failed to create offer: ${e}`);
+        return null;
+      }
+}

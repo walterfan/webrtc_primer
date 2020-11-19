@@ -5,6 +5,9 @@ const stopButton = document.getElementById('stopButton');
 const callButton = document.getElementById('callButton');
 const hangupButton = document.getElementById('hangupButton');
 
+const sdpButton = document.getElementById('sdpButton');
+const outputTextarea = document.querySelector('textarea#output');
+
 stopButton.disabled = true;
 callButton.disabled = true;
 hangupButton.disabled = true;
@@ -13,6 +16,8 @@ startButton.addEventListener('click', start);
 stopButton.addEventListener('click', stop);
 callButton.addEventListener('click', call);
 hangupButton.addEventListener('click', hangup);
+
+sdpButton.addEventListener('click', displaySdp);
 
 let startTime;
 const localVideo = document.getElementById('localVideo');
@@ -45,7 +50,9 @@ const remoteVideo = document.getElementById('remoteVideo')
   
   const offerOptions = {
     offerToReceiveAudio: 1,
-    offerToReceiveVideo: 1
+    offerToReceiveVideo: 1,
+    iceRestart:true,
+    voiceActivityDetection: true
   };
 
 
@@ -238,4 +245,13 @@ const remoteVideo = document.getElementById('remoteVideo')
     pc2 = null;
     hangupButton.disabled = true;
     callButton.disabled = false;
+  }
+
+  async function displaySdp() {
+    const configuration = getSelectedSdpSemantics();
+
+    let peerConnection = new RTCPeerConnection(configuration);
+    const offer = await peerConnection.createOffer(offerOptions);
+    await peerConnection.setLocalDescription(offer);
+    outputTextarea.value = offer.sdp;
   }

@@ -31,6 +31,39 @@
       video: true
     };
 
+    const resSelect = document.querySelector('select#resolution');
+    var selectedRes = resSelect.value;
+
+
+    switch(selectedRes) {
+      case "qvga":
+        constraints.video = {
+          mandatory: {
+            maxWidth: 320,
+            maxHeight: 240
+          }
+        }  
+        break;
+      case "vga":
+        constraints.video = {
+            mandatory: {
+              maxWidth: 640,
+              maxHeight: 480
+            }
+          }  
+        
+        break;
+      default:
+        constraints.video = {
+            mandatory: {
+              maxWidth: 1024,
+              maxHeight: 768
+            }
+          }  
+        
+        break;
+    }      
+    
     const filterSelect = document.querySelector('select#filter');
     filterSelect.onchange = function() {
       const video = document.querySelector('video');
@@ -73,9 +106,16 @@
                 <div>
 
                       <button class="btn btn-default" autocomplete="off" id="open">Open Camera</button>
+                      <label for="resolution">resolution </label>
+                      <select id="resolution">
+                          <option value="qvga">320*240</option>
+                          <option value="vga">640*480</option>
+                          <option value="hd">1280*960</option>
+                      </select>
+
                       <button class="btn btn-default" autocomplete="off" id="close">Close Camera</button>
                       <button class="btn btn-default" autocomplete="off" id="snapshot">Take Snapshort</button>
-                     
+                          
                       <label for="filter">Filter: </label>
                       <select id="filter">
                           <option value="none">None</option>

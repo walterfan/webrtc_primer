@@ -5,3 +5,13 @@
     line-height: 24px;
     text-align: left
 }
+
+label {
+  font-weight: 500;
+  margin: 0 10px 0 0;
+}
+
+textarea {
+  height: 200px;
+  width: 100%;
+}
