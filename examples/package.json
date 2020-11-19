@@ -1,14 +1,14 @@
 {
-  "name": "SimpleNodeServer",
+  "name": "WebRTC Primer",
   "version": "0.1.0",
-  "description": "SimpleNodeServer",
-  "main": "simpleNodeServer_OK.js",
+  "description": "video_chat_demo",
+  "main": "video_chat_server.js",
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spromano/WebRTC_Book"
+    "url": "https://github.com/walterfan/webrtc_primer"
   },
   "keywords": [
     "WebRTC"

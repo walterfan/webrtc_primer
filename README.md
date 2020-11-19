@@ -3,7 +3,7 @@
 WebRTC Primer
 
 ## WebRTC examples
-Just did a little change based on https://github.com/webrtc/samples and book "Real-Time Communication with WebRTC"
+Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book)
 
 
 * Media Stream example:
@@ -16,7 +16,13 @@ Just did a little change based on https://github.com/webrtc/samples and book "Re
   - examples/local_peer_connection_demo.html
 
 * Local Data Channel example:
-  - examples/loal_data_channel_demo.html  
+  - examples/loal_data_channel_demo.html 
+  
+*  Signal demo example:
+  - examples/signal_demo.html, signal_demo_server.js
+  
+* Video Chat example:
+  - examples/video_chat_demo.html, video_chat_server.js       
 
 ## WebRTC source codes
 
