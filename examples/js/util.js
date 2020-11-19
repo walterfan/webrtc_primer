@@ -2,7 +2,7 @@ function weblog(message) {
     console.log(message);
     let logContent = document.getElementById('logContent');
     let elem = document.createElement("li");
-    elem.innerHTML =  "<code>" + message + "</code>";
+    elem.innerHTML = "[" + (performance.now() / 1000).toFixed(3) + "] <code>" + message + "</code>";
     logContent.appendChild(elem);
 }
 

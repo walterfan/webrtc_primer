@@ -9,11 +9,15 @@ Just did a little change based on https://github.com/webrtc/samples
 * Media Stream example:
   - examples/media_stream_demo.html
 
-* Peer Connection example:
-  - examples/peer_connection_demo.html
-
 * Screen Sharing example:
   - examples/desktop_sharing.html
+  
+* Local Peer Connection example:
+  - examples/local_peer_connection_demo.html
+
+* Local Data Channel example:
+  - examples/local_data_channel_demo.html
+
 
 ## WebRTC source codes
 
