@@ -19,6 +19,7 @@ Whenever an offer/answer exchange is needed,  // Alice: createOffer -> setLocalD
 1. the initiating side creates an offer by calling a createOffer() API.  
 
 2. The application then uses that offer to set up its local config via the  setLocalDescription() API.  // 本地
+
 The offer is finally sent off to the remote side over its preferred signaling mechanism (e.g., WebSockets); 
 
 3. upon receipt of that offer, the remote party installs it using the setRemoteDescription() API.  // 远端
