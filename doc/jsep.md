@@ -1,21 +1,46 @@
-RTP sessions frequently consist of multiple streams, each of which is
-   identified at any given time by its SSRC; however, the SSRC
-   associated with a stream is not guaranteed to be stable over its
-   lifetime.  Within a session, these streams can be tagged with a
-   number of identifiers, including CNAMEs and MSIDs
-   [I-D.ietf-mmusic-msid].  Unfortunately, none of these have the proper
-   ordinality to refer to an individual stream; all such identifiers can
-   appear in more than one stream at a time.  While approaches that use
-   unique Payload Types (PTs) per stream have been used in some
-   applications, this is a semantic overloading of that field, and one
-   for which its size is inadequate: in moderately complex systems that
-   use PT to uniquely identify every potential combination of codec
-   configuration and unique stream, it is possible to simply run out of
-   values.
+# Javascript Session Establishment Protocol (JSEP)
 
-   To address this situation, we define a new RTCP Stream Identifier
-   Source Description (SDES) identifier, RtpStreamId, that uniquely
-   identifies a single RTP stream.  A key motivator for defining this
-   identifier is the ability to differentiate among different encodings
-   of a single Source Stream that are sent simultaneously (i.e.,
-   simulcast).  This need for unique identification extends to dependent
+https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
+
+    JavaScript Session Establishment Protocol
+       draft-ietf-rtcweb-jsep-26
+
+
+JavaScript Session Establishment Protocol (JSEP) that allows for full control of the signaling state machine from JavaScript. 
+
+JavaScript making use of two interfaces: 
+
+* (1) passing in local and remote session descriptions and 
+* (2) interacting with the ICE state machine.  
+
+
+Whenever an offer/answer exchange is needed, 
+
+1. the initiating side creates an offer by calling a createOffer() API.  
+
+2. The application then uses that offer to set up its local config via the  setLocalDescription() API.  // 本地
+The offer is finally sent off to the remote side over its preferred signaling mechanism (e.g., WebSockets); 
+
+3. upon receipt of that offer, the remote party installs it using the setRemoteDescription() API.  // 远端
+
+4.  To complete the offer/answer exchange, the remote party uses the createAnswer() API to generate an appropriate answer, 
+applies it using the setLocalDescription() API, and sends the answer back to the  initiator over the signaling channel.
+
+
+# Signaling Model
+
+信令模型：
+
+       +-----------+                               +-----------+
+       |  Web App  |<--- App-Specific Signaling -->|  Web App  |
+       +-----------+                               +-----------+
+             ^                                            ^
+             |  SDP                                       |  SDP
+             V                                            V
+       +-----------+                                +-----------+
+       |   JSEP    |<----------- Media ------------>|   JSEP    |
+       |   Impl.   |                                |   Impl.   |
+       +-----------+                                +-----------+
+
+
+                      Figure 1: JSEP Signaling Model
