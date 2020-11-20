@@ -1,6 +1,6 @@
-# webrtc_primer
+# WebRTC Primer
 
-WebRTC Primer
+Collect WebRTC related learning materials , write some notes and samples here.
 
 ## WebRTC examples
 Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book)
