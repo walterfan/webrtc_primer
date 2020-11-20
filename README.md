@@ -157,9 +157,23 @@ $ gclient sync
   - https://tools.ietf.org/html/rfc6190
 
 * Definition of the Opus Audio Codec
- - https://tools.ietf.org/html/rfc6716
+  - https://tools.ietf.org/html/rfc6716
 
 # Reference
 
-* https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/index.md
-* https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/index.md
+* WebRTC offical site
+  - https://webrtc.org/
+  
+* WebRTC API
+  - https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+  - https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection
+  - https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel
+  
+* WebRTC tutorial and book
+  - https://www.html5rocks.com/en/tutorials/webrtc/basics/
+  - https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/
+  - https://a-wing.github.io/webrtc-book-cn/01_introduction.html
+  
+* WebRTC native codes 
+  - https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/index.md
+  - https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/index.md
