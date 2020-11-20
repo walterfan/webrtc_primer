@@ -8,13 +8,13 @@ https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
 
 JavaScript Session Establishment Protocol (JSEP) that allows for full control of the signaling state machine from JavaScript. 
 
-JavaScript making use of two interfaces: 
+JavaScript making use of two interfaces:  //两个接口： 传送本地和远端的会话描述， 以 ICE 状态机进行交互性的连通性检查
 
 * (1) passing in local and remote session descriptions and 
 * (2) interacting with the ICE state machine.  
 
 
-Whenever an offer/answer exchange is needed, 
+Whenever an offer/answer exchange is needed,  // Alice: createOffer -> setLocalDescrition, Bob: setRemoteDescription -> createAnswer -> setLocalDescription
 
 1. the initiating side creates an offer by calling a createOffer() API.  
 
