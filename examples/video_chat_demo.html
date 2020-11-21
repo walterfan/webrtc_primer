@@ -17,7 +17,7 @@
 	$(function() {
 		$(".navbar-static-top").load("navbar.html", function() {
 			$(".navbar-static-top li.dropdown").addClass("active");
-			$(".navbar-static-top a[href='video_chat.html']").parent().addClass("active");
+			$(".navbar-static-top a[href='video_chat_demo.html']").parent().addClass("active");
 		});
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
@@ -50,15 +50,14 @@
 
               <div class="col-lg-12">
 
-                <p>Click the button to open or close data channel </p>
-                <div>
+                  <div>
+                      <label>Room Name: </label>
+                      <input type="text" id="roomName"/>
+                      <button class="btn btn-default" autocomplete="off" id="openButton">Join</button>
+                      <button class="btn btn-default" autocomplete="off" id="closeButton">Leave</button>
 
-                    <button class="btn btn-default" autocomplete="off" id="startButton">Connect</button>
-                    <button class="btn btn-default" autocomplete="off" id="closeButton">Disconnect</button>
-                      <button class="btn btn-default" autocomplete="off" id="sendButton">Send Message</button>
-
-
-                     
+                      <button class="btn btn-default" autocomplete="off" id="startButton">Start Video</button>
+                      <button class="btn btn-default" autocomplete="off" id="stopButton">Stop Video</button>
 
                 </div>
                 <br/>
@@ -122,7 +121,7 @@
 	<div class="footer">
 	</div>
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="js/old_adapter.js"></script>
 <script type="text/javascript" src="js/video_chat_client.js"></script>
 </body>

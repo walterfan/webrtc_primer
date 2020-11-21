@@ -1,5 +1,18 @@
 'use strict';
 
+const startButton = document.getElementById('startButton');
+const stopButton = document.getElementById('stopButton');
+const openButton = document.getElementById('openButton');
+const closeButton = document.getElementById('closeButton');
+
+stopButton.disabled = true;
+closeButton.disabled = true;
+
+
+startButton.addEventListener('click', start);
+stopButton.addEventListener('click', stop);
+openButton.addEventListener('click', open);
+
 //Look after different browser vendors' ways of calling the getUserMedia() API method:
 //Opera --> getUserMedia
 //Chrome --> webkitGetUserMedia
@@ -62,43 +75,52 @@ var sdpConstraints = webrtcDetectedBrowser === 'firefox' ?
 
 /////////////////////////////////////////////
 
-// Let's get started: prompt user for input (room name)
-var room = prompt('Enter room name:');
-
-// Connect to signalling server
-var socket = io.connect();
-
-// Send 'Create or join' message to singnalling server
-if (room !== '') {
-  console.log('Create or join room', room);
-  socket.emit('create or join', room);
-}
-
 // Set getUserMedia constraints
-var constraints = {video: true};
+const constraints = {
+  audio: false,
+  video: true
+};
 
-// Call getUserMedia()
-navigator.mediaDevices.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
-console.log('Getting user media with constraints', constraints);
 
+var socket = io.connect();
 // From this point on, execution proceeds based on asynchronous events...
+async function open() {
+  // Connect to signalling server
+  var room = document.getElementById("roomName").value;
 
+  // Send 'Create or join' message to singnalling server
+  if (room !== '') {
+    weblog('Create or join room', room);
+    socket.emit('create or join', room);
+  }
+}
 /////////////////////////////////////////////
-
+async function start() {
+  try {
+    // Call getUserMedia()
+    weblog('Getting user media with constraints: '+ JSON.stringify(constraints));
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleUserMedia(stream);
+  } catch (ex) {
+    handleUserMediaError(ex);
+  }
+}
 // getUserMedia() handlers...
 /////////////////////////////////////////////
 function handleUserMedia(stream) {
 	localStream = stream;
 	attachMediaStream(localVideo, stream);
-	console.log('Adding local stream.');
-	sendMessage('got user media');
+	weblog('Adding local stream.');
+	startButton.disabled = true;
+	stopButton.disabled = false;
+	sendMessage('got user media, isInitiator=' + isInitiator);
 	if (isInitiator) {
 		checkAndStart();
 	}
 }
 
 function handleUserMediaError(error){
-	console.log('navigator.getUserMedia error: ', error);
+	console.log('Erroe getUserMedia error: ', error);
 }
 /////////////////////////////////////////////
 
@@ -177,6 +199,7 @@ function sendMessage(message){
 ////////////////////////////////////////////////////
 // Channel negotiation trigger function
 function checkAndStart() {
+  console.log('checkAndStart: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
   if (!isStarted && typeof localStream != 'undefined' && isChannelReady) {
     createPeerConnection();
     pc.addStream(localStream);
@@ -193,11 +216,11 @@ function createPeerConnection() {
   try {
     pc = new RTCPeerConnection(pc_config, pc_constraints);
     pc.onicecandidate = handleIceCandidate;
-    console.log('Created RTCPeerConnnection with:\n' +
+    weblog('Created RTCPeerConnnection with:\n' +
       '  config: \'' + JSON.stringify(pc_config) + '\';\n' +
       '  constraints: \'' + JSON.stringify(pc_constraints) + '\'.');
   } catch (e) {
-    console.log('Failed to create PeerConnection, exception: ' + e.message);
+    weblog('Failed to create PeerConnection, exception: ' + e.message);
     alert('Cannot create RTCPeerConnection object.');
       return;
   }
@@ -241,13 +264,13 @@ function gotReceiveChannel(event) {
 }
 
 function handleMessage(event) {
-  trace('Received message: ' + event.data);
+  weblog('Received message: ' + event.data);
   receiveTextarea.value += event.data + '\n';
 }
 
 function handleSendChannelStateChange() {
   var readyState = sendChannel.readyState;
-  trace('Send channel state is: ' + readyState);
+  weblog('Send channel state is: ' + readyState);
   // If channel ready, enable user's input
   if (readyState == "open") {
     dataChannelSend.disabled = false;
@@ -262,7 +285,7 @@ function handleSendChannelStateChange() {
 
 function handleReceiveChannelStateChange() {
   var readyState = receiveChannel.readyState;
-  trace('Receive channel state is: ' + readyState);
+  weblog('Receive channel state is: ' + readyState);
   // If channel ready, enable user's input
   if (readyState == "open") {
 	    dataChannelSend.disabled = false;
@@ -277,7 +300,7 @@ function handleReceiveChannelStateChange() {
 
 // ICE candidates management
 function handleIceCandidate(event) {
-  console.log('handleIceCandidate event: ', event);
+  weblog('handleIceCandidate event: ' + JSON.stringify( event));
   if (event.candidate) {
     sendMessage({
       type: 'candidate',
@@ -285,13 +308,13 @@ function handleIceCandidate(event) {
       id: event.candidate.sdpMid,
       candidate: event.candidate.candidate});
   } else {
-    console.log('End of candidates.');
+    weblog('End of candidates.');
   }
 }
 
 // Create Offer
 function doCall() {
-  console.log('Creating Offer...');
+  weblog('Creating Offer...');
   pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
 }
 

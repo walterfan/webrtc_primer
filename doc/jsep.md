@@ -1,10 +1,21 @@
-# Javascript Session Establishment Protocol (JSEP)
 
+
+# What
+
+Javascript Session Establishment Protocol (JSEP)
 https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
 
-    JavaScript Session Establishment Protocol
-       draft-ietf-rtcweb-jsep-26
+## Abstract
 
+JSEP 即 Javascript 会话创建协议
+
+# Why
+
+Motivation
+
+Abstract
+
+# How
 
 JavaScript Session Establishment Protocol (JSEP) that allows for full control of the signaling state machine from JavaScript. 
 
@@ -28,7 +39,9 @@ The offer is finally sent off to the remote side over its preferred signaling me
 applies it using the setLocalDescription() API, and sends the answer back to the  initiator over the signaling channel.
 
 
-# Signaling Model
+# Semantics and Syntax
+
+## Signaling Model
 
 信令模型：
 
@@ -45,3 +58,69 @@ applies it using the setLocalDescription() API, and sends the answer back to the
 
 
                       Figure 1: JSEP Signaling Model
+
+
+## Session Descriptions and State Machine
+
+in order to handle session descriptions properly, the JSEP implementation needs:
+
+   1.  To know if a session description pertains to the local or remote
+       side.
+
+   2.  To know if a session description is an offer or an answer.
+
+   3.  To allow the offer to be specified independently of the answer.
+
+
+<pre>
+                       setRemote(OFFER)               setLocal(PRANSWER)
+                           /-----\                               /-----\
+                           |     |                               |     |
+                           v     |                               v     |
+            +---------------+    |                +---------------+    |
+            |               |----/                |               |----/
+            |  have-        | setLocal(PRANSWER)  | have-         |
+            |  remote-offer |------------------- >| local-pranswer|
+            |               |                     |               |
+            |               |                     |               |
+            +---------------+                     +---------------+
+                 ^   |                                   |
+                 |   | setLocal(ANSWER)                  |
+   setRemote(OFFER)  |                                   |
+                 |   V                  setLocal(ANSWER) |
+            +---------------+                            |
+            |               |                            |
+            |               |<---------------------------+
+            |    stable     |
+            |               |<---------------------------+
+            |               |                            |
+            +---------------+          setRemote(ANSWER) |
+                 ^   |                                   |
+                 |   | setLocal(OFFER)                   |
+   setRemote(ANSWER) |                                   |
+                 |   V                                   |
+            +---------------+                     +---------------+
+            |               |                     |               |
+            |  have-        | setRemote(PRANSWER) |have-          |
+            |  local-offer  |------------------- >|remote-pranswer|
+            |               |                     |               |
+            |               |----\                |               |----\
+            +---------------+    |                +---------------+    |
+                           ^     |                               ^     |
+                           |     |                               |     |
+                           \-----/                               \-----/
+                       setLocal(OFFER)               setRemote(PRANSWER)
+
+
+                       Figure 2: JSEP State Machine
+</pre>
+
+
+# Example
+
+
+# Conclusion
+
+
+# Reference
+
