@@ -39,14 +39,15 @@ var remoteVideo = document.querySelector('#remoteVideo');
 sendButton.onclick = sendData;
 
 // Flags...
-var isChannelReady;
-var isInitiator;
-var isStarted;
+var isChannelReady = false;
+var isInitiator = false;
+var isStarted  = false;
 
 // WebRTC data structures
 // Streams
 var localStream;
 var remoteStream;
+
 // Peer Connection
 var pc;
 
@@ -83,6 +84,7 @@ const constraints = {
 
 
 var socket = io.connect();
+
 // From this point on, execution proceeds based on asynchronous events...
 async function open() {
   // Connect to signalling server
@@ -90,7 +92,7 @@ async function open() {
 
   // Send 'Create or join' message to singnalling server
   if (room !== '') {
-    weblog('Create or join room', room);
+    weblog('Create or join room ' + room);
     socket.emit('create or join', room);
   }
 }
@@ -113,14 +115,14 @@ function handleUserMedia(stream) {
 	weblog('Adding local stream.');
 	startButton.disabled = true;
 	stopButton.disabled = false;
-	sendMessage('got user media, isInitiator=' + isInitiator);
+	sendMessage('got user media');
 	if (isInitiator) {
 		checkAndStart();
 	}
 }
 
 function handleUserMediaError(error){
-	console.log('Erroe getUserMedia error: ', error);
+	weblog('Erroe getUserMedia error: ' +  error);
 }
 /////////////////////////////////////////////
 
@@ -134,29 +136,35 @@ function handleUserMediaError(error){
 // Handle 'created' message coming back from server:
 // this peer is the initiator
 socket.on('created', function (room){
-  console.log('Created room ' + room);
+  weblog('Created room ' + room);
   isInitiator = true;
+
+  start();
+
+  checkAndStart();
 });
 
 // Handle 'full' message coming back from server:
 // this peer arrived too late :-(
 socket.on('full', function (room){
-  console.log('Room ' + room + ' is full');
+  weblog('Room ' + room + ' is full');
 });
 
 // Handle 'join' message coming back from server:
 // another peer is joining the channel
 socket.on('join', function (room){
-  console.log('Another peer made a request to join room ' + room);
-  console.log('This peer is the initiator of room ' + room + '!');
+  weblog('onJoin - another peer made a request to join room ' + room);
+  weblog('This peer is the initiator of room ' + room + '!');
   isChannelReady = true;
 });
 
 // Handle 'joined' message coming back from server:
 // this is the second peer joining the channel
 socket.on('joined', function (room){
-  console.log('This peer has joined room ' + room);
+  weblog('onJoined - this peer has joined room ' + room);
   isChannelReady = true;
+
+  start();
 });
 
 // Server-sent log message...
@@ -166,7 +174,7 @@ socket.on('log', function (array){
 
 // Receive message from the other peer via the signalling server
 socket.on('message', function (message){
-  console.log('Received message:', message);
+  weblog('onMessage: Received message:' +  message);
   if (message === 'got user media') {
         checkAndStart();
   } else if (message.type === 'offer') {
@@ -191,7 +199,7 @@ socket.on('message', function (message){
 ////////////////////////////////////////////////
 // Send message to the other peer via the signalling server
 function sendMessage(message){
-  console.log('Sending message: ', message);
+  weblog('Sending message: ' + message);
   socket.emit('message', message);
 }
 ////////////////////////////////////////////////////
@@ -199,7 +207,7 @@ function sendMessage(message){
 ////////////////////////////////////////////////////
 // Channel negotiation trigger function
 function checkAndStart() {
-  console.log('checkAndStart: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
+  weblog('checkAndStart: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
   if (!isStarted && typeof localStream != 'undefined' && isChannelReady) {
     createPeerConnection();
     pc.addStream(localStream);
@@ -270,7 +278,7 @@ function handleMessage(event) {
 
 function handleSendChannelStateChange() {
   var readyState = sendChannel.readyState;
-  weblog('Send channel state is: ' + readyState);
+  weblog('handleSendChannelStateChange, send channel state is: ' + readyState);
   // If channel ready, enable user's input
   if (readyState == "open") {
     dataChannelSend.disabled = false;
@@ -285,7 +293,7 @@ function handleSendChannelStateChange() {
 
 function handleReceiveChannelStateChange() {
   var readyState = receiveChannel.readyState;
-  weblog('Receive channel state is: ' + readyState);
+  weblog('handleReceiveChannelStateChange: seceive channel state is: ' + readyState);
   // If channel ready, enable user's input
   if (readyState == "open") {
 	    dataChannelSend.disabled = false;
@@ -340,12 +348,13 @@ function setLocalAndSendMessage(sessionDescription) {
 // Remote stream handlers...
 
 function handleRemoteStreamAdded(event) {
-  console.log('Remote stream added.');
+  weblog('Remote stream added.');
   attachMediaStream(remoteVideo, event.stream);
   remoteStream = event.stream;
 }
 
 function handleRemoteStreamRemoved(event) {
+  weblog('Remote stream removed.');
   console.log('Remote stream removed. Event: ', event);
 }
 /////////////////////////////////////////////////////////

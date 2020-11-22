@@ -12,6 +12,9 @@
 
 WebRTC背后的技术被实现为一个开放的Web标准，并在所有主要浏览器中均以常规JavaScript API的形式提供。 对于本机客户端（例如Android和iOS应用程序），可以使用提供相同功能的库。
 
+* W3C 的 Web Real-Time Communication Working Group (WEBRTC) 负责制定 Web API 供各大浏览器厂商跟进。
+
+* IETF 的 Real-Time Communication in Web-browser (RTCWEB) 负责制定协议，数据格式，安全及其他底层通信所需的内容。
 
 # WebRTC 能干什么
 
