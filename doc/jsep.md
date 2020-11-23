@@ -1,5 +1,3 @@
-
-
 # What
 
 Javascript Session Establishment Protocol (JSEP)

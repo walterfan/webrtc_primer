@@ -33,4 +33,12 @@ WebRTC背后的技术被实现为一个开放的Web标准，并在所有主要�
     logging('DEPRECATED, attachMediaStream will soon be removed.');
     element.srcObject = stream;
   }
-```  
+```
+
+![](webrtc_overview.png)
+
+
+
+# 为什么需要制定 WebRTC 标准和由浏览器来提供这些 API
+
+
