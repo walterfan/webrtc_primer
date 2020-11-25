@@ -7,22 +7,28 @@ Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples)
 
 
 * Media Stream example:
-  - examples/media_stream_demo.html
+  - cd examples & python -m http.server
+  - open http://localhost:8000/media_stream.html
 
 * Screen Sharing example:
-  - examples/desktop_sharing.html
+  - cd examples & python -m http.server
+  - open http://localhost:8000/desktop_sharing.html
 
 * Local Peer Connection example:
-  - examples/local_peer_connection_demo.html
+  - cd examples & python -m http.server
+  - open http://localhost:8000/local_peer_connection_demo.html
 
 * Local Data Channel example:
-  - examples/loal_data_channel_demo.html 
+  - cd examples & python -m http.server
+  - - open http://localhost:8000/loal_data_channel_demo.html 
   
-*  Signal demo example:
-  - examples/signal_demo.html, signal_demo_server.js
-  
+*  Chat demo example:
+  - node chat_server.js       
+  - open http://localhost:8181/chat_demo.html
+
 * Video Chat example:
-  - examples/video_chat_demo.html, video_chat_server.js       
+  - node video_chat_server.js       
+  - open http://localhost:8181/video_chat_demo.html
 
 ## WebRTC source codes
 
