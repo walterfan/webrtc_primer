@@ -9,9 +9,10 @@ stopButton.disabled = true;
 closeButton.disabled = true;
 
 
-startButton.addEventListener('click', start);
-stopButton.addEventListener('click', stop);
-openButton.addEventListener('click', open);
+startButton.addEventListener('click', startMedia);
+stopButton.addEventListener('click', closeConnection);
+openButton.addEventListener('click', join);
+closeButton.addEventListener('click', hangup);
 
 //Look after different browser vendors' ways of calling the getUserMedia() API method:
 //Opera --> getUserMedia
@@ -86,7 +87,7 @@ const constraints = {
 var socket = io.connect();
 
 // From this point on, execution proceeds based on asynchronous events...
-async function open() {
+async function join() {
   // Connect to signalling server
   var room = document.getElementById("roomName").value;
 
@@ -97,7 +98,7 @@ async function open() {
   }
 }
 /////////////////////////////////////////////
-async function start() {
+async function startMedia() {
   try {
     // Call getUserMedia()
     weblog('Getting user media with constraints: '+ JSON.stringify(constraints));
@@ -139,7 +140,7 @@ socket.on('created', function (room){
   weblog('Created room ' + room);
   isInitiator = true;
 
-  start();
+  startMedia();
 
   checkAndStart();
 });
@@ -164,7 +165,7 @@ socket.on('joined', function (room){
   weblog('onJoined - this peer has joined room ' + room);
   isChannelReady = true;
 
-  start();
+  startMedia();
 });
 
 // Server-sent log message...
@@ -364,17 +365,17 @@ function handleRemoteStreamRemoved(event) {
 
 function hangup() {
   console.log('Hanging up.');
-  stop();
+  closeConnection();
   sendMessage('bye');
 }
 
 function handleRemoteHangup() {
   console.log('Session terminated.');
-  stop();
+  closeConnection();
   isInitiator = false;
 }
 
-function stop() {
+function closeConnection() {
   isStarted = false;
   if (sendChannel) sendChannel.close();
   if (receiveChannel) receiveChannel.close();
