@@ -175,7 +175,7 @@ socket.on('log', function (array){
 
 // Receive message from the other peer via the signalling server
 socket.on('message', function (message){
-  weblog('onMessage: Received message:' +  message);
+  weblog('onMessage: Received message:' +  JSON.stringify(message));
   if (message === 'got user media') {
         checkAndStart();
   } else if (message.type === 'offer') {

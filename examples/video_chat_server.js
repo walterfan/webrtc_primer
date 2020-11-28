@@ -39,7 +39,7 @@ io.sockets.on('connection', function (socket){
     	// Handle 'message' messages
         socket.on('message', function (message) {
                 log('Server --> got message: ', message);
-                console.log('will broadcast message to ',socket.channel, message);
+                console.log('will broadcast message:', message);
                 // channel-only broadcast...
                 //socket.broadcast.to(socket.channel).emit('message', message);
                 socket.broadcast.emit('message', message);

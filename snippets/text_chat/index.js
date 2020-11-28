@@ -9,16 +9,16 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  io.emit('chat message', 'welcome');
+  io.emit('text_chat message', 'welcome');
   socket.broadcast.emit('hi, welcome');
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
 
-  socket.on('chat message', (msg) => {
+  socket.on('text_chat message', (msg) => {
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    io.emit('text_chat message', msg);
   });
 });
 http.listen(3000, () => {
