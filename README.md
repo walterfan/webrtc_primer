@@ -20,9 +20,9 @@ Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples)
 
 * Local Data Channel example:
   - cd examples & python -m http.server
-  - - open http://localhost:8000/loal_data_channel_demo.html 
+  - open http://localhost:8000/loal_data_channel_demo.html 
   
-*  Chat demo example:
+* Chat demo example:
   - node chat_server.js       
   - open http://localhost:8181/chat_demo.html
 
