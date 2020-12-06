@@ -1,7 +1,18 @@
-# Taxonomy and glossary 分类和术语
+# Taxonomy and Terminology 分类和术语
 
-## Concepts
-### RTP Stream
+##  Terminology
+### RTP Session - RTP 会话
+
+ An RTP session is an association among a group of participants communicating with RTP.  
+ 
+ It is a group communications channel that can potentially carry a number of RTP streams.  
+ Within an RTP session, every participant can find metadata and control information
+ (over RTCP) about all the RTP streams in the RTP session.  
+ 
+ The bandwidth of the RTCP control channel is shared between all participants within an RTP session.
+
+
+### RTP Stream - RTP流
 An RTP stream is a stream of RTP packets containing media data, source or redundant.  
 The RTP stream is identified by an SSRC belonging to a particular RTP Session.  
 
