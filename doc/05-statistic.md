@@ -27,14 +27,12 @@
 
 ##  RTP statistics hierarchy
 * RTCRtpStreamStats
-
   * RTCReceivedRtpStreamStats
-
-    * RTCInboundRtpStreamStats
-    * RTCOutboundRtpStreamStats
+    - RTCInboundRtpStreamStats
+    - RTCRemoteInboundRtpStreamStats
 
   * RTCSentRtpStreamStats
+    - RTCOutboundRtpStreamStatsc
+    - RTCRemoteOutboundRtpStreamStats
 
-    * RTCOutboundRtpStreamStatsc
-    * RTCRemoteOutboundRtpStreamStats
-
+![](webrtc_statistic_hierarchy.png)
