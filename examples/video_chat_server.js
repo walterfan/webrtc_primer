@@ -2,12 +2,13 @@ var static = require('node-static');
 var http = require('http');
 // Create a node-static server instance
 var file = new(static.Server)();
-
+const port = 8181;
 // We use the http module�s createServer function and
-// rely on our instance of node-static to serve the files
+// rely on our instance of node-static to  serve the files
+console.log("video chart server listen on " + port);
 var app = http.createServer(function (req, res) {
   file.serve(req, res);
-}).listen(8181);
+}).listen(port);
 
 // Use socket.io JavaScript library for real-time web applications
 var io = require('socket.io').listen(app);
