@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "test": "qunit"
+  },
+  "dependencies": {
+    "sinon": "^9.2.1"
+  }
+}
