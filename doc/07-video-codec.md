@@ -9,7 +9,7 @@ For clarity, this is the color space indicated by codepoint 1 from "ColourPrimar
 
 ## Codec
 
-  WebRTC Browsers MUST implement the VP8 video codec as described in [RFC6386](https://tools.ietf.org/html/rfc6386) and H.264 Constrained Baseline as described in [H264](http://www.itu.int/rec/T-REC-H.264>).
+  WebRTC Browsers MUST implement the VP8 video codec as described in [RFC6386](https://tools.ietf.org/html/rfc6386) and H.264 Constrained Baseline as described in [H264](http://www.itu.int/rec/T-REC-H.264).
   
 ### Codec-Specific Considerations
 
