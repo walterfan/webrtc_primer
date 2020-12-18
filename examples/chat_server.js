@@ -1,60 +1,61 @@
 var static = require('node-static');
-
+var moment = require('moment');
 var http = require('http');
 
 // Create a node-static server instance listening on port 8181
 var file = new(static.Server)();
 
+var port= 8181;
 // We use the http moduleÕs createServer function and
 // use our instance of node-static to serve the files
-var app = http.createServer(function (req, res) {
+var httpServer = http.createServer(function (req, res) {
   file.serve(req, res);
-}).listen(8181);
+}).listen(port);
 
-console.log('Listening on ' + app.address().port);
+console.log('Listening on ' + port);
 
 // Use socket.io JavaScript library for real-time web applications
-var io = require('socket.io').listen(app);
+var io = require('socket.io')(httpServer);
 
 
-// credits to http://stackoverflow.com/questions/6563885/socket-io-how-do-i-get-a-list-of-connected-sockets-clients/24145381#24145381
-function findClientsSocket(roomId, namespace) {
-    var res = [];
-    var ns = io.of(namespace ||"/");    // the default namespace is "/"
-
-    if (ns) {
-        for (var id in ns.connected) {
-            if(roomId) {
-                var index = ns.connected[id].rooms.indexOf(roomId) ;
-                if(index !== -1) {
-                    res.push(ns.connected[id]);
-                }
-            } else {
-                res.push(ns.connected[id]);
-            }
-        }
+function getParticipantsOfRoom(roomId, namespace) {
+    
+    var count = 0;
+    var ns = io.of(namespace||"/");    // the default namespace is "/"
+ 
+    for (let [key, value] of ns.adapter.rooms) {
+        
+        if(key === roomId) {
+            count += value.size;
+        } 
     }
-    return res.length;
+    
+    return count;
 }
-
+var isConnected = false;
 // Let's start managing connections...
-io.sockets.on('connection', function (socket){
-
+io.sockets.on('connection', function (socket) {
+        if(!isConnected) {
+            isConnected = true;
+            console.log("connected");
+        }
 		// Handle 'message' messages
         socket.on('message', function (message) {
-                log('S --> Got message: ', message);
+                console.log('Got message: ', message);
+                log('Server --> Got message: ', message);
                 socket.broadcast.to(message.channel).emit('message', message.message);
         });
 
 		// Handle 'create or join' messages
         socket.on('create or join', function (channel) {
-                var numClients = findClientsSocket(channel);
+               var numClients =  getParticipantsOfRoom(channel);
                 console.log('numclients = ' + numClients);
 
                 // First client joining...
                 if (numClients == 0){
                         socket.join(channel);
                         socket.emit('created', channel);
+                        console.log("socket.rooms: ", socket.rooms);
                 // Second client joining...
                 } else if (numClients == 1) {
                         // Inform initiator...
@@ -96,7 +97,7 @@ io.sockets.on('connection', function (socket){
 
 		// Utility function used for remote logging
 		function log(){
-			var array = [">>> "];
+			var array = ["* " + moment().format() + ": "];
 			for (var i = 0; i < arguments.length; i++) {
 				array.push(arguments[i]);
 			}

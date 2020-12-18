@@ -29,7 +29,7 @@ function createOrJoinRoom() {
 	var channel = document.getElementById("roomName").value;
 
 	if (channel !== "") {
-		weblog('Trying to create or join channel: ', channel);
+		weblog('Trying to create or join channel: '+ channel);
 		// Send 'create or join' to the server
 		socket.emit('create or join', channel);
 	}
