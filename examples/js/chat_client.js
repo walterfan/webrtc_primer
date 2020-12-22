@@ -1,6 +1,5 @@
 'use strict'
 
-
 //Get <div> placeholder element from DOM
 //var div = document.getElementById('scratchPad');
 var sendDiv = document.getElementById('dataChannelSend');
