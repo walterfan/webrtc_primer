@@ -342,3 +342,27 @@ var sdpAnswer = 'v=0\r\n' +
 console.log("\n------------------ offer ------------------\n", sdpOffer);      
 console.log("\n------------------ answer ------------------\n", sdpAnswer);
 
+
+var tracer = {
+    error :  function(arg) {
+        this._log("error: ", arg);
+    },
+    warn : function(arg) {
+        this._log("warn: ", arg);
+    },
+    info : function(arg) {
+        this._log("info: ", arg);
+    },
+    _log : function() {
+        var args = Array.prototype.slice.call(arguments);
+        var date = new Date();
+        var strTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
+        var prefix = strTime + ' ';
+        args.unshift(prefix);
+        console.log.apply(console, args);
+    }
+
+};
+
+tracer.info("--- done ---");
+

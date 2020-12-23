@@ -1,0 +1,34 @@
+<html>
+    <body>
+        <h2>Fibonacci Testing</h2>
+        <div>
+            <input type="text" id="input" size="20" value="45"/>
+        </div>
+        <div>
+            <button type="button" onclick="compute()">compute</button>
+        </div>
+        <div>
+        <input type="text" id="output" size="40"/>
+        </div>
+    
+    <script>
+        function fib(n){
+            if(n <= 0){
+                return 0;
+            }
+            if(n == 1 || n == 2){
+                return 1;
+            }
+            return fib(n-1) + fib(n-2);
+        }
+
+        function compute(){
+            var num = Number(document.getElementById('input').value);
+            var begin = new Date();
+            var res = fib(num);
+            var end = new Date();
+            document.getElementById("output").value="result: " + res.toString() +  " spent: "+ (end- begin).toString();
+        }
+    </script>
+    </body>
+</html>

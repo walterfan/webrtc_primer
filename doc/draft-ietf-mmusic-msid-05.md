@@ -11,6 +11,7 @@ WebRTC MediaStream Identification in the Session Description Protocol
 
 
 # Why
+
 有这样的 cases,  应用程序用 RTP 和 SDP 去告之在 RTP 媒体流之间存在一些关系，它们可能承载在相同或者不同的的 RTP 会话中
 
 RTP 流之间存在应用级上的关联，SDP grouping framework [RFC5888] 可以把 m-lines 分组. 可是，有时应用程序需要对有关联的 m-line 和 group 指定一些应用层的信息

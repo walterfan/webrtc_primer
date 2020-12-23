@@ -1,35 +1,75 @@
 # WebRTC Statistics
 
-WebRTC 支持这些统计信息
+WebRTC 支持对于连接和媒体传输和处理相关的统计信息.
+
+https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_Statistics_API
+
 
 ```javascript
 
-enum RTCStatsType {
-"codec",
-"inbound-rtp",
-"outbound-rtp",
-"remote-inbound-rtp",
-"remote-outbound-rtp",
-"media-source",
-"csrc",
-"peer-connection",
-"data-channel",
-"stream",
-"track",
-"transceiver",
-"sender",
-"receiver",
-"transport",
-"sctp-transport",
-"candidate-pair",
-"local-candidate",
-"remote-candidate",
-"certificate",
-"ice-server"
-};
+try {
+  myPeerConnection = new RTCPeerConnection(pcOptions);
+
+  statsInterval = window.setInterval(getConnectionStats, 1000);
+  /* add event handlers, etc */
+} catch(err) {
+  console.error("Error creating RTCPeerConnection: " + err);
+}
+
+function getConnectionStats() {
+  myPeerConnection.getStats(null).then(stats => {
+    var statsOutput = "";
+
+    stats.forEach(report => {
+      if (report.type === "inbound-rtp" && report.kind === "video") {
+        Object.keys(report).forEach(statName => {
+          statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+        });
+      }
+    });
+
+    document.querySelector(".stats-box").innerHTML = statsOutput;
+  });
+}
+
 
 ```
 
+# WebRTC 统计类型 RTCStatsType
+
+* codec
+* Inbound-rtp
+* outbound-rtp
+* remote-inbound-rtp
+* Remote-outbound-rtp
+* csrc
+* peer-connection
+* data-channel
+* stream
+* track
+* transceiver
+* sender
+* receiver
+* transport
+* sctp-transport
+* candidate-pair
+* local-candidate
+* remote-candidate
+* certificate
+* ice-server
+
+
+##  RTP statistics hierarchy
+* RTCRtpStreamStats
+  * RTCReceivedRtpStreamStats
+    - RTCInboundRtpStreamStats
+    - RTCRemoteInboundRtpStreamStats
+
+  * RTCSentRtpStreamStats
+    - RTCOutboundRtpStreamStatsc
+    - RTCRemoteOutboundRtpStreamStats
+
+![](webrtc_statistic_hierarchy.png)
 
 ## codec
 

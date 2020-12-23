@@ -1,5 +1,3 @@
-
-
 # What
 
 RTCP message for Receiver Estimated Maximum Bitrate
