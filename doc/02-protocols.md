@@ -47,11 +47,11 @@ typedef enum {
   
   | FMT | Message |
   |---|---|
-  | 1. PLI | Picture Loss Indication  |
-  | 2. SLI | Slice Loss Indication |
-  | 3. RPSI | Reference Picture Selection In |
-  | 4. FIR | Full Intra Request |
-  | 5. TSTR | Temporal-Spatial Trade-off Request |
-  | 6. TSTN | Temporal-Spatial Trade-off Notification |
-  | 7. VBCM | Video Back Channel Message |
-  | 15. APP FB  | Application layer feedback |
+  | 1 | PLI: Picture Loss Indication  |
+  | 2 | SLI: Slice Loss Indication |
+  | 3 | RPSI: Reference Picture Selection In |
+  | 4 | FIR: Full Intra Request |
+  | 5 | TSTR: Temporal-Spatial Trade-off Request |
+  | 6 | TSTN: Temporal-Spatial Trade-off Notification |
+  | 7 | VBCM: Video Back Channel Message |
+  | 15 | Application layer feedback |
