@@ -4,6 +4,7 @@
 * Latency
 * Packet Loss
 * Jitter
+* Bitrate
 
 ## Session layer
 ### Audio

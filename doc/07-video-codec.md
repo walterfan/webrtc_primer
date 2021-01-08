@@ -60,3 +60,10 @@ Implementations MAY send and act upon "User data registered by Rec. ITU-T T.35" 
 Even if they do  not act on them, implementations MUST be prepared to receive such  messages without any ill effects.
 
 Unless otherwise signaled, implementations that use H.264 MUST encode and decode pixels with an implied 1:1 (square) aspect ratio.
+
+# Build 
+
+```shell script
+git clone https://github.com/cisco/openh264
+emmake make OS=linux ARCH=asmjs
+```

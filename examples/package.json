@@ -16,6 +16,7 @@
   "author": "Simon Pietro Romano",
   "license": "BSD",
   "dependencies": {
+    "log4js": "^6.3.0",
     "moment": "^2.29.1",
     "node-static": "~0.7.11",
     "socket.io": "~3.0.4"

@@ -87,6 +87,19 @@ Its main features are:
 * Good loss robustness and packet loss concealment (PLC)
 * Floating point and fixed-point implementation
 
+
+# Build Opus
+* Download opus-1.3.1.tar.gz from [Opus site](http://opus-codec.org)
+
+* Build by Emscripten tool chain
+
+```shell script
+emconfigure ./configure --disable-intrinsics --disable-rtcd`   
+emmake make
+```
+
+
+
 # Reference
 * [ Definition of the Opus Audio Codec](https://tools.ietf.org/html/rfc6716)
 * [RTP Payload Format for the Opus Speech and Audio Codec](https://tools.ietf.org/html/rfc7587)

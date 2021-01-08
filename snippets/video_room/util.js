@@ -27,17 +27,32 @@ function init_log(logDiv) {
     };
 }
 
+
+
 var tracer = {
     error :  function(arg) {
-        return "error: " + arg;
+        this._log("error: ", arg);
     },
     warn : function(arg) {
-        return "warn: " + arg;
+        this._log("warn: ", arg);
     },
     info : function(arg) {
-        return "info: " + arg;
+        this._log("info: ", arg);
     },
-    log : function(arg) {
-        return "log: " + arg;
+    _log : function() {
+        var args = Array.prototype.slice.call(arguments);
+        var date = new Date();
+        var strTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
+        var prefix = strTime + ' ';
+        args.unshift(prefix);
+        console.log.apply(console, args);
     }
+
 };
+
+
+module.exports=tracer;
+
+
+
+

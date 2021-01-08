@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "name": "video_room",
+  "version": "1.0.0",
+  "description": "video_room",
+  "main": "index.js",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "char": "^1.0.2",
+    "mocha": "^8.2.1"
+  },
+  "keywords": [
+    "video"
+  ],
+  "author": "Walter",
+  "license": "ISC"
+}

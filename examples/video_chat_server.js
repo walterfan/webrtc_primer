@@ -1,3 +1,17 @@
+const log4js = require("log4js");
+log4js.configure({
+  appenders: { 
+        'stdout': { type: 'stdout' },  
+        'video_chat': { type: "file", filename: "video_chat.log" } 
+  },
+  categories: { default: { 
+      appenders: ["stdout","video_chat"], 
+      level: "info" } 
+  }
+});
+ 
+const logger = log4js.getLogger("video_chat")
+
 const staticServer = require('node-static');
 const http = require('http');
 const moment = require('moment');
@@ -9,7 +23,7 @@ const fileServer = new(staticServer.Server)();
 
 // We use the http module's createServer function and
 // rely on our instance of node-static to  serve the files
-console.log("video chart server listen on " + port);
+logger.info("video chart server listen on " + port);
 var httpServer = http.createServer(function (req, res) {
     fileServer.serve(req, res);
 }).listen(port);
@@ -39,7 +53,7 @@ io.sockets.on('connection', function (socket){
     	// Handle 'message' messages
         socket.on('message', function (message) {
                 log('Server --> got message: ', message);
-                console.log('will broadcast message:', message);
+                logger.info('will broadcast message:', message);
                 // channel-only broadcast...
                 //socket.broadcast.to(socket.channel).emit('message', message);
                 socket.broadcast.emit('message', message);
@@ -58,16 +72,16 @@ io.sockets.on('connection', function (socket){
                 if (numClients == 0){
                         socket.join(room);
                         socket.emit('created', room);
-                        console.log(room + " created: " + numClients);
+                        logger.info(room + " created: " + numClients);
                 } else if (numClients == 1) {
                         // Second client joining...
                         io.sockets.in(room).emit('join', room);
                         socket.join(room);
                         socket.emit('joined', room);
-                        console.log(room + " joined: " + numClients);
+                        logger.info(room + " joined: " + numClients);
                 } else { // max two clients
                         socket.emit('full', room);
-                        console.log(room + " full: " + numClients);
+                        logger.info(room + " full: " + numClients);
                 }
         });
 
