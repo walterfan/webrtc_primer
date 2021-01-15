@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title> WebRTC Examples</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/6.4.0/adapter.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script type="text/javascript" src="js/util.js" ></script>
+
+<script>
+	$(function() {
+		$(".navbar-static-top").load("navbar.html", function() {
+			$(".navbar-static-top li.dropdown").addClass("active");
+			$(".navbar-static-top a[href='stats_demo.html']").parent().addClass("active");
+		});
+    $(".footer").load("footer.html");
+
+	});
+</script>
+    <style>
+        .btn-wide {width: 16em}
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/main.css" type="text/css"/>
+<link rel="stylesheet" href="css/demo.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
+</head>
+<body>
+
+<!-- <a href="https://github.com/walterfan/webrtc-primer"><img style="position: absolute; top: 0; left: 0; border: 0; z-index: 1001;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+ -->
+<nav class="navbar navbar-default navbar-static-top">
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-header">
+				<h1>WebRTC Statistics Example</h1>
+                
+			</div>
+			<div class="container" id="details">
+          <div class="row">
+
+              <div class="col-lg-12">
+
+                <ul>
+
+                  <li><a href="https://www.w3.org/TR/webrtc-stats">WebRTC Statistic Dictionary</a>
+                  </li>
+                  <li>
+                  <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_Statistics_API">WebRTC Statistic API</a>
+                  </li>
+                </ul>
+              <div>
+
+                  <div>
+                      <button type="button" class="btn btn-success" name="startButton" id="startButton">Start</button>
+                      <button type="button" class="btn btn-danger" name="stopButton" id="stopButton">Stop</button>
+                      
+                  </div>
+
+                  <div class="form-inline">
+                    <input type="checkbox" name="enableAudio" id="enableAudio" checked> Audio </input>
+
+                    <input type="checkbox" name="enableVideo" id="enableVideo" checked> Video </input>
+
+                    <div class="form-group">
+                      <label for="interval"> Statistic Interval:(ms)</label>
+                      <input type="text" id="interval" name="statsInterval" size="10" value="1000" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="metricsNames"> Metrics Names:</label>
+                      <input type="text" id="metricsNames" name="metricsNames" size="20" value="All" class="form-control" />
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="statsTypes"> Stats Types:</label>
+                      <select name="statsTypes" id="statsTypes" multiple="true" size="15" class="form-control">
+                          
+                          <option value="inbound-rtp" selected>inbound-rtp</option>
+                          <option value="outbound-rtp" selected>outbound-rtp</option>
+                          <option value="remote-inbound-rtp" selected>remote-inbound-rtp</option>
+                          <option value="remote-outbound-rtp" selected>remote-outbound-rtp</option>
+                          <option value="media-source">media-source</option>
+                          <option value="csrc">csrc</option>
+                          <option value="peer-connection" selected>peer-connection</option>
+                          
+                          <option value="stream"> selectedstream</option>
+                          <option value="track" selected>track</option>
+                          <option value="transceiver" selected>transceiver</option>
+                          <option value="sender" selected>sender</option>
+                          <option value="receiver" selected>receiver</option>
+                          <option value="transport" selected>transport</option>
+                          
+                          <option value="candidate-pair" selected>candidate-pair</option>
+                          <option value="local-candidate">local-candidate</option>
+                          <option value="remote-candidate">remote-candidate</option>
+                          <option value="codec">codec</option>
+                          <option value="certificate">certificate</option>
+                          <option value="ice-server">ice-server</option>
+                          <option value="data-channel">data-channel</option>
+                          <option value="sctp-transport">sctp-transport</option>
+                      </select>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <div class="col-lg-6"><video id="v1" autoplay></video></div>
+                    <div class="col-lg-6"><video id="v2" autoplay></video></div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+                
+          <div class="note">
+
+            <div id="stateDiv">
+                   
+            </div>
+
+            <div id="statsDiv">
+                   
+            </div>
+
+              <div id="logDiv">
+                   
+              </div>
+              
+            </div>
+			</div>
+	
+		</div>
+	</div>
+  <br/><br/><br/>
+
+  <hr>
+	<div class="footer">
+	</div>
+</div>
+<script type="text/javascript" src="js/stats_demo.js" ></script>
+</body>
+</html>
