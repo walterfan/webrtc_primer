@@ -1,6 +1,6 @@
 // common functions
 var logDiv = document.getElementById('logDiv');
-var stateDiv = document.getElementById('stateDiv');
+
 var statsDiv = document.getElementById('statsDiv');
 
 var wait = ms => new Promise(r => setTimeout(r, ms));
@@ -94,14 +94,18 @@ var startMedia = () => navigator.mediaDevices.getUserMedia({
     })))
     .catch(e => log(e));
 
-var stopMedia =  function(e) {
-    const stream = v1.srcObject;
+function stopTracks(e) {
+    const stream = e.srcObject;
     const tracks = stream.getTracks();
     tracks.forEach(function(track) {
         track.stop();
     });
-    v1.srcObject = null;
+    e.srcObject = null;
+}
 
+function stopMedia(e) {
+    stopTracks(v1);
+    stopTracks(v2);
     e.target.disabled = true;
     //startButton.disabled = false;
     //stopButton.disabled = true;
@@ -176,7 +180,6 @@ stopButton.addEventListener('click', stopMedia);
 
 
 //log("Please click start button to connect and statistics");
-stopButton.disabled = true;
 //log(getStatsInterval());
 //log(getStatsTypes());
 //log(getMetricsNames());
