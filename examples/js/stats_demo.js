@@ -1,33 +1,49 @@
-// common functions
+// declare web elements
 var logDiv = document.getElementById('logDiv');
-
 var statsDiv = document.getElementById('statsDiv');
+
+var intervalBox = document.getElementById('interval');
+var metricsNamesBox = document.getElementById('metricsNames');
+var selectList = document.getElementById('statsTypes');
+
+
+var startButton = document.getElementById('startButton');
+var stopButton = document.getElementById('stopButton');
+
+// define behaviour here
+startButton.addEventListener('click', startMedia);
+stopButton.addEventListener('click', stopMedia);
+intervalBox.addEventListener('change', getStatsInterval);
+metricsNamesBox.addEventListener('change', getMetricsNames);
+selectList.addEventListener('change', getStatsTypes);
 
 var wait = ms => new Promise(r => setTimeout(r, ms));
 var repeat = (ms, func) => new Promise(r => (setInterval(func, ms), wait(ms).then(r)));
 var log = msg => { console.log(msg); logDiv.innerHTML = logDiv.innerHTML + msg + "<br>";  };
 var update = (div, msg) => div.innerHTML = msg;
 
-var statsTypes = getStatsTypes();
-var statsInterval = getStatsInterval();
-var metricsNames = getMetricsNames();
+var statsInterval ;
+var metricsNames;
+var statsTypes;
+
+log("----- Web Logs ------");
+getStatsTypes();
+getStatsInterval();
+getMetricsNames();
 
 function getStatsInterval() {
-    var element = document.getElementById('interval');
-    console.log("interval: ", element.value);
-    return element.value
+    log("interval: " + intervalBox.value);
+    statsInterval = intervalBox.value;
 }
 
 function getMetricsNames() {
-    var element = document.getElementById('metricsNames');
-    console.log("metricsNames: ", element.value);
-    return element.value
+    log("metricsNames: " + metricsNamesBox.value);
+    metricsNames = metricsNamesBox.value;
 }
 
 function getStatsTypes() {
-    var select = document.getElementById('statsTypes');
     var result = [];
-    var options = select && select.options;
+    var options = selectList && selectList.options;
     var opt;
 
     for (var i=0, iLen=options.length; i<iLen; i++) {
@@ -37,8 +53,8 @@ function getStatsTypes() {
         result.push(opt.value || opt.text);
         }
     }
-    console.log("statsTypes:", result);
-    return result;
+    log("statsTypes:"+ result);
+    statsTypes = result;
 }
 
 function filterStatsType(theType) {
@@ -52,13 +68,13 @@ function filterMetricsName(theName) {
 
 function enableAudio() {
     var ret = document.getElementById("enableAudio").checked;
-    console.log("enableAudio:", ret);
+    log("enableAudio:" + ret);
     return !!ret;
 }
 
 function enableVideo() {
     var ret = document.getElementById("enableVideo").checked;
-    console.log("enableVideo:", ret);
+    log("enableVideo:" + ret);
     return !!ret;
 }
 
@@ -76,7 +92,10 @@ pc2.oniceconnectionstatechange = () => log("iceconnectionstate: " + pc2.iceConne
 pc2.onaddstream = e => v2.srcObject = e.stream;
 
 var mute = () => v1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
-var startMedia = () => navigator.mediaDevices.getUserMedia({
+
+function startMedia() {
+    log("start media");
+    navigator.mediaDevices.getUserMedia({
     video: enableAudio(),
     audio: enableVideo()
     })
@@ -93,6 +112,7 @@ var startMedia = () => navigator.mediaDevices.getUserMedia({
         update(statsDiv, "<small>" + s + "</small>");
     })))
     .catch(e => log(e));
+}
 
 function stopTracks(e) {
     const stream = e.srcObject;
@@ -171,12 +191,7 @@ function dumpStats(o) {
 }
 
 
-// define behaviour here
-const startButton = document.getElementById('startButton');
-const stopButton = document.getElementById('stopButton');
 
-startButton.addEventListener('click', startMedia);
-stopButton.addEventListener('click', stopMedia);
 
 
 //log("Please click start button to connect and statistics");
