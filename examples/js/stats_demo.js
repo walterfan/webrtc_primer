@@ -1,6 +1,7 @@
 // declare web elements
 var logDiv = document.getElementById('logDiv');
 var statsDiv = document.getElementById('statsDiv');
+var statsDiv2 = document.getElementById('statsDiv2');
 
 var intervalBox = document.getElementById('interval');
 var metricsNamesBox = document.getElementById('metricsNames');
@@ -26,7 +27,7 @@ var statsInterval ;
 var metricsNames;
 var statsTypes;
 
-log("----- Web Logs ------");
+log("---------- <b>Web Logs</b> ----------");
 getStatsTypes();
 getStatsInterval();
 getMetricsNames();
@@ -50,7 +51,7 @@ function getStatsTypes() {
         opt = options[i];
 
         if (opt.selected) {
-        result.push(opt.value || opt.text);
+            result.push(opt.value || opt.text);
         }
     }
     log("statsTypes:"+ result);
@@ -107,9 +108,14 @@ function startMedia() {
     .then(() => pc1.setRemoteDescription(pc2.localDescription))
     .then(() => repeat(statsInterval, () => Promise.all([pc1.getStats(), pc2.getStats()])
     .then(([s1, s2]) => {
-        var s = "";
-        s += filterStats(s1);
-        update(statsDiv, "<small>" + s + "</small>");
+        var statsString = "";
+        statsString += filterStats(s1);
+        update(statsDiv, "<small>" + statsString + "</small>");
+
+        var statsString2 = "";
+        statsString2 += filterStats(s2);
+        update(statsDiv2, "<small>" + statsString2 + "</small>");
+
     })))
     .catch(e => log(e));
 }
@@ -142,7 +148,7 @@ function filterStats(stats) {
 
             Object.keys(report).forEach(statName => {
                 if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
-                statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+                    statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
                 }
             });
         }
