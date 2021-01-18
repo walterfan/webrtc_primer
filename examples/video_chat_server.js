@@ -10,7 +10,7 @@ log4js.configure({
   }
 });
  
-const logger = log4js.getLogger("video_chat")
+const logger = log4js.getLogger("video_chat");
 
 const staticServer = require('node-static');
 const http = require('http');
