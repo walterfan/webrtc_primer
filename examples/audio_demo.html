@@ -49,30 +49,59 @@
 			<div class="container" id="details">
           <div class="row">
 
-              <div class="col-lg-12">
+              <div class="col-lg-6">
 
-                <p>
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Web Audio API</a>
+                <ul>
+                  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">Web Audio API</a></li>
+                  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API">Basic concepts behind Web Audio API</a></a></li>
+
+
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API">Using Web Audio API</a></li>
+
+
+                    <li><a href="https://github.com/mdn/webaudio-examples/">Web Audio Examples</a></li>
+
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode">AnalyserNode</a></li>
+
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder">Media Recorder</a></li>
+
+
+                </ul>
                   <br/>
-                  <img src="https://mdn.mozillademos.org/files/14179/mdn.png" width="50%"/>
-                </p>
-              <div>
+                  <img src="https://mdn.mozillademos.org/files/12237/webaudioAPI_en.svg" width="80%"/>
+                  <br/>
+                  <img src="https://mdn.mozillademos.org/files/14179/mdn.png" width="80%"/>
+              </div>
+
+                <div class="col-lg-6">
+                    <canvas class="visualizer" id="visualizer" height="60px"></canvas>
+                    <button id="startRecord" class="btn btn-success">Start Record</button>
+                    <button id="stopRecord"  class="btn btn-danger">Stop Record</button>
+                    <br/>
+                    <button id="playRecord"  class="btn btn-primary">Play Record</button>
+                    <button id="downRecord"  class="btn btn-info">Download Record</button>
+                    <section class="sound-clips">
+
+
+                    </section>
+
+                </div>
                     
                 </div>
               </div>
 
           </div>
                 
-          <div class="note">
+              <div class="note">
 
-              <div id="logDiv">
-                  <ul id="logContent">
-          
-                  </ul>
-          
+                  <div id="logDiv">
+                      <ul id="logContent">
+
+                      </ul>
+
+                  </div>
+
               </div>
-              
-            </div>
 			</div>
 	
 		</div>
@@ -83,62 +112,7 @@
 	<div class="footer">
 	</div>
 </div>
-<script type="text/javascript">
-var context;
-windows.addEventListener('load', init, false);
-
-var dogBarkingBuffer = null;
-
-function init() {
-  try {
-    windows.AudioContext = window.AudioContext || window.webkitAudioContext;
-    context = new AudioContext();
-
-    bufferLoader = new BufferLoader(context, [
-      './media/cat.wav', './media/starlet.wav'
-    ], finishedLoading );
-    bufferLoader.load();
-  } catch(e) {
-    alert('web audio api is not supported in this browser')
-  }
-
-}
-
-function finishedLoading(bufferList) {
-  var source1 = context.createBufferSource();
-  var source2 = context.createBufferSource();
-  source1.buffer = bufferList[0];
-  source2.buffer = bufferList[1];
-  
-  source1.connect(context.destination);
-  source2.connect(context.destination);
-
-  source1.start(0);
-  source2.start(0);
-  
-}
-
-function loadSound(url) {
-  var request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType='arraybuffer';
-
-  request.onload = function() {
-    context.decodeAudioData(request.response, function(buffer) {
-      dogBarkingBuffer = buffer;
-    }, onError);
-  }
-  request.send();
-}
-
-function playSound(buffer) {
-  var source = context.createBufferSource();
-  source.buffer= buffer;
-  source.connect(context.destination);
-  source.start(0);
-}
-
-</script>
+<script type="text/javascript" src="js/audio_demo.js"></script>
 
 </body>
 </html>
