@@ -14,22 +14,17 @@ downButton.addEventListener('click', downRecord);
 var mediaConstraints = {
     audio:  {
         echoCancellation: {exact: true}
-      }
+      },
+    video: {
+        width: 640, height: 480
+    }
 };
 
 var localStream = null;
 var mediaRecorder = null;
 var recordChunks = [];
-var recordElement = document.querySelector('audio');
-
-var canvas = document.getElementById("visualizer");
-var canvasCtx = canvas.getContext("2d");
-
-var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-var analyser = audioCtx.createAnalyser();
-analyser.minDecibels = -90;
-analyser.maxDecibels = -10;
-analyser.smoothingTimeConstant = 0.85;
+var recordElement = document.querySelector('video');
+var recordMediaType = 'video/webm';
 
 async function openMedia(e, constraints) {
     if (mediaButton.textContent === 'Close Media') {
@@ -68,12 +63,10 @@ function closeMedia(e) {
 }
 
 function handleSuccess(stream) {
-    
-    document.querySelector('audio').srcObject = stream;
+   
+   
     localStream = stream;
-
-    var source = audioCtx.createMediaStreamSource(stream);
-    source.connect(analyser);
+    recordElement.srcObject = stream;
 
 }
 
@@ -91,9 +84,9 @@ function startRecord() {
         stopRecord();
         return;
     } 
-
-    
-    mediaRecorder = new MediaRecorder(localStream);
+    //;codecs=avc1.4d002a,opus
+    var options = {mimeType: recordMediaType};
+    mediaRecorder = new MediaRecorder(localStream, options);
     
     mediaRecorder.start();
 
@@ -137,7 +130,7 @@ function stopRecord() {
 }
 
 function playRecord() {
-    const blob = new Blob(recordChunks, {type: 'audio/wav'});
+    const blob = new Blob(recordChunks, {type: recordMediaType});
     recordElement.src = null;
     recordElement.srcObject = null;
     recordElement.src = window.URL.createObjectURL(blob);
@@ -146,7 +139,7 @@ function playRecord() {
 }
 
 function downRecord() {
-    const blob = new Blob(recordChunks, {type: 'audio/wav'});
+    const blob = new Blob(recordChunks, {type: recordMediaType});
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
@@ -159,38 +152,3 @@ function downRecord() {
       window.URL.revokeObjectURL(url);
     }, 100);
 }
-
-function draw(recordChunks) {
-
-    //requestAnimationFrame(draw);
-  
-    analyser.getByteTimeDomainData(dataArray);
-  
-    canvasCtx.fillStyle = "rgb(200, 200, 200)";
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-  
-    canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = "rgb(0, 0, 0)";
-  
-    canvasCtx.beginPath();
-    var bufferLength = recordChunks.length;
-    var sliceWidth = canvas.width * 1.0 / bufferLength;
-    var x = 0;
-  
-    for (var i = 0; i < bufferLength; i++) {
-  
-      var v = recordChunks[i] / 128.0;
-      var y = v * canvas.height / 2;
-  
-      if (i === 0) {
-        canvasCtx.moveTo(x, y);
-      } else {
-        canvasCtx.lineTo(x, y);
-      }
-  
-      x += sliceWidth;
-    }
-  
-    canvasCtx.lineTo(canvas.width, canvas.height / 2);
-    canvasCtx.stroke();
-  }

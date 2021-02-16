@@ -12,16 +12,22 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script type="text/javascript" src="js/util.js" ></script>
 <script>
 	$(function() {
 		$(".navbar-static-top").load("navbar.html", function() {
 			$(".navbar-static-top li.dropdown").addClass("active");
-			$(".navbar-static-top a[href='media_stream.html']").parent().addClass("active");
+			$(".navbar-static-top a[href='audio_demo.html']").parent().addClass("active");
 		});
-		$(".footer").load("footer.html");
+    $(".footer").load("footer.html");
+    //-----------------------------------------------------------//
+
+    
+    
 	});
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" type="text/css"/>
+<link rel="stylesheet" href="css/main.css" type="text/css"/>
 <link rel="stylesheet" href="css/demo.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
@@ -35,48 +41,63 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-lg-12">
 			<div class="page-header">
-				<h1>WebRTC Primer</h1>
+				<h1>WebRTC example of MediaRecorder</h1>
+                
 			</div>
 			<div class="container" id="details">
-				<div class="row">
-					<div class="col-md-12">
-						<h3>WebRTC examples</h3>
-						<div class="col-md-8">
-						<p>一句话，用浏览器来进行实时通信
+          <div class="row">
 
-							<p>	具体来说：</p>
-							
-							<p>1. 它是一套基于 Web 进行实时通信的标准和参考实现</p>
-						    <p>2. 它是一个开源项目，最初由 google 发起并交由开源社区</p>
-							
-							
-						<p>借助WebRTC，你可以在基于开放标准的应用程序中添加实时通信功能。 它支持在节点之间发送视频，语音和通用数据，从而使开发人员能够构建功能强大的语音和视频通信解决方案。 该技术可在所有现代浏览器以及所有主要平台的本机客户端上使用。 </p>
-							
-					    <p>WebRTC背后的技术被实现为一个开放的Web标准，并在所有主要浏览器中均以常规JavaScript API的形式提供。 对于本机客户端（例如Android和iOS应用程序），可以使用提供相同功能的库。 </p>
+              <div class="col-lg-10">
 
-						</p>
-					</div>
-						<ul>
-							<li><a href="#">Media Stream</a></li>
-							<li><a href="#">Peer Connection</a></li>
-							<li><a href="#">Data Channel</a></li>
-
-						</ul>
-					</div>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder">Media Recorder</a></li>
+                </ul>
+                    <div>
+                    <button id="openMedia" class="btn btn-success">Open Media</button>
+                    <button id="startRecord" class="btn btn-success">Start Record</button>
+               
+                    <button id="playRecord"  class="btn btn-primary">Play</button>
+                    <button id="downRecord"  class="btn btn-info">Download</button>
                 </div>
-                
+
+                <br/>
+                <div>
+                    <video autoplay></video>  
+                </div>
+
     
+
+
+                </div>
+                    
+                </div>
+              </div>
+
+          </div>
+                
+              <div class="note">
+
+                  <div id="logDiv">
+                      <ul id="logContent">
+
+                      </ul>
+
+                  </div>
+
+              </div>
 			</div>
 	
 		</div>
 	</div>
+  <br/><br/><br/>
 
-	<hr>
+  <hr>
 	<div class="footer">
 	</div>
 </div>
+<script type="text/javascript" src="js/record_demo.js"></script>
 
 </body>
 </html>
