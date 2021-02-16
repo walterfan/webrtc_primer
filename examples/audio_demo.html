@@ -74,12 +74,18 @@
               </div>
 
                 <div class="col-lg-6">
-                    <canvas class="visualizer" id="visualizer" height="60px"></canvas>
-                    <button id="startRecord" class="btn btn-success">Start Record</button>
-                    <button id="stopRecord"  class="btn btn-danger">Stop Record</button>
+                    <h3>Capture Audio and Record</h3>
                     <br/>
-                    <button id="playRecord"  class="btn btn-primary">Play Record</button>
-                    <button id="downRecord"  class="btn btn-info">Download Record</button>
+                    <audio autoplay controls></audio>  
+                    <br/>
+                    <canvas class="visualizer" id="visualizer" height="20px"></canvas>
+                    <br/>
+                    <button id="openMedia" class="btn btn-success">Open Media</button>
+                    <button id="startRecord" class="btn btn-success">Start Record</button>
+               
+                    <br/>
+                    <button id="playRecord"  class="btn btn-primary">Play</button>
+                    <button id="downRecord"  class="btn btn-info">Download</button>
                     <section class="sound-clips">
 
 
