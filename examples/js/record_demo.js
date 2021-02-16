@@ -103,12 +103,12 @@ function startRecord() {
 
     mediaRecorder.onstop = function(e) {
         console.log('onstop fired');
-        var blob = new Blob(recordChunks, { 'type' : 'audio/wav' });
+        var blob = new Blob(recordChunks, { 'type' : recordMediaType });
         var blobURL = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = blobURL;
-        a.download = 'test.wav';
+        a.download = 'test.webm';
         document.body.appendChild(a);
     };
     
