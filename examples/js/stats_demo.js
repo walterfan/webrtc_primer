@@ -143,16 +143,32 @@ function filterStats(stats) {
 
     stats.forEach(report => {
         if(filterStatsType(report.type)) {
-            statsOutput += `<h2>Report: ${report.type}</h3>\n<strong>ID:</strong> ${report.id}<br>\n` +
+
+            statsOutput += `<hr/><h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
                      `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
+
 
             Object.keys(report).forEach(statName => {
                 if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
                     statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+                    console.log(`[stats] ${statName}=${report[statName]}`)
                 }
             });
+        /*
+            if(report.type === 'inbound-rtp' || report.type === 'outbound-rtp') {
+                var trackObj = stats.get(report.trackId);
+                if(trackObj) {
+                    statsOutput += `<hr/><h4>Track Stats</h4><strong>trackId:</strong> ${report.trackId}<br>\n`;
+                    Object.keys(trackObj).forEach(itemName => {
+                        //if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
+                        statsOutput += `<strong>${itemName}:</strong> ${trackObj[itemName]}<br>\n`;
+                        //}
+                    });
+                }
+            }
+        */
         }
-      
+
     });
 
     return statsOutput;

@@ -10,13 +10,16 @@ recordButton.addEventListener('click', startRecord);
 playButton.addEventListener('click', playRecord);
 downButton.addEventListener('click', downRecord);
 
+playButton.disabled = true;
+downButton.disabled = true;
 
 var mediaConstraints = {
     audio:  {
         echoCancellation: {exact: true}
       },
     video: {
-        width: 640, height: 480
+        width: 640, 
+        height: 480
     }
 };
 
@@ -35,11 +38,7 @@ async function openMedia(e, constraints) {
     try {
         const stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
         handleSuccess(stream);
-
-        mediaButton.textContent = 'Close Media';
-        playButton.disabled = true;
-        downButton.disabled = true;
-    
+        mediaButton.textContent = 'Close Media';    
         console.log('openMedia success ');
     } catch (ex) {
         handleError(ex);
@@ -63,11 +62,8 @@ function closeMedia(e) {
 }
 
 function handleSuccess(stream) {
-   
-   
     localStream = stream;
     recordElement.srcObject = stream;
-
 }
 
 function handleError(error) {
@@ -144,7 +140,7 @@ function downRecord() {
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = 'test.wav';
+    a.download = 'test.webm';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => {
