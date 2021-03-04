@@ -28,6 +28,9 @@ var metricsNames;
 var statsTypes;
 
 log("---------- <b>Web Logs</b> ----------");
+var browserInfo = {};
+getBrowserName(browserInfo);
+log(`Browser: ${browserInfo.browserName}.${browserInfo.browserFullVer}`);
 getStatsTypes();
 getStatsInterval();
 getMetricsNames();
@@ -154,7 +157,7 @@ function filterStats(stats) {
                     console.log(`[stats] ${statName}=${report[statName]}`)
                 }
             });
-        /*
+        
             if(report.type === 'inbound-rtp' || report.type === 'outbound-rtp') {
                 var trackObj = stats.get(report.trackId);
                 if(trackObj) {
@@ -166,7 +169,7 @@ function filterStats(stats) {
                     });
                 }
             }
-        */
+        
         }
 
     });
