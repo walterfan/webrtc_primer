@@ -18,6 +18,9 @@ make install
 3. YUV 4:2:0采样，每四个Y共用一组UV分量一个YUV占8+2+2 = 12bits  1.5个字节
 
 ```
-#ffmpeg  -i ../../media/lena.jpg -pix_fmt yuv420p  lena.yuv
-
+ffmpeg -y -s 256x256 -i ../../media/lena.jpg -pix_fmt yuv420p  ./bld/lena.yuv
+ffmpeg -y -s 256x256 -i ./bld/lena.yuv -b 20000000 ./bld/lena.jpg
 ```
+# H.264 codec
+
+(collect)RGB --> YUV --> H.264 --> YUV --> RGB (playback)
