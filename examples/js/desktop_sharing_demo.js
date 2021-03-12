@@ -13,6 +13,17 @@ if (adapter.browserDetails.browser == 'firefox') {
   adapter.browserShim.shimGetDisplayMedia(window, 'screen');
 }
 
+const gdmOptions = {
+  video: {
+    cursor: "always"
+  },
+  audio: {
+    echoCancellation: true,
+    noiseSuppression: true,
+    sampleRate: 44100
+  }
+}
+
 function handleSuccess(stream) {
   startButton.disabled = true;
   const video = document.querySelector('video');
@@ -40,7 +51,7 @@ function errorMsg(msg, error) {
 
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', () => {
-  navigator.mediaDevices.getDisplayMedia({video: true})
+  navigator.mediaDevices.getDisplayMedia(gdmOptions)
       .then(handleSuccess, handleError);
 });
 
