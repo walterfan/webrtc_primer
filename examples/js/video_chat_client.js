@@ -14,11 +14,7 @@ stopButton.addEventListener('click', closeConnection);
 openButton.addEventListener('click', join);
 closeButton.addEventListener('click', hangup);
 
-//Look after different browser vendors' ways of calling the getUserMedia() API method:
-//Opera --> getUserMedia
-//Chrome --> webkitGetUserMedia
-//Firefox --> mozGetUserMedia
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+// Should use navigator.mediaDevices.getUserMedia of webrtc adapter
 
 // Clean-up function:
 // collect garbage before unloading browser's window

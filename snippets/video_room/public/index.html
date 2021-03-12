@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>JavaScript Examples</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <button id="test">Test</button>
+    <div id="mylog"></div>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="room.js"></script>
+    <script type="text/javascript" src="session.js"></script>
+    <script type="text/javascript" src="temp.js"></script>
+    <script>
+
+(function () {
+   init_log("#mylog");
+
+})();
+
+        
+        var room = CreateRoom("personal room", tracer);
+        var session = CreateSession(tracer);
+        
+    </script>
+
+  </body>
+</html>

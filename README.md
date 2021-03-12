@@ -71,7 +71,9 @@ $ gclient sync
   - https://tools.ietf.org/html/draft-jennings-rtcweb-signaling-01
 
 * Javascript Session Establishment Protocol (JSEP)
-  - https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
+  - ~~https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26~~
+  - https://tools.ietf.org/html/rfc8829
+
 
 * Session Traversal Utilities for NAT (STUN)
   - https://tools.ietf.org/html/rfc5389
@@ -81,8 +83,8 @@ $ gclient sync
   - https://tools.ietf.org/html/rfc5766
 
 * Interactive Connectivity Establishment (ICE)
-  - https://tools.ietf.org/html/rfc5245
-
+  - ~~https://tools.ietf.org/html/rfc5245~~
+  - https://tools.ietf.org/html/rfc8445
   
 * TCP Candidates with Interactive Connectivity Establishment (ICE)
   - https://tools.ietf.org/html/rfc6544

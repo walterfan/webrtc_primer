@@ -1,6 +1,7 @@
 // declare web elements
 var logDiv = document.getElementById('logDiv');
 var statsDiv = document.getElementById('statsDiv');
+var statsDiv2 = document.getElementById('statsDiv2');
 
 var intervalBox = document.getElementById('interval');
 var metricsNamesBox = document.getElementById('metricsNames');
@@ -26,7 +27,10 @@ var statsInterval ;
 var metricsNames;
 var statsTypes;
 
-log("----- Web Logs ------");
+log("---------- <b>Web Logs</b> ----------");
+var browserInfo = {};
+getBrowserName(browserInfo);
+log(`Browser: ${browserInfo.browserName}.${browserInfo.browserFullVer}`);
 getStatsTypes();
 getStatsInterval();
 getMetricsNames();
@@ -50,7 +54,7 @@ function getStatsTypes() {
         opt = options[i];
 
         if (opt.selected) {
-        result.push(opt.value || opt.text);
+            result.push(opt.value || opt.text);
         }
     }
     log("statsTypes:"+ result);
@@ -107,9 +111,14 @@ function startMedia() {
     .then(() => pc1.setRemoteDescription(pc2.localDescription))
     .then(() => repeat(statsInterval, () => Promise.all([pc1.getStats(), pc2.getStats()])
     .then(([s1, s2]) => {
-        var s = "";
-        s += filterStats(s1);
-        update(statsDiv, "<small>" + s + "</small>");
+        var statsString = "";
+        statsString += filterStats(s1);
+        update(statsDiv, "<small>" + statsString + "</small>");
+
+        var statsString2 = "";
+        statsString2 += filterStats(s2);
+        update(statsDiv2, "<small>" + statsString2 + "</small>");
+
     })))
     .catch(e => log(e));
 }
@@ -137,16 +146,32 @@ function filterStats(stats) {
 
     stats.forEach(report => {
         if(filterStatsType(report.type)) {
-            statsOutput += `<h2>Report: ${report.type}</h3>\n<strong>ID:</strong> ${report.id}<br>\n` +
+
+            statsOutput += `<hr/><h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
                      `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
+
 
             Object.keys(report).forEach(statName => {
                 if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
-                statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+                    statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+                    console.log(`[stats] ${statName}=${report[statName]}`)
                 }
             });
+        
+            if(report.type === 'inbound-rtp' || report.type === 'outbound-rtp') {
+                var trackObj = stats.get(report.trackId);
+                if(trackObj) {
+                    statsOutput += `<hr/><h4>Track Stats</h4><strong>trackId:</strong> ${report.trackId}<br>\n`;
+                    Object.keys(trackObj).forEach(itemName => {
+                        //if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
+                        statsOutput += `<strong>${itemName}:</strong> ${trackObj[itemName]}<br>\n`;
+                        //}
+                    });
+                }
+            }
+        
         }
-      
+
     });
 
     return statsOutput;
