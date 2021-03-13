@@ -1,7 +1,7 @@
 /*
  * h264demo.cpp
  *
- *  Created on: 2021��3��12��
+ *  Created on: 2021-3-12
  *      Author: fanya
  */
 
