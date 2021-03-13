@@ -10,18 +10,12 @@ using namespace boost::program_options;
 
 extern int h264_demo(const variables_map& vm);
 
-
-
-
 const char* name_usage = R"name(please specify example name:
     h264
     or opus
 )name";
 
 const char* input_usage = "please specify input file";
-
-
-
 
 
 ExampleRunner::ExampleRunner(): m_example_count(0),m_func_examples() {
