@@ -1,4 +1,16 @@
+
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const bodyParser = require('body-parser');
+//const sqlite3 = require('sqlite3');
+
+const moment = require('moment');
+const express = require('express');
+const path = require('path');
+
 const log4js = require("log4js");
+
 log4js.configure({
   appenders: { 
         'stdout': { type: 'stdout' },  
@@ -12,25 +24,45 @@ log4js.configure({
  
 const logger = log4js.getLogger("video_chat");
 
-const staticServer = require('node-static');
-const http = require('http');
-const moment = require('moment');
+const options = {
+    index: "video_chat_demo.html"
+  };
+  
+const httpPort = 8181;
+const httpsPort = 8183;
 
-const port = 8181;
+const certificate = fs.readFileSync('./domain.crt', 'utf8');
+const privateKey  = fs.readFileSync('./domain.key', 'utf8');
 
-// Create a node-static server instance
-const fileServer = new(staticServer.Server)();
+const credentials = {key: privateKey, cert: certificate};
 
-// We use the http module's createServer function and
-// rely on our instance of node-static to  serve the files
-logger.info("video chart server listen on " + port);
-var httpServer = http.createServer(function (req, res) {
-    fileServer.serve(req, res);
-}).listen(port);
+const app = express();
+
+app.use('/', express.static(path.join(__dirname, '/'), options));
+
+// parse requests of content-type - application/x-www-form-urlencoded and application/json
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.get('/api/v1/ping', (req, res) => {
+  res.json({"message": "Healthy", "serviceState": "online"});
+});
+
+app.post('/api/v1/events', function(request, response) {
+    console.log("received event: ", request.body); 
+    response.send({"result": "OK"});
+    logger.info(request.body);
+  });
+
+
+const httpsServer = https.createServer(credentials, app);
+
+console.log(`video chart serve on https://localhost:${httpsPort}`);
+httpsServer.listen(httpsPort);
 
 // Use socket.io JavaScript library for real-time web applications
 
-var io = require('socket.io')(httpServer);
+var io = require('socket.io')(httpsServer);
 
 function getParticipantsOfRoom(roomId, namespace) {
     
