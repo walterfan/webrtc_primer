@@ -14,8 +14,8 @@ extern int h264_demo(const variables_map& vm);
 
 
 const char* name_usage = R"name(please specify example name:
-    h264_demo
-    or opus_demo
+    h264
+    or opus
 )name";
 
 const char* input_usage = "please specify input file";
@@ -33,7 +33,7 @@ ExampleRunner::~ExampleRunner() {
 }
 
 void ExampleRunner::init() {
-    register_example("h264_demo", h264_demo);
+    register_example("h264", h264_demo);
 }
 
 void ExampleRunner::register_example(const string& name, const exam_func_t &exam)

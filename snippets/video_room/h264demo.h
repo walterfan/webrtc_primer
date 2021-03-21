@@ -48,12 +48,14 @@ typedef struct
 
 class h264demo {
 public:
-	h264demo();
+	h264demo(const std::string& fileName);
 	virtual ~h264demo();
 	h264demo(h264demo &&other);
 	h264demo& operator=(const h264demo &other);
 	h264demo& operator=(h264demo &&other);
 	h264demo(const h264demo &other);
+private:
+	std::string m_fileName;
 };
 
 #endif /* SNIPPETS_VIDEO_ROOM_H264DEMO_H_ */

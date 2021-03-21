@@ -17,7 +17,7 @@
 using namespace std;
 using namespace boost::program_options;
 
-h264demo::h264demo() {
+h264demo::h264demo(const std::string& fileName):m_fileName(fileName) {
 	// TODO Auto-generated constructor stub
 
 }

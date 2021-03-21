@@ -28,7 +28,6 @@ const options = {
     index: "video_chat_demo.html"
   };
   
-const httpPort = 8181;
 const httpsPort = 8183;
 
 const certificate = fs.readFileSync('./domain.crt', 'utf8');

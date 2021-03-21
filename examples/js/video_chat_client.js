@@ -121,14 +121,9 @@ function handleUserMedia(stream) {
 function handleUserMediaError(error){
 	weblog('Erroe getUserMedia error: ' +  error);
 }
-/////////////////////////////////////////////
-
 
 // Server-mediated message exchanging...
-/////////////////////////////////////////////
-
 // 1. Server-->Client...
-/////////////////////////////////////////////
 
 // Handle 'created' message coming back from server:
 // this peer is the initiator
@@ -379,5 +374,3 @@ function closeConnection() {
   pc = null;
   sendButton.disabled=true;
 }
-
-///////////////////////////////////////////
