@@ -125,13 +125,22 @@ function handleUserMedia(stream) {
 	localStream = stream;
 	attachMediaStream(localVideo, stream);
   
+
+  stream.getVideoTracks().forEach(track => {
+      track.onended = function () {
+        startButton.disabled = false;
+      };
+  });
+  
+  
+
 	weblog('Add local stream.');
 
 	startButton.disabled = true;
 	stopButton.disabled = false;
 	sendMessage('got user media');
-	if (isInitiator) {
-		checkAndStart();
+	if (isInitiator && isChannelReady) {
+		startCall();
 	}
 }
 
@@ -151,8 +160,10 @@ function handleUserMediaError(error){
 // this peer is the initiator
 socket.on('created', function (room){
   weblog('Created room ' + room);
-  //startMedia();
-  checkAndStart();
+  isInitiator = true; 
+  if(isChannelReady) {
+    startCall();
+  }
 });
 
 // Handle 'full' message coming back from server:
@@ -167,6 +178,7 @@ socket.on('join', function (room){
   weblog('onJoin - another peer made a request to join room ' + room);
   weblog('This peer is the host of room ' + room + '!');
   isChannelReady = true;
+  startCall();
 });
 
 // Handle 'joined' message coming back from server:
@@ -174,7 +186,7 @@ socket.on('join', function (room){
 socket.on('joined', function (room){
   weblog('onJoined - this peer has joined room ' + room);
   isChannelReady = true;
-  checkAndStart();
+  startCall();
 });
 
 // Server-sent log message...
@@ -186,11 +198,11 @@ socket.on('log', function (array){
 socket.on('message', function (message){
   weblog('onMessage: Received message: <pre>' +  JSON.stringify(message, null, 2) + "</pre>");
   if (message === 'got user media') {
-        checkAndStart();
+      startCall();
   } else if (message.type === 'offer') {
     isInitiator = false; 
     if (!isStarted) {
-      checkAndStart();
+      startCall();
     }
     pc.setRemoteDescription(new RTCSessionDescription(message));
     doAnswer();
@@ -217,15 +229,19 @@ function sendMessage(message){
 
 ////////////////////////////////////////////////////
 // Channel negotiation trigger function
-function checkAndStart() {
-  weblog('checkAndStart: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
+function startCall() {
+  weblog('startCall: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
   if (!isStarted  && isChannelReady) {
     pc = createPeerConnection();
-    if(localStream)
+    if(localStream) {
       pc.addStream(localStream);
+    }
+     
     isStarted = true;
-    
-     doCall();
+
+    if(isInitiator) {
+      pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
+    }
     
   }
 }
@@ -286,13 +302,6 @@ function handleIceCandidate(event) {
   } else {
     weblog('End of candidates.');
   }
-}
-
-// Create Offer
-function doCall() {
-  weblog('Creating Offer...');
-  isInitiator = true; 
-  pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
 }
 
 // Signalling error handler
