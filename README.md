@@ -155,7 +155,8 @@ $ gclient sync
   - https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
 
 * A Framework for SDP Attributes when Multiplexing
-  - https://tools.ietf.org/html/draft-ietf-mmusic-sdp-mux-attributes-19
+  - ~~https://tools.ietf.org/html/draft-ietf-mmusic-sdp-mux-attributes-19~~
+  - https://tools.ietf.org/html/rfc8859
 
 * ULPFEC - RTP Payload Format for Generic Forward Error Correction
   - https://tools.ietf.org/html/rfc5109
