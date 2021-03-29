@@ -134,14 +134,19 @@ $ gclient sync
 * RTP Retransmission Payload Format
   - https://tools.ietf.org/html/rfc4588
 
+* Guidelines for Using the Multiplexing Features of RTP to Support Multiple Media Streams
+  - https://tools.ietf.org/html/rfc8872
+
 * Negotiating Media Multiplexing Using SDP
-  - https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation-54
+  - ~~https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation-54~~
+  - https://tools.ietf.org/html/rfc8843
 
 * RTP Stream Identifier Source Description (SDES)
   - https://tools.ietf.org/html/draft-ietf-avtext-rid-09
 
 * WebRTC MediaStream Identification in SDP
-  - https://tools.ietf.org/id/draft-ietf-mmusic-msid-05.html
+  - ~~https://tools.ietf.org/id/draft-ietf-mmusic-msid-05.html~~
+  - https://tools.ietf.org/html/rfc8830
 
 * RTP Extensions for Transport-wide Congestion Control
   - https://tools.ietf.org/html/draft-ietf-avtext-rid-09
