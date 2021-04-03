@@ -1,5 +1,17 @@
+# WASM
+
+WebAssembly (abbreviated Wasm) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable compilation target for programming languages, enabling deployment on the web for client and server applications.
+
+## Advantage
+* Efficient and fast
+* Safe
+* Open and debuggable
+* Part of the open web platform
+
+
 # Install Emscripten Tool Chain
 
+Get the Emscripten SDK, using these instructions: https://emscripten.org/docs/getting_started/downloads.html
 
 Emscripten is a complete compiler toolchain to WebAssembly, using LLVM, with a special focus on speed, size, and the Web platform
 
@@ -31,3 +43,7 @@ emcc -v
 # Build by emsdk
 
 * make
+```
+emcc -O2 fibonacci.c -s WASM=1 -o fibonacci.html
+
+```
