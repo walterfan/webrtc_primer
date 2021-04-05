@@ -14,7 +14,7 @@ IF(Boost_FOUND)
 ENDIF(Boost_FOUND)
 
 message("boost lib: ${Boost_LIBRARIES}")
-message("boost inc:${Boost_INCLUDE_DIR}")
+message("boost inc: ${Boost_INCLUDE_DIR}")
 
 add_executable(udpserver udpserver.cpp rtputil.cpp)
 add_executable(rtptool rtptool.cpp)
