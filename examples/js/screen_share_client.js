@@ -6,7 +6,7 @@ const joinButton = document.getElementById('joinButton');
 const leaveButton = document.getElementById('leaveButton');
 
 stopButton.disabled = true;
-leaveButton.disabled = true;
+//leaveButton.disabled = true;
 
 
 startButton.addEventListener('click', startMedia);
@@ -48,8 +48,7 @@ var pc_config = webrtcDetectedBrowser === 'firefox' ?
 // Peer Connection contraints: (i) use DTLS; (ii) use data channel
 var pc_constraints = {
   'optional': [
-    {'DtlsSrtpKeyAgreement': true},
-    {'RtpDataChannels': true}
+    {'DtlsSrtpKeyAgreement': true}
   ]};
 
 // Session Description Protocol constraints:
@@ -201,11 +200,12 @@ socket.on('message', function (message){
       startCall();
   } else if (message.type === 'offer') {
     isInitiator = false; 
-    if (!isStarted) {
-      startCall();
+    startCall();
+    if(pc) {
+      pc.setRemoteDescription(new RTCSessionDescription(message));
+      doAnswer();
     }
-    pc.setRemoteDescription(new RTCSessionDescription(message));
-    doAnswer();
+    
   } else if (message.type === 'answer' && isStarted) {
     pc.setRemoteDescription(new RTCSessionDescription(message));
   } else if (message.type === 'candidate' && isStarted) {
@@ -230,17 +230,21 @@ function sendMessage(message){
 ////////////////////////////////////////////////////
 // Channel negotiation trigger function
 function startCall() {
-  weblog('startCall: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady);
-  if (!isStarted  && isChannelReady) {
-    pc = createPeerConnection();
+  weblog('startCall: isStarted='+ isStarted + ", isChannelReady=" +  isChannelReady + ",isInitiator=" + isInitiator);
+  if (isChannelReady) {
+    if(!pc)
+      pc = createPeerConnection();
     if(localStream) {
       pc.addStream(localStream);
     }
      
     isStarted = true;
-
-    if(isInitiator) {
+    var state = pc.signalingState;
+    weblog("state=", state);
+    if(!state || state == "stable") {
       pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
+    } else {
+      pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
     }
     
   }
@@ -306,12 +310,12 @@ function handleIceCandidate(event) {
 
 // Signalling error handler
 function onSignalingError(error) {
-	console.log('Failed to create signaling message : ' + error.name);
+	weblog('Failed to create signaling message : ' , error);
 }
 
 // Create Answer
 function doAnswer() {
-  console.log('Sending answer to peer.');
+  weblog('Sending answer to peer.');
   pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
 }
 
@@ -319,6 +323,41 @@ function doAnswer() {
 // and createAnswer()
 function setLocalAndSendMessage(sessionDescription) {
   pc.setLocalDescription(sessionDescription);
+
+  let lines = sessionDescription.sdp.split('\r\n');
+  let newLines = [];
+  var isInVPx = false;
+
+  lines.forEach(function(line) {
+    if (line.indexOf('m=video') === 0) {
+      var newLine = line.replace('96 97 98 99 100 101 122', '');
+      newLines.push(newLine);
+      weblog('video codec: ' , newLine);
+    } else if (line.indexOf('a=rtpmap:') === 0) {     
+      let parts = line.substr(9).split(' ');
+      let codec = parts[1];
+      if(codec === 'VP8/90000' || codec == 'VP9/90000') {
+        isInVPx = true;
+      }
+      if(codec == 'H264/90000') {
+        isInVPx = false;
+      }
+      if(!isInVPx) {
+        newLines.push(line);
+      }
+      
+      weblog('codec: ' , parts[0], parts[1], isInVPx);
+    } else {
+      if(isInVPx) {
+        weblog("ignore ", line );
+      } else {
+        newLines.push(line);
+      }
+      
+    }
+  })
+  sessionDescription.sdp = newLines.join('\r\n')
+
   sendMessage(sessionDescription);
 }
 

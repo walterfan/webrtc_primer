@@ -1,5 +1,12 @@
-function weblog(message) {
-    console.log(message);
+function weblog() {
+    
+    var arrMsg = [];
+    for (var i = 0; i < arguments.length; i++) {
+        arrMsg.push(arguments[i]);
+    }
+    console.log(arrMsg);
+    message = arrMsg.join(' ');
+
     let logContent = document.getElementById('logContent');
     let elem = document.createElement("li");
     elem.innerHTML = "[" + (performance.now() / 1000).toFixed(3) + "] <code>" + message + "</code>";

@@ -233,13 +233,14 @@ function createPeerConnection() {
       sendChannel = pc.createDataChannel("sendDataChannel",
         {reliable: true});
       trace('Created send data channel');
+      sendChannel.onopen = handleSendChannelStateChange;
+      sendChannel.onmessage = handleMessage;
+      sendChannel.onclose = handleSendChannelStateChange;
     } catch (e) {
       alert('Failed to create data channel. ');
       trace('createDataChannel() failed with exception: ' + e.message);
     }
-    sendChannel.onopen = handleSendChannelStateChange;
-    sendChannel.onmessage = handleMessage;
-    sendChannel.onclose = handleSendChannelStateChange;
+    
   } else { // Joiner
     pc.ondatachannel = gotReceiveChannel;
   }

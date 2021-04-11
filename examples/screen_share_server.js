@@ -57,7 +57,7 @@ app.post('/api/v1/events', function(request, response) {
 
 const httpsServer = https.createServer(credentials, app);
 
-console.log(`video chart serve on https://localhost:${httpsPort}`);
+logger.info(`screen shares server listen on https://localhost:${httpsPort}`);
 httpsServer.listen(httpsPort);
 
 // Use socket.io JavaScript library for real-time web applications
@@ -81,14 +81,15 @@ function getParticipantsOfRoom(roomId, namespace) {
 
 // Let's start managing connections...
 io.sockets.on('connection', function (socket){
-
-    	// Handle 'message' messages
+       logger.info('got new connection', socket.id);
+    	 // Handle 'message' messages
         socket.on('message', function (message) {
                 log('Server --> got message: ', message);
                 logger.info('will broadcast message:', message);
                 // channel-only broadcast...
                 //socket.broadcast.to(socket.channel).emit('message', message);
                 socket.broadcast.emit('message', message);
+                //socket.to(room).emit(message);
 
         });
 
@@ -104,24 +105,25 @@ io.sockets.on('connection', function (socket){
                 if (numClients == 0){
                         socket.join(room);
                         socket.emit('created', room);
-                        logger.info(room + " created: " + numClients);
+                        logger.info(room + " created: " + getParticipantsOfRoom(room));
                 } else if (numClients == 1) {
                         // Second client joining...
                         io.sockets.in(room).emit('join', room);
                         socket.join(room);
                         socket.emit('joined', room);
-                        logger.info(room + " joined: " + numClients);
+                        logger.info(room + " joined: " + getParticipantsOfRoom(room));
                 } else { // max two clients
                         socket.emit('full', room);
-                        logger.info(room + " full: " + numClients);
+                        logger.info(room + " full: " + getParticipantsOfRoom(room));
                 }
         });
 
         function log(){
-            var array = ["* " + moment().format() + ">>> "];
+            var arrMsg = ["* " + moment().format() + ">>> "];
             for (var i = 0; i < arguments.length; i++) {
-            	array.push(arguments[i]);
+            	arrMsg.push(arguments[i]);
             }
-            socket.emit('log', array);
+            console.log(arrMsg.join(' '));
+            socket.emit('log', arrMsg);
         }
 });

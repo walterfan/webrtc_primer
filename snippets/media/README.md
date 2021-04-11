@@ -10,6 +10,20 @@
 
 3. ffmpeg -re -i ../../material/sintel.ts -f rtp_mpegts udp://127.0.0.1:8880
 
+ffmpeg -i digits_3600.mp4 -an -vcodec libx264 -crf 23 digits_3600.h264
+ffmpeg -i digits_3600.264 -f rtp -vcodec libx264 rtp://10.140.202.208:15000
+
+```
+m=video 15000 RTP/AVP 96
+a=rtpmap:96 H264
+a=framerate:25
+c=IN IP4 10.102.7.194
+```
+
+ffmpeg -f dshow -i video="Lenovo EasyCamera" -vcodec libx264 -preset:v ultrafast -tune:v zerolatency -f rtp rtp://10.140.202.208:6666>sd.sdp
+
+
+
 # Tools
 
 * gstreamer
