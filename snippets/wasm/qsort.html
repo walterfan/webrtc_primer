@@ -1,0 +1,48 @@
+<html>
+
+<body>
+<script>
+
+    var Module = {};
+    var script = document.createElement('script');
+
+    fetch("qsort.wasm")
+        .then(response => response.arrayBuffer())
+        .then(bytes => {
+            Module.wasmBinary = bytes;
+            script.src = 'sort.js';
+            document.body.appendChild(script)
+        });
+
+    script.onload = function() {
+        let call_wasm_method = (method, array) => {
+            var buffer = Module._malloc(array.length * 8);
+            const size_of_double = 8;
+            for(var i = 0; i < array.length; i++) {
+                Module.setValue(buffer + size_of_double * i, array[i], 'double');
+            }
+
+            var offset_of_buf = method(buffer, array.length);
+
+            var result = [];
+
+            for(var i = 0; i < array.length; i++) {
+                result.push(Module.getValue(offset_of_buf + size_of_double * i, array[i], 'double'));
+            }
+
+            Module._free(buffer);
+            return result;
+
+        }
+    }
+
+    let sort = array => {
+        return call_wasm_method(Module["asm"]["num_sort"], array);
+    }
+
+    let array = [5, 9, 2, 8, 7, 6, 3, 0];
+    console.log(sort(array));
+</script>
+
+</body>
+</html>

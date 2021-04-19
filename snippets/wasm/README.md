@@ -1,3 +1,5 @@
+[TOC]
+
 # WASM
 
 WebAssembly (abbreviated Wasm) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable compilation target for programming languages, enabling deployment on the web for client and server applications.
@@ -47,3 +49,7 @@ emcc -v
 emcc -O2 fibonacci.c -s WASM=1 -o fibonacci.html
 
 ```
+
+# Reference
+* [c program to wasm](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
+* [wasm spec](https://webassembly.org/specs/)

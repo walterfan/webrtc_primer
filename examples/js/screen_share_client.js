@@ -332,7 +332,7 @@ function setLocalAndSendMessage(sessionDescription) {
     if (line.indexOf('m=video') === 0) {
       var newLine = line.replace('96 97 98 99 100 101 122', '');
       newLines.push(newLine);
-      weblog('video codec: ' , newLine);
+      //weblog('video codec: ' , newLine);
     } else if (line.indexOf('a=rtpmap:') === 0) {     
       let parts = line.substr(9).split(' ');
       let codec = parts[1];
@@ -346,7 +346,7 @@ function setLocalAndSendMessage(sessionDescription) {
         newLines.push(line);
       }
       
-      weblog('codec: ' , parts[0], parts[1], isInVPx);
+      //weblog('codec: ' , parts[0], parts[1], isInVPx);
     } else {
       if(isInVPx) {
         weblog("ignore ", line );

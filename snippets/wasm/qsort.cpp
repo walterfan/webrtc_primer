@@ -58,7 +58,7 @@ extern "C" {
 #endif
 
 double* EMSCRIPTEN_KEEPALIVE num_sort(double array[], double length) {
-    return qsort(array, 0, length -1 )
+    return qsort(array, 0, length -1 );
 }
 #ifdef __cplusplus
 }

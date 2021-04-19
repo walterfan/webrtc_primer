@@ -47,6 +47,13 @@ make all test
 
 ## FAQ
 
+### How to dedode mp4 or avi to yuv
+
+```
+ffmpeg -i input.mp4 -c:v rawvideo -pix_fmt yuv420p output.yuv
+ffmpeg -i input.avi -c:v rawvideo -pixel_format yuv420p output.yuv
+```
+
 ### How to cature packets from ip1:port1 to ip2:port2
 
 ```
