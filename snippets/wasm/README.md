@@ -42,12 +42,23 @@ emcc -v
 
 ```
 
-# Build by emsdk
+## Build by emsdk
 
 * make
 ```
 emcc -O2 fibonacci.c -s WASM=1 -o fibonacci.html
 
+```
+
+## wabt toolkit
+
+```
+$ git clone --recursive https://github.com/WebAssembly/wabt
+$ cd wabt
+$ mkdir build
+$ cd build
+$ cmake ..
+$ cmake --build .
 ```
 
 # Reference

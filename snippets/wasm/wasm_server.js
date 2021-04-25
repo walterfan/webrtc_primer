@@ -17,7 +17,7 @@ log4js.configure({
         'wasm_server': { type: "file", filename: "wasm_server.log" } 
   },
   categories: { default: { 
-      appenders: ["stdout","screen_share"], 
+      appenders: ["stdout","wasm_server"], 
       level: "info" } 
   }
 });
@@ -28,8 +28,8 @@ const options = {
     index: "screen_share_demo.html"
   };
   
-const httpPort = 8181;
-const httpsPort = 8183;
+const httpPort = 9080;
+const httpsPort = 9443;
 
 const certificate = fs.readFileSync('./domain.crt', 'utf8');
 const privateKey  = fs.readFileSync('./domain.key', 'utf8');
@@ -54,8 +54,9 @@ app.post('/api/v1/events', function(request, response) {
     logger.info(request.body);
   });
 
-
+const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-logger.info(`screen shares server listen on https://localhost:${httpsPort}`);
+logger.info(`screen shares server listen on http://localhost:${httpPort} and https://localhost:${httpsPort}`);
+httpServer.listen(httpPort);
 httpsServer.listen(httpsPort);

@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>get module size demo</title>
+</head>
+<body>
+<script>
+
+    function weblog() {
+
+        var arrMsg = [];
+        for (var i = 0; i < arguments.length; i++) {
+            arrMsg.push(arguments[i]);
+        }
+        console.log(arrMsg);
+        message = arrMsg.join(' ');
+
+        let logContent = document.getElementById('logContent');
+        let elem = document.createElement("li");
+        elem.innerHTML = "[" + (performance.now() / 1000).toFixed(3) + "] <code>" + message + "</code>";
+        logContent.appendChild(elem);
+    }
+
+
+    fetch("get_module_size.wasm")
+        .then(response => response.arrayBuffer())
+        .then(bytes => WebAssembly.instantiate(bytes))
+        .then(result => {
+            var moduleSize = result.instance.exports.get_module_size();
+            weblog("module's size is " + moduleSize);
+            
+        });
+</script>
+<h3>WASM example</h3>
+<div id = "logContent" >
+
+
+</div>
+</body>
+</html>
