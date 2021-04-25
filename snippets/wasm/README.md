@@ -61,6 +61,16 @@ $ cmake ..
 $ cmake --build .
 ```
 
+example:
+
+```
+npm install
+wat2wasm get_module_size.wat -o get_module_size.wasm
+node wasm_server.js
+```
+
+open http://localhost:9080/get_module_size.html
+
 # Reference
 * [c program to wasm](https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm)
 * [wasm spec](https://webassembly.org/specs/)
