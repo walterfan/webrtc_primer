@@ -1,8 +1,20 @@
+# Audio Overview
+
+人的听觉特性
+
+* 20Hz ~ 20kHz
+* -5db ~ 130db
+
+
+
 # Audio API
 
 
-
 # Audio codec
+
+* opus is required
+
+
 
 ## Code Requirements
 

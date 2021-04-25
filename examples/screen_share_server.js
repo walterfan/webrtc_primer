@@ -84,6 +84,7 @@ io.sockets.on('connection', function (socket) {
         var roomName = null;
 
        logger.info('got new connection', socket.id);
+       var roomName = "";
     	 // Handle 'message' messages
         socket.on('message', function (message) {
                 log('Server --> got message: ', message);
@@ -121,6 +122,14 @@ io.sockets.on('connection', function (socket) {
                         socket.emit('full', room);
                         logger.info(room + " full: " + getParticipantsOfRoom(room));
                 }
+        });
+
+        socket.on('disconnecting', () => {
+          logger.info("disconnecting {}", socket.rooms); // the Set contains at least the socket ID
+        });
+
+        socket.on('disconnect', () => {
+          logger.info("disconnect {}",socket.rooms.size)
         });
 
         function log(){
