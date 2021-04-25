@@ -199,11 +199,12 @@ socket.on('message', function (message){
   if (message === 'got user media') {
       startCall();
   } else if (message.type === 'offer') {
-    isInitiator = false; 
-    startCall();
+    isInitiator = false;
     if(pc) {
       pc.setRemoteDescription(new RTCSessionDescription(message));
       doAnswer();
+    } else {
+      startCall();
     }
     
   } else if (message.type === 'answer' && isStarted) {
@@ -241,9 +242,9 @@ function startCall() {
     isStarted = true;
     var state = pc.signalingState;
     weblog("state=", state);
-    if(!state || state == "stable") {
+    if(localStream && (!state || state == "stable")) {
       pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
-    } else {
+    } else if(state === "have-remote-offer" ||  state === "have-local-pranswer") {
       pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
     }
     
@@ -394,11 +395,8 @@ function handleRemoteHangup() {
 
 function closeConnection() {
   isStarted = false;
-  if (sendChannel) sendChannel.close();
-  if (receiveChannel) receiveChannel.close();
   if (pc) pc.close();
   pc = null;
-  sendButton.disabled=true;
 }
 
 ///////////////////////////////////////////

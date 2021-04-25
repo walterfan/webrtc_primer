@@ -80,22 +80,27 @@ function getParticipantsOfRoom(roomId, namespace) {
 }
 
 // Let's start managing connections...
-io.sockets.on('connection', function (socket){
+io.sockets.on('connection', function (socket) {
+        var roomName = null;
+
        logger.info('got new connection', socket.id);
     	 // Handle 'message' messages
         socket.on('message', function (message) {
                 log('Server --> got message: ', message);
-                logger.info('will broadcast message:', message);
-                // channel-only broadcast...
-                //socket.broadcast.to(socket.channel).emit('message', message);
-                socket.broadcast.emit('message', message);
-                //socket.to(room).emit(message);
+                logger.info(roomName, ' got and broadcast message:', message);
+                if(roomName) {
+                    //socket.to(roomName).emit(message);
+                    // sending to all clients in 'game' room(channel) except sender
+                    socket.broadcast.to(roomName).emit('message', message);
+                    //socket.broadcast.emit('message', message);
+                }
+
 
         });
 
         // Handle 'create or join' messages
         socket.on('create or join', function (room) {
-
+                roomName = room;
                 var numClients =  getParticipantsOfRoom(room);
 
                 log('Server --> Room ' + room + ' has ' + numClients + ' client(s)');

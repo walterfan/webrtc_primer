@@ -54,12 +54,13 @@
                   <div>
                       <label>Room Name: </label>
                       <input type="text" id="roomName" value="demo"/>
+                      <button class="btn btn-default" autocomplete="off" id="joinButton">Join</button>
+                      <button class="btn btn-default" autocomplete="off" id="leaveButton">Leave</button>
 
                       <button class="btn btn-default" autocomplete="off" id="startButton">Start Share</button>
                       <button class="btn btn-default" autocomplete="off" id="stopButton">Stop Share</button>
 
-                      <button class="btn btn-default" autocomplete="off" id="joinButton">Join</button>
-                      <button class="btn btn-default" autocomplete="off" id="leaveButton">Leave</button>
+
 
                 </div>
                 <br/>
@@ -67,18 +68,15 @@
               <div class="col-lg-12">
                        <div id='mainDiv'>
                           <table border="1" width="100%">
+
                             <tr>
-                              <th>
-                                Local video
-                              </th>
-                              <th>
-                                Remote video
-                              </th>
-                            </tr>
-                            <tr>
+                              <td width="5%">local:</td>
                               <td>
                                 <video id="localVideo" autoplay></video>
                               </td>
+                            </tr>
+                              <tr>
+                                  <td>remote:</td>
                               <td>
                                 <video id="remoteVideo" autoplay></video>
                               </td>
@@ -91,7 +89,8 @@
           </div>
                 
           <div class="note">
-
+              <h3>--- logs ---</h3>
+              <hr/>
               <div id="logDiv">
                   <ul id="logContent">
           
