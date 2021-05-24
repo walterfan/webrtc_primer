@@ -13,6 +13,13 @@ IF(Boost_FOUND)
   LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 ENDIF(Boost_FOUND)
 
+  
+if (APPLE)
+  SET(XCODE_SDK_ROOT /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk)
+  include_directories(${XCODE_SDK_ROOT}/usr/include)
+  link_directories(${XCODE_SDK_ROOT}/usr/lib)
+endif (APPLE)
+
 message("boost lib: ${Boost_LIBRARIES}")
 message("boost inc: ${Boost_INCLUDE_DIR}")
 

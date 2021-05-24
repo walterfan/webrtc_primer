@@ -24,10 +24,38 @@ const gdmOptions = {
   }
 }
 
+var VideoRoom = function() {
+  this._init.apply(this, arguments);
+}
+
+VideoRoom.prototype._init = function() {
+  this.inputVideo = window.document.createElement('video');
+  this.inputCanvas = window.document.createElement('canvas');
+  this.inputContext = this.inputCanvas.getContext('2d');
+
+  // get rgba data from input video
+  this.inputContext.drawImage(this.inputVideo, 0, 0, this.picWidth, this.picHeight);
+  var rgbaArray = this.inputContext.getImageData(0, 0, this.picWidth, this.picHeight).data;
+}
+
 function handleSuccess(stream) {
   startButton.disabled = true;
   const video = document.querySelector('video');
   video.srcObject = stream;
+
+
+  const videoTracks = stream.getVideoTracks();
+  const audioTracks = stream.getAudioTracks();
+  if (videoTracks.length > 0) {
+    weblog(`Using video device: ${videoTracks[0].label}`);
+    var videoTrack = videoTracks[0];
+    var trackWidth = videoTrack.getSettings().width;
+    var trackHeight = videoTrack.getSettings().height;
+    weblog(`video width: ${trackWidth}, height: ${trackHeight}`);
+  }
+  if (audioTracks.length > 0) {
+    weblog(`Using audio device: ${audioTracks[0].label}`);
+  }
 
   // demonstrates how to detect that the user has stopped
   // sharing the screen via the browser UI.

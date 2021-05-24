@@ -14,7 +14,7 @@
   "keywords": [
     "WebRTC"
   ],
-  "author": "Simon Pietro Romano",
+  "author": "Walter Fam",
   "license": "BSD",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -29,7 +29,7 @@
     "webrtc-adapter": "^7.7.0"
   },
   "bugs": {
-    "url": "https://github.com/spromano/WebRTC_Book/issues"
+    "url": "https://github.com/walterfan/webrtc_primer/issues"
   },
-  "homepage": "https://github.com/spromano/WebRTC_Book"
+  "homepage": "https://github.com/walterfan/webrtc_primer"
 }

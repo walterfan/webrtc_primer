@@ -45,6 +45,7 @@ emcc -v
 ## Build by emsdk
 
 * make
+
 ```
 emcc -O2 fibonacci.c -s WASM=1 -o fibonacci.html
 

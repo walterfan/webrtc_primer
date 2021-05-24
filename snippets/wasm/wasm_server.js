@@ -25,7 +25,7 @@ log4js.configure({
 const logger = log4js.getLogger("screen_share");
 
 const options = {
-    index: "screen_share_demo.html"
+    index: "index.html"
   };
   
 const httpPort = 9080;

@@ -52,7 +52,7 @@ int main(void)
             exitWithMsg("recvfrom()");
         }
             
-        printf("The %d packet received %d from %s:%d\n", ++pktCount, pktSize, inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
+        printf("The %d packet received %d from %s:%d ", ++pktCount, pktSize, inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
         if(pktSize > 12) {
           cout << dump_rtp_packet(buf,  pktSize) <<endl;
         }

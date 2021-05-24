@@ -10,6 +10,9 @@
 
 3. ffmpeg -re -i ../../material/sintel.ts -f rtp_mpegts udp://127.0.0.1:8880
 
+
+# Some commands
+
 ffmpeg -i digits_3600.mp4 -an -vcodec libx264 -crf 23 digits_3600.h264
 ffmpeg -i digits_3600.264 -f rtp -vcodec libx264 rtp://10.140.202.208:15000
 
