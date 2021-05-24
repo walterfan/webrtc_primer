@@ -2,6 +2,7 @@ var mediaButton = document.getElementById('openMedia');
 var recordButton = document.getElementById('startRecord');
 var playButton = document.getElementById('playRecord');
 var downButton = document.getElementById('downRecord');
+var noiseButton = document.getElementById('playNoise');
 
 // define behaviour here
 mediaButton.addEventListener('click', openMedia);
@@ -9,7 +10,7 @@ recordButton.addEventListener('click', startRecord);
 
 playButton.addEventListener('click', playRecord);
 downButton.addEventListener('click', downRecord);
-
+noiseButton.addEventListener('click', whiteNoise);
 
 var mediaConstraints = {
     audio:  {
@@ -24,18 +25,21 @@ var recordElement = document.querySelector('audio');
 
 var canvas = document.getElementById("visualizer");
 var canvasCtx = canvas.getContext("2d");
-
-var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-var analyser = audioCtx.createAnalyser();
-analyser.minDecibels = -90;
-analyser.maxDecibels = -10;
-analyser.smoothingTimeConstant = 0.85;
+var audioCtx = null;
+var analyser = null;
 
 async function openMedia(e, constraints) {
     if (mediaButton.textContent === 'Close Media') {
         closeMedia(e);
         return;
     }
+
+    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = -10;
+    analyser.smoothingTimeConstant = 0.85;
+
 
     try {
         const stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
@@ -193,4 +197,37 @@ function draw(recordChunks) {
   
     canvasCtx.lineTo(canvas.width, canvas.height / 2);
     canvasCtx.stroke();
+  }
+
+  function whiteNoise() {
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Create an empty three-second stereo buffer at the sample rate of the AudioContext
+    var myArrayBuffer = audioCtx.createBuffer(2, audioCtx.sampleRate * 3, audioCtx.sampleRate);
+    
+    // Fill the buffer with white noise;
+    // just random values between -1.0 and 1.0
+    for (var channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
+      // This gives us the actual array that contains the data
+      var nowBuffering = myArrayBuffer.getChannelData(channel);
+      for (var i = 0; i < myArrayBuffer.length; i++) {
+        // Math.random() is in [0; 1.0]
+        // audio needs to be in [-1.0; 1.0]
+        nowBuffering[i] = Math.random() * 2 - 1;
+      }
+    }
+    
+    // Get an AudioBufferSourceNode.
+    // This is the AudioNode to use when we want to play an AudioBuffer
+    var source = audioCtx.createBufferSource();
+    
+    // set the buffer in the AudioBufferSourceNode
+    source.buffer = myArrayBuffer;
+    
+    // connect the AudioBufferSourceNode to the
+    // destination so we can hear the sound
+    source.connect(audioCtx.destination);
+    
+    // start the source playing
+    source.start();
   }
