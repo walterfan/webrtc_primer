@@ -12,13 +12,12 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<!--script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script -->
 <script type="text/javascript" src="js/util.js" ></script>
 <script>
 	$(function() {
 		$(".navbar-static-top").load("navbar.html", function() {
 			$(".navbar-static-top li.dropdown").addClass("active");
-			$(".navbar-static-top a[href='screen_share_demo.html']").parent().addClass("active");
+			$(".navbar-static-top a[href='audio_demo.html']").parent().addClass("active");
 		});
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
@@ -44,72 +43,46 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="page-header">
-				<h1>WebRTC example of Screen Share  </h1>
-                <p> Please run `node screen_share_server.js` firstly. they are test cases in local</p>
+				<h1>WebRTC example of Audio Media Stats</h1>
+                
 			</div>
 			<div class="container" id="details">
-          <div class="row">
-
-              <div class="col-lg-12">
-
-                  <div>
-                      <label>Room Name: </label>
-                      <input type="text" id="roomName" value="demo"/>
-                      <button class="btn btn-default" autocomplete="off" id="joinButton">Join</button>
-                      <button class="btn btn-default" autocomplete="off" id="leaveButton">Leave</button>
-
-                      <button class="btn btn-default" autocomplete="off" id="startButton">Start Share</button>
-                      <button class="btn btn-default" autocomplete="off" id="stopButton">Stop Share</button>
-
-
-
-                </div>
-                <br/>
-              </div>
-              <div class="col-lg-12">
-                       <div id='mainDiv'>
-                          <table border="1" width="100%">
-
-                            <tr>
-                              <td width="5%">local:</td>
-                              <td>
-                               <div id="localVideoDiv">  </div>
-                              </td>
-                            </tr>
-                              <tr>
-                                  <td>remote:</td>
-                              <td>
-                                <div id="remoteVideoDiv"> </video> </div>
-                              </td>
-                            </tr>
-                            
-                          </table>
-                        </div>
-              </div>
-
-          </div>
-                
-          <div class="note">
-              <h3>--- logs ---</h3>
-              <hr/>
-              <div id="logDiv">
-                  <ul id="logContent">
-          
-                  </ul>
-          
-              </div>
-              
+                <img src="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/audio-context_.png" width="600px"/>
+                <p>音频节点 Audio Node 连接 connect 在一起可以构成一个音频路由图 Audio Routing Graph </p>
+                <p>音频输入节点：Audio Source Nodes</p>
+                <ul>
+                    <li>OscillatorNode</li>
+                    <li>AudioBufferSourceNode </li>
+                    <li>MediaElementAudioSourceNode</li> 
+                    <li>MediaStreamAudioSourceNode</li>
+                </ul>
+                <p>音频输出节点：Audio Destination Nodes</p>
+                <ul>
+                    <li>GainNode</li>
+                </ul>
             </div>
-			</div>
+                
+              <div class="note">
+
+                  <div id="logDiv">
+                      <ul id="logContent">
+
+                      </ul>
+
+                  </div>
+
+              </div>
+			
 	
 		</div>
 	</div>
+  <br/><br/><br/>
 
-	<hr>
+  <hr>
 	<div class="footer">
 	</div>
 </div>
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="js/screen_share_client.js"></script>
+<script type="text/javascript" src="js/audio_stats.js"></script>
+
 </body>
 </html>

@@ -170,3 +170,29 @@ function getBrowserName(brownserInfo) {
       "browserFullVer=", fullVersion,
       "majorVersion=", majorVersion);
 }
+
+createVideoElement = function(elementId, parentId, width) {
+    
+    var element = window.document.createElement('video');
+    element.id = elementId;
+    element.width = width || 480;
+    element.autoplay = true;
+    element.setAttribute('controls', true);
+
+    var container = document.getElementById(parentId);
+    container.appendChild(element);
+    return element;
+}
+
+attachMediaStream = function(element, stream) {
+    console.log("Attaching media stream to ", element);
+
+    element.srcObject = stream;
+    element.play();
+    return element;
+}
+
+parseSDP = function(sdp) {
+    arrayOfLines = sdp.match(/[^\r\n]+/g);
+    return arrayOfLines.join("<br/>");
+}

@@ -7,13 +7,14 @@ const leaveButton = document.getElementById('leaveButton');
 
 stopButton.disabled = true;
 //leaveButton.disabled = true;
-
+RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
 
 startButton.addEventListener('click', startMedia);
 stopButton.addEventListener('click', stopMedia);
-joinButton.addEventListener('click', join);
+joinButton.addEventListener('click', joinWithDelay);
 leaveButton.addEventListener('click', hangup);
 
+function joinWithDelay() {setTimeout(joinRoom, 200);}
 // Should use navigator.mediaDevices.getUserMedia of webrtc adapter
 
 // Clean-up function:
@@ -24,10 +25,10 @@ window.onbeforeunload = function(e){
 
 
 // HTML5 <video> elements
-var localVideo = document.querySelector('#localVideo');
-var remoteVideo = document.querySelector('#remoteVideo');
+var localVideo = null;
+var remoteVideo = null;
 
-// Flags...
+// Flags...e
 var isChannelReady = false;
 var isInitiator = false;
 var isStarted  = false;
@@ -41,7 +42,7 @@ var remoteStream;
 var pc;
 
 // Peer Connection ICE protocol configuration (either Firefox or Chrome)
-var pc_config = webrtcDetectedBrowser === 'firefox' ?
+var pc_config = adapter.browserDetails.browser === 'firefox' ?
   {'iceServers':[{'urls':'stun:23.21.150.121'}]} : // IP address
   {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]};
 
@@ -57,7 +58,7 @@ var pc_constraints = {
 //  'OfferToReceiveAudio':true,
 //  'OfferToReceiveVideo':true }};
 
-var sdpConstraints = webrtcDetectedBrowser === 'firefox' ?
+var sdpConstraints = adapter.browserDetails.browser === 'firefox' ?
 		{'offerToReceiveAudio':true,'offerToReceiveVideo':true } :
 		{'mandatory': {'OfferToReceiveAudio':true, 'OfferToReceiveVideo':true }};
 
@@ -80,7 +81,7 @@ const gdmOptions = {
 var socket = io.connect();
 
 // From this point on, execution proceeds based on asynchronous events...
-async function join() {
+async function joinRoom() {
   // Connect to signalling server
   var room = document.getElementById("roomName").value;
 
@@ -102,6 +103,7 @@ async function startMedia() {
 }
 
 function stopMedia() {
+  if(!localVideo) return;
   let tracks = localVideo.srcObject.getTracks();
 
   tracks.forEach(track => track.stop());
@@ -111,6 +113,7 @@ function stopMedia() {
 function dumpTracksInfo(stream) {
   const tracks = stream.getTracks();
   tracks.forEach(track => {
+    console.log("track: ", track);
     weblog("<pre>Track Capabilities:\n" + JSON.stringify(track.getCapabilities(), null, 2) +
       "\nTrack settings:\n" + JSON.stringify(track.getSettings(), null, 2) + 
       "\nTrack constraints:\n" + JSON.stringify(track.getConstraints(), null, 2) + "</pre>");
@@ -122,8 +125,8 @@ function dumpTracksInfo(stream) {
 /////////////////////////////////////////////
 function handleUserMedia(stream) {
 	localStream = stream;
+  localVideo = createVideoElement("localVideo", "localVideoDiv");
 	attachMediaStream(localVideo, stream);
-  
 
   stream.getVideoTracks().forEach(track => {
       track.onended = function () {
@@ -199,7 +202,7 @@ socket.on('message', function (message){
   if (message === 'got user media') {
       startCall();
   } else if (message.type === 'offer') {
-    isInitiator = false;
+    isInitiator = false
     if(pc) {
       pc.setRemoteDescription(new RTCSessionDescription(message));
       doAnswer();
@@ -216,17 +219,27 @@ socket.on('message', function (message){
   } else if (message === 'bye' && isStarted) {
     handleRemoteHangup();
   }
+
+  if( /offer|answer/i.test(message.type)) {
+    weblog(message.type, "SDP:<br/> ", parseSDP(message.sdp));
+  }
 });
+
+
+
 ////////////////////////////////////////////////
 
 // 2. Client-->Server
 ////////////////////////////////////////////////
 // Send message to the other peer via the signalling server
 function sendMessage(message){
+  if( /offer|answer/i.test(message.type)) {
+    weblog(message.type, " SDP:<br/>", parseSDP(message.sdp));
+  }
+
   weblog('Sending message: <pre>' + JSON.stringify(message, null, 2) + "</pre>");
   socket.emit('message', message);
 }
-////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////
 // Channel negotiation trigger function
@@ -255,7 +268,7 @@ function startCall() {
 // Peer Connection management...
 function createPeerConnection() {
   try {
-    pc = new RTCPeerConnection(pc_config, pc_constraints);
+    pc = new RTCPeerConnection(pc_config);//, pc_constraints
     pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;
@@ -323,42 +336,8 @@ function doAnswer() {
 // Success handler for both createOffer()
 // and createAnswer()
 function setLocalAndSendMessage(sessionDescription) {
+  sessionDescription.sdp = sessionDescription.sdp.replace(/VP8/g, "H264");
   pc.setLocalDescription(sessionDescription);
-
-  let lines = sessionDescription.sdp.split('\r\n');
-  let newLines = [];
-  var isInVPx = false;
-
-  lines.forEach(function(line) {
-    if (line.indexOf('m=video') === 0) {
-      var newLine = line.replace('96 97 98 99 100 101 122', '');
-      newLines.push(newLine);
-      //weblog('video codec: ' , newLine);
-    } else if (line.indexOf('a=rtpmap:') === 0) {     
-      let parts = line.substr(9).split(' ');
-      let codec = parts[1];
-      if(codec === 'VP8/90000' || codec == 'VP9/90000') {
-        isInVPx = true;
-      }
-      if(codec == 'H264/90000') {
-        isInVPx = false;
-      }
-      if(!isInVPx) {
-        newLines.push(line);
-      }
-      
-      //weblog('codec: ' , parts[0], parts[1], isInVPx);
-    } else {
-      if(isInVPx) {
-        weblog("ignore ", line );
-      } else {
-        newLines.push(line);
-      }
-      
-    }
-  })
-  sessionDescription.sdp = newLines.join('\r\n')
-
   sendMessage(sessionDescription);
 }
 
@@ -368,8 +347,10 @@ function setLocalAndSendMessage(sessionDescription) {
 function handleRemoteStreamAdded(event) {
   weblog('Remote stream added.');
   remoteStream = event.stream;
+  remoteVideo = createVideoElement("remoteVideo", "remoteVideoDiv");
   attachMediaStream(remoteVideo, remoteStream);
   
+  dumpTracksInfo(remoteStream);
 }
 
 function handleRemoteStreamRemoved(event) {

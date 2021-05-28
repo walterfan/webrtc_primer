@@ -25,11 +25,13 @@
     "node-static": "~0.7.11",
     "nodemon": "^1.17.5",
     "socket.io": "~3.0.4",
-    "sqlite3": "^5.0.2",
-    "webrtc-adapter": "^7.7.0"
+    "sqlite3": "^5.0.2"
   },
   "bugs": {
     "url": "https://github.com/walterfan/webrtc_primer/issues"
   },
-  "homepage": "https://github.com/walterfan/webrtc_primer"
+  "homepage": "https://github.com/walterfan/webrtc_primer",
+  "devDependencies": {
+    "webrtc-adapter": "^7.7.1"
+  }
 }

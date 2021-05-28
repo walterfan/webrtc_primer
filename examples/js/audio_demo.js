@@ -112,11 +112,11 @@ function startRecord() {
         console.log('onstop fired');
         var blob = new Blob(recordChunks, { 'type' : 'audio/wav' });
         var blobURL = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = blobURL;
-        a.download = 'test.wav';
-        document.body.appendChild(a);
+        const aLink = document.createElement('a');
+        aLink.style.display = 'none';
+        aLink.href = blobURL;
+        aLink.download = 'test.wav';
+        document.body.appendChild(aLink);
     };
     
     
@@ -148,14 +148,14 @@ function playRecord() {
 function downRecord() {
     const blob = new Blob(recordChunks, {type: 'audio/wav'});
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = 'test.wav';
+    const aLink = document.createElement('a');
+    aLink.style.display = 'none';
+    aLink.href = url;
+    aLink.download = 'test.wav';
     document.body.appendChild(a);
-    a.click();
+    aLink.click();
     setTimeout(() => {
-      document.body.removeChild(a);
+      document.body.removeChild(aLink);
       window.URL.revokeObjectURL(url);
     }, 100);
 }
