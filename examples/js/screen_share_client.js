@@ -40,6 +40,9 @@ var remoteStream;
 
 // Peer Connection
 var pc;
+// Timer of statistics
+var getStatsTimerId;
+var statsCached = {};
 
 // Peer Connection ICE protocol configuration (either Firefox or Chrome)
 var pc_config = adapter.browserDetails.browser === 'firefox' ?
@@ -264,6 +267,68 @@ function startCall() {
   }
 }
 
+
+function getStatsFromPC(pc) {
+  pc.getStats(null).then(stats => {
+
+    let statsOutput = "";
+
+    stats.forEach(report => {
+      if(!/outbound-rtp|inbound-rtp/.test(report.type)) {
+        return;
+      }
+      statsOutput += `<h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
+                     `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
+
+      // Now the statistics for this report; we intentially drop the ones we
+      // sorted to the top above
+
+      Object.keys(report).forEach(statName => {
+        if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
+          statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
+        }
+        if(/totalSamplesReceived|concealedSamples/.test(statName)) {
+          statsCached["prevStats"] = statsCached["prevStats"] || {};
+          statsCached["curStats"] = statsCached["curStats"] || {};
+
+          var prevStat = statsCached["prevStats"][statName] || 0;
+      
+          var curStat = report[statName] || 0;
+          var dstStat = curStat - prevStat;
+          statsCached["prevStats"][statName] = curStat;
+          weblog(`<strong>${statName}:</strong> ${dstStat} in 5s<br>\n`)
+
+        }
+      });
+    });
+
+    document.querySelector(".stats-box").innerHTML = statsOutput;
+  });
+}
+
+function onIceConnectionChange(event) {
+
+  if (/\bconnected|completed/i.test(event.target.iceConnectionState)) {
+    if (getStatsTimerId) {
+      weblog("clear timerId:", getStatsTimerId);
+      clearInterval(getStatsTimerId);
+    }
+    getStatsTimerId = setInterval(function () {
+         getStatsFromPC(pc);
+      }, 5000);
+    weblog("start timerId:", getStatsTimerId);
+  }
+
+  if (/disconnected|closed|failed/i.test(event.target.iceConnectionState)) {
+    if(getStatsTimerId) {
+      weblog("stop timerId:", getStatsTimerId);
+      clearInterval(getStatsTimerId);
+    }
+  }
+
+}
+
+
 /////////////////////////////////////////////////////////
 // Peer Connection management...
 function createPeerConnection() {
@@ -272,6 +337,7 @@ function createPeerConnection() {
     pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;
+    pc.oniceconnectionstatechange = onIceConnectionChange;
 
     weblog('Created RTCPeerConnnection with:\n' +
       '  config: \'' + JSON.stringify(pc_config) + '\';\n' +
