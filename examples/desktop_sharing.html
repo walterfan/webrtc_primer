@@ -48,11 +48,23 @@
           <div class="row">
 
               <div class="col-lg-12">
-
-                <p>Click the button to open or close connection</p>
+                <div> getDisplayMedia options: <br/>
+                    <textarea id="gdmOptions" rows="12" cols="60">
+{
+    "video": {
+        "cursor": "always"
+    },
+    "audio": {
+        "echoCancellation": true,
+        "noiseSuppression": true,
+        "sampleRate": 44100
+    }
+}</textarea>
+                </div>
                 <div>
 
-                    <button class="btn btn-default" autocomplete="off" id="startButton">Share Something</button>
+                    <button class="btn btn-default" autocomplete="off" id="startButton">Start Sharing</button>
+                    <button class="btn btn-default" autocomplete="off" id="stopButton">Stop Sharing</button>
 
 
                 </div>
