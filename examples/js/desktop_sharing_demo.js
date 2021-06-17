@@ -19,7 +19,7 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
   navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
       devices.forEach(function(device) {
-        weblog(device.kind);
+        weblog("Device: ", device.kind, device.label);
       });
     })
     .catch(function(err) {
@@ -32,10 +32,17 @@ const stopButton = document.getElementById('stopButton');
 const videoElement = document.getElementById('localVideo');
 
 startButton.addEventListener('click', () => {
-  const textArea = document.getElementById('gdmOptions');
-  var gdmOptions = JSON.parse(textArea.value);
-  navigator.mediaDevices.getDisplayMedia(gdmOptions)
+  const textOfOptions = document.getElementById('gdmOptions');
+  const textOfDelay = document.getElementById('gdmDelay');
+
+  var gdmOptions = JSON.parse(textOfOptions.value);
+  var delayMs = +textOfDelay.value;
+  weblog("getDisplayMedia after ", delayMs);
+  setTimeout(function () {
+    navigator.mediaDevices.getDisplayMedia(gdmOptions)
       .then(handleSuccess, handleError);
+    }, +delayMs);
+  
 });
 
 stopButton.addEventListener('click', () => {
@@ -68,10 +75,10 @@ function handleSuccess(stream) {
     var videoTrack = videoTracks[0];
     var trackWidth = videoTrack.getSettings().width;
     var trackHeight = videoTrack.getSettings().height;
-    weblog(`Video track: ${videoTracks[0].label}, width: ${trackWidth}, height: ${trackHeight}`);
+    weblog(`Got Video track: ${videoTracks[0].label}, width: ${trackWidth}, height: ${trackHeight}`);
   }
   if (audioTracks.length > 0) {
-    weblog(`Audio track: ${audioTracks[0].label}`);
+    weblog(`Got Audio track: ${audioTracks[0].label}`);
   }
 
   // demonstrates how to detect that the user has stopped
