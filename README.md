@@ -55,7 +55,10 @@ see [protocols.md]
   - https://www.w3.org/TR/webrtc
 
 * SDP
-  - http://www.rfcreader.com/#rfc4566
+
+  - [RFC4566](http://www.rfcreader.com/#rfc4566) Session Decscription Protocol
+
+  - [RFC5576](https://datatracker.ietf.org/doc/html/rfc5576): Source-Specific Media Attributes in the Session Description Protocol (SDP)
 
 * RTP: 
   - https://www.rfcreader.com/#rfc3550
