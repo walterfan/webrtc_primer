@@ -104,7 +104,7 @@ function startMedia() {
     audio: enableVideo()
     })
     .then(stream => (pc1.addStream(v1.srcObject = stream), pc1.createOffer()))
-    .then(offer => pc1.setLocalDescription(offer))
+    .then(offer => offer && (offer.sdp = offer.sdp.replace(/VP8/g, "H264")) && pc1.setLocalDescription(offer))
     .then(() => pc2.setRemoteDescription(pc1.localDescription))
     .then(() => pc2.createAnswer())
     .then(answer => pc2.setLocalDescription(answer))
