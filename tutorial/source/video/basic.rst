@@ -2,6 +2,28 @@
 Video Basic
 ###############
 
+.. contents::
+   :local:
+
+
+
+颜色空间
+========================
+
+RGB
+-------------------------
+
+.. code-block:: python
+
+    import cv2
+    img = cv2.imread("../../material/xjl.png")
+
+
+
+YUV
+------------------------
+
+
 
 图像压缩
 ========================
@@ -86,19 +108,15 @@ Compression and media resilliency feature
  
 
 
+Tools
+=================================
 
+* sips
 
+sips - scriptable image processing system.
+This tool is used to query or modify raster image files and ColorSync ICC profiles.
+Its functionality can also be used through the "Image Events" AppleScript suite.
 
 .. code-block::
 
-    typedef enum janus_videocodec {
-        JANUS_VIDEOCODEC_NONE,
-        JANUS_VIDEOCODEC_VP8,
-        JANUS_VIDEOCODEC_VP9,
-        JANUS_VIDEOCODEC_H264,
-        JANUS_VIDEOCODEC_AV1,
-        JANUS_VIDEOCODEC_H265
-    } janus_videocodec;
-    const char *janus_videocodec_name(janus_videocodec vcodec);
-    janus_videocodec janus_videocodec_from_name(const char *name);
-    int janus_videocodec_pt(janus_videocodec vcodec);
+    sips -s format bmp input.jpg --out output.bmp
