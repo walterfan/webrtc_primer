@@ -137,7 +137,7 @@ see [protocols.md]
 
 
 * Source-Specific Media Attributes in the Session Description Protocol (SDP)
-  - [RFC5576](https://datatracker.ietf.org/doc/html/rfc5576): 
+  - [RFC5576](https://datatracker.ietf.org/doc/html/rfc5576): https://datatracker.ietf.org/doc/html/rfc5576
 
 
 * Using Simulcast in Session Description Protocol (SDP) and RTP Sessions
