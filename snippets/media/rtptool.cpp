@@ -8,8 +8,6 @@
 
 using namespace std;
 
-
-
 static const char* USAGE = "-c|--config <config_file> (default is ./srtp_config.lua) \n"
     "\t-i|--input <input file or string> \n"
     "\t[-o|--output <output file>] \n"
