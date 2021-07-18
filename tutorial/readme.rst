@@ -132,9 +132,9 @@ command to convert grid tables into list-tables.
 
 for example,
 
-::
+.. code-block::
 
-    .. list-table::
+   .. list-table::
       :widths: 15 10 25 50
       :header-rows: 1
 
@@ -154,5 +154,4 @@ for example,
 .. _pandoc: https://pandoc.org/
 .. _four types of tables: https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#tables
 .. _rstdoc: https://pypi.org/project/rstdoc/
-{"mode":"full","isActive":false}
 
