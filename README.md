@@ -3,8 +3,9 @@
 Collect WebRTC related learning materials , write some notes and samples here.
 
 ## WebRTC examples
-Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book)
 
+Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book)
+Please install nodejs in advance.
 
 * Media Stream example:
   - cd examples & python -m http.server
@@ -29,6 +30,10 @@ Did a little change based on [WebRTC Samples](https://github.com/webrtc/samples)
 * Video Chat example:
   - node video_chat_server.js       
   - open http://localhost:8181/video_chat_demo.html
+
+* Screen Share example:
+  - node screen_share_server.js       
+  - open http://localhost:8181/screen_share_demo.html
 
 ## WebRTC source codes
 
