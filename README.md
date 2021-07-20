@@ -7,31 +7,31 @@ Collect WebRTC related learning materials , write some notes and samples here.
 Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book)
 Please install nodejs in advance.
 
-* Media Stream example:
+1. Media Stream example:
   - cd examples & python -m http.server
   - open http://localhost:8000/media_stream.html
 
-* Screen Sharing example:
+2. Screen Sharing example:
   - cd examples & python -m http.server
   - open http://localhost:8000/desktop_sharing.html
 
-* Local Peer Connection example:
+3. Local Peer Connection example:
   - cd examples & python -m http.server
   - open http://localhost:8000/local_peer_connection_demo.html
 
-* Local Data Channel example:
+4. Local Data Channel example:
   - cd examples & python -m http.server
   - open http://localhost:8000/loal_data_channel_demo.html 
   
-* Chat demo example:
+5. Chat demo example:
   - node chat_server.js       
   - open http://localhost:8181/chat_demo.html
 
-* Video Chat example:
+6. Video Chat example:
   - node video_chat_server.js       
   - open http://localhost:8181/video_chat_demo.html
 
-* Screen Share example:
+7. Screen Share example:
   - node screen_share_server.js       
   - open http://localhost:8181/screen_share_demo.html
 
@@ -54,7 +54,7 @@ $ gclient sync
 
 # Document & Protocols
 
-see [protocols.md]
+
 
 ## Basic Protocols
 
