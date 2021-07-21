@@ -1,3 +1,5 @@
+
+
 # WebRTC Primer
 
 Collect WebRTC related learning materials , write some notes and samples here.
@@ -211,9 +213,7 @@ $ gclient sync
 * [Audacity](https://www.audacityteam.org)
 * [BlackHole: Virtual Audio Driver](https://github.com/ExistentialAudio/BlackHole)
 * [VB-CABLE Virtual Audio Device](https://vb-audio.com/Cable)
-* network speed test: https://www.speedtest.net/
-* media connection test: https://mediatest.ciscospark.com/
-
+* 
 # Reference
 
 * WebRTC offical site
