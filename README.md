@@ -211,7 +211,9 @@ $ gclient sync
 * [Audacity](https://www.audacityteam.org)
 * [BlackHole: Virtual Audio Driver](https://github.com/ExistentialAudio/BlackHole)
 * [VB-CABLE Virtual Audio Device](https://vb-audio.com/Cable)
-* 
+* https://www.speedtest.net/
+* https://mediatest.ciscospark.com/
+
 # Reference
 
 * WebRTC offical site
