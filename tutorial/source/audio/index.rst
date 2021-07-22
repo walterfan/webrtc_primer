@@ -8,6 +8,7 @@ Audio
 
    basic
    opus
+   qos
 
 
 

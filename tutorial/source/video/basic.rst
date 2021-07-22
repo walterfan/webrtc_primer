@@ -10,6 +10,12 @@ Video Basic
 颜色空间
 ========================
 
+色彩三要素：
+
+1. 色相：也称色调，由光波波长的长短决定的视觉我，是区别不同颜色的标准
+2. 亮度：lightness, brightness, 反映颜色的明暗程度
+3. 纯度: purity, saturation，反映颜色的深浅程度或者鲜艳程度
+
 RGB
 -------------------------
 
@@ -23,7 +29,27 @@ RGB
 YUV
 ------------------------
 
+Y 指亮度信号
+U 和 V 指色度信号（色相加纯度）
 
+.. code-block:: c
+
+    void YUVfromRGB(double& Y, double& U, double& V, const double R, const double G, const double B)
+    {
+      Y =  0.257 * R + 0.504 * G + 0.098 * B +  16;
+      U = -0.148 * R - 0.291 * G + 0.439 * B + 128;
+      V =  0.439 * R - 0.368 * G - 0.071 * B + 128;
+    }
+
+    void RGBfromYUV(double& R, double& G, double& B, double Y, double U, double V)
+    {
+      Y -= 16;
+      U -= 128;
+      V -= 128;
+      R = 1.164 * Y             + 1.596 * V;
+      G = 1.164 * Y - 0.392 * U - 0.813 * V;
+      B = 1.164 * Y + 2.017 * U;
+    }
 
 图像压缩
 ========================
