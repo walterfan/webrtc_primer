@@ -18,9 +18,22 @@ intervalBox.addEventListener('change', getStatsInterval);
 metricsNamesBox.addEventListener('change', getMetricsNames);
 selectList.addEventListener('change', getStatsTypes);
 
-var wait = ms => new Promise(r => setTimeout(r, ms));
-var repeat = (ms, func) => new Promise(r => (setInterval(func, ms), wait(ms).then(r)));
-var log = msg => { console.log(msg); logDiv.innerHTML = logDiv.innerHTML + msg + "<br>";  };
+var wait = function(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+var repeat = function(ms, func) {
+    return new Promise((resolve) => {
+        setInterval(func, ms);
+        wait(ms).then(resolve);
+    });
+};
+
+var log = function(msg) { 
+    console.log(msg); 
+    logDiv.innerHTML = logDiv.innerHTML + msg + "<br>";  
+};
+
 var update = (div, msg) => div.innerHTML = msg;
 
 var statsInterval ;
@@ -100,8 +113,8 @@ var mute = () => v1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
 function startMedia() {
     log("start media");
     navigator.mediaDevices.getUserMedia({
-    video: enableAudio(),
-    audio: enableVideo()
+        video: enableAudio(),
+        audio: enableVideo()
     })
     .then(stream => (pc1.addStream(v1.srcObject = stream), pc1.createOffer()))
     .then(offer => offer && (offer.sdp = offer.sdp.replace(/VP8/g, "H264") && pc1.setLocalDescription(offer))
@@ -120,7 +133,7 @@ function startMedia() {
         update(statsDiv2, "<small>" + statsString2 + "</small>");
 
     })))
-    .catch(e => log(e));
+    .catch(e => log(e)));
 }
 
 function stopTracks(e) {
@@ -157,7 +170,7 @@ function filterStats(stats) {
                     console.log(`[stats] ${statName}=${report[statName]}`)
                 }
             });
-        
+
             if(report.type === 'inbound-rtp' || report.type === 'outbound-rtp') {
                 var trackObj = stats.get(report.trackId);
                 if(trackObj) {
@@ -169,7 +182,7 @@ function filterStats(stats) {
                     });
                 }
             }
-        
+
         }
 
     });
