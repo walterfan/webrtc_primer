@@ -18,7 +18,12 @@
 #include <endian.h>
 #endif
 #include <inttypes.h>
+#include <stdint.h>
 #include <string.h>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 /*! \brief RTCP Packet Types (http://www.networksorcery.com/enp/protocol/rtcp.htm) */
 typedef enum {
@@ -252,8 +257,8 @@ typedef struct rtcp_context
 	uint32_t rr_last_ehsnr;
 	uint32_t rr_last_lost;
 	uint32_t rr_last_nack_count;
-	gint sent_packets_since_last_rr;
-	gint nack_count;
+	uint32_t sent_packets_since_last_rr;
+	uint32_t nack_count;
 
 	/* Link quality estimations */
 	double in_link_quality;
@@ -270,15 +275,17 @@ typedef struct rtcp_context
 typedef struct rtcp_transport_wide_cc_stats
 {
 	/*! \brief Transwport wide sequence number */
-	guint32 transport_seq_num;
+	uint32_t transport_seq_num;
 	/*! \brief Reception time */
-	guint64 timestamp;
+	uint64_t timestamp;
 } rtcp_transport_wide_cc_stats;
 
 
 
-int waltertest(int argc, char** argv) {
+int main(int argc, char** argv) {
     
-	
+	uint32_t ssrc = 3452258945l;
+	cout << "little, big, little endian" << endl;
+	cout << ssrc << ", " << htonl(ssrc)<< ", " << ntohl(htonl(ssrc)) << endl;
     return 0;
 }

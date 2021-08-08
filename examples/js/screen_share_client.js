@@ -274,6 +274,18 @@ function getStatsFromPC(pc) {
     let statsOutput = "";
 
     stats.forEach(report => {
+
+      if(/candidate-pair/.test(report.type) && report.nominated) {
+        var localCandidate = stats.get(report.localCandidateId);
+        var remoteCandidate = stats.get(report.remoteCandidateId);
+
+        statsOutput += ` localIp: ${localCandidate.ip}`;
+        statsOutput += ` localPort: ${localCandidate.port}`;
+        statsOutput += ` remoteIp: ${remoteCandidate.ip}`;
+        statsOutput += ` remotePort: ${remoteCandidate.port}<br>\n`;
+        return;
+      }
+
       if(!/outbound-rtp|inbound-rtp/.test(report.type)) {
         return;
       }
@@ -286,18 +298,6 @@ function getStatsFromPC(pc) {
       Object.keys(report).forEach(statName => {
         if (statName !== "id" && statName !== "timestamp" && statName !== "type") {
           statsOutput += `<strong>${statName}:</strong> ${report[statName]}<br>\n`;
-        }
-        if(/totalSamplesReceived|concealedSamples/.test(statName)) {
-          statsCached["prevStats"] = statsCached["prevStats"] || {};
-          statsCached["curStats"] = statsCached["curStats"] || {};
-
-          var prevStat = statsCached["prevStats"][statName] || 0;
-      
-          var curStat = report[statName] || 0;
-          var dstStat = curStat - prevStat;
-          statsCached["prevStats"][statName] = curStat;
-          weblog(`<strong>${statName}:</strong> ${dstStat} in 5s<br>\n`)
-
         }
       });
     });

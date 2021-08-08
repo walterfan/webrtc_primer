@@ -24,6 +24,7 @@ message("boost lib: ${Boost_LIBRARIES}")
 message("boost inc: ${Boost_INCLUDE_DIR}")
 
 add_executable(udpserver udpserver.cpp rtputil.cpp)
-add_executable(rtptool rtptool.cpp waltertest.cpp)
+add_executable(rtptool rtptool.cpp)
+add_executable(waltertest waltertest.cpp)
 
 target_link_libraries( rtptool PRIVATE Boost::filesystem)

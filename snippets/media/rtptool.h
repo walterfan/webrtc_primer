@@ -49,5 +49,9 @@ uint8_t* protect_rtp_packet(srtp_hdr_t* pHdr, uint32_t& nLen);
 
 uint8_t* unprotect_rtp_packet(srtp_hdr_t* pHdr, uint32_t& nLen);
 
+uint8_t* protect_rtcp_packet(srtcp_hdr_t* pHdr, uint32_t& nLen);
+
+uint8_t* unprotect_rtcp_packet(srtcp_hdr_t* pHdr, uint32_t& nLen);
+
 
 #endif
