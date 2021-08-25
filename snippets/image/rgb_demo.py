@@ -2,7 +2,7 @@ import cv2
 
 SHOW_DELAY_MS= 3000
 
-img = cv2.imread("../../material/xjl.png")
+img = cv2.imread("../../images/xjl.png")
 
 
 print(img)
