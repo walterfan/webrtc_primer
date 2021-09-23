@@ -84,13 +84,18 @@ app.post('/api/v1/events', function(request, response) {
   logger.info(request.body);
 });
 
-//const certificate = fs.readFileSync('server.crt', 'utf8');
-//const privateKey  = fs.readFileSync('server.key', 'utf8');
-//const credentials = {key: privateKey, cert: certificate};
+const httpPort = 2008;
+const httpsPort = 2009;
+
+const certificate = fs.readFileSync('./domain.crt', 'utf8');
+const privateKey  = fs.readFileSync('./domain.key', 'utf8');
+
+const credentials = {key: privateKey, cert: certificate};
+
 
 const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(credentials, app);
-console.log('Running local tool http page on 8001');
+const httpsServer = https.createServer(credentials, app);
+console.log(`Running local tool http page on ${httpPort} ${httpsPort}`);
 //console.log('Running local tool https page on 8043');
-httpServer.listen(8001);
-//httpsServer.listen(8043);
+httpServer.listen(httpPort);
+httpsServer.listen(httpsPort);

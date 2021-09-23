@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
 
       <style>
-          #canvas {
+          #myCanvas {
               margin-left: auto;
               margin-right: auto;
               display: block;
-              background-color: black;
+              background-color: lightyellow;
           }
           #myAudio {
               margin-left: auto;
@@ -81,7 +81,7 @@
                 &nbsp;
             </div>
             <div class="col-lg-8">
-                <canvas id="canvas" width="512" height="256" ></canvas>
+                <canvas id="myCanvas" width="512" height="256" ></canvas>
             </div>
         </div>
       </form>
@@ -91,9 +91,14 @@
   <script src="example2.js"></script>
   <script>
   
+      
       window.onload = function init() {
-        RTC.init();
-        document.getElementById("startButton").addEventListener("click", RTC.start)
+        var rtcApp = new RtcApp();
+        rtcApp.init();
+        //why call rtcApp.startMedia(e) directly cause the this variable error in function startMedia
+        document.getElementById("startButton").addEventListener("click", e => rtcApp.startMedia(e));
+        document.getElementById("stopButton").addEventListener("click", e => rtcApp.stopMedia(e));
+
       }
   
   </script>
