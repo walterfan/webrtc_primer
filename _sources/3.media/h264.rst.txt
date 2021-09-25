@@ -1,0 +1,239 @@
+################
+H.264 编码
+################
+
+
+概述
+===============
+
+
+Compression and media resilliency feature
+
+* Error feedback mechanism
+* Enhanced motion estimation
+* Improved entropy coding
+* Intra-prediction coding for I-frame
+* 4*4 Display Channel Table (DCT)
+* Network Abstraction Layer
+* Gradual Decoder Refresh(GDR) frame
+* Long-Term Reference Picture (LTRP) frame
+
+* 错误反馈机制
+* 增强的运动估计
+* 改进的熵编码
+* I帧的帧内预测编码
+* 4 * 4 显示频道表（DCT）
+* 网络抽象层
+* 渐进式解码器刷新（GDR）帧
+* 长期参考图片（LTRP）帧
+
+
+
+H.264/AVC
+
+1. 分层设计
+
+  - 视频编码层 VCL - Video Coding Layer 负责视频内容表示
+  - 网络提取层 NAL - Network Abstraction Layer 负责网络封包和传送
+
+
+2. 帧内预测
+
+采用帧内空间预测方法，对每个  4*4 块
+
+3. 多帧参考和多模式运动估计
+
+4. 整数变换
+
+
+
+https://en.wikipedia.org/wiki/Advanced_Video_Coding
+
+Advanced Video Coding (AVC), also referred to as H.264 or MPEG-4 Part 10, Advanced Video Coding (MPEG-4 AVC), is a video compression standard based on block-oriented, motion-compensated integer-DCT coding.
+
+
+H264标准各主要部分有
+
+* Access Unit delimiter（访问单元分割符），
+* SEI（附加增强信息），
+* primary coded picture（基本图像编码），
+* Redundant Coded Picture（冗余图像编码）。
+* Instantaneous Decoding Refresh（IDR，即时解码刷新）、
+* Hypothetical Reference Decoder（HRD，假想参考解码）、
+* Hypothetical Stream Scheduler（HSS，假想码流调度器）
+
+
+
+
+
+note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允许, ig = 忽略)
+
+..code-block::
+
+      Type   Packet    Single NAL    Non-Interleaved    Interleaved
+                       Unit Mode           Mode             Mode
+      -------------------------------------------------------------
+
+      0      undefined     ig               ig               ig
+      1-23   NAL unit     yes              yes               no
+      24     STAP-A        no              yes               no
+      25     STAP-B        no               no              yes
+      26     MTAP16        no               no              yes
+      27     MTAP24        no               no              yes
+      28     FU-A          no              yes              yes
+      29     FU-B          no               no              yes
+      30-31  undefined     ig               ig               ig
+
+
+RTP Payload Format for H.264 Video
+========================================
+
+https://tools.ietf.org/html/rfc6184
+
+   This memo describes an RTP Payload format for the ITU-T
+   Recommendation H.264 video codec and the technically identical
+   ISO/IEC International Standard 14496-10 video codec, excluding the
+   Scalable Video Coding (SVC) extension and the Multiview Video Coding
+   extension, for which the RTP payload formats are defined elsewhere.
+   The RTP payload format allows for packetization of one or more
+   Network Abstraction Layer Units (NALUs), produced by an H.264 video
+   encoder, in each RTP payload.  The payload format has wide
+   applicability, as it supports applications from simple low bitrate
+   conversational usage, to Internet video streaming with interleaved
+   transmission, to high bitrate video-on-demand.
+
+
+
+* max-fs: max frame size 最大帧尺寸， 宏块的个数
+
+The value of max-fs is an integer indicating the maximum  frame size in units of macroblocks.
+The max-fs parameter signals that the receiver is capable of decoding larger picture sizes than are required by the signaled highest level conveyed in the value of the profile-level-id parameter or the max-recv-
+level parameter.  When max-fs is signaled, the receiver MUST be
+able to decode NAL unit streams that conform to the signaled
+highest level, with the exception that the MaxFS value in Table
+A-1 of [1] for the signaled highest level is replaced with the
+value of max-fs.  The value of max-fs MUST be greater than or
+equal to the value of MaxFS given in Table A-1 of [1] for the
+highest level.  Senders MAY use this knowledge to send larger
+pictures at a proportionally lower frame rate than is indicated
+in the signaled highest level.
+
+
+
+* microblock: 宏块，H264 将整个图片分为若干个区域，这些区域称为宏块
+
+H264默认是使用 16X16 大小的区域作为一个宏块，也可以划分成 8X8 大小。
+
+
+* max-mbps: 每秒的最大宏块处理速率
+
+The value of max-mbps is an integer indicating the
+maximum macroblock processing rate in units of macroblocks per
+second.  The max-mbps parameter signals that the receiver is
+capable of decoding video at a higher rate than is required by
+the signaled highest level conveyed in the value of the
+profile-level-id parameter or the max-recv-level parameter.
+
+
+
+* level-asymmetry-allowed: 是否允许层次不对称
+
+     This parameter MAY be used in SDP Offer/Answer to indicate
+     whether level asymmetry, i.e., sending media encoded at a
+     different level in the offerer-to-answerer direction than the
+     level in the answerer-to-offerer direction, is allowed.  The
+     value MAY be equal to either 0 or 1.  When the parameter is not
+     present, the value MUST be inferred to be equal to 0.  The
+     value 1 in both the offer and the answer indicates that level
+     asymmetry is allowed.  The value of 0 in either the offer or
+     the answer indicates that level asymmetry is not allowed.
+
+     If level-asymmetry-allowed is equal to 0 (or not present) in
+     either the offer or the answer, level asymmetry is not allowed.
+     In this case, the level to use in the direction from the
+     offerer to the answerer MUST be the same as the level to use in
+     the opposite direction.
+
+* packetization-mode: 表示支持的封包模式.
+
+    * 当 packetization-mode 的值为 0 时或不存在时, 必须使用单一 NALU 单元模式.
+    * 当 packetization-mode 的值为 1 时必须使用非交错(non-interleaved)封包模式.
+    * 当 packetization-mode 的值为 2 时必须使用交错(interleaved)封包模式.
+
+
+     This parameter signals the properties of an RTP payload type or
+     the capabilities of a receiver implementation.  Only a single
+     configuration point can be indicated; thus, when capabilities
+     to support more than one packetization-mode are declared,
+     multiple configuration points (RTP payload types) must be used.
+
+     When the value of packetization-mode is equal to 0 or
+     packetization-mode is not present, the single NAL mode MUST be
+     used.  This mode is in use in standards using ITU-T
+     Recommendation H.241 [3] (see Section 12.1).  When the value of
+     packetization-mode is equal to 1, the non-interleaved mode MUST
+     be used.  When the value of packetization-mode is equal to 2,
+     the interleaved mode MUST be used.  The value of packetization-
+     mode MUST be an integer in the range of 0 to 2, inclusive.
+
+
+
+..code-block::
+
+    Table 6.  Interpretation of parameters for different direction attributes
+
+                                      sendonly --+
+                                   recvonly --+  |
+                                sendrecv --+  |  |
+                                           |  |  |
+        profile-level-id                   C  C  P
+        max-recv-level                     R  R  -
+        packetization-mode                 C  C  P
+        sprop-deint-buf-req                P  -  P
+        sprop-interleaving-depth           P  -  P
+        sprop-max-don-diff                 P  -  P
+        sprop-init-buf-time                P  -  P
+        max-mbps                           R  R  -
+        max-smbps                          R  R  -
+        max-fs                             R  R  -
+        max-cpb                            R  R  -
+        max-dpb                            R  R  -
+        max-br                             R  R  -
+        redundant-pic-cap                  R  R  -
+        deint-buf-cap                      R  R  -
+        max-rcmd-nalu-size                 R  R  -
+        sar-understood                     R  R  -
+        sar-supported                      R  R  -
+        in-band-parameter-sets             R  R  -
+        use-level-src-parameter-sets       R  R  -
+        level-asymmetry-allowed            O  -  -
+        sprop-parameter-sets               S  -  S
+        sprop-level-parameter-sets         S  -  S
+
+     Legend:
+
+     C: configuration for sending and receiving streams
+     O: offer/answer mode
+     P: properties of the stream to be sent
+     R: receiver capabilities
+     S: out-of-band parameter sets
+     -: not usable (when present, SHOULD be ignored)
+
+
+
+RTP Payload Format for H.264 Reduced-Complexity Decoding Operation (RCDO) Video
+==================================================================================
+
+https://tools.ietf.org/html/rfc6185
+
+   it describes an RTP payload format for the Reduced-
+   Complexity Decoding Operation (RCDO) for H.264 Baseline profile
+   bitstreams, as specified in ITU-T Recommendation H.241.  RCDO reduces
+   the decoding cost and resource consumption of the video processing.
+   The RCDO RTP payload format is based on the H.264 RTP payload format.
+
+
+
+Reference
+=========================================
+* `H264 基本原理 <https://zhuanlan.zhihu.com/p/31056455>`_

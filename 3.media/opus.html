@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Opus Codec &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="YUV Format" href="yuv.html" />
+    <link rel="prev" title="Video Basic" href="video_basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Opus Codec</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Opus 音频编码定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">1. Introduction 简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">1. Opus 概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">3. 内部分帧</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opus-decoder">4. Opus Decoder 解码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opus-encoder">5. Opus Encoder 编码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">6. 一致性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">互联网音频编码需求</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">定义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">应用场景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">互联网引入的对编码的限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">详细的基本需求</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">其他的考虑</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">参考资料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+      <li>Opus Codec</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/3.media/opus.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="opus-codec">
+<h1>Opus Codec<a class="headerlink" href="#opus-codec" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="id1">
+<p class="topic-title">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id17">Opus 音频编码定义</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id18">1. Introduction 简介</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id19">1. Opus 概述</a></p>
+<ul>
+<li><p><a class="reference internal" href="#fec" id="id20">2.1.7 FEC</a></p></li>
+<li><p><a class="reference internal" href="#discontinuous-transmission-dtx" id="id21">2.1.9.  Discontinuous Transmission (DTX)</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id22">控制参数</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id23">3. 内部分帧</a></p>
+<ul>
+<li><p><a class="reference internal" href="#toc" id="id24">TOC</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id25">帧打包</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#opus-decoder" id="id26">4. Opus Decoder 解码</a></p></li>
+<li><p><a class="reference internal" href="#opus-encoder" id="id27">5. Opus Encoder 编码</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id28">6. 一致性</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id29">互联网音频编码需求</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id9" id="id30">定义</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id31">应用场景</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id32">互联网引入的对编码的限制</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id33">详细的基本需求</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id34">其他的考虑</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id35">参考资料</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id17">Opus 音频编码定义</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Opus 是一种实时交互音频编码， 设计用来满足在 <a class="reference external" href="https://tools.ietf.org/html/rfc6366">RFC6366</a>  中所提出的对互联网音频编码的需求.
+不稳定的网络环境下的高质量语音通信</p>
+<ul class="simple">
+<li><p>Sampling rates from 8 to 48 kHz</p></li>
+<li><p>Bit-rates from 6 kb/s to 510 kb/s</p></li>
+<li><p>Support for both constant bit-rate (CBR) and variable bit-rate (VBR)</p></li>
+<li><p>Audio bandwidth from narrowband to full-band</p></li>
+<li><p>Support for speech and music</p></li>
+<li><p>Support for mono and stereo</p></li>
+<li><p>Support for multichannel (up to 255 channels)</p></li>
+<li><p>Frame sizes from 2.5 ms to 60 ms</p></li>
+<li><p>Good loss robustness and packet loss concealment (PLC)</p></li>
+<li><p>Floating point and fixed-point implementation</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6716">RFC6716 Definition of the Opus Audio Codec</a></p>
+<div class="section" id="introduction">
+<h3><a class="toc-backref" href="#id18">1. Introduction 简介</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>Opus 编解码器是一种实时交互式音频编解码器，旨在满足 WebRTC 的要求。
+它由基于线性预测 (LP)的层和基于修正离散余弦变换 (MDCT)的层组成。</p>
+<p>使用两层背后的主要思想是：对于语音，线性预测技术（如代码激励线性预测 CELP）的低频率编码比变换（例如，MDCT）域技术更加有效，而对于音乐和更高频率的语音，情况则正相反。</p>
+<p>因此，具有两层可用的编解码器可操作范围比任何单个一层都大，将它们组合在一起比起单独使用任何一个能实现更好的质量。</p>
+<p>本规范的主要规范部分由附录 A 中的源代码提供。只有该软件的解码器部分是规范的，尽管编码器和解码器共享大量代码。第 6 节提供了解码器一致性测试。解码器包含大量需要精确执行的整数和定点算术，包括所有舍入考虑，因此任何有用的规范都需要特定领域的符号语言来充分定义这些操作。此外，必须解决符号表示与包含的参考实现之间的任何冲突。出于兼容性和可测试性的实际原因，在任何分歧中给予参考实现优先级将是有利的。 C 语言也是机器行为的最广泛理解、人类可读的符号表示之一。由于这些原因，本 RFC 使用参考实现作为编解码器的唯一符号表示。</p>
+<p>虽然符号表示是明确和完整的，但它并不总是理解编解码器操作的最简单方法。出于这个原因，本文档还以散文的形式描述了编解码器的重要部分，并借此机会解释了许多更令人惊讶的设计元素背后的基本原理。这些描述旨在准确和提供信息，但普通英语的局限性有时会导致歧义，因此预计读者将始终与符号表示一起阅读。为此提供了许多对实现的引用。这些描述有时在排序或数学简化方面与参考文献不同，只要这种偏差使解释更容易理解。例如，参考实现中的右移和左移操作在文本中经常使用除法和乘法来描述。一般来说，文本侧重于“什么”和“为什么”，而符号表示最清楚地提供了“如何”。</p>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id19">1. Opus 概述</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立体声音乐， 其算法延迟范围从5 ms 到 65.2 ms。在给定的时间，或者 LP 层，或者 MDCT 层，或者两者都有应用。它可无缝地在它的各种操作模式之间切换，这给它很大的灵活性来适应各种内容和网络条件，而无需重新协商当前的会话。</p>
+<p>此编码允许输入和输出多种不同的音频带宽，定义如下：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 27%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Abbreviation</p></th>
+<th class="head"><p>Audio Bandwidth</p></th>
+<th class="head"><p>Sample Rate (Effective)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NB (narrowband)</p></td>
+<td><p>4 kHz</p></td>
+<td><p>8 kHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>MB (medium-band)</p></td>
+<td><p>6 kHz</p></td>
+<td><p>12 kHz</p></td>
+</tr>
+<tr class="row-even"><td><p>WB (wideband)</p></td>
+<td><p>8 kHz</p></td>
+<td><p>16 kHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>SWB (super-wideband)</p></td>
+<td><p>12 kHz</p></td>
+<td><p>24 kHz</p></td>
+</tr>
+<tr class="row-even"><td><p>FB (fullband)</p></td>
+<td><p>20 kHz (*)</p></td>
+<td><p>48 kHz</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="fec">
+<h4><a class="toc-backref" href="#id20">2.1.7 FEC</a><a class="headerlink" href="#fec" title="Permalink to this headline">¶</a></h4>
+<p>In-band Forward Error Correction (FEC)</p>
+<p>Packets that are determined to contain perceptually important speech information, such as onsets or transients,
+are encoded again at a lower bitrate and this re-encoded information is added to a subsequent packet.</p>
+</div>
+<div class="section" id="discontinuous-transmission-dtx">
+<h4><a class="toc-backref" href="#id21">2.1.9.  Discontinuous Transmission (DTX)</a><a class="headerlink" href="#discontinuous-transmission-dtx" title="Permalink to this headline">¶</a></h4>
+<p>Discontinuous Transmission (DTX) reduces the bitrate during silence or background noise.
+When DTX is enabled, only one frame is encoded every 400 milliseconds.</p>
+</div>
+<div class="section" id="id4">
+<h4><a class="toc-backref" href="#id22">控制参数</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id23">3. 内部分帧</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="toc">
+<h4><a class="toc-backref" href="#id24">TOC</a><a class="headerlink" href="#toc" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id25">帧打包</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="opus-decoder">
+<h3><a class="toc-backref" href="#id26">4. Opus Decoder 解码</a><a class="headerlink" href="#opus-decoder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="opus-encoder">
+<h3><a class="toc-backref" href="#id27">5. Opus Encoder 编码</a><a class="headerlink" href="#opus-encoder" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id28">6. 一致性</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8251">RFC8251 Updates to the Opus Audio Codec</a></p></li>
+</ul>
+<p>它由基于线性预测（LP）[LPC]的层和基于改进离散余弦变换（MDCT）[MDCT]的层组成。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id29">互联网音频编码需求</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6366">Requirements for an Internet Audio Codec</a></p>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id30">定义</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Narrowband: 8 kilohertz (kHz)</p></li>
+<li><p>Wideband: 16 kHz</p></li>
+<li><p>Super-wideband: 24/32 kHz</p></li>
+<li><p>Full-band: 44.1/48 kHz</p></li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id31">应用场景</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Point-to-point calls</p></li>
+<li><p>Conferencing</p></li>
+<li><p>Telepresence</p></li>
+<li><p>Teleoperation</p></li>
+<li><p>In-game voice chat</p></li>
+<li><p>Live distributed music performances / Internet music lessons</p></li>
+<li><p>Delay-tolerant networking or push-to-talk services</p></li>
+<li><p>Other applications</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id32">互联网引入的对编码的限制</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id33">详细的基本需求</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>操作空间</p></li>
+<li><p>质量和比特率</p></li>
+<li><p>丢包健壮性</p></li>
+<li><p>计算资源</p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id34">其他的考虑</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>混音的低复杂性</p></li>
+<li><p>编码的潜在改进</p></li>
+<li><p>分层的比特流</p></li>
+<li><p>部分的冗余</p></li>
+<li><p>立体声支持</p></li>
+<li><p>比特错误的健壮性</p></li>
+<li><p>时间的拉长和缩短</p></li>
+<li><p>输入的健壮性</p></li>
+<li><p>对音频识别的支持</p></li>
+<li><p>对传统的兼容</p></li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id35">参考资料</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc6716">IETF specifications Official Opus codec RFC 6716</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc7587">Official Opus RTP specification - RFC 7587</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc7845">Official Opus file format specification- RFC 7845</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8251">Updates to the Opus Audio Codec - RFC 8251</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8486">Ambisonics in an Ogg Opus Container - RFC 8486</a></p></li>
+<li><p><a class="reference external" href="https://opus-codec.org/docs/">Documentation – Opus Codec</a></p></li>
+<li><p><a class="reference external" href="https://mbd.baidu.com/ma/s/Qhnhx3tH">编解码器杂谈：浅析 Opus</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc6366">互联网音频编码需求 - RFC6366</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="yuv.html" class="btn btn-neutral float-right" title="YUV Format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="video_basic.html" class="btn btn-neutral float-left" title="Video Basic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

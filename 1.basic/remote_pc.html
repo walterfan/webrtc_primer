@@ -1,0 +1,1225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>WebRTC 远程连接 &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WebRTC API" href="webrtc_api.html" />
+    <link rel="prev" title="WebRTC 本地连接" href="local_pc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_pc.html">WebRTC 本地连接</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 远程连接</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概论</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">WebRTC 的信令，媒体以及数据通道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jsep">会话创建过程(JSEP) 与两个最重要的状态机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#package-json">第一步创建 package.json</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#video-chat-server-js">第二步： 创建 video_chat_server.js</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#socket-io">第三步：引入 socket.io 库，添加对于客户端连接的管理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2. 写一个支持视频和文本聊天的网页</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peerconnection-sdp-ice">3. 编写视频聊天的客户端代码，主要就是创建 PeerConnection, 交换 SDP, 通过ICE检查连通性后进行通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4. 启动并运行视频聊天程序</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">设备与环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#outline">outline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">1. WebRTC 基础</a> &raquo;</li>
+        
+      <li>WebRTC 远程连接</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/1.basic/remote_pc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="webrtc">
+<h1>WebRTC 远程连接<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id8">概论</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id9">WebRTC 的信令，媒体以及数据通道</a></p></li>
+<li><p><a class="reference internal" href="#jsep" id="id10">会话创建过程(JSEP) 与两个最重要的状态机</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id11">1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器</a></p>
+<ul>
+<li><p><a class="reference internal" href="#package-json" id="id12">第一步创建 package.json</a></p></li>
+<li><p><a class="reference internal" href="#video-chat-server-js" id="id13">第二步： 创建 video_chat_server.js</a></p></li>
+<li><p><a class="reference internal" href="#socket-io" id="id14">第三步：引入 socket.io 库，添加对于客户端连接的管理</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id4" id="id15">2. 写一个支持视频和文本聊天的网页</a></p></li>
+<li><p><a class="reference internal" href="#peerconnection-sdp-ice" id="id16">3. 编写视频聊天的客户端代码，主要就是创建 PeerConnection, 交换 SDP, 通过ICE检查连通性后进行通信</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">4. 启动并运行视频聊天程序</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id18">参考资料</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id8">概论</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WebRTC 是一套基于 Web 的实时通信解决方案，通过浏览器内置的 API
+来支持音视频通道的搭建。</p>
+<p>简而言之，先在信令通道协商出彼此的媒体和通信参数,
+再通过媒体通道来传输音视频媒体数据。这一套媒体会话的搭建流程定义为
+“JavaScript Session Establishment Protocol” <a class="reference external" href="https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26">JavaScript 会话创建协议</a></p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">WebRTC 的信令，媒体以及数据通道</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>首先看一下 WebRTC 的实体之间的拓扑结构</p>
+<p><img alt="image0" src="https://upload-images.jianshu.io/upload_images/1598924-0619baab16563651.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>WebRTC 协议栈如下图所示, 基本上有三个通道需要建立</p>
+<ol class="arabic simple">
+<li><p>Signal 信令通道, 可以通过 TCP/TLS + HTTP 和 WebSocket 来传输信令消息</p></li>
+<li><p>Media 媒体通道, 可以通过 UDP + DTLS/SRTP 来传输媒体</p></li>
+<li><p>Data 数据通道, 可以通过 UDP + DTLS + SCTP 来传输数据</p></li>
+</ol>
+<p><img alt="image1" src="https://upload-images.jianshu.io/upload_images/1598924-bd128315608e55c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>对于媒体传输层，WebRTC 规定了用 ICE/STUN/TURN 来连通，用 DTLS 来协商
+SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。</p>
+<p>而在信令层，WebRTC
+并未指定，各个应用可以用自己喜欢的信令协议来进行媒体协商，一般都是用 SDP
+来通过 HTTP, WebSocket 或 SIP 协议承载具体的媒体会话描述。</p>
+<p>信令和媒体通道是必需的，数据通道和信令通道可以合并。</p>
+</div>
+<div class="section" id="jsep">
+<h2><a class="toc-backref" href="#id10">会话创建过程(JSEP) 与两个最重要的状态机</a><a class="headerlink" href="#jsep" title="Permalink to this headline">¶</a></h2>
+<p>在客户端即浏览器需要维护两个状态机</p>
+<ol class="arabic simple">
+<li><p>信令状态机</p></li>
+</ol>
+<p>通信的双方需要将 SDP 进行交换以了解彼此的媒体通信能力。本地 Local
+先创建并设置 SDP Offer, 状态为 “have-local-offer” ,
+发送给远端(SetRemote),远端服务收到 Offer,
+再根据自己的能力结合对方提供的能力,生成一个 SDP answer ,
+然后发回给对端.于是当对方收到 Answer 并设置给自己的 RTCPeerConnection,
+这个状态就会变成 “stable”</p>
+<div class="figure align-default" id="id7">
+<img alt="signal states" src="https://upload-images.jianshu.io/upload_images/1598924-6ab2de3d2a295b59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<p class="caption"><span class="caption-text">signal states</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>具体的交互如下图所示, Alice 要与 Bob 通信就要先交换 SDP, 进行一轮
+Offer/Answer 的协商</p>
+<p><img alt="image2" src="https://upload-images.jianshu.io/upload_images/1598924-863e7bc0f54e368f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<ol class="arabic simple" start="2">
+<li><p>ICE 连接状态机</p></li>
+</ol>
+<p>信令通道搭建好进行 SDP 媒体能力的协商, 还要进行媒体通道的搭建,
+首要的就是要创建好连接,能不能连接需要检查. 也即要将对收集到的候选者对
+Candidate-pair 进行检查 “checking”,如果能连通, 最终状态转换为
+“connected”</p>
+<p><img alt="image3" src="https://upload-images.jianshu.io/upload_images/1598924-85da11d5360b1a7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080" /></p>
+<p>通过 ICE/STUN/TURN 协议，将位于防火墙，准确地来说是 NAT (网络地址转换器)
+之后的通信双方连接起来</p>
+<p>可以象下面这样在SDP 在携带地址信息(ice-candidate: ip+port)</p>
+<p><img alt="image4" src="https://upload-images.jianshu.io/upload_images/1598924-d291d164483f3686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2480" /></p>
+<p>让我们来举一个具体例子, 客户端初始界面如下:</p>
+<p><img alt="image5" src="https://upload-images.jianshu.io/upload_images/1598924-f479ce1165d65758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id11">1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>nodejs 有强大的 express 和 socket.io
+库,可以帮助我们轻松实现一个视频聊天服务器。 express 是非常流行的 nodejs
+Web 框架，它简单易用， socket.io
+是一个支持浏览器和服务器之间的实时、双向和基于事件的通信的 JavaScript
+库。它包括 nodejs 服务器和Javascript客户端库。</p>
+<div class="section" id="package-json">
+<h3><a class="toc-backref" href="#id12">第一步创建 package.json</a><a class="headerlink" href="#package-json" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;webrtc_primer&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;video_chat_demo&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;video_chat_server.js&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">Error: no test specified! Configure in package.json</span><span class="se">\&quot;</span><span class="s2"> &amp;&amp; exit 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;nodemon video_chat_server.js&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;repository&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/walterfan/webrtc_primer&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;WebRTC&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Simon Pietro Romano&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;BSD&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.18.3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.16.3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;log4js&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.3.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;moment&quot;</span><span class="p">:</span> <span class="s2">&quot;^2.29.1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nc&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.0.3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;node-static&quot;</span><span class="p">:</span> <span class="s2">&quot;~0.7.11&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nodemon&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.17.5&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;socket.io&quot;</span><span class="p">:</span> <span class="s2">&quot;~3.0.4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sqlite3&quot;</span><span class="p">:</span> <span class="s2">&quot;^5.0.2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;webrtc-adapter&quot;</span><span class="p">:</span> <span class="s2">&quot;^7.7.0&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;bugs&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/spromano/WebRTC_Book/issues&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;homepage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/spromano/WebRTC_Book&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="video-chat-server-js">
+<h3><a class="toc-backref" href="#id13">第二步： 创建 video_chat_server.js</a><a class="headerlink" href="#video-chat-server-js" title="Permalink to this headline">¶</a></h3>
+<p>这里我用 express 框架来启动一个web 网页服务器，注意这里需要使用 https
+协议。 从安全性考虑，WebRTC是不允许用 http 协议的</p>
+<p>首先使用openssl 来生成一个私钥和自签名的证书</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openssl</span> <span class="n">req</span> \
+       <span class="o">-</span><span class="n">newkey</span> <span class="n">rsa</span><span class="p">:</span><span class="mi">2048</span> <span class="o">-</span><span class="n">nodes</span> <span class="o">-</span><span class="n">keyout</span> <span class="n">domain</span><span class="o">.</span><span class="n">key</span> \
+       <span class="o">-</span><span class="n">x509</span> <span class="o">-</span><span class="n">days</span> <span class="mi">365</span> <span class="o">-</span><span class="n">out</span> <span class="n">domain</span><span class="o">.</span><span class="n">crt</span>
+</pre></div>
+</div>
+<p>你也可以跳过这一步，使用我生成好的。 添加一个文件 video_chat_server.js</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>const fs = require(&#39;fs&#39;);
+const http = require(&#39;http&#39;);
+const https = require(&#39;https&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+//const sqlite3 = require(&#39;sqlite3&#39;);
+
+const moment = require(&#39;moment&#39;);
+const express = require(&#39;express&#39;);
+const path = require(&#39;path&#39;);
+
+const log4js = require(&quot;log4js&quot;);
+
+log4js.configure({
+  appenders: {
+        &#39;stdout&#39;: { type: &#39;stdout&#39; },
+        &#39;video_chat&#39;: { type: &quot;file&quot;, filename: &quot;video_chat.log&quot; }
+  },
+  categories: { default: {
+      appenders: [&quot;stdout&quot;,&quot;video_chat&quot;],
+      level: &quot;info&quot; }
+  }
+});
+
+const logger = log4js.getLogger(&quot;video_chat&quot;);
+
+const options = {
+    index: &quot;video_chat_demo.html&quot;
+  };
+
+const httpsPort = 8183;
+
+const certificate = fs.readFileSync(&#39;./domain.crt&#39;, &#39;utf8&#39;);
+const privateKey  = fs.readFileSync(&#39;./domain.key&#39;, &#39;utf8&#39;);
+
+const credentials = {key: privateKey, cert: certificate};
+
+const app = express();
+
+app.use(&#39;/&#39;, express.static(path.join(__dirname, &#39;/&#39;), options));
+
+const httpsServer = https.createServer(credentials, app);
+
+console.log(`video chart serve on https://localhost:${httpsPort}`);
+httpsServer.listen(httpsPort);
+</pre></div>
+</div>
+</div>
+<div class="section" id="socket-io">
+<h3><a class="toc-backref" href="#id14">第三步：引入 socket.io 库，添加对于客户端连接的管理</a><a class="headerlink" href="#socket-io" title="Permalink to this headline">¶</a></h3>
+<p>主要就两件事： 一是把有相同房间名称的参会者的连接加入(join)
+到一个房间(room) 二是在参会者之间广播消息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">io</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s1">&#39;socket.io&#39;</span><span class="p">)(</span><span class="n">httpsServer</span><span class="p">);</span>
+
+<span class="n">function</span> <span class="n">getParticipantsOfRoom</span><span class="p">(</span><span class="n">roomId</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">var</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">var</span> <span class="n">ns</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">namespace</span><span class="o">||</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>    <span class="o">//</span> <span class="n">the</span> <span class="n">default</span> <span class="n">namespace</span> <span class="ow">is</span> <span class="s2">&quot;/&quot;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="n">of</span> <span class="n">ns</span><span class="o">.</span><span class="n">adapter</span><span class="o">.</span><span class="n">rooms</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">key</span> <span class="o">===</span> <span class="n">roomId</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">value</span><span class="o">.</span><span class="n">size</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="n">Let</span><span class="s1">&#39;s start managing connections...</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sockets</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">socket</span><span class="p">){</span>
+
+        <span class="o">//</span> <span class="n">Handle</span> <span class="s1">&#39;message&#39;</span> <span class="n">messages</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">log</span><span class="p">(</span><span class="s1">&#39;Server --&gt; got message: &#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;will broadcast message:&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+                <span class="o">//</span> <span class="n">channel</span><span class="o">-</span><span class="n">only</span> <span class="n">broadcast</span><span class="o">...</span>
+                <span class="o">//</span><span class="n">socket</span><span class="o">.</span><span class="n">broadcast</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">channel</span><span class="p">)</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+                <span class="n">socket</span><span class="o">.</span><span class="n">broadcast</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+
+        <span class="p">});</span>
+
+        <span class="o">//</span> <span class="n">Handle</span> <span class="s1">&#39;create or join&#39;</span> <span class="n">messages</span>
+        <span class="n">socket</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;create or join&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">room</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="n">var</span> <span class="n">numClients</span> <span class="o">=</span>  <span class="n">getParticipantsOfRoom</span><span class="p">(</span><span class="n">room</span><span class="p">);</span>
+
+                <span class="n">log</span><span class="p">(</span><span class="s1">&#39;Server --&gt; Room &#39;</span> <span class="o">+</span> <span class="n">room</span> <span class="o">+</span> <span class="s1">&#39; has &#39;</span> <span class="o">+</span> <span class="n">numClients</span> <span class="o">+</span> <span class="s1">&#39; client(s)&#39;</span><span class="p">);</span>
+                <span class="n">log</span><span class="p">(</span><span class="s1">&#39;Server --&gt; Request to create or join room&#39;</span><span class="p">,</span> <span class="n">room</span><span class="p">);</span>
+
+                <span class="o">//</span> <span class="n">First</span> <span class="n">client</span> <span class="n">joining</span><span class="o">...</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">numClients</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                        <span class="n">socket</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">room</span><span class="p">);</span>
+                        <span class="n">socket</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;created&#39;</span><span class="p">,</span> <span class="n">room</span><span class="p">);</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">room</span> <span class="o">+</span> <span class="s2">&quot; created: &quot;</span> <span class="o">+</span> <span class="n">numClients</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">numClients</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="o">//</span> <span class="n">Second</span> <span class="n">client</span> <span class="n">joining</span><span class="o">...</span>
+                        <span class="n">io</span><span class="o">.</span><span class="n">sockets</span><span class="o">.</span><span class="ow">in</span><span class="p">(</span><span class="n">room</span><span class="p">)</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span> <span class="n">room</span><span class="p">);</span>
+                        <span class="n">socket</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">room</span><span class="p">);</span>
+                        <span class="n">socket</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;joined&#39;</span><span class="p">,</span> <span class="n">room</span><span class="p">);</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">room</span> <span class="o">+</span> <span class="s2">&quot; joined: &quot;</span> <span class="o">+</span> <span class="n">numClients</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="o">//</span> <span class="nb">max</span> <span class="n">two</span> <span class="n">clients</span>
+                        <span class="n">socket</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">room</span><span class="p">);</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">room</span> <span class="o">+</span> <span class="s2">&quot; full: &quot;</span> <span class="o">+</span> <span class="n">numClients</span><span class="p">);</span>
+                <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="n">function</span> <span class="n">log</span><span class="p">(){</span>
+            <span class="n">var</span> <span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;* &quot;</span> <span class="o">+</span> <span class="n">moment</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;&gt;&gt;&gt; &quot;</span><span class="p">];</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arguments</span><span class="o">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">array</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">socket</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">);</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id15">2. 写一个支持视频和文本聊天的网页</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>这个网页就是实现一开始我展示的那个界面</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;!-- 省略一些引入的 js 和 css 文件--&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;nav class=&quot;navbar navbar-default navbar-static-top&quot;&gt;
+&lt;/nav&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-lg-12&quot;&gt;
+            &lt;div class=&quot;page-header&quot;&gt;
+                &lt;h1&gt;WebRTC example of Video Chat  &lt;/h1&gt;
+                &lt;p&gt; Please run `node video_chart_server.js` firstly. they are test cases in local&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;container&quot; id=&quot;details&quot;&gt;
+          &lt;div class=&quot;row&quot;&gt;
+
+              &lt;div class=&quot;col-lg-12&quot;&gt;
+
+                  &lt;div&gt;
+                      &lt;label&gt;Room Name: &lt;/label&gt;
+                      &lt;input type=&quot;text&quot; id=&quot;roomName&quot;/&gt;
+                      &lt;button class=&quot;btn btn-default&quot; autocomplete=&quot;off&quot; id=&quot;openButton&quot;&gt;Join&lt;/button&gt;
+                      &lt;button class=&quot;btn btn-default&quot; autocomplete=&quot;off&quot; id=&quot;closeButton&quot;&gt;Leave&lt;/button&gt;
+
+                      &lt;button class=&quot;btn btn-default&quot; autocomplete=&quot;off&quot; id=&quot;startButton&quot;&gt;Start Video&lt;/button&gt;
+                      &lt;button class=&quot;btn btn-default&quot; autocomplete=&quot;off&quot; id=&quot;stopButton&quot;&gt;Stop Video&lt;/button&gt;
+
+                &lt;/div&gt;
+                &lt;br/&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;col-lg-12&quot;&gt;
+                       &lt;div id=&#39;mainDiv&#39;&gt;
+                          &lt;table border=&quot;1&quot; width=&quot;100%&quot;&gt;
+                            &lt;tr&gt;
+                              &lt;th&gt;
+                                Local video
+                              &lt;/th&gt;
+                              &lt;th&gt;
+                                Remote video
+                              &lt;/th&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                              &lt;td&gt;
+                                &lt;video id=&quot;localVideo&quot; autoplay&gt;&lt;/video&gt;
+                              &lt;/td&gt;
+                              &lt;td&gt;
+                                &lt;video id=&quot;remoteVideo&quot; autoplay&gt;&lt;/video&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                              &lt;td align=&quot;center&quot;&gt;
+                                &lt;textarea rows=&quot;4&quot; cols=&quot;60&quot;id=&quot;dataChannelSend&quot; disabledplaceholder=&quot;This will be enabled once the data channel is up...&quot;&gt;&lt;/textarea&gt;
+                              &lt;/td&gt;
+                              &lt;td align=&quot;center&quot;&gt;
+                                &lt;textarea rows=&quot;4&quot; cols=&quot;60&quot;id=&quot;dataChannelReceive&quot; disabled&gt;&lt;/textarea&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                              &lt;td align=&quot;center&quot;&gt;
+                                &lt;button id=&quot;sendButton&quot; disabled&gt;Send&lt;/button&gt;
+                              &lt;/td&gt;
+                              &lt;td&gt;
+                              &lt;/td&gt;
+                            &lt;/tr&gt;
+                          &lt;/table&gt;
+                        &lt;/div&gt;
+              &lt;/div&gt;
+
+          &lt;/div&gt;
+
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/old_adapter.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/video_chat_client.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>注意我在最后包含的 js 文件 video_chat_client.js ，
+这个是我们最主要的代码文件，包含了大部分的逻辑</p>
+</div>
+<div class="section" id="peerconnection-sdp-ice">
+<h2><a class="toc-backref" href="#id16">3. 编写视频聊天的客户端代码，主要就是创建 PeerConnection, 交换 SDP, 通过ICE检查连通性后进行通信</a><a class="headerlink" href="#peerconnection-sdp-ice" title="Permalink to this headline">¶</a></h2>
+<p>关键是</p>
+<ol class="arabic simple">
+<li><p>获取本地媒体</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="n">function</span> <span class="n">startMedia</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">Call</span> <span class="n">getUserMedia</span><span class="p">()</span>
+    <span class="n">weblog</span><span class="p">(</span><span class="s1">&#39;Getting user media with constraints: &#39;</span><span class="o">+</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">constraints</span><span class="p">));</span>
+    <span class="n">const</span> <span class="n">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="n">navigator</span><span class="o">.</span><span class="n">mediaDevices</span><span class="o">.</span><span class="n">getUserMedia</span><span class="p">(</span><span class="n">constraints</span><span class="p">);</span>
+    <span class="n">handleUserMedia</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">handleUserMediaError</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>创建 PeerConnction , 加入本地媒体流</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>function checkAndStart() {
+  weblog(&#39;checkAndStart: isStarted=&#39;+ isStarted + &quot;, isChannelReady=&quot; +  isChannelReady);
+  if (!isStarted &amp;&amp; typeof localStream != &#39;undefined&#39; &amp;&amp; isChannelReady) {
+    createPeerConnection();
+    pc.addStream(localStream);
+    isStarted = true;
+    if (isInitiator) {
+      doCall();
+    }
+  }
+}
+</pre></div>
+</div>
+<p>创建 peerConnection 时, 注意在onaddstream 时将媒体流附着在 video 元素上.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">createPeerConnection</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="n">pc</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RTCPeerConnection</span><span class="p">(</span><span class="n">pc_config</span><span class="p">,</span> <span class="n">pc_constraints</span><span class="p">);</span>
+    <span class="n">pc</span><span class="o">.</span><span class="n">onicecandidate</span> <span class="o">=</span> <span class="n">handleIceCandidate</span><span class="p">;</span>
+    <span class="n">weblog</span><span class="p">(</span><span class="s1">&#39;Created RTCPeerConnnection with:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;  config: </span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">pc_config</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+      <span class="s1">&#39;  constraints: </span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">pc_constraints</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">.&#39;</span><span class="p">);</span>
+  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">weblog</span><span class="p">(</span><span class="s1">&#39;Failed to create PeerConnection, exception: &#39;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">);</span>
+    <span class="n">alert</span><span class="p">(</span><span class="s1">&#39;Cannot create RTCPeerConnection object.&#39;</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">pc</span><span class="o">.</span><span class="n">onaddstream</span> <span class="o">=</span> <span class="n">handleRemoteStreamAdded</span><span class="p">;</span>
+  <span class="n">pc</span><span class="o">.</span><span class="n">onremovestream</span> <span class="o">=</span> <span class="n">handleRemoteStreamRemoved</span><span class="p">;</span>
+
+ <span class="o">//...</span>
+</pre></div>
+</div>
+<p>完整代码如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&#39;use strict&#39;;
+
+const startButton = document.getElementById(&#39;startButton&#39;);
+const stopButton = document.getElementById(&#39;stopButton&#39;);
+const openButton = document.getElementById(&#39;openButton&#39;);
+const closeButton = document.getElementById(&#39;closeButton&#39;);
+
+stopButton.disabled = true;
+closeButton.disabled = true;
+
+
+startButton.addEventListener(&#39;click&#39;, startMedia);
+stopButton.addEventListener(&#39;click&#39;, closeConnection);
+openButton.addEventListener(&#39;click&#39;, join);
+closeButton.addEventListener(&#39;click&#39;, hangup);
+
+// Should use navigator.mediaDevices.getUserMedia of webrtc adapter
+
+// Clean-up function:
+// collect garbage before unloading browser&#39;s window
+window.onbeforeunload = function(e){
+    hangup();
+}
+
+// Data channel information
+var sendChannel, receiveChannel;
+var sendButton = document.getElementById(&quot;sendButton&quot;);
+var sendTextarea = document.getElementById(&quot;dataChannelSend&quot;);
+var receiveTextarea = document.getElementById(&quot;dataChannelReceive&quot;);
+
+// HTML5 &lt;video&gt; elements
+var localVideo = document.querySelector(&#39;#localVideo&#39;);
+var remoteVideo = document.querySelector(&#39;#remoteVideo&#39;);
+
+// Handler associated with &#39;Send&#39; button
+sendButton.onclick = sendData;
+
+// Flags...
+var isChannelReady = false;
+var isInitiator = false;
+var isStarted  = false;
+
+// WebRTC data structures
+// Streams
+var localStream;
+var remoteStream;
+
+// Peer Connection
+var pc;
+
+// Peer Connection ICE protocol configuration (either Firefox or Chrome)
+var pc_config = webrtcDetectedBrowser === &#39;firefox&#39; ?
+  {&#39;iceServers&#39;:[{&#39;urls&#39;:&#39;stun:23.21.150.121&#39;}]} : // IP address
+  {&#39;iceServers&#39;: [{&#39;urls&#39;: &#39;stun:stun.l.google.com:19302&#39;}]};
+
+// Peer Connection contraints: (i) use DTLS; (ii) use data channel
+var pc_constraints = {
+  &#39;optional&#39;: [
+    {&#39;DtlsSrtpKeyAgreement&#39;: true},
+    {&#39;RtpDataChannels&#39;: true}
+  ]};
+
+// Session Description Protocol constraints:
+// - use both audio and video regardless of what devices are available
+//var sdpConstraints = {&#39;mandatory&#39;: {
+//  &#39;OfferToReceiveAudio&#39;:true,
+//  &#39;OfferToReceiveVideo&#39;:true }};
+
+var sdpConstraints = webrtcDetectedBrowser === &#39;firefox&#39; ?
+        {&#39;offerToReceiveAudio&#39;:true,&#39;offerToReceiveVideo&#39;:true } :
+        {&#39;mandatory&#39;: {&#39;OfferToReceiveAudio&#39;:true, &#39;OfferToReceiveVideo&#39;:true }};
+
+
+/////////////////////////////////////////////
+
+// Set getUserMedia constraints
+const constraints = {
+  audio: false,
+  video: true
+};
+
+
+var socket = io.connect();
+
+// From this point on, execution proceeds based on asynchronous events...
+async function join() {
+  // Connect to signalling server
+  var room = document.getElementById(&quot;roomName&quot;).value;
+
+  // Send &#39;Create or join&#39; message to singnalling server
+  if (room !== &#39;&#39;) {
+    weblog(&#39;Create or join room &#39; + room);
+    socket.emit(&#39;create or join&#39;, room);
+  }
+}
+/////////////////////////////////////////////
+async function startMedia() {
+  try {
+    // Call getUserMedia()
+    weblog(&#39;Getting user media with constraints: &#39;+ JSON.stringify(constraints));
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleUserMedia(stream);
+  } catch (ex) {
+    handleUserMediaError(ex);
+  }
+}
+// getUserMedia() handlers...
+/////////////////////////////////////////////
+function handleUserMedia(stream) {
+    localStream = stream;
+    attachMediaStream(localVideo, stream);
+    weblog(&#39;Adding local stream.&#39;);
+    startButton.disabled = true;
+    stopButton.disabled = false;
+    sendMessage(&#39;got user media&#39;);
+    if (isInitiator) {
+        checkAndStart();
+    }
+}
+
+function handleUserMediaError(error){
+    weblog(&#39;Erroe getUserMedia error: &#39; +  error);
+}
+
+// Server-mediated message exchanging...
+// 1. Server--&gt;Client...
+
+// Handle &#39;created&#39; message coming back from server:
+// this peer is the initiator
+socket.on(&#39;created&#39;, function (room){
+  weblog(&#39;Created room &#39; + room);
+  isInitiator = true;
+
+  startMedia();
+
+  checkAndStart();
+});
+
+// Handle &#39;full&#39; message coming back from server:
+// this peer arrived too late :-(
+socket.on(&#39;full&#39;, function (room){
+  weblog(&#39;Room &#39; + room + &#39; is full&#39;);
+});
+
+// Handle &#39;join&#39; message coming back from server:
+// another peer is joining the channel
+socket.on(&#39;join&#39;, function (room){
+  weblog(&#39;onJoin - another peer made a request to join room &#39; + room);
+  weblog(&#39;This peer is the initiator of room &#39; + room + &#39;!&#39;);
+  isChannelReady = true;
+});
+
+// Handle &#39;joined&#39; message coming back from server:
+// this is the second peer joining the channel
+socket.on(&#39;joined&#39;, function (room){
+  weblog(&#39;onJoined - this peer has joined room &#39; + room);
+  isChannelReady = true;
+
+  startMedia();
+});
+
+// Server-sent log message...
+socket.on(&#39;log&#39;, function (array){
+  console.log.apply(console, array);
+});
+
+// Receive message from the other peer via the signalling server
+socket.on(&#39;message&#39;, function (message){
+  weblog(&#39;onMessage: Received message:&#39; +  JSON.stringify(message));
+  if (message === &#39;got user media&#39;) {
+        checkAndStart();
+  } else if (message.type === &#39;offer&#39;) {
+    if (!isInitiator &amp;&amp; !isStarted) {
+      checkAndStart();
+    }
+    pc.setRemoteDescription(new RTCSessionDescription(message));
+    doAnswer();
+  } else if (message.type === &#39;answer&#39; &amp;&amp; isStarted) {
+    pc.setRemoteDescription(new RTCSessionDescription(message));
+  } else if (message.type === &#39;candidate&#39; &amp;&amp; isStarted) {
+    var candidate = new RTCIceCandidate({sdpMLineIndex:message.label,
+      candidate:message.candidate});
+    pc.addIceCandidate(candidate);
+  } else if (message === &#39;bye&#39; &amp;&amp; isStarted) {
+    handleRemoteHangup();
+  }
+});
+////////////////////////////////////////////////
+
+// 2. Client--&gt;Server
+////////////////////////////////////////////////
+// Send message to the other peer via the signalling server
+function sendMessage(message){
+  weblog(&#39;Sending message: &#39; + message);
+  socket.emit(&#39;message&#39;, message);
+}
+////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////
+// Channel negotiation trigger function
+function checkAndStart() {
+  weblog(&#39;checkAndStart: isStarted=&#39;+ isStarted + &quot;, isChannelReady=&quot; +  isChannelReady);
+  if (!isStarted &amp;&amp; typeof localStream != &#39;undefined&#39; &amp;&amp; isChannelReady) {
+    createPeerConnection();
+    pc.addStream(localStream);
+    isStarted = true;
+    if (isInitiator) {
+      doCall();
+    }
+  }
+}
+
+/////////////////////////////////////////////////////////
+// Peer Connection management...
+function createPeerConnection() {
+  try {
+    pc = new RTCPeerConnection(pc_config, pc_constraints);
+    pc.onicecandidate = handleIceCandidate;
+    weblog(&#39;Created RTCPeerConnnection with:\n&#39; +
+      &#39;  config: \&#39;&#39; + JSON.stringify(pc_config) + &#39;\&#39;;\n&#39; +
+      &#39;  constraints: \&#39;&#39; + JSON.stringify(pc_constraints) + &#39;\&#39;.&#39;);
+  } catch (e) {
+    weblog(&#39;Failed to create PeerConnection, exception: &#39; + e.message);
+    alert(&#39;Cannot create RTCPeerConnection object.&#39;);
+      return;
+  }
+  pc.onaddstream = handleRemoteStreamAdded;
+  pc.onremovestream = handleRemoteStreamRemoved;
+
+  if (isInitiator) {
+    try {
+      // Create a reliable data channel
+      sendChannel = pc.createDataChannel(&quot;sendDataChannel&quot;,
+        {reliable: true});
+      trace(&#39;Created send data channel&#39;);
+    } catch (e) {
+      alert(&#39;Failed to create data channel. &#39;);
+      trace(&#39;createDataChannel() failed with exception: &#39; + e.message);
+    }
+    sendChannel.onopen = handleSendChannelStateChange;
+    sendChannel.onmessage = handleMessage;
+    sendChannel.onclose = handleSendChannelStateChange;
+  } else { // Joiner
+    pc.ondatachannel = gotReceiveChannel;
+  }
+}
+
+// Data channel management
+function sendData() {
+  var data = sendTextarea.value;
+  if(isInitiator) sendChannel.send(data);
+  else receiveChannel.send(data);
+  trace(&#39;Sent data: &#39; + data);
+}
+
+// Handlers...
+
+function gotReceiveChannel(event) {
+  trace(&#39;Receive Channel Callback&#39;);
+  receiveChannel = event.channel;
+  receiveChannel.onmessage = handleMessage;
+  receiveChannel.onopen = handleReceiveChannelStateChange;
+  receiveChannel.onclose = handleReceiveChannelStateChange;
+}
+
+function handleMessage(event) {
+  weblog(&#39;Received message: &#39; + event.data);
+  receiveTextarea.value += event.data + &#39;\n&#39;;
+}
+
+function handleSendChannelStateChange() {
+  var readyState = sendChannel.readyState;
+  weblog(&#39;handleSendChannelStateChange, send channel state is: &#39; + readyState);
+  // If channel ready, enable user&#39;s input
+  if (readyState == &quot;open&quot;) {
+    dataChannelSend.disabled = false;
+    dataChannelSend.focus();
+    dataChannelSend.placeholder = &quot;&quot;;
+    sendButton.disabled = false;
+  } else {
+    dataChannelSend.disabled = true;
+    sendButton.disabled = true;
+  }
+}
+
+function handleReceiveChannelStateChange() {
+  var readyState = receiveChannel.readyState;
+  weblog(&#39;handleReceiveChannelStateChange: seceive channel state is: &#39; + readyState);
+  // If channel ready, enable user&#39;s input
+  if (readyState == &quot;open&quot;) {
+        dataChannelSend.disabled = false;
+        dataChannelSend.focus();
+        dataChannelSend.placeholder = &quot;&quot;;
+        sendButton.disabled = false;
+      } else {
+        dataChannelSend.disabled = true;
+        sendButton.disabled = true;
+      }
+}
+
+// ICE candidates management
+function handleIceCandidate(event) {
+  weblog(&#39;handleIceCandidate event: &#39; + JSON.stringify( event));
+  if (event.candidate) {
+    sendMessage({
+      type: &#39;candidate&#39;,
+      label: event.candidate.sdpMLineIndex,
+      id: event.candidate.sdpMid,
+      candidate: event.candidate.candidate});
+  } else {
+    weblog(&#39;End of candidates.&#39;);
+  }
+}
+
+// Create Offer
+function doCall() {
+  weblog(&#39;Creating Offer...&#39;);
+  pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
+}
+
+// Signalling error handler
+function onSignalingError(error) {
+    console.log(&#39;Failed to create signaling message : &#39; + error.name);
+}
+
+// Create Answer
+function doAnswer() {
+  console.log(&#39;Sending answer to peer.&#39;);
+  pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
+}
+
+// Success handler for both createOffer()
+// and createAnswer()
+function setLocalAndSendMessage(sessionDescription) {
+  pc.setLocalDescription(sessionDescription);
+  sendMessage(sessionDescription);
+}
+
+/////////////////////////////////////////////////////////
+// Remote stream handlers...
+
+function handleRemoteStreamAdded(event) {
+  weblog(&#39;Remote stream added.&#39;);
+  attachMediaStream(remoteVideo, event.stream);
+  remoteStream = event.stream;
+}
+
+function handleRemoteStreamRemoved(event) {
+  weblog(&#39;Remote stream removed.&#39;);
+  console.log(&#39;Remote stream removed. Event: &#39;, event);
+}
+/////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+// Clean-up functions...
+
+function hangup() {
+  console.log(&#39;Hanging up.&#39;);
+  closeConnection();
+  sendMessage(&#39;bye&#39;);
+}
+
+function handleRemoteHangup() {
+  console.log(&#39;Session terminated.&#39;);
+  closeConnection();
+  isInitiator = false;
+}
+
+function closeConnection() {
+  isStarted = false;
+  if (sendChannel) sendChannel.close();
+  if (receiveChannel) receiveChannel.close();
+  if (pc) pc.close();
+  pc = null;
+  sendButton.disabled=true;
+}
+</pre></div>
+</div>
+<p>代码就这么多，下面我们来讲讲怎么运行</p>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id17">4. 启动并运行视频聊天程序</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>你需要准备至少两台电脑，在一台电脑上用 nodejs 启动 Web 服务器</p>
+<p>完整源码参见
+<a class="reference external" href="https://gitee.com/walterfan/webrtc_primer/blob/main/examples/video_chat_server.js">https://gitee.com/walterfan/webrtc_primer/blob/main/examples/video_chat_server.js</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">installl</span>
+<span class="c1"># 这个命令等同于 node video_chart_server.js</span>
+<span class="n">npm</span> <span class="n">start</span>
+</pre></div>
+</div>
+<p>注意WebRTC 强制使用 HTTPS, 我用了自签名的证书，你需要忽略安全警告，
+Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
+来关闭警告。</p>
+<p>启动后，假设你的 web 服务器IP 是 192.168.1.28，</p>
+<ul class="simple">
+<li><p>在一台电脑上打开浏览器，输入地址 <a class="reference external" href="https://192.168.1.2:8183">https://192.168.1.2:8183</a>，
+再输入房间名称 “demo”，点击 “Join” 按钮。</p></li>
+<li><p>在另一台电脑上重复以上操作</p></li>
+</ul>
+<p>最终效果如下, 可以在两台电脑上进行视频和文字聊天</p>
+<p><img alt="image6" src="https://upload-images.jianshu.io/upload_images/1598924-ad108bc61858022f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>借助 WebRTC 强大的 API ,
+需要写的代码也没多少，我在客户端和服务端都记录了详细的日志供您参考</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;v=0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;o=- 48647574611491255 2 IN IP4 127.0.0.1</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;s=-</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;t=0 0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=group:BUNDLE 0 1 2</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap-allow-mixed</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=msid-semantic: WMS PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;m=video 9 UDP/TLS/RTP/SAVPF 96 97 98 99 100 101 102 121 127 120 125 107 108 109 124 119 123 118 114 115 116</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;c=IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp:9 IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-ufrag:ncx0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-pwd:qAcYvwRSmcC/NJGNywJdkTnq</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-options:trickle</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fingerprint:sha-256 80:F3:C2:64:3B:DD:51:8B:93:99:BA:59:4C:E8:41:12:6F:D2:F1:9F:BF:01:E0:3B:91:64:7A:22:E9:5B:91:DE</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=setup:actpass</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=mid:0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:1 urn:ietf:params:rtp-hdrext:toffset</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:3 urn:3gpp:video-orientation</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:5 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:7 http://www.webrtc.org/experiments/rtp-hdrext/video-timing</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:8 http://www.webrtc.org/experiments/rtp-hdrext/color-space</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:9 urn:ietf:params:rtp-hdrext:sdes:mid</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:10 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:11 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=sendrecv</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=msid:PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci db7f6665-7fc9-447f-8145-efe40c2f05bf</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-mux</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-rsize</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:96 VP8/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:96 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:96 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:96 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:96 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:96 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:97 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:97 apt=96</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:98 VP9/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:98 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:98 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:98 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:98 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:98 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:98 profile-id=0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:99 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:99 apt=98</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:100 VP9/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:100 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:100 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:100 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:100 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:100 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:100 profile-id=2</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:101 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:101 apt=100</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:102 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:102 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:102 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:102 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:102 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:102 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:102 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42001f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:121 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:121 apt=102</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:127 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:127 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:127 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:127 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:127 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:127 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:127 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42001f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:120 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:120 apt=127</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:125 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:125 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:125 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:125 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:125 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:125 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:125 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:107 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:107 apt=125</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:108 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:108 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:108 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:108 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:108 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:108 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:108 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42e01f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:109 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:109 apt=108</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:124 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:124 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:124 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:124 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:124 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:124 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:124 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=4d001f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:119 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:119 apt=124</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:123 H264/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:123 goog-remb</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:123 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:123 ccm fir</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:123 nack</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:123 nack pli</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:123 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=64001f</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:118 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:118 apt=123</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:114 red/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:115 rtx/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:115 apt=114</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:116 ulpfec/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc-group:FID 3966385600 929215979</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:3966385600 cname:r3Kcs4fHfIryC0Ih</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:3966385600 msid:PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci db7f6665-7fc9-447f-8145-efe40c2f05bf</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:3966385600 mslabel:PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:3966385600 label:db7f6665-7fc9-447f-8145-efe40c2f05bf</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:929215979 cname:r3Kcs4fHfIryC0Ih</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:929215979 msid:PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci db7f6665-7fc9-447f-8145-efe40c2f05bf</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:929215979 mslabel:PYuDsADsBiLRWVNMnMrLfidM9TtIO8fKTJci</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:929215979 label:db7f6665-7fc9-447f-8145-efe40c2f05bf</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;m=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 110 112 113 126</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;c=IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp:9 IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-ufrag:ncx0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-pwd:qAcYvwRSmcC/NJGNywJdkTnq</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-options:trickle</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fingerprint:sha-256 80:F3:C2:64:3B:DD:51:8B:93:99:BA:59:4C:E8:41:12:6F:D2:F1:9F:BF:01:E0:3B:91:64:7A:22:E9:5B:91:DE</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=setup:actpass</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=mid:1</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:14 urn:ietf:params:rtp-hdrext:ssrc-audio-level</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:4 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:9 urn:ietf:params:rtp-hdrext:sdes:mid</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:10 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=extmap:11 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=recvonly</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-mux</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:111 opus/48000/2</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-fb:111 transport-cc</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fmtp:111 minptime=10;useinbandfec=1</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:103 ISAC/16000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:104 ISAC/32000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:9 G722/8000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:0 PCMU/8000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:8 PCMA/8000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:106 CN/32000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:105 CN/16000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:13 CN/8000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:110 telephone-event/48000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:112 telephone-event/32000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:113 telephone-event/16000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:126 telephone-event/8000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;m=application 9 UDP/TLS/RTP/SAVPF 117</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;c=IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;b=AS:30</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp:9 IN IP4 0.0.0.0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-ufrag:ncx0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-pwd:qAcYvwRSmcC/NJGNywJdkTnq</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ice-options:trickle</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=fingerprint:sha-256 80:F3:C2:64:3B:DD:51:8B:93:99:BA:59:4C:E8:41:12:6F:D2:F1:9F:BF:01:E0:3B:91:64:7A:22:E9:5B:91:DE</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=setup:actpass</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=mid:2</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=sendrecv</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=msid:sendDataChannel sendDataChannel</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtcp-mux</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=rtpmap:117 google-data/90000</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:2133431185 cname:r3Kcs4fHfIryC0Ih</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:2133431185 msid:sendDataChannel sendDataChannel</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:2133431185 mslabel:sendDataChannel</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+<span class="s1">&#39;a=ssrc:2133431185 label:sendDataChannel</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id18">参考资料</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>&lt;&gt;</p></li>
+<li><p><a class="reference external" href="https://webrtc.github.io/samples/">https://webrtc.github.io/samples/</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="webrtc_api.html" class="btn btn-neutral float-right" title="WebRTC API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="local_pc.html" class="btn btn-neutral float-left" title="WebRTC 本地连接" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

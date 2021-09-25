@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>WebAssebly &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Janus Gateway" href="janus.html" />
+    <link rel="prev" title="WebRTC 实践篇" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 实践篇</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebAssebly</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
+        
+      <li>WebAssebly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/4.practice/wasm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="webassebly">
+<h1>WebAssebly<a class="headerlink" href="#webassebly" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WebAssembly 的基本想法就是让浏览器加载由其他语言编译而成的二进制模块,并高效地解释和执行, 从而提高性能。</p>
+<p>Javascript 之所以慢，一个重要原因就是它是解释执行的，</p>
+<p>WebAssembly 简称 wasm 是一种新型的二进制代码格式， 浏览器可以用类似模块加载的方式来加载，解析和执行 wasm 文件。</p>
+<p>wasm 描述一个内存安全的沙箱执行环境，可在 JavaScript 虚拟机中实现， 并遵循与 Web 应用一致的同源策略来保证其安全性。</p>
+<p>相对 wasm 的二进制文件格式，它还有对应的 wat 可读文本格式。</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../_images/v8_pipeline_wasm.png"><img alt="V8 Pipeline Design + WASM" src="../_images/v8_pipeline_wasm.png" style="width: 964.0px; height: 436.0px;" /></a>
+</div>
+<p>所有变量存储的数据类型都是在程序运行之前就已经确定，并在后续运行过程中无法更改。</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://webassembly.org/getting-started/developers-guide/">WebAssembly Getting Started</a></p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/WebAssembly/existing_C_to_wasm">Compiling an Existing C Module to WebAssembly</a></p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm">Compiling a New C/C++ Module to WebAssembly</a></p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79">A comparison with WebAssembly</a>.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="janus.html" class="btn btn-neutral float-right" title="Janus Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="WebRTC 实践篇" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

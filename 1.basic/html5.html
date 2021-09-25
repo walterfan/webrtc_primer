@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>HTML5 for WebRTC &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. WebRTC 传输" href="../2.transport/index.html" />
+    <link rel="prev" title="视频聊天实例" href="video_chat.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_pc.html">WebRTC 本地连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="remote_pc.html">WebRTC 远程连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">设备与环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HTML5 for WebRTC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#audio-element">Audio Element</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#audio-context">Audio Context</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#video-element">Video Element</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#methods">methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#property">property</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file-format-and-codec">File format and codec</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#canvas">Canvas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#canvas-context">Canvas Context</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#canvas-data">Canvas data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#canvas-and-image">Canvas and image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#outline">outline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">1. WebRTC 基础</a> &raquo;</li>
+        
+      <li>HTML5 for WebRTC</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/1.basic/html5.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="html5-for-webrtc">
+<h1>HTML5 for WebRTC<a class="headerlink" href="#html5-for-webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#audio-element" id="id1">Audio Element</a></p>
+<ul>
+<li><p><a class="reference internal" href="#audio-context" id="id2">Audio Context</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#video-element" id="id3">Video Element</a></p>
+<ul>
+<li><p><a class="reference internal" href="#methods" id="id4">methods</a></p></li>
+<li><p><a class="reference internal" href="#property" id="id5">property</a></p></li>
+<li><p><a class="reference internal" href="#file-format-and-codec" id="id6">File format and codec</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#canvas" id="id7">Canvas</a></p>
+<ul>
+<li><p><a class="reference internal" href="#canvas-context" id="id8">Canvas Context</a></p></li>
+<li><p><a class="reference internal" href="#canvas-data" id="id9">Canvas data</a></p></li>
+<li><p><a class="reference internal" href="#canvas-and-image" id="id10">Canvas and image</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="audio-element">
+<h2><a class="toc-backref" href="#id1">Audio Element</a><a class="headerlink" href="#audio-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">audio</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;xxx.mp3&quot;</span> <span class="na">controls</span> <span class="na">autoplay</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="audio-context">
+<h3><a class="toc-backref" href="#id2">Audio Context</a><a class="headerlink" href="#audio-context" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="video-element">
+<h2><a class="toc-backref" href="#id3">Video Element</a><a class="headerlink" href="#video-element" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">video</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;xxx.mp4&quot;</span> <span class="na">controls</span> <span class="na">autoplay</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;300&quot;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="methods">
+<h3><a class="toc-backref" href="#id4">methods</a><a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>play</p></li>
+<li><p>pause</p></li>
+</ul>
+</div>
+<div class="section" id="property">
+<h3><a class="toc-backref" href="#id5">property</a><a class="headerlink" href="#property" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>playbackRate</p></li>
+<li><p>currentTime</p></li>
+<li><p>duration</p></li>
+<li><p>srcObject</p></li>
+</ul>
+</div>
+<div class="section" id="file-format-and-codec">
+<h3><a class="toc-backref" href="#id6">File format and codec</a><a class="headerlink" href="#file-format-and-codec" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 10%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>format</p></th>
+<th class="head"><p>description</p></th>
+<th class="head"><p>extension</p></th>
+<th class="head"><p>mime type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>mp3</p></td>
+<td><p>compressed music file</p></td>
+<td><p>mp3</p></td>
+<td><p>audio/mp3</p></td>
+</tr>
+<tr class="row-odd"><td><p>wav</p></td>
+<td><p>raw audio file</p></td>
+<td><p>wav</p></td>
+<td><p>audio/wav</p></td>
+</tr>
+<tr class="row-even"><td><p>ogg vobis</p></td>
+<td><p>compressed audio file</p></td>
+<td><p>ogg</p></td>
+<td><p>audio/ogg</p></td>
+</tr>
+<tr class="row-odd"><td><p>ogg theora</p></td>
+<td><p>compressed audio file</p></td>
+<td><p>ogv</p></td>
+<td><p>video/ogg</p></td>
+</tr>
+<tr class="row-even"><td><p>H.264</p></td>
+<td><p>compressed video file</p></td>
+<td><p>mp4</p></td>
+<td><p>video/mp4</p></td>
+</tr>
+<tr class="row-odd"><td><p>WebM</p></td>
+<td><p>compressed video file</p></td>
+<td><p>webm</p></td>
+<td><p>video/webm</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="canvas">
+<h2><a class="toc-backref" href="#id7">Canvas</a><a class="headerlink" href="#canvas" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myCanvas&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;640&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;480&quot;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="canvas-context">
+<h3><a class="toc-backref" href="#id8">Canvas Context</a><a class="headerlink" href="#canvas-context" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myCanvas&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+
+<span class="nx">context</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="mf">10</span><span class="p">;</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="s2">&quot;#3366ff&quot;</span><span class="p">;</span>
+
+<span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">10</span><span class="p">);</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mf">400</span><span class="p">,</span><span class="mf">10</span><span class="p">);</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">lineCap</span> <span class="o">=</span> <span class="s2">&quot;butt&quot;</span><span class="p">;</span>
+<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Canvas library:</p>
+<ul class="simple">
+<li><p>Fabric.js</p></li>
+<li><p>KineticJS</p></li>
+</ul>
+</div>
+<div class="section" id="canvas-data">
+<h3><a class="toc-backref" href="#id9">Canvas data</a><a class="headerlink" href="#canvas-data" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="canvas-and-image">
+<h3><a class="toc-backref" href="#id10">Canvas and image</a><a class="headerlink" href="#canvas-and-image" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;smile.png&quot;</span><span class="p">;</span>
+
+<span class="nx">img</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">img</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">10</span><span class="p">,</span> <span class="mf">200</span><span class="p">,</span> <span class="mf">2000</span><span class="p">);</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">font</span> <span class="o">=</span> <span class="s2">&quot;20px Arial&quot;</span><span class="p">;</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">textBaseline</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span><span class="p">;</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">;</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s2">&quot;I&#39;m happy on web&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../2.transport/index.html" class="btn btn-neutral float-right" title="2. WebRTC 传输" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="video_chat.html" class="btn btn-neutral float-left" title="视频聊天实例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
