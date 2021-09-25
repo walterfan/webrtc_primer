@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>H.264 编码 &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="数理基础" href="mathematics.html" />
+    <link rel="prev" title="YUV Format" href="yuv.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">H.264 编码</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtp-payload-format-for-h-264-video">RTP Payload Format for H.264 Video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtp-payload-format-for-h-264-reduced-complexity-decoding-operation-rcdo-video">RTP Payload Format for H.264 Reduced-Complexity Decoding Operation (RCDO) Video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+      <li>H.264 编码</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/3.media/h264.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="h-264">
+<h1>H.264 编码<a class="headerlink" href="#h-264" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Compression and media resilliency feature</p>
+<ul class="simple">
+<li><p>Error feedback mechanism</p></li>
+<li><p>Enhanced motion estimation</p></li>
+<li><p>Improved entropy coding</p></li>
+<li><p>Intra-prediction coding for I-frame</p></li>
+<li><p>4*4 Display Channel Table (DCT)</p></li>
+<li><p>Network Abstraction Layer</p></li>
+<li><p>Gradual Decoder Refresh(GDR) frame</p></li>
+<li><p>Long-Term Reference Picture (LTRP) frame</p></li>
+<li><p>错误反馈机制</p></li>
+<li><p>增强的运动估计</p></li>
+<li><p>改进的熵编码</p></li>
+<li><p>I帧的帧内预测编码</p></li>
+<li><p>4 * 4 显示频道表（DCT）</p></li>
+<li><p>网络抽象层</p></li>
+<li><p>渐进式解码器刷新（GDR）帧</p></li>
+<li><p>长期参考图片（LTRP）帧</p></li>
+</ul>
+<p>H.264/AVC</p>
+<ol class="arabic simple">
+<li><p>分层设计</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>视频编码层 VCL - Video Coding Layer 负责视频内容表示</p></li>
+<li><p>网络提取层 NAL - Network Abstraction Layer 负责网络封包和传送</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>帧内预测</p></li>
+</ol>
+<p>采用帧内空间预测方法，对每个  4*4 块</p>
+<ol class="arabic simple" start="3">
+<li><p>多帧参考和多模式运动估计</p></li>
+<li><p>整数变换</p></li>
+</ol>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">https://en.wikipedia.org/wiki/Advanced_Video_Coding</a></p>
+<p>Advanced Video Coding (AVC), also referred to as H.264 or MPEG-4 Part 10, Advanced Video Coding (MPEG-4 AVC), is a video compression standard based on block-oriented, motion-compensated integer-DCT coding.</p>
+<p>H264标准各主要部分有</p>
+<ul class="simple">
+<li><p>Access Unit delimiter（访问单元分割符），</p></li>
+<li><p>SEI（附加增强信息），</p></li>
+<li><p>primary coded picture（基本图像编码），</p></li>
+<li><p>Redundant Coded Picture（冗余图像编码）。</p></li>
+<li><p>Instantaneous Decoding Refresh（IDR，即时解码刷新）、</p></li>
+<li><p>Hypothetical Reference Decoder（HRD，假想参考解码）、</p></li>
+<li><p>Hypothetical Stream Scheduler（HSS，假想码流调度器）</p></li>
+</ul>
+<p>note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允许, ig = 忽略)</p>
+<p>..code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span>   <span class="n">Packet</span>    <span class="n">Single</span> <span class="n">NAL</span>    <span class="n">Non</span><span class="o">-</span><span class="n">Interleaved</span>    <span class="n">Interleaved</span>
+                 <span class="n">Unit</span> <span class="n">Mode</span>           <span class="n">Mode</span>             <span class="n">Mode</span>
+<span class="o">-------------------------------------------------------------</span>
+
+<span class="mi">0</span>      <span class="n">undefined</span>     <span class="n">ig</span>               <span class="n">ig</span>               <span class="n">ig</span>
+<span class="mi">1</span><span class="o">-</span><span class="mi">23</span>   <span class="n">NAL</span> <span class="n">unit</span>     <span class="n">yes</span>              <span class="n">yes</span>               <span class="n">no</span>
+<span class="mi">24</span>     <span class="n">STAP</span><span class="o">-</span><span class="n">A</span>        <span class="n">no</span>              <span class="n">yes</span>               <span class="n">no</span>
+<span class="mi">25</span>     <span class="n">STAP</span><span class="o">-</span><span class="n">B</span>        <span class="n">no</span>               <span class="n">no</span>              <span class="n">yes</span>
+<span class="mi">26</span>     <span class="n">MTAP16</span>        <span class="n">no</span>               <span class="n">no</span>              <span class="n">yes</span>
+<span class="mi">27</span>     <span class="n">MTAP24</span>        <span class="n">no</span>               <span class="n">no</span>              <span class="n">yes</span>
+<span class="mi">28</span>     <span class="n">FU</span><span class="o">-</span><span class="n">A</span>          <span class="n">no</span>              <span class="n">yes</span>              <span class="n">yes</span>
+<span class="mi">29</span>     <span class="n">FU</span><span class="o">-</span><span class="n">B</span>          <span class="n">no</span>               <span class="n">no</span>              <span class="n">yes</span>
+<span class="mi">30</span><span class="o">-</span><span class="mi">31</span>  <span class="n">undefined</span>     <span class="n">ig</span>               <span class="n">ig</span>               <span class="n">ig</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rtp-payload-format-for-h-264-video">
+<h2>RTP Payload Format for H.264 Video<a class="headerlink" href="#rtp-payload-format-for-h-264-video" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6184">https://tools.ietf.org/html/rfc6184</a></p>
+<blockquote>
+<div><p>This memo describes an RTP Payload format for the ITU-T
+Recommendation H.264 video codec and the technically identical
+ISO/IEC International Standard 14496-10 video codec, excluding the
+Scalable Video Coding (SVC) extension and the Multiview Video Coding
+extension, for which the RTP payload formats are defined elsewhere.
+The RTP payload format allows for packetization of one or more
+Network Abstraction Layer Units (NALUs), produced by an H.264 video
+encoder, in each RTP payload.  The payload format has wide
+applicability, as it supports applications from simple low bitrate
+conversational usage, to Internet video streaming with interleaved
+transmission, to high bitrate video-on-demand.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>max-fs: max frame size 最大帧尺寸， 宏块的个数</p></li>
+</ul>
+<p>The value of max-fs is an integer indicating the maximum  frame size in units of macroblocks.
+The max-fs parameter signals that the receiver is capable of decoding larger picture sizes than are required by the signaled highest level conveyed in the value of the profile-level-id parameter or the max-recv-
+level parameter.  When max-fs is signaled, the receiver MUST be
+able to decode NAL unit streams that conform to the signaled
+highest level, with the exception that the MaxFS value in Table
+A-1 of [1] for the signaled highest level is replaced with the
+value of max-fs.  The value of max-fs MUST be greater than or
+equal to the value of MaxFS given in Table A-1 of [1] for the
+highest level.  Senders MAY use this knowledge to send larger
+pictures at a proportionally lower frame rate than is indicated
+in the signaled highest level.</p>
+<ul class="simple">
+<li><p>microblock: 宏块，H264 将整个图片分为若干个区域，这些区域称为宏块</p></li>
+</ul>
+<p>H264默认是使用 16X16 大小的区域作为一个宏块，也可以划分成 8X8 大小。</p>
+<ul class="simple">
+<li><p>max-mbps: 每秒的最大宏块处理速率</p></li>
+</ul>
+<p>The value of max-mbps is an integer indicating the
+maximum macroblock processing rate in units of macroblocks per
+second.  The max-mbps parameter signals that the receiver is
+capable of decoding video at a higher rate than is required by
+the signaled highest level conveyed in the value of the
+profile-level-id parameter or the max-recv-level parameter.</p>
+<ul>
+<li><p>level-asymmetry-allowed: 是否允许层次不对称</p>
+<blockquote>
+<div><p>This parameter MAY be used in SDP Offer/Answer to indicate
+whether level asymmetry, i.e., sending media encoded at a
+different level in the offerer-to-answerer direction than the
+level in the answerer-to-offerer direction, is allowed.  The
+value MAY be equal to either 0 or 1.  When the parameter is not
+present, the value MUST be inferred to be equal to 0.  The
+value 1 in both the offer and the answer indicates that level
+asymmetry is allowed.  The value of 0 in either the offer or
+the answer indicates that level asymmetry is not allowed.</p>
+<p>If level-asymmetry-allowed is equal to 0 (or not present) in
+either the offer or the answer, level asymmetry is not allowed.
+In this case, the level to use in the direction from the
+offerer to the answerer MUST be the same as the level to use in
+the opposite direction.</p>
+</div></blockquote>
+</li>
+<li><p>packetization-mode: 表示支持的封包模式.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>当 packetization-mode 的值为 0 时或不存在时, 必须使用单一 NALU 单元模式.</p></li>
+<li><p>当 packetization-mode 的值为 1 时必须使用非交错(non-interleaved)封包模式.</p></li>
+<li><p>当 packetization-mode 的值为 2 时必须使用交错(interleaved)封包模式.</p></li>
+</ul>
+<blockquote>
+<div><p>This parameter signals the properties of an RTP payload type or
+the capabilities of a receiver implementation.  Only a single
+configuration point can be indicated; thus, when capabilities
+to support more than one packetization-mode are declared,
+multiple configuration points (RTP payload types) must be used.</p>
+<p>When the value of packetization-mode is equal to 0 or
+packetization-mode is not present, the single NAL mode MUST be
+used.  This mode is in use in standards using ITU-T
+Recommendation H.241 [3] (see Section 12.1).  When the value of
+packetization-mode is equal to 1, the non-interleaved mode MUST
+be used.  When the value of packetization-mode is equal to 2,
+the interleaved mode MUST be used.  The value of packetization-
+mode MUST be an integer in the range of 0 to 2, inclusive.</p>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ul>
+<p>..code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span> <span class="mf">6.</span>  <span class="n">Interpretation</span> <span class="n">of</span> <span class="n">parameters</span> <span class="k">for</span> <span class="n">different</span> <span class="n">direction</span> <span class="n">attributes</span>
+
+                                  <span class="n">sendonly</span> <span class="o">--+</span>
+                               <span class="n">recvonly</span> <span class="o">--+</span>  <span class="o">|</span>
+                            <span class="n">sendrecv</span> <span class="o">--+</span>  <span class="o">|</span>  <span class="o">|</span>
+                                       <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+    <span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span>                   <span class="n">C</span>  <span class="n">C</span>  <span class="n">P</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">recv</span><span class="o">-</span><span class="n">level</span>                     <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">packetization</span><span class="o">-</span><span class="n">mode</span>                 <span class="n">C</span>  <span class="n">C</span>  <span class="n">P</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="n">deint</span><span class="o">-</span><span class="n">buf</span><span class="o">-</span><span class="n">req</span>                <span class="n">P</span>  <span class="o">-</span>  <span class="n">P</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="n">interleaving</span><span class="o">-</span><span class="n">depth</span>           <span class="n">P</span>  <span class="o">-</span>  <span class="n">P</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">don</span><span class="o">-</span><span class="n">diff</span>                 <span class="n">P</span>  <span class="o">-</span>  <span class="n">P</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">buf</span><span class="o">-</span><span class="n">time</span>                <span class="n">P</span>  <span class="o">-</span>  <span class="n">P</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">mbps</span>                           <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">smbps</span>                          <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">fs</span>                             <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">cpb</span>                            <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">dpb</span>                            <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">br</span>                             <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">redundant</span><span class="o">-</span><span class="n">pic</span><span class="o">-</span><span class="n">cap</span>                  <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">deint</span><span class="o">-</span><span class="n">buf</span><span class="o">-</span><span class="n">cap</span>                      <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">rcmd</span><span class="o">-</span><span class="n">nalu</span><span class="o">-</span><span class="n">size</span>                 <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">sar</span><span class="o">-</span><span class="n">understood</span>                     <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">sar</span><span class="o">-</span><span class="n">supported</span>                      <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="ow">in</span><span class="o">-</span><span class="n">band</span><span class="o">-</span><span class="n">parameter</span><span class="o">-</span><span class="n">sets</span>             <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">use</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="n">src</span><span class="o">-</span><span class="n">parameter</span><span class="o">-</span><span class="n">sets</span>       <span class="n">R</span>  <span class="n">R</span>  <span class="o">-</span>
+    <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span>            <span class="n">O</span>  <span class="o">-</span>  <span class="o">-</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="n">parameter</span><span class="o">-</span><span class="n">sets</span>               <span class="n">S</span>  <span class="o">-</span>  <span class="n">S</span>
+    <span class="n">sprop</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="n">parameter</span><span class="o">-</span><span class="n">sets</span>         <span class="n">S</span>  <span class="o">-</span>  <span class="n">S</span>
+
+ <span class="n">Legend</span><span class="p">:</span>
+
+ <span class="n">C</span><span class="p">:</span> <span class="n">configuration</span> <span class="k">for</span> <span class="n">sending</span> <span class="ow">and</span> <span class="n">receiving</span> <span class="n">streams</span>
+ <span class="n">O</span><span class="p">:</span> <span class="n">offer</span><span class="o">/</span><span class="n">answer</span> <span class="n">mode</span>
+ <span class="n">P</span><span class="p">:</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">the</span> <span class="n">stream</span> <span class="n">to</span> <span class="n">be</span> <span class="n">sent</span>
+ <span class="n">R</span><span class="p">:</span> <span class="n">receiver</span> <span class="n">capabilities</span>
+ <span class="n">S</span><span class="p">:</span> <span class="n">out</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">band</span> <span class="n">parameter</span> <span class="n">sets</span>
+ <span class="o">-</span><span class="p">:</span> <span class="ow">not</span> <span class="n">usable</span> <span class="p">(</span><span class="n">when</span> <span class="n">present</span><span class="p">,</span> <span class="n">SHOULD</span> <span class="n">be</span> <span class="n">ignored</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rtp-payload-format-for-h-264-reduced-complexity-decoding-operation-rcdo-video">
+<h2>RTP Payload Format for H.264 Reduced-Complexity Decoding Operation (RCDO) Video<a class="headerlink" href="#rtp-payload-format-for-h-264-reduced-complexity-decoding-operation-rcdo-video" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6185">https://tools.ietf.org/html/rfc6185</a></p>
+<blockquote>
+<div><p>it describes an RTP payload format for the Reduced-
+Complexity Decoding Operation (RCDO) for H.264 Baseline profile
+bitstreams, as specified in ITU-T Recommendation H.241.  RCDO reduces
+the decoding cost and resource consumption of the video processing.
+The RCDO RTP payload format is based on the H.264 RTP payload format.</p>
+</div></blockquote>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://zhuanlan.zhihu.com/p/31056455">H264 基本原理</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="mathematics.html" class="btn btn-neutral float-right" title="数理基础" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="yuv.html" class="btn btn-neutral float-left" title="YUV Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

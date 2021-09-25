@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>WebRTC 本地连接 &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="WebRTC 远程连接" href="remote_pc.html" />
+    <link rel="prev" title="WebRTC 概论" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 本地连接</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概论</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">本地对等连接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">代码中的主要流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="remote_pc.html">WebRTC 远程连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="device.html">设备与环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#outline">outline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">1. WebRTC 基础</a> &raquo;</li>
+        
+      <li>WebRTC 本地连接</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/1.basic/local_pc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="webrtc">
+<h1>WebRTC 本地连接<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id7">概论</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id8">本地对等连接</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id9">代码中的主要流程</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id10">参考资料</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id7">概论</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WebRTC 是一套基于 Web 的实时通信解决方案，通过浏览器内置的 API
+来支持音视频通道的搭建。</p>
+<p>简而言之，先在信令通道协商出彼此的媒体和通信参数,
+再通过媒体通道来传输音视频媒体数据。</p>
+<p>JavaScrpt 中用到的三个主要的对象有：</p>
+<ul class="simple">
+<li><p>MediaStream 获取和渲染音频和视频流</p></li>
+<li><p>RTCPeerConnection 支持音频和视频媒体数据通信</p></li>
+<li><p>RTCDataChannel 支持应用级的数据通信</p></li>
+</ul>
+<p>对于媒体传输层，WebRTC 规定了用 ICE/STUN/TURN 来连通，用 DTLS 来协商
+SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。</p>
+<p>而在信令层，WebRTC
+并未指定，各个应用可以用自己喜欢的信令协议来进行媒体协商，一般都是用 SDP
+来通过 HTTP, WebSocket 或 SIP 协议承载具体的媒体会话描述。</p>
+<p>如果我们要进行视频聊天， 最基本的呼叫流程大致如下：</p>
+<div class="figure align-default" id="id5">
+<img alt="WebRTC flow" src="https://upload-images.jianshu.io/upload_images/1598924-3aedd0c66748313e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<p class="caption"><span class="caption-text">WebRTC flow</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<ol class="arabic simple" start="0">
+<li><p>收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流</p></li>
+<li><p>两个对端彼此创建信令通道，交换会话描述信息 SDP</p></li>
+<li><p>通过信令通过来交换彼此的会话描述信息 SDP</p></li>
+<li><p>通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
+来创建 PeerConnection</p></li>
+<li><p>PeerConnection 创建好后，通过SRTP来封装音视频数据进行传输</p></li>
+</ol>
+<p>简单来说通信的双方需要了解两块信息 1) ICE 候选者 ICE
+Candidates：包括可用来通信的地址信息 2) 会话描述信息 Session
+Description： 包括媒体种类，编码，格式等等。</p>
+<p>ICE的全称是” Interactive Connectivity Establishment ”
+即交互式连接的建立: 一个用于网络地址转换穿越的协议</p>
+<p>大致的流程如下， Alice 想要和 Bob
+在网上聊天（包括文字，语音和视频），需要经过这些步骤，
+看起来很复杂，我们一步细细分解来说</p>
+<div class="figure align-default" id="id6">
+<img alt="call flow example" src="https://upload-images.jianshu.io/upload_images/1598924-c6287ae51d5de473.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<p class="caption"><span class="caption-text">call flow example</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>举两个例子</p>
+<ol class="arabic simple">
+<li><p>本地对等连接 Local Peer Connection</p></li>
+<li><p>远程对等连接 Remote Peer Connection</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">本地对等连接</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>详细代码参见
+<a class="reference external" href="https://github.com/walterfan/webrtc_primer/blob/main/examples/local_peer_connection.html">https://github.com/walterfan/webrtc_primer/blob/main/examples/local_peer_connection.html</a>
+主要功能就是放置四个按钮和两个 video 元素</p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+//... 省略引入的 css 和 js 文件
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- &lt;a href=&quot;https://github.com/walterfan/webrtc-primer&quot;&gt;&lt;img style=&quot;position: absolute; top: 0; left: 0; border: 0; z-index: 1001;&quot; src=&quot;https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png&quot; alt=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;</span>
+<span class="c"> --&gt;</span>
+<span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-default navbar-static-top&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-12&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page-header&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>WebRTC example of Peer Connection <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;details&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+
+              <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-12&quot;</span><span class="p">&gt;</span>
+
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Click the button to open or close connection<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+
+                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;startButton&quot;</span><span class="p">&gt;</span>Start Video<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;stopButton&quot;</span><span class="p">&gt;</span>Stop Video<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;callButton&quot;</span><span class="p">&gt;</span>Call<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;hangupButton&quot;</span><span class="p">&gt;</span>Hangup<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+
+
+                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+              <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-12&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-6&quot;</span><span class="p">&gt;&lt;</span><span class="nt">video</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;localVideo&quot;</span> <span class="na">autoplay</span><span class="p">&gt;&lt;/</span><span class="nt">video</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-6&quot;</span><span class="p">&gt;&lt;</span><span class="nt">video</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;remoteVideo&quot;</span> <span class="na">autoplay</span><span class="p">&gt;&lt;/</span><span class="nt">video</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+               <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+               <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;box&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>SDP Semantics:<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">select</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sdpSemantics&quot;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">option</span> <span class="na">selected</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>Default<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;unified-plan&quot;</span><span class="p">&gt;</span>Unified Plan<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;plan-b&quot;</span><span class="p">&gt;</span>Plan B<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+
+
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                   <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sdpButton&quot;</span><span class="p">&gt;</span>Display SDP<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                       <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;output&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+                       <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+                           interface RTCOfferAnswerOptions {
+                                voiceActivityDetection?: boolean;
+                           }
+                           interface RTCOfferOptions extends RTCOfferAnswerOptions {
+                                iceRestart?: boolean;
+                                offerToReceiveAudio?: boolean;
+                                offerToReceiveVideo?: boolean;
+                            }
+                       <span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+                   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+               <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+          <span class="c">&lt;!-- 省略若干 HTML 片断 --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/local_peer_connection_demo.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/walterfan/webrtc_primer/blob/main/examples/js/local_peer_connection_demo.js">https://github.com/walterfan/webrtc_primer/blob/main/examples/js/local_peer_connection_demo.js</a></p></li>
+</ul>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>&#39;use strict&#39;;
+
+const startButton = document.getElementById(&#39;startButton&#39;);
+const stopButton = document.getElementById(&#39;stopButton&#39;);
+const callButton = document.getElementById(&#39;callButton&#39;);
+const hangupButton = document.getElementById(&#39;hangupButton&#39;);
+
+const sdpButton = document.getElementById(&#39;sdpButton&#39;);
+const outputTextarea = document.querySelector(&#39;textarea#output&#39;);
+
+stopButton.disabled = true;
+callButton.disabled = true;
+hangupButton.disabled = true;
+
+startButton.addEventListener(&#39;click&#39;, start);
+stopButton.addEventListener(&#39;click&#39;, stop);
+callButton.addEventListener(&#39;click&#39;, call);
+hangupButton.addEventListener(&#39;click&#39;, hangup);
+
+sdpButton.addEventListener(&#39;click&#39;, displaySdp);
+
+let startTime;
+const localVideo = document.getElementById(&#39;localVideo&#39;);
+const remoteVideo = document.getElementById(&#39;remoteVideo&#39;)
+
+localVideo.addEventListener(&#39;loadedmetadata&#39;, function() {
+  console.log(`Local video videoWidth: ${this.videoWidth}px,  videoHeight: ${this.videoHeight}px`);
+});
+
+remoteVideo.addEventListener(&#39;loadedmetadata&#39;, function() {
+  console.log(`Remote video videoWidth: ${this.videoWidth}px,  videoHeight: ${this.videoHeight}px`);
+});
+
+remoteVideo.addEventListener(&#39;resize&#39;, () =&gt; {
+  console.log(`Remote video size changed to ${remoteVideo.videoWidth}x${remoteVideo.videoHeight}`);
+  // We&#39;ll use the first onsize callback as an indication that video has started
+  // playing out.
+  if (startTime) {
+    const elapsedTime = window.performance.now() - startTime;
+    console.log(&#39;Setup time: &#39; + elapsedTime.toFixed(3) + &#39;ms&#39;);
+    startTime = null;
+  }
+});
+
+let localStream;
+let pc1;
+let pc2;
+
+const offerOptions = {
+  offerToReceiveAudio: 1,
+  offerToReceiveVideo: 1,
+  iceRestart:true,
+  voiceActivityDetection: true
+};
+
+
+
+function getName(pc) {
+  return (pc === pc1) ? &#39;pc1&#39; : &#39;pc2&#39;;
+}
+
+function getOtherPc(pc) {
+  return (pc === pc1) ? pc2 : pc1;
+}
+
+//start the video stream
+
+async function start() {
+  console.log(&#39;Requesting local stream&#39;);
+  startButton.disabled = true;
+  stopButton.disabled = false;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
+    weblog(&#39;Received local stream&#39;);
+    localVideo.srcObject = stream;
+    localStream = stream;
+    callButton.disabled = false;
+  } catch (e) {
+    alert(`getUserMedia() error: ${e.name}`);
+  }
+}
+
+  function stop(e) {
+        const stream = localVideo.srcObject;
+        const tracks = stream.getTracks();
+        e.target.disabled = true;
+        startButton.disabled = false;
+        callButton.disabled = true;
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+
+        localVideo.srcObject = null;
+    }
+
+
+  function getSelectedSdpSemantics() {
+    const sdpSemanticsSelect = document.querySelector(&#39;#sdpSemantics&#39;);
+    const option = sdpSemanticsSelect.options[sdpSemanticsSelect.selectedIndex];
+    return option.value === &#39;&#39; ? {} : {sdpSemantics: option.value};
+  }
+
+  //call the remote peer
+  async function call() {
+    callButton.disabled = true;
+    hangupButton.disabled = false;
+    weblog(&#39;Starting call&#39;);
+    startTime = window.performance.now();
+    const videoTracks = localStream.getVideoTracks();
+    const audioTracks = localStream.getAudioTracks();
+    if (videoTracks.length &gt; 0) {
+      weblog(`Using video device: ${videoTracks[0].label}`);
+    }
+    if (audioTracks.length &gt; 0) {
+      weblog(`Using audio device: ${audioTracks[0].label}`);
+    }
+    const configuration = getSelectedSdpSemantics();
+    weblog(&#39;RTCPeerConnection configuration:&#39;, configuration);
+    pc1 = new RTCPeerConnection(configuration);
+    weblog(&#39;Created local peer connection object pc1&#39;);
+    pc1.addEventListener(&#39;icecandidate&#39;, e =&gt; onIceCandidate(pc1, e));
+    pc2 = new RTCPeerConnection(configuration);
+    weblog(&#39;Created remote peer connection object pc2&#39;);
+    pc2.addEventListener(&#39;icecandidate&#39;, e =&gt; onIceCandidate(pc2, e));
+    pc1.addEventListener(&#39;iceconnectionstatechange&#39;, e =&gt; onIceStateChange(pc1, e));
+    pc2.addEventListener(&#39;iceconnectionstatechange&#39;, e =&gt; onIceStateChange(pc2, e));
+    pc2.addEventListener(&#39;track&#39;, gotRemoteStream);
+
+    localStream.getTracks().forEach(track =&gt; pc1.addTrack(track, localStream));
+    weblog(&#39;Added local stream to pc1&#39;);
+
+    try {
+      weblog(&#39;pc1 createOffer start&#39;);
+      const offer = await pc1.createOffer(offerOptions);
+      await onCreateOfferSuccess(offer);
+    } catch (e) {
+      onCreateSessionDescriptionError(e);
+    }
+  }
+
+
+  function onCreateSessionDescriptionError(error) {
+    console.log(`Failed to create session description: ${error.toString()}`);
+  }
+
+  async function onCreateOfferSuccess(desc) {
+    weblog(`Offer from pc1\n${desc.sdp}`);
+    weblog(&#39;pc1 setLocalDescription start&#39;);
+    try {
+      await pc1.setLocalDescription(desc);
+      onSetLocalSuccess(pc1);
+    } catch (e) {
+      onSetSessionDescriptionError();
+    }
+
+    weblog(&#39;pc2 setRemoteDescription start&#39;);
+    try {
+      await pc2.setRemoteDescription(desc);
+      onSetRemoteSuccess(pc2);
+    } catch (e) {
+      onSetSessionDescriptionError();
+    }
+
+    weblog(&#39;pc2 createAnswer start&#39;);
+    // Since the &#39;remote&#39; side has no media stream we need
+    // to pass in the right constraints in order for it to
+    // accept the incoming offer of audio and video.
+    try {
+      const answer = await pc2.createAnswer();
+      await onCreateAnswerSuccess(answer);
+    } catch (e) {
+      onCreateSessionDescriptionError(e);
+    }
+  }
+
+  function onSetLocalSuccess(pc) {
+    weblog(`${getName(pc)} setLocalDescription complete`);
+  }
+
+  function onSetRemoteSuccess(pc) {
+    weblog(`${getName(pc)} setRemoteDescription complete`);
+  }
+
+  function onSetSessionDescriptionError(error) {
+    weblog(`Failed to set session description: ${error.toString()}`);
+  }
+
+  function gotRemoteStream(e) {
+    if (remoteVideo.srcObject !== e.streams[0]) {
+      remoteVideo.srcObject = e.streams[0];
+      weblog(&#39;pc2 received remote stream&#39;);
+    }
+  }
+
+  async function onCreateAnswerSuccess(desc) {
+    weblog(`Answer from pc2:\n${desc.sdp}`);
+    weblog(&#39;pc2 setLocalDescription start&#39;);
+    try {
+      await pc2.setLocalDescription(desc);
+      onSetLocalSuccess(pc2);
+    } catch (e) {
+      onSetSessionDescriptionError(e);
+    }
+    console.log(&#39;pc1 setRemoteDescription start&#39;);
+    try {
+      await pc1.setRemoteDescription(desc);
+      onSetRemoteSuccess(pc1);
+    } catch (e) {
+      onSetSessionDescriptionError(e);
+    }
+  }
+
+  async function onIceCandidate(pc, event) {
+    try {
+      await (getOtherPc(pc).addIceCandidate(event.candidate));
+      onAddIceCandidateSuccess(pc);
+    } catch (e) {
+      onAddIceCandidateError(pc, e);
+    }
+    console.log(`${getName(pc)} ICE candidate:\n${event.candidate ? event.candidate.candidate : &#39;(null)&#39;}`);
+  }
+
+  function onAddIceCandidateSuccess(pc) {
+    weblog(`${getName(pc)} addIceCandidate success`);
+  }
+
+  function onAddIceCandidateError(pc, error) {
+    weblog(`${getName(pc)} failed to add ICE Candidate: ${error.toString()}`);
+  }
+
+  function onIceStateChange(pc, event) {
+    if (pc) {
+      weblog(`${getName(pc)} ICE state: ${pc.iceConnectionState}`);
+      weblog(&#39;ICE state change event: &#39;, event);
+    }
+  }
+
+  function hangup() {
+    weblog(&#39;Ending call&#39;);
+    pc1.close();
+    pc2.close();
+    pc1 = null;
+    pc2 = null;
+    hangupButton.disabled = true;
+    callButton.disabled = false;
+  }
+
+  async function displaySdp() {
+    const configuration = getSelectedSdpSemantics();
+
+    let peerConnection = new RTCPeerConnection(configuration);
+    const offer = await peerConnection.createOffer(offerOptions);
+    await peerConnection.setLocalDescription(offer);
+    outputTextarea.value = offer.sdp;
+  }
+</pre></div>
+</div>
+<p>整个程序实现可以在这里访问
+<a class="reference external" href="https://www.fanyamin.com/webrtc/examples/local_peer_connection.html">https://www.fanyamin.com/webrtc/examples/local_peer_connection.html</a></p>
+<p><img alt="image0" src="https://upload-images.jianshu.io/upload_images/1598924-445536e5ae84be69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>我在页面了把整个连接的步骤打印了出来</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">49.461</span><span class="p">]</span> <span class="n">Received</span> <span class="n">local</span> <span class="n">stream</span>
+<span class="p">[</span><span class="mf">72.743</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">call</span>
+<span class="p">[</span><span class="mf">72.743</span><span class="p">]</span> <span class="n">Using</span> <span class="n">video</span> <span class="n">device</span><span class="p">:</span> <span class="n">USB</span> <span class="n">Video</span> <span class="n">Device</span> <span class="p">(</span><span class="mi">046</span><span class="n">d</span><span class="p">:</span><span class="mi">081</span><span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mf">72.743</span><span class="p">]</span> <span class="n">Using</span> <span class="n">audio</span> <span class="n">device</span><span class="p">:</span> <span class="n">默认</span> <span class="o">-</span> <span class="n">麦克风</span> <span class="p">(</span><span class="n">USB</span> <span class="n">Audio</span> <span class="n">Device</span><span class="p">)</span> <span class="p">(</span><span class="mi">046</span><span class="n">d</span><span class="p">:</span><span class="mi">081</span><span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mf">72.743</span><span class="p">]</span> <span class="n">RTCPeerConnection</span> <span class="n">configuration</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">72.745</span><span class="p">]</span> <span class="n">Created</span> <span class="n">local</span> <span class="n">peer</span> <span class="n">connection</span> <span class="nb">object</span> <span class="n">pc1</span>
+<span class="p">[</span><span class="mf">72.746</span><span class="p">]</span> <span class="n">Created</span> <span class="n">remote</span> <span class="n">peer</span> <span class="n">connection</span> <span class="nb">object</span> <span class="n">pc2</span>
+<span class="p">[</span><span class="mf">72.746</span><span class="p">]</span> <span class="n">Added</span> <span class="n">local</span> <span class="n">stream</span> <span class="n">to</span> <span class="n">pc1</span>
+<span class="p">[</span><span class="mf">72.747</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">createOffer</span> <span class="n">start</span>
+<span class="p">[</span><span class="mf">72.765</span><span class="p">]</span> <span class="n">Offer</span> <span class="kn">from</span> <span class="nn">pc1</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span> <span class="n">o</span><span class="o">=-</span> <span class="mi">8212739043455445815</span> <span class="mi">2</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">s</span><span class="o">=-</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span> <span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">group</span><span class="p">:</span><span class="n">BUNDLE</span> <span class="mi">0</span> <span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">msid</span><span class="o">-</span><span class="n">semantic</span><span class="p">:</span> <span class="n">WMS</span> <span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="n">m</span><span class="o">=</span><span class="n">audio</span> <span class="mi">9</span> <span class="n">UDP</span><span class="o">/</span><span class="n">TLS</span><span class="o">/</span><span class="n">RTP</span><span class="o">/</span><span class="n">SAVPF</span> <span class="mi">111</span> <span class="mi">103</span> <span class="mi">104</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">8</span> <span class="mi">106</span> <span class="mi">105</span> <span class="mi">13</span> <span class="mi">110</span> <span class="mi">112</span> <span class="mi">113</span> <span class="mi">126</span> <span class="n">c</span><span class="o">=</span><span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="p">:</span><span class="mi">9</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">ufrag</span><span class="p">:</span><span class="n">nTn7</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">pwd</span><span class="p">:</span><span class="mi">1</span><span class="n">XyHlJ5xBTJ7NBuU5Y5mBqCn</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">options</span><span class="p">:</span><span class="n">trickle</span> <span class="n">a</span><span class="o">=</span><span class="n">fingerprint</span><span class="p">:</span><span class="n">sha</span><span class="o">-</span><span class="mi">256</span> <span class="mi">51</span><span class="p">:</span><span class="mi">62</span><span class="p">:</span><span class="n">BB</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="n">A7</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">78</span><span class="p">:</span><span class="n">BA</span><span class="p">:</span><span class="mi">70</span><span class="p">:</span><span class="n">A6</span><span class="p">:</span><span class="n">A7</span><span class="p">:</span><span class="mi">64</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">6</span><span class="n">C</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="n">AC</span><span class="p">:</span><span class="n">B3</span><span class="p">:</span><span class="mi">7</span><span class="n">F</span><span class="p">:</span><span class="mi">92</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">80</span><span class="p">:</span><span class="n">F5</span><span class="p">:</span><span class="mi">5</span><span class="n">A</span><span class="p">:</span><span class="mi">4</span><span class="n">B</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">7</span><span class="n">A</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">42</span> <span class="n">a</span><span class="o">=</span><span class="n">setup</span><span class="p">:</span><span class="n">actpass</span> <span class="n">a</span><span class="o">=</span><span class="n">mid</span><span class="p">:</span><span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">1</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">ssrc</span><span class="o">-</span><span class="n">audio</span><span class="o">-</span><span class="n">level</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">2</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="nb">abs</span><span class="o">-</span><span class="n">send</span><span class="o">-</span><span class="n">time</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">3</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">ietf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="nb">id</span><span class="o">/</span><span class="n">draft</span><span class="o">-</span><span class="n">holmer</span><span class="o">-</span><span class="n">rmcat</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">wide</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">extensions</span><span class="o">-</span><span class="mi">01</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">4</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">mid</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">5</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">6</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">repaired</span><span class="o">-</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">sendrecv</span> <span class="n">a</span><span class="o">=</span><span class="n">msid</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="mi">2</span><span class="n">cbf5334</span><span class="o">-</span><span class="mf">0e08</span><span class="o">-</span><span class="mi">4985</span><span class="o">-</span><span class="mi">817</span><span class="n">f</span><span class="o">-</span><span class="n">a666c35b633b</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">mux</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">111</span> <span class="n">opus</span><span class="o">/</span><span class="mi">48000</span><span class="o">/</span><span class="mi">2</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">111</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">111</span> <span class="n">minptime</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">useinbandfec</span><span class="o">=</span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">103</span> <span class="n">ISAC</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">104</span> <span class="n">ISAC</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">9</span> <span class="n">G722</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">0</span> <span class="n">PCMU</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">8</span> <span class="n">PCMA</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">106</span> <span class="n">CN</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">105</span> <span class="n">CN</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">13</span> <span class="n">CN</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">110</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">48000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">112</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">113</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">126</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">2931786518</span> <span class="n">cname</span><span class="p">:</span><span class="n">JVCgjci5cC</span><span class="o">/</span><span class="n">oQHwi</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">2931786518</span> <span class="n">msid</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="mi">2</span><span class="n">cbf5334</span><span class="o">-</span><span class="mf">0e08</span><span class="o">-</span><span class="mi">4985</span><span class="o">-</span><span class="mi">817</span><span class="n">f</span><span class="o">-</span><span class="n">a666c35b633b</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">2931786518</span> <span class="n">mslabel</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">2931786518</span> <span class="n">label</span><span class="p">:</span><span class="mi">2</span><span class="n">cbf5334</span><span class="o">-</span><span class="mf">0e08</span><span class="o">-</span><span class="mi">4985</span><span class="o">-</span><span class="mi">817</span><span class="n">f</span><span class="o">-</span><span class="n">a666c35b633b</span> <span class="n">m</span><span class="o">=</span><span class="n">video</span> <span class="mi">9</span> <span class="n">UDP</span><span class="o">/</span><span class="n">TLS</span><span class="o">/</span><span class="n">RTP</span><span class="o">/</span><span class="n">SAVPF</span> <span class="mi">96</span> <span class="mi">97</span> <span class="mi">98</span> <span class="mi">99</span> <span class="mi">100</span> <span class="mi">101</span> <span class="mi">102</span> <span class="mi">121</span> <span class="mi">127</span> <span class="mi">120</span> <span class="mi">125</span> <span class="mi">107</span> <span class="mi">108</span> <span class="mi">109</span> <span class="mi">124</span> <span class="mi">119</span> <span class="mi">123</span> <span class="mi">118</span> <span class="mi">114</span> <span class="mi">115</span> <span class="mi">116</span> <span class="n">c</span><span class="o">=</span><span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="p">:</span><span class="mi">9</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">ufrag</span><span class="p">:</span><span class="n">nTn7</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">pwd</span><span class="p">:</span><span class="mi">1</span><span class="n">XyHlJ5xBTJ7NBuU5Y5mBqCn</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">options</span><span class="p">:</span><span class="n">trickle</span> <span class="n">a</span><span class="o">=</span><span class="n">fingerprint</span><span class="p">:</span><span class="n">sha</span><span class="o">-</span><span class="mi">256</span> <span class="mi">51</span><span class="p">:</span><span class="mi">62</span><span class="p">:</span><span class="n">BB</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="n">A7</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">78</span><span class="p">:</span><span class="n">BA</span><span class="p">:</span><span class="mi">70</span><span class="p">:</span><span class="n">A6</span><span class="p">:</span><span class="n">A7</span><span class="p">:</span><span class="mi">64</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">6</span><span class="n">C</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="n">AC</span><span class="p">:</span><span class="n">B3</span><span class="p">:</span><span class="mi">7</span><span class="n">F</span><span class="p">:</span><span class="mi">92</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">80</span><span class="p">:</span><span class="n">F5</span><span class="p">:</span><span class="mi">5</span><span class="n">A</span><span class="p">:</span><span class="mi">4</span><span class="n">B</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">7</span><span class="n">A</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">42</span> <span class="n">a</span><span class="o">=</span><span class="n">setup</span><span class="p">:</span><span class="n">actpass</span> <span class="n">a</span><span class="o">=</span><span class="n">mid</span><span class="p">:</span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">14</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">toffset</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">2</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="nb">abs</span><span class="o">-</span><span class="n">send</span><span class="o">-</span><span class="n">time</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">13</span> <span class="n">urn</span><span class="p">:</span><span class="mi">3</span><span class="n">gpp</span><span class="p">:</span><span class="n">video</span><span class="o">-</span><span class="n">orientation</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">3</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">ietf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="nb">id</span><span class="o">/</span><span class="n">draft</span><span class="o">-</span><span class="n">holmer</span><span class="o">-</span><span class="n">rmcat</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">wide</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">extensions</span><span class="o">-</span><span class="mi">01</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">12</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">playout</span><span class="o">-</span><span class="n">delay</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">11</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">video</span><span class="o">-</span><span class="n">content</span><span class="o">-</span><span class="nb">type</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">7</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">video</span><span class="o">-</span><span class="n">timing</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">8</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">color</span><span class="o">-</span><span class="n">space</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">4</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">mid</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">5</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">6</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">repaired</span><span class="o">-</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">sendrecv</span> <span class="n">a</span><span class="o">=</span><span class="n">msid</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="mf">906550e7</span><span class="o">-</span><span class="mi">7</span><span class="n">a71</span><span class="o">-</span><span class="mi">4</span><span class="n">c6a</span><span class="o">-</span><span class="n">a7ca</span><span class="o">-</span><span class="mi">8</span><span class="n">f81fa0efe6c</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">mux</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">rsize</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">96</span> <span class="n">VP8</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">97</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">97</span> <span class="n">apt</span><span class="o">=</span><span class="mi">96</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">98</span> <span class="n">VP9</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">98</span> <span class="n">profile</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">99</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">99</span> <span class="n">apt</span><span class="o">=</span><span class="mi">98</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">100</span> <span class="n">VP9</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">100</span> <span class="n">profile</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">2</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">101</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">101</span> <span class="n">apt</span><span class="o">=</span><span class="mi">100</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">102</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">102</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">42001</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">121</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">121</span> <span class="n">apt</span><span class="o">=</span><span class="mi">102</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">127</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">127</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">42001</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">120</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">120</span> <span class="n">apt</span><span class="o">=</span><span class="mi">127</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">125</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">125</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mf">42e01</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">107</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">107</span> <span class="n">apt</span><span class="o">=</span><span class="mi">125</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">108</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">108</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mf">42e01</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">109</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">109</span> <span class="n">apt</span><span class="o">=</span><span class="mi">108</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">124</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">124</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">4</span><span class="n">d001f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">119</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">119</span> <span class="n">apt</span><span class="o">=</span><span class="mi">124</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">123</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">123</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">64001</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">118</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">118</span> <span class="n">apt</span><span class="o">=</span><span class="mi">123</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">114</span> <span class="n">red</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">115</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">115</span> <span class="n">apt</span><span class="o">=</span><span class="mi">114</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">116</span> <span class="n">ulpfec</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="o">-</span><span class="n">group</span><span class="p">:</span><span class="n">FID</span> <span class="mi">818575976</span> <span class="mi">4014440443</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">818575976</span> <span class="n">cname</span><span class="p">:</span><span class="n">JVCgjci5cC</span><span class="o">/</span><span class="n">oQHwi</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">818575976</span> <span class="n">msid</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="mf">906550e7</span><span class="o">-</span><span class="mi">7</span><span class="n">a71</span><span class="o">-</span><span class="mi">4</span><span class="n">c6a</span><span class="o">-</span><span class="n">a7ca</span><span class="o">-</span><span class="mi">8</span><span class="n">f81fa0efe6c</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">818575976</span> <span class="n">mslabel</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">818575976</span> <span class="n">label</span><span class="p">:</span><span class="mf">906550e7</span><span class="o">-</span><span class="mi">7</span><span class="n">a71</span><span class="o">-</span><span class="mi">4</span><span class="n">c6a</span><span class="o">-</span><span class="n">a7ca</span><span class="o">-</span><span class="mi">8</span><span class="n">f81fa0efe6c</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">4014440443</span> <span class="n">cname</span><span class="p">:</span><span class="n">JVCgjci5cC</span><span class="o">/</span><span class="n">oQHwi</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">4014440443</span> <span class="n">msid</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="mf">906550e7</span><span class="o">-</span><span class="mi">7</span><span class="n">a71</span><span class="o">-</span><span class="mi">4</span><span class="n">c6a</span><span class="o">-</span><span class="n">a7ca</span><span class="o">-</span><span class="mi">8</span><span class="n">f81fa0efe6c</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">4014440443</span> <span class="n">mslabel</span><span class="p">:</span><span class="n">xlhFA5NOFj9VpQ7Z1ylg9jmfNytu6l7jTKhQ</span> <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="mi">4014440443</span> <span class="n">label</span><span class="p">:</span><span class="mf">906550e7</span><span class="o">-</span><span class="mi">7</span><span class="n">a71</span><span class="o">-</span><span class="mi">4</span><span class="n">c6a</span><span class="o">-</span><span class="n">a7ca</span><span class="o">-</span><span class="mi">8</span><span class="n">f81fa0efe6c</span>
+<span class="p">[</span><span class="mf">72.765</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">setLocalDescription</span> <span class="n">start</span>
+<span class="p">[</span><span class="mf">72.772</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">setLocalDescription</span> <span class="n">complete</span>
+<span class="p">[</span><span class="mf">72.772</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">setRemoteDescription</span> <span class="n">start</span>
+<span class="p">[</span><span class="mf">72.937</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">received</span> <span class="n">remote</span> <span class="n">stream</span>
+<span class="p">[</span><span class="mf">72.937</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">setRemoteDescription</span> <span class="n">complete</span>
+<span class="p">[</span><span class="mf">72.937</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">createAnswer</span> <span class="n">start</span>
+<span class="p">[</span><span class="mf">72.959</span><span class="p">]</span> <span class="n">Answer</span> <span class="kn">from</span> <span class="nn">pc2</span><span class="p">:</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span> <span class="n">o</span><span class="o">=-</span> <span class="mi">1094912348166165889</span> <span class="mi">2</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="n">s</span><span class="o">=-</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span> <span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">group</span><span class="p">:</span><span class="n">BUNDLE</span> <span class="mi">0</span> <span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">msid</span><span class="o">-</span><span class="n">semantic</span><span class="p">:</span> <span class="n">WMS</span> <span class="n">m</span><span class="o">=</span><span class="n">audio</span> <span class="mi">9</span> <span class="n">UDP</span><span class="o">/</span><span class="n">TLS</span><span class="o">/</span><span class="n">RTP</span><span class="o">/</span><span class="n">SAVPF</span> <span class="mi">111</span> <span class="mi">103</span> <span class="mi">104</span> <span class="mi">9</span> <span class="mi">0</span> <span class="mi">8</span> <span class="mi">106</span> <span class="mi">105</span> <span class="mi">13</span> <span class="mi">110</span> <span class="mi">112</span> <span class="mi">113</span> <span class="mi">126</span> <span class="n">c</span><span class="o">=</span><span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="p">:</span><span class="mi">9</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">ufrag</span><span class="p">:</span><span class="n">MIpG</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">pwd</span><span class="p">:</span><span class="n">yeUliWqTGocmk3MfGp8WnL4z</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">options</span><span class="p">:</span><span class="n">trickle</span> <span class="n">a</span><span class="o">=</span><span class="n">fingerprint</span><span class="p">:</span><span class="n">sha</span><span class="o">-</span><span class="mi">256</span> <span class="mi">94</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">0</span><span class="n">A</span><span class="p">:</span><span class="mi">3</span><span class="n">C</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">86</span><span class="p">:</span><span class="n">C7</span><span class="p">:</span><span class="n">D3</span><span class="p">:</span><span class="n">BB</span><span class="p">:</span><span class="mi">3</span><span class="n">F</span><span class="p">:</span><span class="n">DE</span><span class="p">:</span><span class="n">D6</span><span class="p">:</span><span class="mi">8</span><span class="n">D</span><span class="p">:</span><span class="mi">4</span><span class="n">A</span><span class="p">:</span><span class="n">C6</span><span class="p">:</span><span class="n">FC</span><span class="p">:</span><span class="n">FE</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">69</span><span class="p">:</span><span class="mi">86</span><span class="p">:</span><span class="mi">74</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="n">B7</span><span class="p">:</span><span class="mi">7</span><span class="n">A</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">2</span><span class="n">D</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="n">F0</span><span class="p">:</span><span class="mi">3</span><span class="n">B</span><span class="p">:</span><span class="mi">97</span><span class="p">:</span><span class="mi">83</span><span class="p">:</span><span class="mi">6</span><span class="n">B</span> <span class="n">a</span><span class="o">=</span><span class="n">setup</span><span class="p">:</span><span class="n">active</span> <span class="n">a</span><span class="o">=</span><span class="n">mid</span><span class="p">:</span><span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">1</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">ssrc</span><span class="o">-</span><span class="n">audio</span><span class="o">-</span><span class="n">level</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">2</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="nb">abs</span><span class="o">-</span><span class="n">send</span><span class="o">-</span><span class="n">time</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">3</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">ietf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="nb">id</span><span class="o">/</span><span class="n">draft</span><span class="o">-</span><span class="n">holmer</span><span class="o">-</span><span class="n">rmcat</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">wide</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">extensions</span><span class="o">-</span><span class="mi">01</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">4</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">mid</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">5</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">6</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">repaired</span><span class="o">-</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">recvonly</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">mux</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">111</span> <span class="n">opus</span><span class="o">/</span><span class="mi">48000</span><span class="o">/</span><span class="mi">2</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">111</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">111</span> <span class="n">minptime</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">useinbandfec</span><span class="o">=</span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">103</span> <span class="n">ISAC</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">104</span> <span class="n">ISAC</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">9</span> <span class="n">G722</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">0</span> <span class="n">PCMU</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">8</span> <span class="n">PCMA</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">106</span> <span class="n">CN</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">105</span> <span class="n">CN</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">13</span> <span class="n">CN</span><span class="o">/</span><span class="mi">8000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">110</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">48000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">112</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">32000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">113</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">16000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">126</span> <span class="n">telephone</span><span class="o">-</span><span class="n">event</span><span class="o">/</span><span class="mi">8000</span> <span class="n">m</span><span class="o">=</span><span class="n">video</span> <span class="mi">9</span> <span class="n">UDP</span><span class="o">/</span><span class="n">TLS</span><span class="o">/</span><span class="n">RTP</span><span class="o">/</span><span class="n">SAVPF</span> <span class="mi">96</span> <span class="mi">97</span> <span class="mi">98</span> <span class="mi">99</span> <span class="mi">100</span> <span class="mi">101</span> <span class="mi">102</span> <span class="mi">121</span> <span class="mi">127</span> <span class="mi">120</span> <span class="mi">125</span> <span class="mi">107</span> <span class="mi">108</span> <span class="mi">109</span> <span class="mi">124</span> <span class="mi">119</span> <span class="mi">123</span> <span class="mi">118</span> <span class="mi">114</span> <span class="mi">115</span> <span class="mi">116</span> <span class="n">c</span><span class="o">=</span><span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="p">:</span><span class="mi">9</span> <span class="n">IN</span> <span class="n">IP4</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">ufrag</span><span class="p">:</span><span class="n">MIpG</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">pwd</span><span class="p">:</span><span class="n">yeUliWqTGocmk3MfGp8WnL4z</span> <span class="n">a</span><span class="o">=</span><span class="n">ice</span><span class="o">-</span><span class="n">options</span><span class="p">:</span><span class="n">trickle</span> <span class="n">a</span><span class="o">=</span><span class="n">fingerprint</span><span class="p">:</span><span class="n">sha</span><span class="o">-</span><span class="mi">256</span> <span class="mi">94</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">0</span><span class="n">A</span><span class="p">:</span><span class="mi">3</span><span class="n">C</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">86</span><span class="p">:</span><span class="n">C7</span><span class="p">:</span><span class="n">D3</span><span class="p">:</span><span class="n">BB</span><span class="p">:</span><span class="mi">3</span><span class="n">F</span><span class="p">:</span><span class="n">DE</span><span class="p">:</span><span class="n">D6</span><span class="p">:</span><span class="mi">8</span><span class="n">D</span><span class="p">:</span><span class="mi">4</span><span class="n">A</span><span class="p">:</span><span class="n">C6</span><span class="p">:</span><span class="n">FC</span><span class="p">:</span><span class="n">FE</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">69</span><span class="p">:</span><span class="mi">86</span><span class="p">:</span><span class="mi">74</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="n">B7</span><span class="p">:</span><span class="mi">7</span><span class="n">A</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span><span class="mi">2</span><span class="n">D</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="n">F0</span><span class="p">:</span><span class="mi">3</span><span class="n">B</span><span class="p">:</span><span class="mi">97</span><span class="p">:</span><span class="mi">83</span><span class="p">:</span><span class="mi">6</span><span class="n">B</span> <span class="n">a</span><span class="o">=</span><span class="n">setup</span><span class="p">:</span><span class="n">active</span> <span class="n">a</span><span class="o">=</span><span class="n">mid</span><span class="p">:</span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">14</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">toffset</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">2</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="nb">abs</span><span class="o">-</span><span class="n">send</span><span class="o">-</span><span class="n">time</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">13</span> <span class="n">urn</span><span class="p">:</span><span class="mi">3</span><span class="n">gpp</span><span class="p">:</span><span class="n">video</span><span class="o">-</span><span class="n">orientation</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">3</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">ietf</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="nb">id</span><span class="o">/</span><span class="n">draft</span><span class="o">-</span><span class="n">holmer</span><span class="o">-</span><span class="n">rmcat</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">wide</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">extensions</span><span class="o">-</span><span class="mi">01</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">12</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">playout</span><span class="o">-</span><span class="n">delay</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">11</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">video</span><span class="o">-</span><span class="n">content</span><span class="o">-</span><span class="nb">type</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">7</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">video</span><span class="o">-</span><span class="n">timing</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">8</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">webrtc</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">experiments</span><span class="o">/</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="o">/</span><span class="n">color</span><span class="o">-</span><span class="n">space</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">4</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">mid</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">5</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">extmap</span><span class="p">:</span><span class="mi">6</span> <span class="n">urn</span><span class="p">:</span><span class="n">ietf</span><span class="p">:</span><span class="n">params</span><span class="p">:</span><span class="n">rtp</span><span class="o">-</span><span class="n">hdrext</span><span class="p">:</span><span class="n">sdes</span><span class="p">:</span><span class="n">repaired</span><span class="o">-</span><span class="n">rtp</span><span class="o">-</span><span class="n">stream</span><span class="o">-</span><span class="nb">id</span> <span class="n">a</span><span class="o">=</span><span class="n">recvonly</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">mux</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">rsize</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">96</span> <span class="n">VP8</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">96</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">97</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">97</span> <span class="n">apt</span><span class="o">=</span><span class="mi">96</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">98</span> <span class="n">VP9</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">98</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">98</span> <span class="n">profile</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">0</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">99</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">99</span> <span class="n">apt</span><span class="o">=</span><span class="mi">98</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">100</span> <span class="n">VP9</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">100</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">100</span> <span class="n">profile</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">2</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">101</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">101</span> <span class="n">apt</span><span class="o">=</span><span class="mi">100</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">102</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">102</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">102</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">42001</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">121</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">121</span> <span class="n">apt</span><span class="o">=</span><span class="mi">102</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">127</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">127</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">127</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">42001</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">120</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">120</span> <span class="n">apt</span><span class="o">=</span><span class="mi">127</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">125</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">125</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">125</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mf">42e01</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">107</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">107</span> <span class="n">apt</span><span class="o">=</span><span class="mi">125</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">108</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">108</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">108</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mf">42e01</span><span class="n">f</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">109</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">109</span> <span class="n">apt</span><span class="o">=</span><span class="mi">108</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">124</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">124</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">124</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">4</span><span class="n">d0015</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">119</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">119</span> <span class="n">apt</span><span class="o">=</span><span class="mi">124</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">123</span> <span class="n">H264</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">goog</span><span class="o">-</span><span class="n">remb</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">transport</span><span class="o">-</span><span class="n">cc</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">ccm</span> <span class="n">fir</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">nack</span> <span class="n">a</span><span class="o">=</span><span class="n">rtcp</span><span class="o">-</span><span class="n">fb</span><span class="p">:</span><span class="mi">123</span> <span class="n">nack</span> <span class="n">pli</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">123</span> <span class="n">level</span><span class="o">-</span><span class="n">asymmetry</span><span class="o">-</span><span class="n">allowed</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">packetization</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">profile</span><span class="o">-</span><span class="n">level</span><span class="o">-</span><span class="nb">id</span><span class="o">=</span><span class="mi">640015</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">118</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">118</span> <span class="n">apt</span><span class="o">=</span><span class="mi">123</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">114</span> <span class="n">red</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">115</span> <span class="n">rtx</span><span class="o">/</span><span class="mi">90000</span> <span class="n">a</span><span class="o">=</span><span class="n">fmtp</span><span class="p">:</span><span class="mi">115</span> <span class="n">apt</span><span class="o">=</span><span class="mi">114</span> <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">116</span> <span class="n">ulpfec</span><span class="o">/</span><span class="mi">90000</span>
+<span class="p">[</span><span class="mf">72.959</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">setLocalDescription</span> <span class="n">start</span>
+<span class="p">[</span><span class="mf">72.960</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.961</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.961</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.964</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.964</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.964</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.964</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">72.965</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">73.292</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">setLocalDescription</span> <span class="n">complete</span>
+<span class="p">[</span><span class="mf">73.294</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">ICE</span> <span class="n">state</span><span class="p">:</span> <span class="n">checking</span>
+<span class="p">[</span><span class="mf">73.294</span><span class="p">]</span> <span class="n">ICE</span> <span class="n">state</span> <span class="n">change</span> <span class="n">event</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">73.295</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">ICE</span> <span class="n">state</span><span class="p">:</span> <span class="n">checking</span>
+<span class="p">[</span><span class="mf">73.295</span><span class="p">]</span> <span class="n">ICE</span> <span class="n">state</span> <span class="n">change</span> <span class="n">event</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">73.295</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">ICE</span> <span class="n">state</span><span class="p">:</span> <span class="n">connected</span>
+<span class="p">[</span><span class="mf">73.295</span><span class="p">]</span> <span class="n">ICE</span> <span class="n">state</span> <span class="n">change</span> <span class="n">event</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">73.297</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">ICE</span> <span class="n">state</span><span class="p">:</span> <span class="n">connected</span>
+<span class="p">[</span><span class="mf">73.297</span><span class="p">]</span> <span class="n">ICE</span> <span class="n">state</span> <span class="n">change</span> <span class="n">event</span><span class="p">:</span>
+<span class="p">[</span><span class="mf">73.297</span><span class="p">]</span> <span class="n">pc1</span> <span class="n">setRemoteDescription</span> <span class="n">complete</span>
+<span class="p">[</span><span class="mf">73.305</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">73.305</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">73.305</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+<span class="p">[</span><span class="mf">73.306</span><span class="p">]</span> <span class="n">pc2</span> <span class="n">addIceCandidate</span> <span class="n">success</span>
+</pre></div>
+</div>
+<p>本地连接等于是自己连自己，这里的核心方法是 call()， 它创建两个
+PeerConnection – pc1 和 pc 2,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>async function call() {
+   callButton.disabled = true;
+   hangupButton.disabled = false;
+   weblog(&#39;Starting call&#39;);
+   startTime = window.performance.now();
+   const videoTracks = localStream.getVideoTracks();
+   const audioTracks = localStream.getAudioTracks();
+   if (videoTracks.length &gt; 0) {
+     weblog(`Using video device: ${videoTracks[0].label}`);
+   }
+   if (audioTracks.length &gt; 0) {
+     weblog(`Using audio device: ${audioTracks[0].label}`);
+   }
+   const configuration = getSelectedSdpSemantics();
+   weblog(&#39;RTCPeerConnection configuration:&#39;, configuration);
+   pc1 = new RTCPeerConnection(configuration);
+   weblog(&#39;Created local peer connection object pc1&#39;);
+   pc1.addEventListener(&#39;icecandidate&#39;, e =&gt; onIceCandidate(pc1, e));
+   pc2 = new RTCPeerConnection(configuration);
+   weblog(&#39;Created remote peer connection object pc2&#39;);
+   pc2.addEventListener(&#39;icecandidate&#39;, e =&gt; onIceCandidate(pc2, e));
+   pc1.addEventListener(&#39;iceconnectionstatechange&#39;, e =&gt; onIceStateChange(pc1, e));
+   pc2.addEventListener(&#39;iceconnectionstatechange&#39;, e =&gt; onIceStateChange(pc2, e));
+   pc2.addEventListener(&#39;track&#39;, gotRemoteStream);
+
+   localStream.getTracks().forEach(track =&gt; pc1.addTrack(track, localStream));
+   weblog(&#39;Added local stream to pc1&#39;);
+
+   try {
+     weblog(&#39;pc1 createOffer start&#39;);
+     const offer = await pc1.createOffer(offerOptions);
+     await onCreateOfferSuccess(offer);
+   } catch (e) {
+     onCreateSessionDescriptionError(e);
+   }
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">代码中的主要流程</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>SDP 协商</p></li>
+</ol>
+<p><img alt="image1" src="https://upload-images.jianshu.io/upload_images/1598924-cc2325953073bd82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<ol class="arabic simple">
+<li><p>ICE 检查</p></li>
+</ol>
+<p><img alt="image2" src="https://upload-images.jianshu.io/upload_images/1598924-3390ea3ce1951b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>注意 WebRTC 支持 “Trickling ICE” ， 针对多个 candidate pair ,
+这个过程有多次</p>
+<p>至此， 媒体连接搭建成功， 媒体流localStream 和 remoteStream
+就可以互相传输了。</p>
+<p>下一篇文章，再详细说说远程视频聊天的创建过程。</p>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id10">参考资料</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://webrtc.github.io/samples/">https://webrtc.github.io/samples/</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="remote_pc.html" class="btn btn-neutral float-right" title="WebRTC 远程连接" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="WebRTC 概论" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

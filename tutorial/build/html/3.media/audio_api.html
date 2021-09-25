@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Web Audio API &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Video Basic" href="video_basic.html" />
+    <link rel="prev" title="Audio QoS" href="audio_qos.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Web Audio API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#baseaudiocontext">BaseAudioContext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audiocontext">AudioContext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audionode">AudioNode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scriptprocessornode">ScriptProcessorNode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audiobuffer">AudioBuffer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#faq">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-visualize-audio-wave">how to visualize audio wave</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-create-an-audiobuffer-and-fill-it-with-random-white-noise">how to create an AudioBuffer and fill it with random white noise</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+      <li>Web Audio API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/3.media/audio_api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="web-audio-api">
+<h1>Web Audio API<a class="headerlink" href="#web-audio-api" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#api" id="id3">API</a></p>
+<ul>
+<li><p><a class="reference internal" href="#baseaudiocontext" id="id4">BaseAudioContext</a></p>
+<ul>
+<li><p><a class="reference internal" href="#createbuffer" id="id5">createBuffer()</a></p></li>
+<li><p><a class="reference internal" href="#createconstantsource" id="id6">createConstantSource()</a></p></li>
+<li><p><a class="reference internal" href="#createbuffersource" id="id7">createBufferSource()</a></p></li>
+<li><p><a class="reference internal" href="#createscriptprocessor" id="id8">createScriptProcessor()</a></p></li>
+<li><p><a class="reference internal" href="#createstereopanner" id="id9">createStereoPanner()</a></p></li>
+<li><p><a class="reference internal" href="#createanalyser" id="id10">createAnalyser()</a></p></li>
+<li><p><a class="reference internal" href="#createbiquadfilter" id="id11">createBiquadFilter()</a></p></li>
+<li><p><a class="reference internal" href="#createchannelmerger" id="id12">createChannelMerger()</a></p></li>
+<li><p><a class="reference internal" href="#createchannelsplitter" id="id13">createChannelSplitter()</a></p></li>
+<li><p><a class="reference internal" href="#createconvolver" id="id14">createConvolver()</a></p></li>
+<li><p><a class="reference internal" href="#createdelay" id="id15">createDelay()</a></p></li>
+<li><p><a class="reference internal" href="#createdynamicscompressor" id="id16">createDynamicsCompressor()</a></p></li>
+<li><p><a class="reference internal" href="#creategain" id="id17">createGain()</a></p></li>
+<li><p><a class="reference internal" href="#createiirfilter" id="id18">createIIRFilter()</a></p></li>
+<li><p><a class="reference internal" href="#createoscillator" id="id19">createOscillator()</a></p></li>
+<li><p><a class="reference internal" href="#createpanner" id="id20">createPanner()</a></p></li>
+<li><p><a class="reference internal" href="#createperiodicwave" id="id21">createPeriodicWave()</a></p></li>
+<li><p><a class="reference internal" href="#createwaveshaper" id="id22">createWaveShaper()</a></p></li>
+<li><p><a class="reference internal" href="#decodeaudiodata" id="id23">decodeAudioData()</a></p></li>
+<li><p><a class="reference internal" href="#resume" id="id24">resume()</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#audiocontext" id="id25">AudioContext</a></p>
+<ul>
+<li><p><a class="reference internal" href="#createmediaelementsource" id="id26">createMediaElementSource</a></p></li>
+<li><p><a class="reference internal" href="#createmediastreamsource" id="id27">createMediaStreamSource</a></p></li>
+<li><p><a class="reference internal" href="#createmediastreamdestination" id="id28">createMediaStreamDestination</a></p></li>
+<li><p><a class="reference internal" href="#createmediastreamtracksource" id="id29">createMediaStreamTrackSource</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#audionode" id="id30">AudioNode</a></p>
+<ul>
+<li><p><a class="reference internal" href="#audionode-connect" id="id31">AudioNode.connect()</a></p></li>
+<li><p><a class="reference internal" href="#audionode-disconnect" id="id32">AudioNode.disconnect()</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#scriptprocessornode" id="id33">ScriptProcessorNode</a></p>
+<ul>
+<li><p><a class="reference internal" href="#event-handler" id="id34">Event Handler</a></p></li>
+<li><p><a class="reference internal" href="#inputbuffer" id="id35">InputBuffer</a></p></li>
+<li><p><a class="reference internal" href="#outputbuffer" id="id36">OutputBuffer</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#audiobuffer" id="id37">AudioBuffer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#audiobuffer-getchanneldata" id="id38">AudioBuffer.getChannelData()</a></p></li>
+<li><p><a class="reference internal" href="#audiobuffer-copyfromchannel" id="id39">AudioBuffer.copyFromChannel()</a></p></li>
+<li><p><a class="reference internal" href="#audiobuffer-copytochannel" id="id40">AudioBuffer.copyToChannel()</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#faq" id="id41">FAQ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#how-to-visualize-audio-wave" id="id42">how to visualize audio wave</a></p></li>
+<li><p><a class="reference internal" href="#how-to-create-an-audiobuffer-and-fill-it-with-random-white-noise" id="id43">how to create an AudioBuffer and fill it with random white noise</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id44">Reference</a></p></li>
+</ul>
+</div>
+<div class="section" id="api">
+<h2><a class="toc-backref" href="#id3">API</a><a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="baseaudiocontext">
+<h3><a class="toc-backref" href="#id4">BaseAudioContext</a><a class="headerlink" href="#baseaudiocontext" title="Permalink to this headline">¶</a></h3>
+<p>Also implements methods from the interface EventTarget.</p>
+<div class="section" id="createbuffer">
+<h4><a class="toc-backref" href="#id5">createBuffer()</a><a class="headerlink" href="#createbuffer" title="Permalink to this headline">¶</a></h4>
+<p>Creates a new, empty AudioBuffer object, which can then be populated by data and played via an AudioBufferSourceNode.</p>
+</div>
+<div class="section" id="createconstantsource">
+<h4><a class="toc-backref" href="#id6">createConstantSource()</a><a class="headerlink" href="#createconstantsource" title="Permalink to this headline">¶</a></h4>
+<p>Creates a ConstantSourceNode  object, which is an audio source that continuously outputs a monaural (one-channel) sound signal whose samples all have the same value.</p>
+</div>
+<div class="section" id="createbuffersource">
+<h4><a class="toc-backref" href="#id7">createBufferSource()</a><a class="headerlink" href="#createbuffersource" title="Permalink to this headline">¶</a></h4>
+<p>Creates an AudioBufferSourceNode, which can be used to play and manipulate audio data contained within an AudioBuffer object. AudioBuffers are created using AudioContext.createBuffer or returned by AudioContext.decodeAudioData when it successfully decodes an audio track.</p>
+</div>
+<div class="section" id="createscriptprocessor">
+<h4><a class="toc-backref" href="#id8">createScriptProcessor()</a><a class="headerlink" href="#createscriptprocessor" title="Permalink to this headline">¶</a></h4>
+<p>Creates a ScriptProcessorNode, which can be used for direct audio processing via JavaScript.</p>
+</div>
+<div class="section" id="createstereopanner">
+<h4><a class="toc-backref" href="#id9">createStereoPanner()</a><a class="headerlink" href="#createstereopanner" title="Permalink to this headline">¶</a></h4>
+<p>Creates a StereoPannerNode , which can be used to apply stereo panning to an audio source.</p>
+</div>
+<div class="section" id="createanalyser">
+<h4><a class="toc-backref" href="#id10">createAnalyser()</a><a class="headerlink" href="#createanalyser" title="Permalink to this headline">¶</a></h4>
+<p>Creates an AnalyserNode, which can be used to expose audio time and frequency data and for example to create data visualisations.</p>
+</div>
+<div class="section" id="createbiquadfilter">
+<h4><a class="toc-backref" href="#id11">createBiquadFilter()</a><a class="headerlink" href="#createbiquadfilter" title="Permalink to this headline">¶</a></h4>
+<p>Creates a BiquadFilterNode, which represents a second order filter configurable as several different common filter types: high-pass, low-pass, band-pass, etc.</p>
+</div>
+<div class="section" id="createchannelmerger">
+<h4><a class="toc-backref" href="#id12">createChannelMerger()</a><a class="headerlink" href="#createchannelmerger" title="Permalink to this headline">¶</a></h4>
+<p>Creates a ChannelMergerNode, which is used to combine channels from multiple audio streams into a single audio stream.</p>
+</div>
+<div class="section" id="createchannelsplitter">
+<h4><a class="toc-backref" href="#id13">createChannelSplitter()</a><a class="headerlink" href="#createchannelsplitter" title="Permalink to this headline">¶</a></h4>
+<p>Creates a ChannelSplitterNode , which is used to access the individual channels of an audio stream and process them separately.</p>
+</div>
+<div class="section" id="createconvolver">
+<h4><a class="toc-backref" href="#id14">createConvolver()</a><a class="headerlink" href="#createconvolver" title="Permalink to this headline">¶</a></h4>
+<p>Creates a ConvolverNode, which can be used to apply convolution effects to your audio graph, for example a reverberation effect.</p>
+</div>
+<div class="section" id="createdelay">
+<h4><a class="toc-backref" href="#id15">createDelay()</a><a class="headerlink" href="#createdelay" title="Permalink to this headline">¶</a></h4>
+<p>Creates a DelayNode , which is used to delay the incoming audio signal by a certain amount. This node is also useful to create feedback loops in a Web Audio API graph.</p>
+</div>
+<div class="section" id="createdynamicscompressor">
+<h4><a class="toc-backref" href="#id16">createDynamicsCompressor()</a><a class="headerlink" href="#createdynamicscompressor" title="Permalink to this headline">¶</a></h4>
+<p>Creates a DynamicsCompressorNode, which can be used to apply acoustic compression to an audio signal.</p>
+</div>
+<div class="section" id="creategain">
+<h4><a class="toc-backref" href="#id17">createGain()</a><a class="headerlink" href="#creategain" title="Permalink to this headline">¶</a></h4>
+<p>Creates a GainNode, which can be used to control the overall volume of the audio graph.</p>
+</div>
+<div class="section" id="createiirfilter">
+<h4><a class="toc-backref" href="#id18">createIIRFilter()</a><a class="headerlink" href="#createiirfilter" title="Permalink to this headline">¶</a></h4>
+<p>Creates an IIRFilterNode , which represents a second order filter configurable as several different common filter types.</p>
+</div>
+<div class="section" id="createoscillator">
+<h4><a class="toc-backref" href="#id19">createOscillator()</a><a class="headerlink" href="#createoscillator" title="Permalink to this headline">¶</a></h4>
+<p>Creates an OscillatorNode, a source representing a periodic waveform. It basically generates a tone.</p>
+</div>
+<div class="section" id="createpanner">
+<h4><a class="toc-backref" href="#id20">createPanner()</a><a class="headerlink" href="#createpanner" title="Permalink to this headline">¶</a></h4>
+<p>Creates a PannerNode , which is used to spatialise an incoming audio stream in 3D space.</p>
+</div>
+<div class="section" id="createperiodicwave">
+<h4><a class="toc-backref" href="#id21">createPeriodicWave()</a><a class="headerlink" href="#createperiodicwave" title="Permalink to this headline">¶</a></h4>
+<p>Creates a PeriodicWave, used to define a periodic waveform that can be used to determine the output of an OscillatorNode.</p>
+</div>
+<div class="section" id="createwaveshaper">
+<h4><a class="toc-backref" href="#id22">createWaveShaper()</a><a class="headerlink" href="#createwaveshaper" title="Permalink to this headline">¶</a></h4>
+<p>Creates a WaveShaperNode, which is used to implement non-linear distortion effects.</p>
+</div>
+<div class="section" id="decodeaudiodata">
+<h4><a class="toc-backref" href="#id23">decodeAudioData()</a><a class="headerlink" href="#decodeaudiodata" title="Permalink to this headline">¶</a></h4>
+<p>Asynchronously decodes audio file data contained in an ArrayBuffer. In this case, the ArrayBuffer is usually loaded from an XMLHttpRequest’s response attribute after setting the responseType to arraybuffer. This method only works on complete files, not fragments of audio files.</p>
+</div>
+<div class="section" id="resume">
+<h4><a class="toc-backref" href="#id24">resume()</a><a class="headerlink" href="#resume" title="Permalink to this headline">¶</a></h4>
+<p>Resumes the progression of time in an audio context that has previously been suspended/paused.</p>
+</div>
+</div>
+<div class="section" id="audiocontext">
+<h3><a class="toc-backref" href="#id25">AudioContext</a><a class="headerlink" href="#audiocontext" title="Permalink to this headline">¶</a></h3>
+<p>The AudioContext interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode.</p>
+<p>AudioContext 接口是一个音频处理图，它由音频模块连接在一起构成，每个音频模块是一个 AudioNode</p>
+<p>An audio context controls both the creation of the nodes it contains and the execution of the audio processing, or decoding. You need to create an AudioContext before you do anything else, as everything happens inside a context. It’s recommended to create one AudioContext and reuse it instead of initializing a new one each time, and it’s OK to use a single AudioContext for several different audio sources and pipeline concurrently.</p>
+<div class="section" id="createmediaelementsource">
+<h4><a class="toc-backref" href="#id26">createMediaElementSource</a><a class="headerlink" href="#createmediaelementsource" title="Permalink to this headline">¶</a></h4>
+<p>Creates a MediaElementAudioSourceNode associated with an HTMLMediaElement. This can be used to play and manipulate audio from &lt;video&gt; or &lt;audio&gt; elements.</p>
+</div>
+<div class="section" id="createmediastreamsource">
+<h4><a class="toc-backref" href="#id27">createMediaStreamSource</a><a class="headerlink" href="#createmediastreamsource" title="Permalink to this headline">¶</a></h4>
+<p>Creates a MediaStreamAudioSourceNode associated with a MediaStream representing an audio stream which may come from the local computer microphone or other sources.</p>
+</div>
+<div class="section" id="createmediastreamdestination">
+<h4><a class="toc-backref" href="#id28">createMediaStreamDestination</a><a class="headerlink" href="#createmediastreamdestination" title="Permalink to this headline">¶</a></h4>
+<p>Creates a MediaStreamAudioDestinationNode associated with a MediaStream representing an audio stream which may be stored in a local file or sent to another computer.</p>
+</div>
+<div class="section" id="createmediastreamtracksource">
+<h4><a class="toc-backref" href="#id29">createMediaStreamTrackSource</a><a class="headerlink" href="#createmediastreamtracksource" title="Permalink to this headline">¶</a></h4>
+<p>Creates a MediaStreamTrackAudioSourceNode associated with a MediaStream representing an media stream track.</p>
+</div>
+</div>
+<div class="section" id="audionode">
+<h3><a class="toc-backref" href="#id30">AudioNode</a><a class="headerlink" href="#audionode" title="Permalink to this headline">¶</a></h3>
+<p>The AudioNode interface is a generic interface for representing an audio processing module.</p>
+<p>Examples include:</p>
+<ul class="simple">
+<li><p>an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element, an OscillatorNode, etc.),</p></li>
+<li><p>the audio destination –&gt; speaker</p></li>
+<li><p>intermediate processing module (e.g. a filter like BiquadFilterNode or ConvolverNode), or</p></li>
+<li><p>volume control (like GainNode)</p></li>
+</ul>
+<img alt="audio routing graph" class="align-right" src="../_images/webaudiobasics.png" />
+<p>Also implements methods from the interface EventTarget.</p>
+<div class="section" id="audionode-connect">
+<h4><a class="toc-backref" href="#id31">AudioNode.connect()</a><a class="headerlink" href="#audionode-connect" title="Permalink to this headline">¶</a></h4>
+<p>Allows us to connect the output of this node to be input into another node, either as audio data or as the value of an AudioParam.</p>
+</div>
+<div class="section" id="audionode-disconnect">
+<h4><a class="toc-backref" href="#id32">AudioNode.disconnect()</a><a class="headerlink" href="#audionode-disconnect" title="Permalink to this headline">¶</a></h4>
+<p>Allows us to disconnect the current node from another one it is already connected to.</p>
+</div>
+</div>
+<div class="section" id="scriptprocessornode">
+<h3><a class="toc-backref" href="#id33">ScriptProcessorNode</a><a class="headerlink" href="#scriptprocessornode" title="Permalink to this headline">¶</a></h3>
+<p>ScriptProcessorNode 接口允许使用JavaScript生成、处理、分析音频. 它是一个 AudioNode， 连接着两个缓冲区音频处理模块,
+其中一个缓冲区包含输入音频数据，另外一个包含处理后的输出音频数据.</p>
+<p>实现了 AudioProcessingEvent 接口的一个事件，每当输入缓冲区有新的数据时，事件将被发送到该对象，并且事件将在数据填充到输出缓冲区后结束.</p>
+<div class="section" id="event-handler">
+<h4><a class="toc-backref" href="#id34">Event Handler</a><a class="headerlink" href="#event-handler" title="Permalink to this headline">¶</a></h4>
+<p>The onaudioprocess event handler of the ScriptProcessorNode interface represents the event handler to be called for the audioprocess event
+that is dispatched to ScriptProcessorNode node types.</p>
+<p>An event of type AudioProcessingEvent will be dispatched to the event handler.</p>
+<p>AudioProcessingEvent</p>
+</div>
+<div class="section" id="inputbuffer">
+<h4><a class="toc-backref" href="#id35">InputBuffer</a><a class="headerlink" href="#inputbuffer" title="Permalink to this headline">¶</a></h4>
+<p>The buffer containing the input audio data to be processed.</p>
+<p>The number of channels is defined as a parameter, numberOfInputChannels, of the factory method AudioContext.createScriptProcessor().</p>
+<p>Note the returned AudioBuffer is only valid in the scope of the onaudioprocess function.</p>
+</div>
+<div class="section" id="outputbuffer">
+<h4><a class="toc-backref" href="#id36">OutputBuffer</a><a class="headerlink" href="#outputbuffer" title="Permalink to this headline">¶</a></h4>
+<p>The buffer where the output audio data should be written. The number of channels is defined as a parameter, numberOfOutputChannels, of the factory method AudioContext.createScriptProcessor().</p>
+<p>Note the returned AudioBuffer is only valid in the scope of the onaudioprocess function.</p>
+</div>
+</div>
+<div class="section" id="audiobuffer">
+<h3><a class="toc-backref" href="#id37">AudioBuffer</a><a class="headerlink" href="#audiobuffer" title="Permalink to this headline">¶</a></h3>
+<p>The AudioBuffer interface represents a short audio asset residing in memory, created from an audio file using the AudioContext.decodeAudioData() method, or from raw data using AudioContext.createBuffer().</p>
+<p>Once put into an AudioBuffer, the audio can then be played by being passed into an AudioBufferSourceNode.</p>
+<p>Objects of these types are designed to hold small audio snippets, typically less than 45 s. For longer sounds, objects implementing the MediaElementAudioSourceNode are more suitable.</p>
+<p>The buffer contains data in the following format: non-interleaved IEEE754 32-bit linear PCM with a nominal range between -1 and +1, that is, a 32-bit floating point buffer, with each sample between -1.0 and 1.0. If the AudioBuffer has multiple channels, they are stored in separate buffers.</p>
+<div class="section" id="audiobuffer-getchanneldata">
+<h4><a class="toc-backref" href="#id38">AudioBuffer.getChannelData()</a><a class="headerlink" href="#audiobuffer-getchanneldata" title="Permalink to this headline">¶</a></h4>
+<p>Returns a Float32Array containing the PCM data associated with the channel, defined by the channel parameter (with 0 representing the first channel).</p>
+</div>
+<div class="section" id="audiobuffer-copyfromchannel">
+<h4><a class="toc-backref" href="#id39">AudioBuffer.copyFromChannel()</a><a class="headerlink" href="#audiobuffer-copyfromchannel" title="Permalink to this headline">¶</a></h4>
+<p>Copies the samples from the specified channel of the AudioBuffer to the destination array.</p>
+</div>
+<div class="section" id="audiobuffer-copytochannel">
+<h4><a class="toc-backref" href="#id40">AudioBuffer.copyToChannel()</a><a class="headerlink" href="#audiobuffer-copytochannel" title="Permalink to this headline">¶</a></h4>
+<p>Copies the samples to the specified channel of the AudioBuffer, from the source array.</p>
+</div>
+</div>
+</div>
+<div class="section" id="faq">
+<h2><a class="toc-backref" href="#id41">FAQ</a><a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-to-visualize-audio-wave">
+<h3><a class="toc-backref" href="#id42">how to visualize audio wave</a><a class="headerlink" href="#how-to-visualize-audio-wave" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">audioCtx</span> <span class="o">=</span> <span class="n">new</span> <span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">AudioContext</span> <span class="o">||</span> <span class="n">window</span><span class="o">.</span><span class="n">webkitAudioContext</span><span class="p">)();</span>
+<span class="n">var</span> <span class="n">analyser</span> <span class="o">=</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">createAnalyser</span><span class="p">();</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">createMediaStreamSource</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+<span class="n">source</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">analyser</span><span class="p">);</span>
+<span class="n">analyser</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">distortion</span><span class="p">);</span>
+<span class="n">distortion</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">audioCtx</span><span class="o">.</span><span class="n">destination</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-create-an-audiobuffer-and-fill-it-with-random-white-noise">
+<h3><a class="toc-backref" href="#id43">how to create an AudioBuffer and fill it with random white noise</a><a class="headerlink" href="#how-to-create-an-audiobuffer-and-fill-it-with-random-white-noise" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">audioCtx</span> <span class="o">=</span> <span class="n">new</span> <span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">AudioContext</span> <span class="o">||</span> <span class="n">window</span><span class="o">.</span><span class="n">webkitAudioContext</span><span class="p">)();</span>
+
+<span class="o">//</span> <span class="n">Create</span> <span class="n">an</span> <span class="n">empty</span> <span class="n">three</span><span class="o">-</span><span class="n">second</span> <span class="n">stereo</span> <span class="n">buffer</span> <span class="n">at</span> <span class="n">the</span> <span class="n">sample</span> <span class="n">rate</span> <span class="n">of</span> <span class="n">the</span> <span class="n">AudioContext</span>
+<span class="n">var</span> <span class="n">myArrayBuffer</span> <span class="o">=</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">createBuffer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">sampleRate</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">sampleRate</span><span class="p">);</span>
+
+<span class="o">//</span> <span class="n">Fill</span> <span class="n">the</span> <span class="n">buffer</span> <span class="k">with</span> <span class="n">white</span> <span class="n">noise</span><span class="p">;</span>
+<span class="o">//</span> <span class="n">just</span> <span class="n">random</span> <span class="n">values</span> <span class="n">between</span> <span class="o">-</span><span class="mf">1.0</span> <span class="ow">and</span> <span class="mf">1.0</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">channel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">channel</span> <span class="o">&lt;</span> <span class="n">myArrayBuffer</span><span class="o">.</span><span class="n">numberOfChannels</span><span class="p">;</span> <span class="n">channel</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">//</span> <span class="n">This</span> <span class="n">gives</span> <span class="n">us</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">array</span> <span class="n">that</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">data</span>
+  <span class="n">var</span> <span class="n">nowBuffering</span> <span class="o">=</span> <span class="n">myArrayBuffer</span><span class="o">.</span><span class="n">getChannelData</span><span class="p">(</span><span class="n">channel</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">myArrayBuffer</span><span class="o">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="o">//</span> <span class="n">audio</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">;</span> <span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">nowBuffering</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">//</span> <span class="n">Get</span> <span class="n">an</span> <span class="n">AudioBufferSourceNode</span><span class="o">.</span>
+<span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">AudioNode</span> <span class="n">to</span> <span class="n">use</span> <span class="n">when</span> <span class="n">we</span> <span class="n">want</span> <span class="n">to</span> <span class="n">play</span> <span class="n">an</span> <span class="n">AudioBuffer</span>
+<span class="n">var</span> <span class="n">source</span> <span class="o">=</span> <span class="n">audioCtx</span><span class="o">.</span><span class="n">createBufferSource</span><span class="p">();</span>
+
+<span class="o">//</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">AudioBufferSourceNode</span>
+<span class="n">source</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">myArrayBuffer</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">connect</span> <span class="n">the</span> <span class="n">AudioBufferSourceNode</span> <span class="n">to</span> <span class="n">the</span>
+<span class="o">//</span> <span class="n">destination</span> <span class="n">so</span> <span class="n">we</span> <span class="n">can</span> <span class="n">hear</span> <span class="n">the</span> <span class="n">sound</span>
+<span class="n">source</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">audioCtx</span><span class="o">.</span><span class="n">destination</span><span class="p">);</span>
+
+<span class="o">//</span> <span class="n">start</span> <span class="n">the</span> <span class="n">source</span> <span class="n">playing</span>
+<span class="n">source</span><span class="o">.</span><span class="n">start</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id44">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer">AudioBuffer</a></p></li>
+<li><p><a class="reference external" href="https://webaudio.github.io/web-audio-api">Web Audio API</a></p></li>
+<li><p><a class="reference external" href="https://heycam.github.io/webidl">Web IDL</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="video_basic.html" class="btn btn-neutral float-right" title="Video Basic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="audio_qos.html" class="btn btn-neutral float-left" title="Audio QoS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
