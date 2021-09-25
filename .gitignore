@@ -7,7 +7,7 @@ _build/
 # BlueJ files
 *.ctxt
 
-tutorial/build/
+#tutorial/build/
 .cproject
 .project
 .vscode/

@@ -2,8 +2,39 @@
 HTML5 for WebRTC
 ########################
 
+.. include:: ../links.ref
+.. include:: ../tags.ref
+.. include:: ../abbrs.ref
+
+============ =============
+**Abstract** Opus Codec review
+**Authors**  Walter Fan
+**Status**   WIP
+**Updated**  |date|
+============ =============
+
+.. |date| date::
+
 .. contents::
-    :local:
+   :local:
+
+概述
+=============
+
+Html5 为 WebRTC 的落地提供了坚实的基础，除了 WebRTC 报需要的三大 API
+
+* MediaDevices
+* MediaStream
+* RTCPeerConnection
+* RTCDataChannel
+
+
+它还提供了
+
+1. video element
+2. audio element
+3. canvas and 2d/3d context
+4. audio context and nodes
 
 
 Audio Element

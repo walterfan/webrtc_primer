@@ -47,27 +47,31 @@
 
        <div class="row">
             <div class="col-lg-5">
-            <label >Input</label>
+            <label >Local Audio</label>
             </div>
             <div class="col-lg-2">
                 <label>Action </label>
             </div>
             <div class="col-lg-5">
-            <label>Output</label>
+            <label>Remove Audio</label>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-5">
-                <textarea id="input" cols="50" rows="2"></textarea>
+                <!--<textarea id="input" cols="50" rows="2"></textarea>-->
+                <audio id="localAudio" controls/>
             </div>
             <div class="col-lg-2">
-                <button class="btn btn-success" id="executeButton">Execute</button>
+                <button class="btn btn-success" id="startButton">Start</button>
+                <button class="btn btn-failure" id="stopButton">Stop</button>
             </div>
             <div class="col-lg-5">
 
-                <textarea id="output" cols="50" rows="2"></textarea>
+                <!--<textarea id="output" cols="50" rows="2"></textarea>-->
+                <audio id="remoteAudio" controls/>
             </div>
         </div>
+
         <div class="row" id="links">
             <ul>
                 <li> <a href="example1.html">example1</a></li>
@@ -80,11 +84,16 @@
   </body>
   <script src="app.js"></script>
   <script>
-  
+
+
       window.onload = function init() {
-        RTC.init();
+          var rtcApp = new RtcApp();
+          rtcApp.init();
+          //why call rtcApp.startMedia(e) directly cause the this variable error in function startMedia
+          document.getElementById("startButton").addEventListener("click", e => rtcApp.startMedia(e));
+          document.getElementById("stopButton").addEventListener("click", e => rtcApp.stopMedia(e));
 
       }
-  
+
   </script>
 </html>

@@ -7,7 +7,7 @@ const closeButton = document.getElementById('closeButton');
 
 stopButton.disabled = true;
 closeButton.disabled = true;
-
+RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection;
 
 startButton.addEventListener('click', startMedia);
 stopButton.addEventListener('click', closeConnection);

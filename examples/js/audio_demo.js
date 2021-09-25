@@ -27,6 +27,16 @@ var canvas = document.getElementById("visualizer");
 var canvasCtx = canvas.getContext("2d");
 var audioCtx = null;
 var analyser = null;
+var sourceNode = null;
+var scriptNode = null;
+
+var numAudioChannels = 1;
+var audioBufferSize = 2048;
+var audioFrameSize = 1920;
+var audioSampleRate = 48000;
+
+var inputAudioBufferOffset = 0;
+var inputAudioBuffer = new Float32Array(audioBufferSize * 2);
 
 async function openMedia(e, constraints) {
     if (mediaButton.textContent === 'Close Media') {
@@ -35,6 +45,9 @@ async function openMedia(e, constraints) {
     }
 
     audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+    scriptNode = audioCtx.createScriptProcessor(4096, 1, 1);
+
     analyser = audioCtx.createAnalyser();
     analyser.minDecibels = -90;
     analyser.maxDecibels = -10;
@@ -71,13 +84,32 @@ function closeMedia(e) {
     console.log('closeMedia success ');
 }
 
+
+function processAudioChunk(event) {
+    var inputBuffer = event.inputBuffer;
+    var inputData = inputBuffer.getChannelData(0);
+
+    inputAudioBuffer.set(inputData, inputAudioBufferOffset);
+    inputAudioBufferOffset += inputData.length;
+
+
+    var frame = new Float32Array(audioFrameSize);
+    frame.set(inputAudioBuffer.subarray(0, frame.length));
+    inputAudioBuffer.copyWithin(0, frame.length, inputAudioBufferOffset);
+    inputAudioBufferOffset -= frame.length;
+}
+
 function handleSuccess(stream) {
     
     document.querySelector('audio').srcObject = stream;
     localStream = stream;
 
-    var source = audioCtx.createMediaStreamSource(stream);
-    source.connect(analyser);
+    sourceNode = audioCtx.createMediaStreamSource(stream);
+    sourceNode.connect(analyser);
+
+    sourceNode.connect(scriptNode);
+    sourceNode.connect(audioCtx.destination);
+    scriptNode.onaudioprocess = processAudioChunk;
 
 }
 
