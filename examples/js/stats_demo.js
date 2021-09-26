@@ -111,11 +111,13 @@ pc2.onaddstream = e => v2.srcObject = e.stream;
 var mute = () => v1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
 
 function startMedia() {
-    log("start media");
-    navigator.mediaDevices.getUserMedia({
-        video: enableAudio(),
-        audio: enableVideo()
-    })
+    var bAudio = enableAudio();
+    var bVideo = enableVideo();
+    var constraints = {
+        audio: bAudio, video: bVideo
+    }
+    log("start media: ", constraints);
+    navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => (pc1.addStream(v1.srcObject = stream), pc1.createOffer()))
     .then(offer => offer && (offer.sdp = offer.sdp.replace(/VP8/g, "H264") && pc1.setLocalDescription(offer))
     .then(() => pc2.setRemoteDescription(pc1.localDescription))
