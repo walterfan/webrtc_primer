@@ -49,7 +49,7 @@ var remoteStream;
 var pc;
 
 // Peer Connection ICE protocol configuration (either Firefox or Chrome)
-var pc_config = webrtcDetectedBrowser === 'firefox' ?
+var pc_config = adapter.browserDetails.browser  === 'firefox' ?
   {'iceServers':[{'urls':'stun:23.21.150.121'}]} : // IP address
   {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]};
 
@@ -66,7 +66,7 @@ var pc_constraints = {
 //  'OfferToReceiveAudio':true,
 //  'OfferToReceiveVideo':true }};
 
-var sdpConstraints = webrtcDetectedBrowser === 'firefox' ?
+var sdpConstraints = adapter.browserDetails.browser  === 'firefox' ?
 		{'offerToReceiveAudio':true,'offerToReceiveVideo':true } :
 		{'mandatory': {'OfferToReceiveAudio':true, 'OfferToReceiveVideo':true }};
 
@@ -75,7 +75,7 @@ var sdpConstraints = webrtcDetectedBrowser === 'firefox' ?
 
 // Set getUserMedia constraints
 const constraints = {
-  audio: false,
+  audio: true,
   video: true
 };
 
@@ -237,8 +237,8 @@ function createPeerConnection() {
       sendChannel.onmessage = handleMessage;
       sendChannel.onclose = handleSendChannelStateChange;
     } catch (e) {
-      alert('Failed to create data channel. ');
-      trace('createDataChannel() failed with exception: ' + e.message);
+      //alert('Failed to create data channel. ');
+      weblog('createDataChannel() failed with exception: ' + e.message);
     }
     
   } else { // Joiner
