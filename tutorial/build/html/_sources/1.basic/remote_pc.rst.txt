@@ -60,15 +60,12 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 然后发回给对端.于是当对方收到 Answer 并设置给自己的 RTCPeerConnection,
 这个状态就会变成 “stable”
 
-.. figure:: ../_static/webrtc_topology.webp
-   :alt: signal states
-
-   signal states
+|image2|
 
 具体的交互如下图所示, Alice 要与 Bob 通信就要先交换 SDP, 进行一轮
 Offer/Answer 的协商
 
-|image2|
+|image3|
 
 1. ICE 连接状态机
 
@@ -77,18 +74,18 @@ Offer/Answer 的协商
 Candidate-pair 进行检查 “checking”,如果能连通, 最终状态转换为
 “connected”
 
-|image3|
+|image4|
 
 通过 ICE/STUN/TURN 协议，将位于防火墙，准确地来说是 NAT (网络地址转换器)
 之后的通信双方连接起来
 
 可以象下面这样在SDP 在携带地址信息(ice-candidate: ip+port)
 
-|image4|
+|image5|
 
 让我们来举一个具体例子, 客户端初始界面如下:
 
-|image5|
+|image6|
 
 1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器
 =============================================================
@@ -831,7 +828,7 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
 
 最终效果如下, 可以在两台电脑上进行视频和文字聊天
 
-|image6|
+|image7|
 
 借助 WebRTC 强大的 API ,
 需要写的代码也没多少，我在客户端和服务端都记录了详细的日志供您参考
@@ -1020,11 +1017,12 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
 
 .. _JavaScript 会话创建协议: https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
 
-.. |image0| image:: ../_static/webrtc_protocols.webp
-.. |image1| image:: ../_static/webrtc_signal_state.webp
-.. |image2| image:: ../_static/webrtc_jsep.webp
-.. |image3| image:: ../_static/webrtc_ice_state.webp
-.. |image4| image:: ../_static/webrtc_ice_flow.webp
-.. |image5| image:: ../_static/webrtc_video_chat_exam.webp
-.. |image6| image:: ../_static/webrtc_remote_pc_exam.webp
+.. |image0| image:: ../_static/webrtc_topology.webp
+.. |image1| image:: ../_static/webrtc_protocols.webp
+.. |image2| image:: ../_static/webrtc_signal_state.webp
+.. |image3| image:: ../_static/webrtc_jsep.webp
+.. |image4| image:: ../_static/webrtc_ice_state.webp
+.. |image5| image:: ../_static/webrtc_ice_flow.webp
+.. |image6| image:: ../_static/webrtc_video_chat_exam.webp
+.. |image7| image:: ../_static/webrtc_remote_pc_exam.webp
 
