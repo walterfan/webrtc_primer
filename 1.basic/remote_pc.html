@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
@@ -219,14 +219,14 @@
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id9">WebRTC 的信令，媒体以及数据通道</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>首先看一下 WebRTC 的实体之间的拓扑结构</p>
-<p><img alt="image0" src="https://upload-images.jianshu.io/upload_images/1598924-0619baab16563651.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image0" src="../_images/webrtc_protocols.webp" /></p>
 <p>WebRTC 协议栈如下图所示, 基本上有三个通道需要建立</p>
 <ol class="arabic simple">
 <li><p>Signal 信令通道, 可以通过 TCP/TLS + HTTP 和 WebSocket 来传输信令消息</p></li>
 <li><p>Media 媒体通道, 可以通过 UDP + DTLS/SRTP 来传输媒体</p></li>
 <li><p>Data 数据通道, 可以通过 UDP + DTLS + SCTP 来传输数据</p></li>
 </ol>
-<p><img alt="image1" src="https://upload-images.jianshu.io/upload_images/1598924-bd128315608e55c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image1" src="../_images/webrtc_signal_state.webp" /></p>
 <p>对于媒体传输层，WebRTC 规定了用 ICE/STUN/TURN 来连通，用 DTLS 来协商
 SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。</p>
 <p>而在信令层，WebRTC
@@ -247,26 +247,26 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。<
 然后发回给对端.于是当对方收到 Answer 并设置给自己的 RTCPeerConnection,
 这个状态就会变成 “stable”</p>
 <div class="figure align-default" id="id7">
-<img alt="signal states" src="https://upload-images.jianshu.io/upload_images/1598924-6ab2de3d2a295b59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img alt="signal states" src="../_images/webrtc_topology.webp" />
 <p class="caption"><span class="caption-text">signal states</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 <p>具体的交互如下图所示, Alice 要与 Bob 通信就要先交换 SDP, 进行一轮
 Offer/Answer 的协商</p>
-<p><img alt="image2" src="https://upload-images.jianshu.io/upload_images/1598924-863e7bc0f54e368f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
-<ol class="arabic simple" start="2">
+<p><img alt="image2" src="../_images/webrtc_jsep.webp" /></p>
+<ol class="arabic simple">
 <li><p>ICE 连接状态机</p></li>
 </ol>
 <p>信令通道搭建好进行 SDP 媒体能力的协商, 还要进行媒体通道的搭建,
 首要的就是要创建好连接,能不能连接需要检查. 也即要将对收集到的候选者对
 Candidate-pair 进行检查 “checking”,如果能连通, 最终状态转换为
 “connected”</p>
-<p><img alt="image3" src="https://upload-images.jianshu.io/upload_images/1598924-85da11d5360b1a7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080" /></p>
+<p><img alt="image3" src="../_images/webrtc_ice_state.webp" /></p>
 <p>通过 ICE/STUN/TURN 协议，将位于防火墙，准确地来说是 NAT (网络地址转换器)
 之后的通信双方连接起来</p>
 <p>可以象下面这样在SDP 在携带地址信息(ice-candidate: ip+port)</p>
-<p><img alt="image4" src="https://upload-images.jianshu.io/upload_images/1598924-d291d164483f3686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2480" /></p>
+<p><img alt="image4" src="../_images/webrtc_ice_flow.webp" /></p>
 <p>让我们来举一个具体例子, 客户端初始界面如下:</p>
-<p><img alt="image5" src="https://upload-images.jianshu.io/upload_images/1598924-f479ce1165d65758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image5" src="../_images/webrtc_video_chat_exam.webp" /></p>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id11">1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
@@ -985,7 +985,7 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
 <li><p>在另一台电脑上重复以上操作</p></li>
 </ul>
 <p>最终效果如下, 可以在两台电脑上进行视频和文字聊天</p>
-<p><img alt="image6" src="https://upload-images.jianshu.io/upload_images/1598924-ad108bc61858022f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image6" src="../_images/webrtc_remote_pc_exam.webp" /></p>
 <p>借助 WebRTC 强大的 API ,
 需要写的代码也没多少，我在客户端和服务端都记录了详细的日志供您参考</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;v=0</span><span class="se">\r\n</span><span class="s1">&#39;</span> <span class="o">+</span>
@@ -1168,7 +1168,6 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
 <div class="section" id="id6">
 <h2><a class="toc-backref" href="#id18">参考资料</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>&lt;&gt;</p></li>
 <li><p><a class="reference external" href="https://webrtc.github.io/samples/">https://webrtc.github.io/samples/</a></p></li>
 </ul>
 </div>

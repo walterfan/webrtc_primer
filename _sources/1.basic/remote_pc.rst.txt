@@ -60,7 +60,7 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 然后发回给对端.于是当对方收到 Answer 并设置给自己的 RTCPeerConnection,
 这个状态就会变成 “stable”
 
-.. figure:: https://upload-images.jianshu.io/upload_images/1598924-6ab2de3d2a295b59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+.. figure:: ../_static/webrtc_topology.webp
    :alt: signal states
 
    signal states
@@ -70,7 +70,7 @@ Offer/Answer 的协商
 
 |image2|
 
-2. ICE 连接状态机
+1. ICE 连接状态机
 
 信令通道搭建好进行 SDP 媒体能力的协商, 还要进行媒体通道的搭建,
 首要的就是要创建好连接,能不能连接需要检查. 也即要将对收集到的候选者对
@@ -1016,16 +1016,15 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
 参考资料
 ========
 
--  <>
 -  https://webrtc.github.io/samples/
 
 .. _JavaScript 会话创建协议: https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-26
 
-.. |image0| image:: https://upload-images.jianshu.io/upload_images/1598924-0619baab16563651.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image1| image:: https://upload-images.jianshu.io/upload_images/1598924-bd128315608e55c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image2| image:: https://upload-images.jianshu.io/upload_images/1598924-863e7bc0f54e368f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image3| image:: https://upload-images.jianshu.io/upload_images/1598924-85da11d5360b1a7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080
-.. |image4| image:: https://upload-images.jianshu.io/upload_images/1598924-d291d164483f3686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2480
-.. |image5| image:: https://upload-images.jianshu.io/upload_images/1598924-f479ce1165d65758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image6| image:: https://upload-images.jianshu.io/upload_images/1598924-ad108bc61858022f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+.. |image0| image:: ../_static/webrtc_protocols.webp
+.. |image1| image:: ../_static/webrtc_signal_state.webp
+.. |image2| image:: ../_static/webrtc_jsep.webp
+.. |image3| image:: ../_static/webrtc_ice_state.webp
+.. |image4| image:: ../_static/webrtc_ice_flow.webp
+.. |image5| image:: ../_static/webrtc_video_chat_exam.webp
+.. |image6| image:: ../_static/webrtc_remote_pc_exam.webp
 
