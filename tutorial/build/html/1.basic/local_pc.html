@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
@@ -208,10 +208,10 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。<
 来通过 HTTP, WebSocket 或 SIP 协议承载具体的媒体会话描述。</p>
 <p>如果我们要进行视频聊天， 最基本的呼叫流程大致如下：</p>
 <div class="figure align-default" id="id5">
-<img alt="WebRTC flow" src="https://upload-images.jianshu.io/upload_images/1598924-3aedd0c66748313e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img alt="WebRTC flow" src="../_images/webrtc_flow.webp" />
 <p class="caption"><span class="caption-text">WebRTC flow</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
-<ol class="arabic simple" start="0">
+<ol class="arabic simple">
 <li><p>收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流</p></li>
 <li><p>两个对端彼此创建信令通道，交换会话描述信息 SDP</p></li>
 <li><p>通过信令通过来交换彼此的会话描述信息 SDP</p></li>
@@ -228,7 +228,7 @@ Description： 包括媒体种类，编码，格式等等。</p>
 在网上聊天（包括文字，语音和视频），需要经过这些步骤，
 看起来很复杂，我们一步细细分解来说</p>
 <div class="figure align-default" id="id6">
-<img alt="call flow example" src="https://upload-images.jianshu.io/upload_images/1598924-c6287ae51d5de473.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+<img alt="call flow example" src="../_images/call_flow_example.webp" />
 <p class="caption"><span class="caption-text">call flow example</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>举两个例子</p>
@@ -584,7 +584,7 @@ async function start() {
 </div>
 <p>整个程序实现可以在这里访问
 <a class="reference external" href="https://www.fanyamin.com/webrtc/examples/local_peer_connection.html">https://www.fanyamin.com/webrtc/examples/local_peer_connection.html</a></p>
-<p><img alt="image0" src="https://upload-images.jianshu.io/upload_images/1598924-445536e5ae84be69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image0" src="../_images/webrtc_local_pc_exam.webp" /></p>
 <p>我在页面了把整个连接的步骤打印了出来</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">49.461</span><span class="p">]</span> <span class="n">Received</span> <span class="n">local</span> <span class="n">stream</span>
 <span class="p">[</span><span class="mf">72.743</span><span class="p">]</span> <span class="n">Starting</span> <span class="n">call</span>
@@ -679,11 +679,11 @@ PeerConnection – pc1 和 pc 2,</p>
 <ol class="arabic simple">
 <li><p>SDP 协商</p></li>
 </ol>
-<p><img alt="image1" src="https://upload-images.jianshu.io/upload_images/1598924-cc2325953073bd82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image1" src="../_images/webrtc_sdp_negotiation.webp" /></p>
 <ol class="arabic simple">
 <li><p>ICE 检查</p></li>
 </ol>
-<p><img alt="image2" src="https://upload-images.jianshu.io/upload_images/1598924-3390ea3ce1951b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p><img alt="image2" src="../_images/webrtc_ice_steps.webp" /></p>
 <p>注意 WebRTC 支持 “Trickling ICE” ， 针对多个 candidate pair ,
 这个过程有多次</p>
 <p>至此， 媒体连接搭建成功， 媒体流localStream 和 remoteStream

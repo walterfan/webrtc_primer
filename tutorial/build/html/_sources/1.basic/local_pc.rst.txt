@@ -36,17 +36,17 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 
 如果我们要进行视频聊天， 最基本的呼叫流程大致如下：
 
-.. figure:: https://upload-images.jianshu.io/upload_images/1598924-3aedd0c66748313e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+.. figure:: ../_static/webrtc_flow.webp
    :alt: WebRTC flow
 
    WebRTC flow
 
-0. 收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流
-1. 两个对端彼此创建信令通道，交换会话描述信息 SDP
-2. 通过信令通过来交换彼此的会话描述信息 SDP
-3. 通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
+1. 收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流
+2. 两个对端彼此创建信令通道，交换会话描述信息 SDP
+3. 通过信令通过来交换彼此的会话描述信息 SDP
+4. 通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
    来创建 PeerConnection
-4. PeerConnection 创建好后，通过SRTP来封装音视频数据进行传输
+5. PeerConnection 创建好后，通过SRTP来封装音视频数据进行传输
 
 简单来说通信的双方需要了解两块信息 1) ICE 候选者 ICE
 Candidates：包括可用来通信的地址信息 2) 会话描述信息 Session
@@ -59,7 +59,7 @@ ICE的全称是" Interactive Connectivity Establishment "
 在网上聊天（包括文字，语音和视频），需要经过这些步骤，
 看起来很复杂，我们一步细细分解来说
 
-.. figure:: https://upload-images.jianshu.io/upload_images/1598924-c6287ae51d5de473.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+.. figure:: ../_static/call_flow_example.webp
    :alt: call flow example
 
    call flow example
@@ -536,7 +536,7 @@ PeerConnection – pc1 和 pc 2,
 
 -  https://webrtc.github.io/samples/
 
-.. |image0| image:: https://upload-images.jianshu.io/upload_images/1598924-445536e5ae84be69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image1| image:: https://upload-images.jianshu.io/upload_images/1598924-cc2325953073bd82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
-.. |image2| image:: https://upload-images.jianshu.io/upload_images/1598924-3390ea3ce1951b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+.. |image0| image:: ../_static/webrtc_local_pc_exam.webp
+.. |image1| image:: ../_static/webrtc_sdp_negotiation.webp
+.. |image2| image:: ../_static/webrtc_ice_steps.webp
 

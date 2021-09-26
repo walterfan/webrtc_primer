@@ -6,6 +6,15 @@
 WebRTC 新手指南
 =======================================
 
+============ =============
+**Abstract** WebRTC Primer Tutorial
+**Authors**  Walter Fan
+**Status**   WIP
+**Updated**  |date|
+============ =============
+
+.. |date| date::
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
