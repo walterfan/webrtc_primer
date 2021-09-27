@@ -15,6 +15,8 @@
 
    webrtc_api
 
+   webrtc_signal
+
    device
 
    video_chat

@@ -117,7 +117,7 @@ async function start() {
     const configuration = getSelectedSdpSemantics();
     weblog('RTCPeerConnection configuration:', configuration);
     pc1 = new RTCPeerConnection(configuration);
-    weblog('Created local peer connection object pc1');
+    weblog('Created local peer connection object pc1', configuration);
     pc1.addEventListener('icecandidate', e => onIceCandidate(pc1, e));
     pc2 = new RTCPeerConnection(configuration);
     weblog('Created remote peer connection object pc2');
