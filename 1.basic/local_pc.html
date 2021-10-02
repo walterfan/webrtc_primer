@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
@@ -101,6 +101,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="remote_pc.html">WebRTC 远程连接</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_signal.html">WebRTC 的信令</a></li>
 <li class="toctree-l2"><a class="reference internal" href="device.html">设备与环境</a></li>
 <li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
@@ -183,14 +184,14 @@
 <h1>WebRTC 本地连接<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id7">概论</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id8">本地对等连接</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id9">代码中的主要流程</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id10">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id5">概论</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id6">本地对等连接</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id7">代码中的主要流程</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id8">参考资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id7">概论</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">概论</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>WebRTC 是一套基于 Web 的实时通信解决方案，通过浏览器内置的 API
 来支持音视频通道的搭建。</p>
 <p>简而言之，先在信令通道协商出彼此的媒体和通信参数,
@@ -207,29 +208,30 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。<
 并未指定，各个应用可以用自己喜欢的信令协议来进行媒体协商，一般都是用 SDP
 来通过 HTTP, WebSocket 或 SIP 协议承载具体的媒体会话描述。</p>
 <p>如果我们要进行视频聊天， 最基本的呼叫流程大致如下：</p>
-<div class="figure align-default" id="id5">
+<div class="figure align-default">
 <img alt="WebRTC flow" src="../_images/webrtc_flow.webp" />
-<p class="caption"><span class="caption-text">WebRTC flow</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 <ol class="arabic simple">
-<li><p>收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流</p></li>
-<li><p>两个对端彼此创建信令通道，交换会话描述信息 SDP</p></li>
-<li><p>通过信令通过来交换彼此的会话描述信息 SDP</p></li>
+<li><p>收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流, 通过 getUserMedia 得到相应的媒体流 MediaStreamTrack</p></li>
+<li><p>创建 RTC PeerConnection, 将收集到的 MediaStream(MediaStreamTrack) 通过 addTrack 方法添加到 RTCPeerConnection中</p></li>
+<li><p>在两个对端间通过 WebSocket 或其他传输通道来创建信令通道</p></li>
+<li><p>通过信令通道来交换彼此的会话描述信息 SDP 的 offer 和 answer</p></li>
 <li><p>通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
-来创建 PeerConnection</p></li>
-<li><p>PeerConnection 创建好后，通过SRTP来封装音视频数据进行传输</p></li>
+在 ICE candidate paire 之间做连通性检查,在相通的Candidate Pair间 创建 PeerConnection</p></li>
+<li><p>PeerConnection 创建好后，通过DTLS来交换传输加密的密钥，用SRTP来加密封装音视频数据进行传输</p></li>
 </ol>
-<p>简单来说通信的双方需要了解两块信息 1) ICE 候选者 ICE
-Candidates：包括可用来通信的地址信息 2) 会话描述信息 Session
-Description： 包括媒体种类，编码，格式等等。</p>
+<p>简单来说通信的双方需要了解两块信息：</p>
+<ol class="arabic simple">
+<li><p>ICE 候选者 ICE　Candidates：包括可用来通信：的地址信息</p></li>
+<li><p>会话描述信息 Session　Description： 包括媒体种类，编码，格式等等。</p></li>
+</ol>
 <p>ICE的全称是” Interactive Connectivity Establishment ”
 即交互式连接的建立: 一个用于网络地址转换穿越的协议</p>
 <p>大致的流程如下， Alice 想要和 Bob
 在网上聊天（包括文字，语音和视频），需要经过这些步骤，
 看起来很复杂，我们一步细细分解来说</p>
-<div class="figure align-default" id="id6">
+<div class="figure align-default">
 <img alt="call flow example" src="../_images/call_flow_example.webp" />
-<p class="caption"><span class="caption-text">call flow example</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>举两个例子</p>
 <ol class="arabic simple">
@@ -238,7 +240,7 @@ Description： 包括媒体种类，编码，格式等等。</p>
 </ol>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id8">本地对等连接</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">本地对等连接</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>详细代码参见
 <a class="reference external" href="https://github.com/walterfan/webrtc_primer/blob/main/examples/local_peer_connection.html">https://github.com/walterfan/webrtc_primer/blob/main/examples/local_peer_connection.html</a>
@@ -675,7 +677,7 @@ PeerConnection – pc1 和 pc 2,</p>
 </div>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id9">代码中的主要流程</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">代码中的主要流程</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>SDP 协商</p></li>
 </ol>
@@ -691,7 +693,7 @@ PeerConnection – pc1 和 pc 2,</p>
 <p>下一篇文章，再详细说说远程视频聊天的创建过程。</p>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id10">参考资料</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">参考资料</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://webrtc.github.io/samples/">https://webrtc.github.io/samples/</a></p></li>
 </ul>

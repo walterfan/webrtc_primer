@@ -187,6 +187,30 @@ TOC
 它由基于线性预测（LP）[LPC]的层和基于改进离散余弦变换（MDCT）[MDCT]的层组成。
 
 
+SDP
+===========
+
+* maxaveragebitrate
+* maxplaybackrate
+* minptime
+* stereo
+* cbr
+* useinbandfec
+* usedtx
+* sprop-maxcapturerate
+* sprop-stereo
+
+Example
+--------------
+
+.. code-block::
+
+    m=audio 9000 RTP/SAVPF 111
+    a=rtpmap:111 opus/48000/2
+    a=ptime:20
+    a=maxptime:20
+    a=fmtp:111 minptime=20
+    a=fmtp:111 maxplaybackrate=24000; sprop-maxcapturerate=24000; maxaveragebitrate=40000; useinbandfec=1; usedtx=1
 
 
 API

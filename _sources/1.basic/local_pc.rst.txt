@@ -39,18 +39,18 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 .. figure:: ../_static/webrtc_flow.webp
    :alt: WebRTC flow
 
-   WebRTC flow
+1. 收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流, 通过 getUserMedia 得到相应的媒体流 MediaStreamTrack
+2. 创建 RTC PeerConnection, 将收集到的 MediaStream(MediaStreamTrack) 通过 addTrack 方法添加到 RTCPeerConnection中
+3. 在两个对端间通过 WebSocket 或其他传输通道来创建信令通道
+4. 通过信令通道来交换彼此的会话描述信息 SDP 的 offer 和 answer
+5. 通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
+   在 ICE candidate paire 之间做连通性检查,在相通的Candidate Pair间 创建 PeerConnection
+6. PeerConnection 创建好后，通过DTLS来交换传输加密的密钥，用SRTP来加密封装音视频数据进行传输
 
-1. 收集本地的媒体源(麦克风，摄像头)作为 MediaStream 媒体流
-2. 两个对端彼此创建信令通道，交换会话描述信息 SDP
-3. 通过信令通过来交换彼此的会话描述信息 SDP
-4. 通过 ICE/STUN/TURN 协议，协商出可连通的 Candidate Pair(候选者对)
-   来创建 PeerConnection
-5. PeerConnection 创建好后，通过SRTP来封装音视频数据进行传输
+简单来说通信的双方需要了解两块信息：
 
-简单来说通信的双方需要了解两块信息 1) ICE 候选者 ICE
-Candidates：包括可用来通信的地址信息 2) 会话描述信息 Session
-Description： 包括媒体种类，编码，格式等等。
+1) ICE 候选者 ICE　Candidates：包括可用来通信：的地址信息 
+2) 会话描述信息 Session　Description： 包括媒体种类，编码，格式等等。
 
 ICE的全称是" Interactive Connectivity Establishment "
 即交互式连接的建立: 一个用于网络地址转换穿越的协议
@@ -61,8 +61,6 @@ ICE的全称是" Interactive Connectivity Establishment "
 
 .. figure:: ../_static/call_flow_example.webp
    :alt: call flow example
-
-   call flow example
 
 举两个例子
 

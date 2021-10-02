@@ -1,9 +1,29 @@
-*******************************************
+################
 WebRTC API
-*******************************************
+################
+
+.. include:: ../links.ref
+.. include:: ../tags.ref
+.. include:: ../abbrs.ref
+
+
+.. contents::
+    :local:
+
+RTCPeerConnection
+==========================
+
+Syntax
+
+.. code-block::
+
+    pc = new RTCPeerConnection([configuration]);
+
+GUM-getUserMedia
+==========================
 
 audio
-=========================
+--------------------------
 
 .. code-block::
 
@@ -27,7 +47,7 @@ audio
 
 
 video
-=========================
+--------------------------
 
 .. code-block::
 
@@ -49,10 +69,12 @@ video
                 .catch(handleError);
     </script>
 
+GDM-getDisplayMedia
+==========================
 
 
 share
-=========================
+--------------------------
 
 .. code-block::
 

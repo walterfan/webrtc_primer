@@ -15,12 +15,13 @@
 
    webrtc_api
 
+   webrtc_signal
+
    device
 
    video_chat
 
    html5
-
 
 outline
 ============================
