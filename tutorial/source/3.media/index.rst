@@ -19,3 +19,4 @@
    h264
 
    mathematics
+   signal
