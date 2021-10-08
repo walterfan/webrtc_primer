@@ -24,6 +24,54 @@ function RtcApp() {
 RtcApp.prototype.init = function() {
     console.log("--- init ---");
 
-    this.localAudio = document.getElementById("localAudio");
-    this.remoteAudio = document.getElementById("remoteAudio");
+    this.audioElement = document.getElementById("localAudio");
+    //this.remoteAudio = document.getElementById("remoteAudio");
+};
+
+RtcApp.prototype.startMedia = function(e) {
+    e.preventDefault();
+    console.log("--- startMedia ---");
+    var me = this;
+    this.audioContext = new AudioContext();
+    var constraints = {
+        audio: true
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(function(stream) {
+        /* use the stream */
+        me.localStream = stream;
+        me.audioElement.srcObject = stream;
+        me.audioElement.play();
+
+        const tracks = me.localStream.getAudioTracks();
+
+        tracks.forEach(function(track) {
+            console.log("track=", track);
+        });
+        //me.setupAudioNodes(stream);
+    })
+    .catch(function(err) {
+        /* handle the error */
+        console.log("getUserMedia error: ", err.message);
+    });
+};
+
+RtcApp.prototype.stopMedia = function(e) {
+    e.preventDefault();
+    console.log("--- stopMedia ---");
+    if(this.localStream) {
+
+        const tracks = this.localStream.getTracks();
+
+        tracks.forEach(function(track) {
+            track.stop();
+        });
+
+        this.audioElement.srcObject = null;
+        this.localStream = null;
+
+        console.log('stopMedia success ');
+    }
+
 };

@@ -74,7 +74,6 @@ RtcApp.prototype.controlMedia=function(e) {
 }
 
 RtcApp.prototype.openMedia=async function (e) {
-    e.preventDefault();
     console.log("--- openMedia ---");
     this.audioContext = this.audioContext || new AudioContext();
     this.soundMeter = this.soundMeter || new SoundMeter(this.audioContext);
@@ -108,26 +107,18 @@ RtcApp.prototype.monitorVolume = function(stream) {
         this.monitorVolumeTimer = setInterval(() => {
             me.instantMeter.value = me.instantValueDisplay.innerText =
                 me.soundMeter.instant.toFixed(2);
-            /*            slowMeter.value = slowValueDisplay.innerText =
-                            soundMeter.slow.toFixed(2);
-                        clipMeter.value = clipValueDisplay.innerText =
-                            soundMeter.clip;*/
+/*            slowMeter.value = slowValueDisplay.innerText =
+                soundMeter.slow.toFixed(2);
+            clipMeter.value = clipValueDisplay.innerText =
+                soundMeter.clip;*/
         }, 200);
     });
 }
 
 
 
-RtcApp.prototype.controlRecord=function(e) {
+RtcApp.prototype.controlRecord=function() {
     console.log("--- controlRecord ---");
-    e.preventDefault();
-
-    if(this.controlRecordButton && (this.controlRecordButton.textContent === 'Stop Record')) {
-        this.stopRecord();
-        return;
-    }
-
-    this.startRecord();
 };
 
 RtcApp.prototype.setupAudioNodes=function(stream) {
@@ -261,7 +252,7 @@ RtcApp.prototype.startRecord = function() {
         return;
     }
 
-    if (this.controlRecordButton.textContent === 'Stop Record') {
+    if (this.recordButton.textContent === 'Stop Record') {
         this.stopRecord();
         return;
     }
@@ -271,7 +262,7 @@ RtcApp.prototype.startRecord = function() {
 
     this.mediaRecorder.start();
 
-    this.controlRecordButton.textContent = 'Stop Record';
+    this.recordButton.textContent = 'Stop Record';
     this.playButton.disabled = true;
     this.downloadButton.disabled = true;
 
@@ -305,7 +296,7 @@ RtcApp.prototype.stopRecord = function() {
     this.mediaRecorder.stop();
     console.log("recorder stopped");
 
-    this.controlRecordButton.textContent = 'Start Record';
+    this.recordButton.textContent = 'Start Record';
     this.playButton.disabled = false;
     this.downloadButton.disabled = false;
 }

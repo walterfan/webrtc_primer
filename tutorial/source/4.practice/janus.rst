@@ -106,8 +106,10 @@ usage and testing
 
 EchoTest
 ---------------------------
-This Echo Test demo just blindly sends you back whatever you send to it. You're basically attached to yourself, 
-and so your audio and video you send to Janus are echoed back to you. The same is done for RTCP packets as well, with the information properly updated.
+This Echo Test demo just blindly sends you back whatever you send to it.
+You're basically attached to yourself, and so your audio and video you send to Janus are echoed back to you.
+
+The same is done for RTCP packets as well, with the information properly updated.
 
 client: 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -213,6 +215,7 @@ JSEP
 code structure
 ===========================
 
+Janus 的 Plugin 机制是它扩展功能的核心机制
 
 dependencies
 ===========================

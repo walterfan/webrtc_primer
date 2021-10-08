@@ -54,12 +54,49 @@
                     <li>OscillatorNode</li>
                     <li>AudioBufferSourceNode </li>
                     <li>MediaElementAudioSourceNode</li> 
-                    <li>MediaStreamAudioSourceNode</li>
+                    <li><b>MediaStreamAudioSourceNode</b></li>
+                </ul>
+                <p>音频处理节点：Audio Effects Nodes</p>
+                <ul>
+                    <li>AnalyserNode</li>
+                    <li>GainNode</li>
+                    <li>...</li>
                 </ul>
                 <p>音频输出节点：Audio Destination Nodes</p>
                 <ul>
-                    <li>GainNode</li>
+                    <li>MediaStreamAudioDestinationNode</li>
+                    <li>MediaStreamElementDestinationNode</li>
                 </ul>
+                <div>
+
+                    <button id="controlMedia" class="btn btn-success">Open Media</button>
+
+                    <button id="makeNoise" class="btn btn-success">Make Noise</button>
+
+                <!--    <button id="controlRecord"  class="btn btn-primary">Start Record</button>
+                    <button id="playRecord"  class="btn btn-primary">Play Record</button>
+                    <button id="downloadRecord"  class="btn btn-info">Download Record</button><br/>
+                -->
+                </div>
+                <!--<div class = "row">
+                    <div class="col-lg-3">
+                        <audio autoplay controls id="myAudio"></audio>
+                    </div>
+
+                </div>-->
+                <div id="instant" class="row">
+                    <div class="col-md-1">Volume:</div>
+                    <meter high="0.5" max="1" value="0" class="col-md-6"></meter>
+                    <div class="value" class="col-md-3"></div>
+                </div>
+             <!--   <div id="gain" class="row">
+                    <div class="col-md-2">Output Volume:</div>
+                    <meter high="0.5" max="1" value="0" class="col-md-6"></meter>
+                    <div class="value" class="col-md-2"></div>
+                </div>-->
+                <div class = "row">
+                    <canvas class="visualizer" id="myCanvas" height="20px"></canvas>
+                </div>
             </div>
                 
               <div class="note">
@@ -82,7 +119,23 @@
 	<div class="footer">
 	</div>
 </div>
-<script type="text/javascript" src="js/audio_stats.js"></script>
+<script type="text/javascript" src="js/soundmeter.js"></script>
+<script type="text/javascript" src="js/audio_worklet.js"></script>
 
+<script>
+
+
+    window.onload = function init() {
+        var rtcApp = new RtcApp();
+        rtcApp.init();
+        var controlMediaButton = document.getElementById("controlMedia");
+        var makeNoiseButton = document.getElementById("makeNoise");
+
+        controlMediaButton.addEventListener("click", e => rtcApp.controlMedia(e));
+        makeNoiseButton.addEventListener("click", e => rtcApp.makeWhiteNoise(e));
+
+    }
+
+</script>
 </body>
 </html>

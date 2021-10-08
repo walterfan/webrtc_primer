@@ -76,16 +76,12 @@
                 <div class="col-lg-6">
                     <h3>Capture Audio and Record</h3>
                     <br/>
-                    <audio autoplay controls></audio>  
+                    <audio autoplay controls id="myAudio"></audio>  
                     <br/>
-                    <canvas class="visualizer" id="visualizer" height="20px"></canvas>
+                    <canvas class="visualizer" id="myCanvas" height="20px"></canvas>
                     <br/>
-                    <button id="openMedia" class="btn btn-success">Open Media</button>
-                    <button id="startRecord" class="btn btn-success">Start Record</button>
-               
-                    <br/>
-                    <button id="playRecord"  class="btn btn-primary">Play</button>
-                    <button id="downRecord"  class="btn btn-info">Download</button>
+                    <button id="controlMedia" class="btn btn-success">Capture Audio</button><br/>
+
                     <section class="sound-clips">
                     </section>
 
@@ -93,7 +89,10 @@
                 
                 <div  class="col-lg-6">
                   <br/><br/>
-                  <button id="playNoise"  class="btn btn-primary">WhiteNoise</button>
+
+                    <button id="controlRecord" class="btn btn-success">Start Record</button><br/>
+                    <button id="playRecord"  class="btn btn-primary">Play Record</button><br/>
+                    <button id="downRecord"  class="btn btn-info">Download Record</button><br/>
                 </div>
                     
                 </div>
@@ -123,5 +122,20 @@
 </div>
 <script type="text/javascript" src="js/audio_demo.js"></script>
 
+<script>
+
+
+    window.onload = function init() {
+        var rtcApp = new RtcApp();
+        rtcApp.init();
+        var controlMediaButton = document.getElementById("controlMedia");
+        var controlRecordButton = document.getElementById("controlRecord");
+
+        controlMediaButton.addEventListener("click", e => rtcApp.controlMedia(e));
+        controlRecordButton.addEventListener("click", e => rtcApp.controlRecord(e));
+
+    }
+
+</script>
 </body>
 </html>
