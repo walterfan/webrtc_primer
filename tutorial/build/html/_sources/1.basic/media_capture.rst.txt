@@ -209,32 +209,6 @@ Example
                 .catch(handleError);
     </script>
 
-GDM-getDisplayMedia
-==========================
-
-
-Example
---------------------------
-
-.. code-block::
-
-    <script>
-        const constraints = {
-            video: true
-        };
-
-        function handleSuccess(stream) {
-            document.querySelector('video').srcObject = stream;
-        }
-
-        function handleError(error) {
-            console.log('getDisplayMedia error: ', error);
-        }
-
-        navigator.mediaDevices.getDisplayMedia(constraints)
-                .then(handleSuccess)
-                .catch(handleError);
-    </script>
 
 
 参考资料

@@ -1,0 +1,437 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Insertable Stream &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Web Codecs" href="web_codec.html" />
+    <link rel="prev" title="SFU Server" href="sfu.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 实践篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Insertable Stream</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sframetransform">SFrameTransform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rtcrtpscripttransform">RTCRtpScriptTransform</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#explain">Explain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#problem-to-be-solved">Problem to be solved</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
+        
+      <li>Insertable Stream</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/4.practice/insertable_stream.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="insertable-stream">
+<h1>Insertable Stream<a class="headerlink" href="#insertable-stream" title="Permalink to this headline">¶</a></h1>
+<p>.。_W3C WebRTC Group: <a class="reference external" href="https://www.w3.org/groups/wg/webrtc">https://www.w3.org/groups/wg/webrtc</a></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>WebRTC Insertable Stream</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-09</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sframetransform" id="id2">SFrameTransform</a></p></li>
+<li><p><a class="reference internal" href="#rtcrtpscripttransform" id="id3">RTCRtpScriptTransform</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#explain" id="id4">Explain</a></p>
+<ul>
+<li><p><a class="reference internal" href="#problem-to-be-solved" id="id5">Problem to be solved</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id6">Reference</a></p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.</p>
+<p>It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the processing into the pipeline.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// New dictionary
+dictionary RTCInsertableStreams {
+    ReadableStream readable;
+    WritableStream writable;
+};
+
+typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
+
+// New methods for RTCRtpSender and RTCRtpReceiver
+partial interface RTCRtpSender {
+    attribute RTCRtpTransform? transform;
+};
+
+partial interface RTCRtpReceiver {
+    attribute RTCRtpTransform? transform;
+};
+</pre></div>
+</div>
+<p>由上面的定义可知， RTCRtpTransform 有两种实现 SFrameTransform 和 RTCRtpScriptTransform</p>
+<div class="section" id="sframetransform">
+<h3><a class="toc-backref" href="#id2">SFrameTransform</a><a class="headerlink" href="#sframetransform" title="Permalink to this headline">¶</a></h3>
+<p>接口定义如下</p>
+<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>enum SFrameTransformRole {
+    &quot;encrypt&quot;,
+    &quot;decrypt&quot;
+};
+
+dictionary SFrameTransformOptions {
+    SFrameTransformRole role = &quot;encrypt&quot;;
+};
+
+typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
+typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameTransform {
+    constructor(optional SFrameTransformOptions options = {});
+    Promise&lt;undefined&gt; setEncryptionKey(CryptoKey key, optional CryptoKeyID keyID);
+    attribute EventHandler onerror;
+};
+SFrameTransform includes GenericTransformStream;
+
+enum SFrameTransformErrorEventType {
+    &quot;authentication&quot;,
+    &quot;keyID&quot;,
+    &quot;syntax&quot;
+};
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameTransformErrorEvent : Event {
+    constructor(DOMString type, SFrameTransformErrorEventInit eventInitDict);
+
+    readonly attribute SFrameTransformErrorEventType errorType;
+    readonly attribute CryptoKeyID? keyID;
+    readonly attribute any frame;
+};
+
+dictionary SFrameTransformErrorEventInit : EventInit {
+    required SFrameTransformErrorEventType errorType;
+    required any frame;
+    CryptoKeyID? keyID;
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="rtcrtpscripttransform">
+<h3><a class="toc-backref" href="#id3">RTCRtpScriptTransform</a><a class="headerlink" href="#rtcrtpscripttransform" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New enum for video frame types. Will eventually re-use the equivalent defined</span>
+<span class="c1">// by WebCodecs.</span>
+<span class="k">enum</span> <span class="nc">RTCEncodedVideoFrameType</span> <span class="p">{</span>
+    <span class="s">&quot;empty&quot;</span><span class="p">,</span>
+    <span class="s">&quot;key&quot;</span><span class="p">,</span>
+    <span class="s">&quot;delta&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">dictionary</span> <span class="nc">RTCEncodedVideoFrameMetadata</span> <span class="p">{</span>
+    <span class="kt">long long</span> <span class="nv">frameId</span><span class="p">;</span>
+    <span class="kt">sequence</span><span class="p">&lt;</span><span class="kt">long long</span><span class="p">&gt;</span> <span class="nv">dependencies</span><span class="p">;</span>
+    <span class="kt">unsigned short</span> <span class="nv">width</span><span class="p">;</span>
+    <span class="kt">unsigned short</span> <span class="nv">height</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="nv">spatialIndex</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="nv">temporalIndex</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="nv">synchronizationSource</span><span class="p">;</span>
+    <span class="kt">sequence</span><span class="p">&lt;</span><span class="kt">long</span><span class="p">&gt;</span> <span class="nv">contributingSources</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// New interfaces to define encoded video and audio frames. Will eventually</span>
+<span class="c1">// re-use or extend the equivalent defined in WebCodecs.</span>
+<span class="p">[</span><span class="nd">Exposed</span><span class="p">=(</span><span class="nc">Window</span><span class="p">,</span><span class="nc">DedicatedWorker</span><span class="p">)]</span>
+<span class="k">interface</span> <span class="nc">RTCEncodedVideoFrame</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="nc">RTCEncodedVideoFrameType</span> <span class="nv">type</span><span class="p">;</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="kt">unsigned long long</span> <span class="nv">timestamp</span><span class="p">;</span>
+    <span class="k">attribute</span> <span class="kt">ArrayBuffer</span> <span class="nv">data</span><span class="p">;</span>
+    <span class="nc">RTCEncodedVideoFrameMetadata</span> <span class="nf">getMetadata</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">dictionary</span> <span class="nc">RTCEncodedAudioFrameMetadata</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="nv">synchronizationSource</span><span class="p">;</span>
+    <span class="kt">sequence</span><span class="p">&lt;</span><span class="kt">long</span><span class="p">&gt;</span> <span class="nv">contributingSources</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">[</span><span class="nd">Exposed</span><span class="p">=(</span><span class="nc">Window</span><span class="p">,</span><span class="nc">DedicatedWorker</span><span class="p">)]</span>
+<span class="k">interface</span> <span class="nc">RTCEncodedAudioFrame</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="kt">unsigned long long</span> <span class="nv">timestamp</span><span class="p">;</span>
+    <span class="k">attribute</span> <span class="kt">ArrayBuffer</span> <span class="nv">data</span><span class="p">;</span>
+    <span class="nc">RTCEncodedAudioFrameMetadata</span> <span class="nf">getMetadata</span><span class="p">();</span>
+<span class="p">};</span>
+
+
+<span class="c1">// New interfaces to expose JavaScript-based transforms.</span>
+
+<span class="p">[</span><span class="nd">Exposed</span><span class="p">=</span><span class="n">DedicatedWorker</span><span class="p">]</span>
+<span class="k">interface</span> <span class="nc">RTCTransformEvent</span> <span class="p">:</span> <span class="nc">Event</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="nc">RTCRtpScriptTransformer</span> <span class="nv">transformer</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">partial</span> <span class="k">interface</span> <span class="nc">DedicatedWorkerGlobalScope</span> <span class="p">{</span>
+    <span class="k">attribute</span> <span class="nc">EventHandler</span> <span class="nv">onrtctransform</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">[</span><span class="nd">Exposed</span><span class="p">=</span><span class="n">DedicatedWorker</span><span class="p">]</span>
+<span class="k">interface</span> <span class="nc">RTCRtpScriptTransformer</span> <span class="p">{</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="nc">ReadableStream</span> <span class="nv">readable</span><span class="p">;</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="nc">WritableStream</span> <span class="nv">writable</span><span class="p">;</span>
+    <span class="k">readonly</span> <span class="k">attribute</span> <span class="kt">any</span> <span class="nv">options</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">[</span><span class="nd">Exposed</span><span class="p">=</span><span class="n">Window</span><span class="p">]</span>
+<span class="k">interface</span> <span class="nc">RTCRtpScriptTransform</span> <span class="p">{</span>
+    <span class="nc">constructor</span><span class="p">(</span><span class="nc">Worker</span> <span class="nv">worker</span><span class="p">,</span> <span class="k">optional</span> <span class="kt">any</span> <span class="nv">options</span><span class="p">,</span> <span class="k">optional</span> <span class="kt">sequence</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">&gt;</span> <span class="nv">transfer</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="explain">
+<h2><a class="toc-backref" href="#id4">Explain</a><a class="headerlink" href="#explain" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-to-be-solved">
+<h3><a class="toc-backref" href="#id5">Problem to be solved</a><a class="headerlink" href="#problem-to-be-solved" title="Permalink to this headline">¶</a></h3>
+<p>We need an API for processing media that:</p>
+<ul class="simple">
+<li><p>Allows the processing to be specified by the user, not the browser</p></li>
+<li><p>Allows the processed data to be handled by the browser as if it came through the normal pipeline</p></li>
+<li><p>Allows the use of techniques like WASM to achieve effective processing</p></li>
+<li><p>Allows the use of techniques like Workers to avoid blocking on the main thread</p></li>
+<li><p>Does not negatively impact security or privacy of current communications</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id6">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://w3c.github.io/webrtc-encoded-transform/">webrtc-encoded-transform</a></p></li>
+<li><p><a class="reference external" href="https://github.com/w3c/webrtc-encoded-transform/blob/main/explainer.md">Insertable Stream Explain</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="web_codec.html" class="btn btn-neutral float-right" title="Web Codecs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sfu.html" class="btn btn-neutral float-left" title="SFU Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

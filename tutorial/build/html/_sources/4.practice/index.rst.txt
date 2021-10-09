@@ -9,8 +9,9 @@
 
    overview
    wasm
-   janus
    sfu
-   ffmpeg
 
+
+   insertable_stream
+   web_codec
    media_metrics

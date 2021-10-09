@@ -29,3 +29,15 @@
 .. _W3C Media Capture and Streams Spec: https://www.w3.org/TR/mediacapture-streams
 
 .. _W3C Screen Capture Spec: https://w3c.github.io/mediacapture-screen-share/
+
+.. _Web Codec Spec: https://wicg.github.io/web-codecs/
+
+.. _Web Transport Spec: https://w3c.github.io/webtransport/
+
+.。_W3C WebRTC Group: https://www.w3.org/groups/wg/webrtc
+
+.. _WebRTC Extensions: https://w3c.github.io/webrtc-extensions/
+
+.. _Web Codecs: https://w3c.github.io/webcodecs/ 
+
+.. _Insertable Streams: https://w3c.github.io/webrtc-encoded-transform/

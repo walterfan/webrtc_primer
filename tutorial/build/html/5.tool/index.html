@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>FFmpeg &mdash; webrtc_tutorial 1 documentation</title>
+  <title>5. WebRTC 工具 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Media Metrics" href="media_metrics.html" />
-    <link rel="prev" title="SFU Server" href="sfu.html" /> 
+    <link rel="next" title="SoX" href="sox.html" />
+    <link rel="prev" title="Media Metrics" href="../4.practice/media_metrics.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,19 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 实践篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. WebRTC 工具</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sox.html">SoX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">FFmpeg</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">命令行</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">代码</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
 </ul>
 </li>
 </ul>
@@ -156,15 +148,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
-        
-      <li>FFmpeg</li>
+      <li>5. WebRTC 工具</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/4.practice/ffmpeg.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/5.tool/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,18 +167,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ffmpeg">
-<h1>FFmpeg<a class="headerlink" href="#ffmpeg" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="id2">
-<h2>命令行<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>ffmpeg -s 1920x1080 -i  src01_1920x1080.yuv -b:v 7776k -r 25 -vcodec libx264 -x264opts ssim src01_1920x1080_0.150.h264
-ffmpeg -i src01_1920x1080_0.150.h264 src01_1920x1080_0.150_264.yuv</p>
-</div>
-<div class="section" id="id3">
-<h2>代码<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="webrtc">
+<h1>5. WebRTC 工具<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sox.html">SoX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
+</ul>
 </div>
 </div>
 
@@ -198,8 +185,8 @@ ffmpeg -i src01_1920x1080_0.150.h264 src01_1920x1080_0.150_264.yuv</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="media_metrics.html" class="btn btn-neutral float-right" title="Media Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="sfu.html" class="btn btn-neutral float-left" title="SFU Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sox.html" class="btn btn-neutral float-right" title="SoX" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../4.practice/media_metrics.html" class="btn btn-neutral float-left" title="Media Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
