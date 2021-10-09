@@ -190,6 +190,26 @@
             
   <div class="section" id="webrtc-api-media-capture">
 <h1>WebRTC API 之 Media Capture<a class="headerlink" href="#webrtc-api-media-capture" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>Media Capture</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP as draft</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-09</p></td>
+</tr>
+</tbody>
+</table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#overview" id="id3">Overview</a></p></li>
@@ -235,14 +255,12 @@
 <ul class="simple">
 <li><p>video_input: Camera</p></li>
 <li><p>audio_input: Mic</p></li>
-<li><p>Screen (屏幕共享)</p></li>
 </ul>
 <ol class="arabic simple" start="2">
 <li><p>输出</p></li>
 </ol>
 <ul class="simple">
-<li><p>audio_output: Speaker</p></li>
-<li><p>Screen</p></li>
+<li><p>audio_output: Speaker or headset</p></li>
 </ul>
 <p>接口原型为</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Exposed</span><span class="o">=</span><span class="n">Window</span><span class="p">,</span> <span class="n">SecureContext</span><span class="p">]</span>
@@ -278,31 +296,31 @@
 </pre></div>
 </div>
 <p>输入参数为 MediaStreamConstraints</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dictionary</span> <span class="n">MediaStreamConstraints</span> <span class="p">{</span>
-    <span class="p">(</span><span class="n">boolean</span> <span class="ow">or</span> <span class="n">MediaTrackConstraints</span><span class="p">)</span> <span class="n">video</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
-    <span class="p">(</span><span class="n">boolean</span> <span class="ow">or</span> <span class="n">MediaTrackConstraints</span><span class="p">)</span> <span class="n">audio</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
+<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="k">dictionary</span> <span class="nc">MediaStreamConstraints</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">boolean</span> <span class="k">or</span> <span class="nc">MediaTrackConstraints</span><span class="p">)</span> <span class="nv">video</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">boolean</span> <span class="k">or</span> <span class="nc">MediaTrackConstraints</span><span class="p">)</span> <span class="nv">audio</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="n">dictionary</span> <span class="n">MediaTrackConstraints</span> <span class="p">:</span> <span class="n">MediaTrackConstraintSet</span> <span class="p">{</span>
-    <span class="n">sequence</span><span class="o">&lt;</span><span class="n">MediaTrackConstraintSet</span><span class="o">&gt;</span> <span class="n">advanced</span><span class="p">;</span>
+<span class="k">dictionary</span> <span class="nc">MediaTrackConstraints</span> <span class="p">:</span> <span class="nc">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaTrackConstraintSet</span><span class="p">&gt;</span> <span class="nv">advanced</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="n">dictionary</span> <span class="n">MediaTrackConstraintSet</span> <span class="p">{</span>
-    <span class="n">ConstrainULong</span> <span class="n">width</span><span class="p">;</span>
-    <span class="n">ConstrainULong</span> <span class="n">height</span><span class="p">;</span>
-    <span class="n">ConstrainDouble</span> <span class="n">aspectRatio</span><span class="p">;</span>
-    <span class="n">ConstrainDouble</span> <span class="n">frameRate</span><span class="p">;</span>
-    <span class="n">ConstrainDOMString</span> <span class="n">facingMode</span><span class="p">;</span>
-    <span class="n">ConstrainDOMString</span> <span class="n">resizeMode</span><span class="p">;</span>
-    <span class="n">ConstrainULong</span> <span class="n">sampleRate</span><span class="p">;</span>
-    <span class="n">ConstrainULong</span> <span class="n">sampleSize</span><span class="p">;</span>
-    <span class="n">ConstrainBoolean</span> <span class="n">echoCancellation</span><span class="p">;</span>
-    <span class="n">ConstrainBoolean</span> <span class="n">autoGainControl</span><span class="p">;</span>
-    <span class="n">ConstrainBoolean</span> <span class="n">noiseSuppression</span><span class="p">;</span>
-    <span class="n">ConstrainDouble</span> <span class="n">latency</span><span class="p">;</span>
-    <span class="n">ConstrainULong</span> <span class="n">channelCount</span><span class="p">;</span>
-    <span class="n">ConstrainDOMString</span> <span class="n">deviceId</span><span class="p">;</span>
-    <span class="n">ConstrainDOMString</span> <span class="n">groupId</span><span class="p">;</span>
+<span class="k">dictionary</span> <span class="nc">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="nc">ConstrainULong</span> <span class="nv">width</span><span class="p">;</span>
+    <span class="nc">ConstrainULong</span> <span class="nv">height</span><span class="p">;</span>
+    <span class="nc">ConstrainDouble</span> <span class="nv">aspectRatio</span><span class="p">;</span>
+    <span class="nc">ConstrainDouble</span> <span class="nv">frameRate</span><span class="p">;</span>
+    <span class="nc">ConstrainDOMString</span> <span class="nv">facingMode</span><span class="p">;</span>
+    <span class="nc">ConstrainDOMString</span> <span class="nv">resizeMode</span><span class="p">;</span>
+    <span class="nc">ConstrainULong</span> <span class="nv">sampleRate</span><span class="p">;</span>
+    <span class="nc">ConstrainULong</span> <span class="nv">sampleSize</span><span class="p">;</span>
+    <span class="nc">ConstrainBoolean</span> <span class="nv">echoCancellation</span><span class="p">;</span>
+    <span class="nc">ConstrainBoolean</span> <span class="nv">autoGainControl</span><span class="p">;</span>
+    <span class="nc">ConstrainBoolean</span> <span class="nv">noiseSuppression</span><span class="p">;</span>
+    <span class="nc">ConstrainDouble</span> <span class="nv">latency</span><span class="p">;</span>
+    <span class="nc">ConstrainULong</span> <span class="nv">channelCount</span><span class="p">;</span>
+    <span class="nc">ConstrainDOMString</span> <span class="nv">deviceId</span><span class="p">;</span>
+    <span class="nc">ConstrainDOMString</span> <span class="nv">groupId</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
@@ -328,55 +346,55 @@
 </div>
 <p>The MediaStreamTrack object represents media of a single type that originates from one media source in the User Agent, e.g. video produced by a web camera. A MediaStream is used to group several MediaStreamTrack objects into one unit that can be recorded or rendered in a media element.</p>
 <p>Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks in a MediaStream are intended to be synchronized when rendered. This is not a hard requirement, since it might not be possible to synchronize tracks from sources that have different clocks. Different MediaStream objects do not need to be synchronized.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Exposed</span><span class="o">=</span><span class="n">Window</span><span class="p">]</span>
-<span class="n">interface</span> <span class="n">MediaStreamTrack</span> <span class="p">:</span> <span class="n">EventTarget</span> <span class="p">{</span>
-    <span class="n">readonly</span> <span class="n">attribute</span> <span class="n">DOMString</span> <span class="n">kind</span><span class="p">;</span>
-    <span class="n">readonly</span> <span class="n">attribute</span> <span class="n">DOMString</span> <span class="nb">id</span><span class="p">;</span>
-    <span class="n">readonly</span> <span class="n">attribute</span> <span class="n">DOMString</span> <span class="n">label</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">boolean</span> <span class="n">enabled</span><span class="p">;</span>
-    <span class="n">readonly</span> <span class="n">attribute</span> <span class="n">boolean</span> <span class="n">muted</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">EventHandler</span> <span class="n">onmute</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">EventHandler</span> <span class="n">onunmute</span><span class="p">;</span>
-    <span class="n">readonly</span> <span class="n">attribute</span> <span class="n">MediaStreamTrackState</span> <span class="n">readyState</span><span class="p">;</span>
-    <span class="n">attribute</span> <span class="n">EventHandler</span> <span class="n">onended</span><span class="p">;</span>
-    <span class="n">MediaStreamTrack</span> <span class="n">clone</span><span class="p">();</span>
-    <span class="n">undefined</span> <span class="n">stop</span><span class="p">();</span>
-    <span class="n">MediaTrackCapabilities</span> <span class="n">getCapabilities</span><span class="p">();</span>
-    <span class="n">MediaTrackConstraints</span> <span class="n">getConstraints</span><span class="p">();</span>
-    <span class="n">MediaTrackSettings</span> <span class="n">getSettings</span><span class="p">();</span>
-    <span class="n">Promise</span><span class="o">&lt;</span><span class="n">undefined</span><span class="o">&gt;</span> <span class="n">applyConstraints</span><span class="p">(</span><span class="n">optional</span> <span class="n">MediaTrackConstraints</span> <span class="n">constraints</span> <span class="o">=</span> <span class="p">{});</span>
-<span class="p">};</span>
+<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>[Exposed=Window]
+interface MediaStreamTrack : EventTarget {
+    readonly attribute DOMString kind;
+    readonly attribute DOMString id;
+    readonly attribute DOMString label;
+    attribute boolean enabled;
+    readonly attribute boolean muted;
+    attribute EventHandler onmute;
+    attribute EventHandler onunmute;
+    readonly attribute MediaStreamTrackState readyState;
+    attribute EventHandler onended;
+    MediaStreamTrack clone();
+    undefined stop();
+    MediaTrackCapabilities getCapabilities();
+    MediaTrackConstraints getConstraints();
+    MediaTrackSettings getSettings();
+    Promise&lt;undefined&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
+};
 </pre></div>
 </div>
 <div class="section" id="example">
 <h3><a class="toc-backref" href="#id6">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
-    <span class="n">const</span> <span class="n">constraints</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">video</span><span class="p">:</span> <span class="p">{</span>
-           <span class="n">deviceId</span><span class="p">:</span> <span class="n">localStorage</span><span class="o">.</span><span class="n">camId</span><span class="p">,</span>
-            <span class="n">width</span><span class="p">:</span> <span class="p">{</span><span class="nb">min</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span> <span class="n">ideal</span><span class="p">:</span> <span class="mi">1280</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="mi">1280</span><span class="p">},</span>
-            <span class="n">height</span><span class="p">:</span> <span class="p">{</span><span class="nb">min</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span> <span class="n">ideal</span><span class="p">:</span> <span class="mi">720</span><span class="p">},</span>
-            <span class="n">aspectRatio</span><span class="p">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">frameRate</span><span class="p">:</span> <span class="p">{</span><span class="nb">min</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
-        <span class="p">},</span>
-        <span class="n">audio</span><span class="p">:</span> <span class="p">{</span>
-            <span class="n">deviceId</span><span class="p">:</span> <span class="n">localStorage</span><span class="o">.</span><span class="n">micId</span><span class="p">,</span>
-            <span class="n">channelCount</span><span class="p">:</span> <span class="mi">2</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
+<div class="highlight-Javascript notranslate"><div class="highlight"><pre><span></span>&lt;script&gt;
+    const constraints = {
+        video: {
+           deviceId: localStorage.camId,
+            width: {min: 640, ideal: 1280, max: 1280},
+            height: {min: 480, ideal: 720},
+            aspectRatio: 3/2,
+            frameRate: {min: 20}
+        },
+        audio: {
+            deviceId: localStorage.micId,
+            channelCount: 2
+        }
+    };
 
-    <span class="n">function</span> <span class="n">handleSuccess</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="s1">&#39;video&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">srcObject</span> <span class="o">=</span> <span class="n">stream</span><span class="p">;</span>
-    <span class="p">}</span>
+    function handleSuccess(stream) {
+        document.querySelector(&#39;video&#39;).srcObject = stream;
+    }
 
-    <span class="n">function</span> <span class="n">handleError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;getUserMedia error: &#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="p">}</span>
+    function handleError(error) {
+        console.log(&#39;getUserMedia error: &#39;, error);
+    }
 
-    <span class="n">navigator</span><span class="o">.</span><span class="n">mediaDevices</span><span class="o">.</span><span class="n">getUserMedia</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">handleSuccess</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">catch</span><span class="p">(</span><span class="n">handleError</span><span class="p">);</span>
-<span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+    navigator.mediaDevices.getUserMedia(constraints)
+            .then(handleSuccess)
+            .catch(handleError);
+&lt;/script&gt;
 </pre></div>
 </div>
 </div>
