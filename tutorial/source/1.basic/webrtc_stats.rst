@@ -10,7 +10,7 @@ WebRTC stats
 ============ ==========================
 **Abstract** WebRTC Stats
 **Authors**  Walter Fan
-**Status**   WIP
+**Status**   WIP as draft
 **Updated**  |date|
 ============ ==========================
 

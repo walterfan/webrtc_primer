@@ -6,6 +6,14 @@ WebRTC API 之 Media Capture
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
+============ ==========================
+**Abstract** Media Capture
+**Authors**  Walter Fan
+**Status**   WIP as draft
+**Updated**  |date|
+============ ==========================
+
+.. |date| date::
 
 .. contents::
     :local:
@@ -44,13 +52,10 @@ enumerateDevices
 
 * video_input: Camera
 * audio_input: Mic
-* Screen (屏幕共享)
 
 2. 输出
 
-* audio_output: Speaker
-* Screen
-
+* audio_output: Speaker or headset
 
 
 接口原型为
@@ -92,7 +97,7 @@ GUM-getUserMedia
 
 输入参数为 MediaStreamConstraints 
 
-.. code-block::
+.. code-block:: WebIDL
 
     dictionary MediaStreamConstraints {
         (boolean or MediaTrackConstraints) video = false;
@@ -148,7 +153,7 @@ The MediaStreamTrack object represents media of a single type that originates fr
 
 Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks in a MediaStream are intended to be synchronized when rendered. This is not a hard requirement, since it might not be possible to synchronize tracks from sources that have different clocks. Different MediaStream objects do not need to be synchronized.
 
-.. code-block::
+.. code-block:: WebIDL
 
     [Exposed=Window]
     interface MediaStreamTrack : EventTarget {
@@ -174,7 +179,7 @@ Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks i
 Example
 --------------------------
 
-.. code-block::
+.. code-block:: Javascript
 
     <script>
         const constraints = {
