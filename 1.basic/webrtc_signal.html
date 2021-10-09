@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="设备与环境" href="device.html" />
-    <link rel="prev" title="WebRTC API" href="webrtc_api.html" /> 
+    <link rel="next" title="WebRTC stats" href="webrtc_stats.html" />
+    <link rel="prev" title="WebRTC API 之 Media Record" href="media_record.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,23 +87,25 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
 <li class="toctree-l2"><a class="reference internal" href="local_pc.html">WebRTC 本地连接</a></li>
 <li class="toctree-l2"><a class="reference internal" href="remote_pc.html">WebRTC 远程连接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_capture.html">WebRTC API 之 Media Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen_capture.html">WebRTC API 之 Screen Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_record.html">WebRTC API 之 Media Record</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 的信令</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">WebIDL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="device.html">设备与环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_stats.html">WebRTC stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
 <li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#outline">outline</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
@@ -183,16 +185,48 @@
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#overview" id="id2">overview</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id3">reference</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id3">WebIDL</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id4">reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
 <h2><a class="toc-backref" href="#id2">overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>signal 在英语中有两个不同的意思，一是信令，一是信号，这里我们主要讲信令。</p>
+<p>信令的意思是呼叫流程的控制，包括媒体通道的搭建，媒体参数的协商，媒体流的控制。</p>
+<p>在 WebRTC 中，信令控制主要的协议是 4 个</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.w3.org/TR/webrtc">WebRTC 1.0</a>: Real-Time Communication Between Browsers， 即浏览器之间的实时通信标准</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8829">JSEP</a> (Javascript Session Establishment Protocol) ， 即 Javascript 会话建立协议。</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc4566">SDP</a> (Session Decscription Protocol), 即会话描述协议</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8445">ICE</a> (Interactive Connectivity Establishment)， 即交互式连接建立协议</p></li>
+</ol>
+<p>前两者主要是描述了如何通过浏览器提供的 API 实现实时的音视频通讯，主要的接口，实体和方法是通过 <a class="reference external" href="https://webidl.spec.whatwg.org/">WebIDL</a> 来定义的</p>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id3">WebIDL</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WebIDL 是一种接口定义语言，用来定义由浏览器实现的接口。<a class="reference external" href="https://webidl.spec.whatwg.org/">WebIDL</a> 是一个 IDL 变体，具有许多特性，允许更容易地指定 Web 平台中常见脚本对象的行为。</p>
+<p>其中的 IDL Fragment 接口定义语言片段有如下类型的定义：</p>
+<ul class="simple">
+<li><p>interfaces</p></li>
+<li><p>partial interface definitions</p></li>
+<li><p>interface mixins</p></li>
+<li><p>partial mixin definitions</p></li>
+<li><p>callback functions</p></li>
+<li><p>callback interfaces</p></li>
+<li><p>namespaces</p></li>
+<li><p>partial namespace definitions</p></li>
+<li><p>dictionaries</p></li>
+<li><p>partial dictionary definitions</p></li>
+<li><p>typedefs</p></li>
+<li><p>includes statements</p></li>
+</ul>
+<p>每个定义（匹配 Definition）前面都可以有一个扩展属性列表（匹配 ExtendedAttributeList），它可以控制如何在语言绑定中处理定义</p>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id3">reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Signaling and video calling</a></p></li>
+<li><p><a class="reference external" href="https://w3c.github.io/webidl2.js/checker/">WebIDL Checker</a></p></li>
 </ul>
 </div>
 </div>
@@ -203,8 +237,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="device.html" class="btn btn-neutral float-right" title="设备与环境" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="webrtc_api.html" class="btn btn-neutral float-left" title="WebRTC API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="webrtc_stats.html" class="btn btn-neutral float-right" title="WebRTC stats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="media_record.html" class="btn btn-neutral float-left" title="WebRTC API 之 Media Record" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
