@@ -32,25 +32,14 @@ WebRTC API 之 Screen Capture
 
 Screen capture 包括几种不同的基于屏幕表面的内容捕获，它们统称为 “display surfaces”，共有如下类型
 
-* A monitor display surface represents a physical display. Some systems have multiple monitors, which can be identified separately. Multiple monitors might also be aggregated into a single logical monitor. An aggregated display surface is captured as a single MediaStreamTrack.
-* A window display surface is a single contiguous surface that is used by a single application.
-* A single application might have several windows available to it, and those can be aggregated into a single application surface, representing all the windows available to that application and therefore presented as a single MediaStreamTrack.
-* A browser display surface is the rendered form of a browsing context. This is not strictly limited to HTML [HTML] documents, though the discussion in this document will address some specific concerns with the capture of HTML.
-This document draws a distinction between two variants of each type of display surface:
-
-A logical display surface is the surface that an operating system makes available to an application for the purposes of rendering.
-a visible display surface is the portion of a logical display surface that is rendered to a monitor.
-Some operating systems permit windows from different applications to occlude other windows, in whole or part, so the visible display surface is a strict subset of the logical display surface.
-
-The source pixel ratio of a display surface is 1/96th of 1 inch divided by its vertical pixel size.
-
-The devicechange event is defined in [GETUSERMEDIA].
-
 屏幕捕获包括对几种不同类型的基于屏幕的表面的捕获。这些统称为显示表面，本文档定义了以下类型：
 
 * monitor display surface: 监视器显示表面代表物理显示。有些系统有多个监视器，可以单独识别。多个监视器也可以聚合到一个逻辑监视器中。聚合的显示表面被捕获为单个 MediaStreamTrack。
+  
 * window display surface: 窗口显示表面是由单个应用程序使用的单个连续表面。
+
 * application window: 一个应用程序可能有多个可用的窗口，这些窗口可以聚合到一个应用程序表面中，代表该应用程序可用的所有窗口，因此显示为单个 MediaStreamTrack。
+
 * browser display surface: 浏览器显示表面是浏览上下文的呈现形式。这并不严格限于 HTML 文档，尽管本文档中的讨论将解决一些与 HTML 捕获有关的特定问题。
 
 

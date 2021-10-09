@@ -6,6 +6,14 @@ WebRTC API 之 Media Record
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
+============ ==========================
+**Abstract** Media Record
+**Authors**  Walter Fan
+**Status**   WIP as draft
+**Updated**  |date|
+============ ==========================
+
+.. |date| date::
 
 .. contents::
     :local:
