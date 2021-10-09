@@ -66,12 +66,16 @@
 
 4. 媒体服务器的设计与实现
 
-5. AppRTC
-
-6. Janus gateway
-
-7. Tiny RTC Server
 
 
+第五周 工具篇
+========================
+1. SoX
 
+2. Ffmpeg
 
+3. AppRTC
+
+4. Janus gateway
+
+5. Tiny RTC Server
