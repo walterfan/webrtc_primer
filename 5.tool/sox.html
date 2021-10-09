@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>SoX &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FFmpeg" href="ffmpeg.html" />
+    <link rel="prev" title="5. WebRTC 工具" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. WebRTC 工具</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SoX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">音频格式转换工具 sox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#soxi">音频格式查询工具 soxi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#play">音频播放工具 play</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rec">音频录制工具 rec</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsox">libsox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">5. WebRTC 工具</a> &raquo;</li>
+        
+      <li>SoX</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/5.tool/sox.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sox">
+<h1>SoX<a class="headerlink" href="#sox" title="Permalink to this headline">¶</a></h1>
+<p>.。_W3C WebRTC Group: <a class="reference external" href="https://www.w3.org/groups/wg/webrtc">https://www.w3.org/groups/wg/webrtc</a></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>SoX</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>v1</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-09</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id7">简介</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id8">音频格式转换工具 sox</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id9">示例</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#soxi" id="id10">音频格式查询工具 soxi</a></p></li>
+<li><p><a class="reference internal" href="#play" id="id11">音频播放工具 play</a></p></li>
+<li><p><a class="reference internal" href="#rec" id="id12">音频录制工具 rec</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id13">示例</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#libsox" id="id14">libsox</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id15">Reference</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id7">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>SoX 是一款强大音频文件工具箱,是音频操作方面的瑞士军刀, 转码， 播放，
+录制，以及查看音频文件格式都很方便， 其中主要包含四个命令行小工具:</p>
+<ul class="simple">
+<li><p>sox 音频格式转换</p></li>
+<li><p>soxi 音频格式信息查询</p></li>
+<li><p>play 播放音频文件</p></li>
+<li><p>rec 录制音频文件</p></li>
+</ul>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id8">音频格式转换工具 sox</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>可以从 <a class="reference external" href="http://sox.sourceforge.net/">http://sox.sourceforge.net/</a> 下载安装 MacOS 上直接用 brew install
+sox 安装</p>
+<p>用法如下</p>
+<p><code class="docutils literal notranslate"><span class="pre">sox</span> <span class="pre">[global-options]</span> <span class="pre">[format-options]</span> <span class="pre">infile1</span> <span class="pre">[[format-options]</span> <span class="pre">infile2]</span> <span class="pre">...</span> <span class="pre">[format-options]</span> <span class="pre">outfile</span> <span class="pre">[effect</span> <span class="pre">[effect-options]]</span> <span class="pre">...</span></code></p>
+<p>输入输出参数选项 :</p>
+<ul class="simple">
+<li><p>−b BITS, −−bits BITS (采样的比特位数)</p></li>
+<li><p>−c CHANNELS, −−channels CHANNELS (声道个数)</p></li>
+<li><p>−e ENCODING, −−encoding ENCODING (音频编码 a-law, u-law )</p></li>
+<li><p>−L, −−endian little (小端)</p></li>
+<li><p>−r, −−rate RATE[k] (比特率)</p></li>
+<li><p>−t, −−type FILE-TYPE (文件类型, 比如 raw, mp3)</p></li>
+</ul>
+<p>sox 的强大在于它能给音频文件添加各种音效和处理,
+各种效果可以链式排列逐个对音频文件进行处理</p>
+<p>例如 gain 效果， 可对于某些声道放大或减小音频信号</p>
+gain [−e|−B|−b|−r] [−n] [−l|−h] [gain-dB]<p>注意使用任一 −e, −B, −b, −r, 或 −n 参数都需要额外的磁盘空间,
+对于流媒体不太适用</p>
+<p>没有其他参数的 gain-dB 用来根据给定的分贝数值调整信号强度水平
+正值为放大, 负值为减小</p>
+<p>带有其他参数的 gain-dB 是在相应处理过程之后进行分贝的放大或减小</p>
+<ul class="simple">
+<li><p>-e 意为equalised, 用来均衡，
+也就是把多通道音频文件中的所有通道达到相同的峰值电平</p></li>
+<li><p>−B (balance) 此选项与-e类似，但是它使用RMS电平而不是峰值电平。
+-B可用于纠正由不正确的磁带转录引起的立体声不平衡。请注意，不像-e，-B可能会导致一些对原文件的削剪</p></li>
+<li><p>−b
+与-B类似，但具有削波保护，即如果需要在平衡时防止削波，则对所有信道应用衰减。但是请注意，结合-n，-B和-b是同义词
+  * -r选项与以前使用-h选项调用增益结合使用   *
+-n选项将音频标准化为0dB
+FSD;它通常与负增益dB结合使用，使得音频被归一化到低于0dB的给定电平</p></li>
+<li><p>loudness [gain <a class="reference external" href="#reference">reference</a>] 响度控制 -
+类似于增益效应，但为人类听觉系统提供均衡。
+有关响度的详细说明，请访问http://en.wikipedia.org/wiki/Loudness。
+增益通过给定的增益参数（通常为负）进行调整，信号根据ISO 226
+w.r.t.进行均衡。
+参考电平为65dB，尽管如果原始音频已经被平衡以达到某个其他最佳电平，则可以给出替代参考电平。
+如果没有给出增益值，则使用默认增益为-10dB。</p></li>
+<li><p>norm [dB-level] 规范音频。 规范只是获得-n的别名;
+有关详细信息，请参阅增益效果。</p></li>
+<li><p>oops 异相立体声效果。
+将立体声混合为双声道，其中每个单声道通道包含左右立体声通道之间的差异。
+这有时被称为“卡拉OK”效果，因为它通常具有从录音中删除大部分或全部声乐的效果。
+相当于混音1,2i 1,2i</p></li>
+</ul>
+<div class="section" id="id3">
+<h4><a class="toc-backref" href="#id9">示例</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>转换音频文件为 采样大小为16bit, 采样频率 8KHz, 单声道</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sox test.wav -L -b16 -r <span class="m">8000</span> -c <span class="m">1</span> new-test.wav
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>转换音频文件为 G.711 u-law 编码, 采样频率 8KHz, 单声道</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sox src.wav -r <span class="m">8000</span> -c <span class="m">1</span> -e u-law dest.wav
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="soxi">
+<h3><a class="toc-backref" href="#id10">音频格式查询工具 soxi</a><a class="headerlink" href="#soxi" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>示例</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>soxi -V <span class="m">1000</span>.wav
+
+input File     : <span class="s1">&#39;1000.wav&#39;</span>
+Channels       : <span class="m">1</span>
+Sample Rate    : <span class="m">8000</span>
+Precision      : <span class="m">14</span>-bit
+Duration       : <span class="m">00</span>:00:02.14 <span class="o">=</span> <span class="m">17090</span> samples ~ <span class="m">160</span>.219 CDDA sectors
+File Size      : <span class="m">17</span>.1k
+Bit Rate       : <span class="m">64</span>.2k
+Sample Encoding: <span class="m">8</span>-bit u-law
+</pre></div>
+</div>
+</div>
+<div class="section" id="play">
+<h3><a class="toc-backref" href="#id11">音频播放工具 play</a><a class="headerlink" href="#play" title="Permalink to this headline">¶</a></h3>
+<p>play [global-options] [format-options] infile1 [[format-options]
+infile2] … [format-options] [effect [effect-options]] …</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>play <span class="m">1000</span>.wav
+</pre></div>
+</div>
+</div>
+<div class="section" id="rec">
+<h3><a class="toc-backref" href="#id12">音频录制工具 rec</a><a class="headerlink" href="#rec" title="Permalink to this headline">¶</a></h3>
+<p>rec [global-options] [format-options] outfile [effect [effect-options]]
+…</p>
+<div class="section" id="id4">
+<span id="id5"></span><h4><a class="toc-backref" href="#id13">示例</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>指定录制的采样率和采样位数</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rec -r <span class="m">8000</span> -b <span class="m">16</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>指定录制的声道,目标文件, 并只截取前30分钟</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rec −c <span class="m">2</span> radio.aiff trim <span class="m">0</span> <span class="m">30</span>:00
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>指定录制的文件, 并只录一分钟</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rec music.wav trim <span class="m">0</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="libsox">
+<h3><a class="toc-backref" href="#id14">libsox</a><a class="headerlink" href="#libsox" title="Permalink to this headline">¶</a></h3>
+<p>libsox is a library of sound sample file format readers/writers and
+sound effects processors. It is mainly developed for use by SoX but is
+useful for any sound application.</p>
+<p>libsox是一个对于声音采样文件格式的读写和音效处理器库。
+它主要用于工具SoX，对于其他声音应用程序都很有用。但是它的 license 是
+GPL/LGPL , 在商业产品代码中使用要注意</p>
+<p>例如：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef NDEBUG </span><span class="cm">/* N.B. assert used with active statements so enable always. */</span><span class="cp"></span>
+<span class="cp">#undef NDEBUG </span><span class="cm">/* Must undef above assert.h or other that might include it. */</span><span class="cp"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;sox.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Reads input file, applies vol &amp; flanger effects, stores in output file.</span>
+<span class="cm"> * E.g. example1 monkey.au monkey.aiff</span>
+<span class="cm"> */</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">static</span> <span class="n">sox_format_t</span> <span class="o">*</span> <span class="n">in</span><span class="p">,</span> <span class="o">*</span> <span class="n">out</span><span class="p">;</span> <span class="cm">/* input and output files */</span>
+  <span class="n">sox_effects_chain_t</span> <span class="o">*</span> <span class="n">chain</span><span class="p">;</span>
+  <span class="n">sox_effect_t</span> <span class="o">*</span> <span class="n">e</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span> <span class="n">args</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+
+  <span class="n">assert</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span><span class="p">);</span>
+
+  <span class="cm">/* All libSoX applications must start by initialising the SoX library */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_init</span><span class="p">()</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+
+  <span class="cm">/* Open the input file (with default parameters) */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">in</span> <span class="o">=</span> <span class="n">sox_open_read</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+
+  <span class="cm">/* Open the output file; we must specify the output signal characteristics.</span>
+<span class="cm">   * Since we are using only simple effects, they are the same as the input</span>
+<span class="cm">   * file characteristics */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">out</span> <span class="o">=</span> <span class="n">sox_open_write</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+
+  <span class="cm">/* Create an effects chain; some effects need to know about the input</span>
+<span class="cm">   * or output file encoding so we provide that information here */</span>
+  <span class="n">chain</span> <span class="o">=</span> <span class="n">sox_create_effects_chain</span><span class="p">(</span><span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">encoding</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">out</span><span class="o">-&gt;</span><span class="n">encoding</span><span class="p">);</span>
+
+  <span class="cm">/* The first effect in the effect chain must be something that can source</span>
+<span class="cm">   * samples; in this case, we use the built-in handler that inputs</span>
+<span class="cm">   * data from an audio file */</span>
+  <span class="n">e</span> <span class="o">=</span> <span class="n">sox_create_effect</span><span class="p">(</span><span class="n">sox_find_effect</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">));</span>
+  <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">in</span><span class="p">,</span> <span class="n">assert</span><span class="p">(</span><span class="n">sox_effect_options</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="cm">/* This becomes the first `effect&#39; in the chain */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_add_effect</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+
+  <span class="cm">/* Create the `vol&#39; effect, and initialise it with the desired parameters: */</span>
+  <span class="n">e</span> <span class="o">=</span> <span class="n">sox_create_effect</span><span class="p">(</span><span class="n">sox_find_effect</span><span class="p">(</span><span class="s">&quot;vol&quot;</span><span class="p">));</span>
+  <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;3dB&quot;</span><span class="p">,</span> <span class="n">assert</span><span class="p">(</span><span class="n">sox_effect_options</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="cm">/* Add the effect to the end of the effects processing chain: */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_add_effect</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+
+  <span class="cm">/* Create the `flanger&#39; effect, and initialise it with default parameters: */</span>
+  <span class="n">e</span> <span class="o">=</span> <span class="n">sox_create_effect</span><span class="p">(</span><span class="n">sox_find_effect</span><span class="p">(</span><span class="s">&quot;flanger&quot;</span><span class="p">));</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_effect_options</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="cm">/* Add the effect to the end of the effects processing chain: */</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_add_effect</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+
+  <span class="cm">/* The last effect in the effect chain must be something that only consumes</span>
+<span class="cm">   * samples; in this case, we use the built-in handler that outputs</span>
+<span class="cm">   * data to an audio file */</span>
+  <span class="n">e</span> <span class="o">=</span> <span class="n">sox_create_effect</span><span class="p">(</span><span class="n">sox_find_effect</span><span class="p">(</span><span class="s">&quot;output&quot;</span><span class="p">));</span>
+  <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">out</span><span class="p">,</span> <span class="n">assert</span><span class="p">(</span><span class="n">sox_effect_options</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">sox_add_effect</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="o">-&gt;</span><span class="n">signal</span><span class="p">)</span> <span class="o">==</span> <span class="n">SOX_SUCCESS</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+
+  <span class="cm">/* Flow samples through the effects processing chain until EOF is reached */</span>
+  <span class="n">sox_flow_effects</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+  <span class="cm">/* All done; tidy up: */</span>
+  <span class="n">sox_delete_effects_chain</span><span class="p">(</span><span class="n">chain</span><span class="p">);</span>
+  <span class="n">sox_close</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+  <span class="n">sox_close</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+  <span class="n">sox_quit</span><span class="p">();</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reference">
+<h3><a class="toc-backref" href="#id15">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>主页: <a class="reference external" href="http://sox.sourceforge.net/">http://sox.sourceforge.net/</a></p></li>
+<li><p>文档: <a class="reference external" href="http://sox.sourceforge.net/sox.html">http://sox.sourceforge.net/sox.html</a></p></li>
+<li><p>代码: git clone git://git.code.sf.net/p/sox/code sox</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="ffmpeg.html" class="btn btn-neutral float-right" title="FFmpeg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="5. WebRTC 工具" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
