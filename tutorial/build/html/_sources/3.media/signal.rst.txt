@@ -6,9 +6,17 @@
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
+============ ==========================
+**Abstract** WebRTC Signal Process
+**Authors**  Walter Fan
+**Status**   WIP
+**Updated**  |date|
+============ ==========================
+
+.. |date| date::
+
 .. contents::
    :local:
-
 
 信号
 =========

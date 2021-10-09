@@ -87,7 +87,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -118,16 +118,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#opus-decoder">4. Opus Decoder 解码</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#opus-encoder">5. Opus Encoder 编码</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id12">6. 一致性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sdp">SDP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">SDP</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">参考资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
 </ul>
@@ -220,52 +221,52 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-02</p></td>
+<td><p>2021-10-09</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id16">概述</a></p>
+<li><p><a class="reference internal" href="#id1" id="id17">概述</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id17">互联网音频编码需求</a></p>
+<li><p><a class="reference internal" href="#id2" id="id18">互联网音频编码需求</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id18">定义</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id19">应用场景</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id20">详细的基本需求</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id21">其他的考虑</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id19">定义</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id20">应用场景</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id21">详细的基本需求</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id22">其他的考虑</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id22">术语</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id23">1. Opus编码带宽</a></p>
+<li><p><a class="reference internal" href="#id7" id="id23">术语</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id24">1. Opus编码带宽</a></p>
 <ul>
-<li><p><a class="reference internal" href="#fec" id="id24">2.1.7 FEC</a></p></li>
-<li><p><a class="reference internal" href="#discontinuous-transmission-dtx" id="id25">2.1.9.  Discontinuous Transmission (DTX)</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id26">控制参数</a></p></li>
+<li><p><a class="reference internal" href="#fec" id="id25">2.1.7 FEC</a></p></li>
+<li><p><a class="reference internal" href="#discontinuous-transmission-dtx" id="id26">2.1.9.  Discontinuous Transmission (DTX)</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id27">控制参数</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id10" id="id27">3. 内部分帧</a></p>
+<li><p><a class="reference internal" href="#id10" id="id28">3. 内部分帧</a></p>
 <ul>
-<li><p><a class="reference internal" href="#toc" id="id28">TOC</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id29">帧打包</a></p></li>
+<li><p><a class="reference internal" href="#toc" id="id29">TOC</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id30">帧打包</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#opus-decoder" id="id30">4. Opus Decoder 解码</a></p></li>
-<li><p><a class="reference internal" href="#opus-encoder" id="id31">5. Opus Encoder 编码</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id32">6. 一致性</a></p></li>
-<li><p><a class="reference internal" href="#sdp" id="id33">SDP</a></p>
+<li><p><a class="reference internal" href="#opus-decoder" id="id31">4. Opus Decoder 解码</a></p></li>
+<li><p><a class="reference internal" href="#opus-encoder" id="id32">5. Opus Encoder 编码</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id33">6. 一致性</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id34">SDP</a></p>
 <ul>
-<li><p><a class="reference internal" href="#example" id="id34">Example</a></p></li>
+<li><p><a class="reference internal" href="#example" id="id35">Example</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#api" id="id35">API</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id36">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#api" id="id36">API</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id37">参考资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id16">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Opus 是一种实时交互音频编码， 设计用来满足在 <a class="reference external" href="https://tools.ietf.org/html/rfc6366">RFC6366</a>  中所提出的对互联网音频编码的需求.
 不稳定的网络环境下的高质量语音通信.</p>
 <p>Opus 由基于线性预测 (LP)的层和基于修正离散余弦变换 (MDCT)的层组成。</p>
@@ -288,10 +289,10 @@
 <li><p>浮点和定点实现</p></li>
 </ul>
 <div class="section" id="id2">
-<h3><a class="toc-backref" href="#id17">互联网音频编码需求</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">互联网音频编码需求</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://tools.ietf.org/html/rfc6366">Requirements for an Internet Audio Codec</a></p>
 <div class="section" id="id3">
-<h4><a class="toc-backref" href="#id18">定义</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id19">定义</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Narrowband: 8 kilohertz (kHz)</p></li>
 <li><p>Wideband: 16 kHz</p></li>
@@ -300,7 +301,7 @@
 </ul>
 </div>
 <div class="section" id="id4">
-<h4><a class="toc-backref" href="#id19">应用场景</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id20">应用场景</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Point-to-point calls</p></li>
 <li><p>Conferencing</p></li>
@@ -313,7 +314,7 @@
 </ul>
 </div>
 <div class="section" id="id5">
-<h4><a class="toc-backref" href="#id20">详细的基本需求</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id21">详细的基本需求</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>操作空间</p></li>
 <li><p>质量和比特率</p></li>
@@ -322,7 +323,7 @@
 </ul>
 </div>
 <div class="section" id="id6">
-<h4><a class="toc-backref" href="#id21">其他的考虑</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id22">其他的考虑</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>混音的低复杂性</p></li>
 <li><p>编码的潜在改进</p></li>
@@ -339,7 +340,7 @@
 </div>
 </div>
 <div class="section" id="id7">
-<h2><a class="toc-backref" href="#id22">术语</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">术语</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>bitrate 比特每秒</p></li>
 <li><p>complexity 复杂度从1到10，复杂度最高为10</p></li>
@@ -356,7 +357,7 @@
 <p>不要使用 max_packet 来控制目标可变比特率，用 OPUS_SET_BITRATE 来代替</p>
 </div>
 <div class="section" id="id8">
-<h2><a class="toc-backref" href="#id23">1. Opus编码带宽</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id24">1. Opus编码带宽</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立体声音乐， 其算法延迟范围从5 ms 到 65.2 ms。在给定的时间，或者 LP 层，或者 MDCT 层，或者两者都有应用。它可无缝地在它的各种操作模式之间切换，这给它很大的灵活性来适应各种内容和网络条件，而无需重新协商当前的会话。</p>
 <p>此编码允许输入和输出多种不同的音频带宽，定义如下：</p>
 <table class="docutils align-default">
@@ -395,44 +396,44 @@
 </tbody>
 </table>
 <div class="section" id="fec">
-<h3><a class="toc-backref" href="#id24">2.1.7 FEC</a><a class="headerlink" href="#fec" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">2.1.7 FEC</a><a class="headerlink" href="#fec" title="Permalink to this headline">¶</a></h3>
 <p>In-band Forward Error Correction (FEC)</p>
 <p>Packets that are determined to contain perceptually important speech information, such as onsets or transients,
 are encoded again at a lower bitrate and this re-encoded information is added to a subsequent packet.</p>
 </div>
 <div class="section" id="discontinuous-transmission-dtx">
-<h3><a class="toc-backref" href="#id25">2.1.9.  Discontinuous Transmission (DTX)</a><a class="headerlink" href="#discontinuous-transmission-dtx" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">2.1.9.  Discontinuous Transmission (DTX)</a><a class="headerlink" href="#discontinuous-transmission-dtx" title="Permalink to this headline">¶</a></h3>
 <p>Discontinuous Transmission (DTX) reduces the bitrate during silence or background noise.
 When DTX is enabled, only one frame is encoded every 400 milliseconds.</p>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id26">控制参数</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">控制参数</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="id10">
-<h2><a class="toc-backref" href="#id27">3. 内部分帧</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">3. 内部分帧</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="toc">
-<h3><a class="toc-backref" href="#id28">TOC</a><a class="headerlink" href="#toc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">TOC</a><a class="headerlink" href="#toc" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id29">帧打包</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">帧打包</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="opus-decoder">
-<h2><a class="toc-backref" href="#id30">4. Opus Decoder 解码</a><a class="headerlink" href="#opus-decoder" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id31">4. Opus Decoder 解码</a><a class="headerlink" href="#opus-decoder" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="opus-encoder">
-<h2><a class="toc-backref" href="#id31">5. Opus Encoder 编码</a><a class="headerlink" href="#opus-encoder" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id32">5. Opus Encoder 编码</a><a class="headerlink" href="#opus-encoder" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="id12">
-<h2><a class="toc-backref" href="#id32">6. 一致性</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">6. 一致性</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8251">RFC8251 Updates to the Opus Audio Codec</a></p></li>
 </ul>
 <p>它由基于线性预测（LP）[LPC]的层和基于改进离散余弦变换（MDCT）[MDCT]的层组成。</p>
 </div>
-<div class="section" id="sdp">
-<h2><a class="toc-backref" href="#id33">SDP</a><a class="headerlink" href="#sdp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id34">SDP</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>maxaveragebitrate</p></li>
 <li><p>maxplaybackrate</p></li>
@@ -445,7 +446,7 @@ When DTX is enabled, only one frame is encoded every 400 milliseconds.</p>
 <li><p>sprop-stereo</p></li>
 </ul>
 <div class="section" id="example">
-<h3><a class="toc-backref" href="#id34">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id35">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">=</span><span class="n">audio</span> <span class="mi">9000</span> <span class="n">RTP</span><span class="o">/</span><span class="n">SAVPF</span> <span class="mi">111</span>
 <span class="n">a</span><span class="o">=</span><span class="n">rtpmap</span><span class="p">:</span><span class="mi">111</span> <span class="n">opus</span><span class="o">/</span><span class="mi">48000</span><span class="o">/</span><span class="mi">2</span>
 <span class="n">a</span><span class="o">=</span><span class="n">ptime</span><span class="p">:</span><span class="mi">20</span>
@@ -457,7 +458,7 @@ When DTX is enabled, only one frame is encoded every 400 milliseconds.</p>
 </div>
 </div>
 <div class="section" id="api">
-<h2><a class="toc-backref" href="#id35">API</a><a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id36">API</a><a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Encodes an Opus frame.</p></li>
 </ul>
@@ -503,8 +504,8 @@ When DTX is enabled, only one frame is encoded every 400 milliseconds.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id13">
-<h2><a class="toc-backref" href="#id36">参考资料</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id37">参考资料</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://tools.ietf.org/html/rfc6716">RFC6716 Definition of the Opus Audio Codec</a></p></li>
 <li><p><a class="reference external" href="https://tools.ietf.org/html/rfc7587">Official Opus RTP specification - RFC 7587</a></p></li>

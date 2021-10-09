@@ -18,5 +18,7 @@
    yuv
    h264
 
+   insertable_stream
+
    mathematics
    signal

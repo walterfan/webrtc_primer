@@ -13,13 +13,15 @@
    
    remote_pc
 
-   webrtc_api
+   media_capture
+
+   screen_capture
+
+   media_record
 
    webrtc_signal
 
    webrtc_stats
-
-   device
 
    video_chat
 

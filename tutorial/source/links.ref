@@ -23,3 +23,9 @@
 .. _WebIDL: https://webidl.spec.whatwg.org/
 
 .. _WebIDL Checker: https://w3c.github.io/webidl2.js/checker/
+
+.. _MDN WebRTC API: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API
+
+.. _W3C Media Capture and Streams Spec: https://www.w3.org/TR/mediacapture-streams
+
+.. _W3C Screen Capture Spec: https://w3c.github.io/mediacapture-screen-share/
