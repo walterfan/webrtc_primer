@@ -41,3 +41,5 @@
 .. _Web Codecs: https://w3c.github.io/webcodecs/ 
 
 .. _Insertable Streams: https://w3c.github.io/webrtc-encoded-transform/
+
+.. _Streams API: https://streams.spec.whatwg.org/

@@ -25,6 +25,19 @@ Overview
 
 It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.
 
+Problem to be solved
+---------------------------
+We need an API for processing media that:
+
+* Allows the processing to be specified by the user, not the browser
+* Allows the processed data to be handled by the browser as if it came through the normal pipeline
+* Allows the use of techniques like WASM to achieve effective processing
+* Allows the use of techniques like Workers to avoid blocking on the main thread
+* Does not negatively impact security or privacy of current communications
+
+API
+===========================
+
 It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the processing into the pipeline.
 
 .. code-block::
@@ -168,21 +181,37 @@ RTCRtpScriptTransform
     };
 
 
-Explain
-=========================
 
-Problem to be solved
----------------------------
-We need an API for processing media that:
 
-* Allows the processing to be specified by the user, not the browser
-* Allows the processed data to be handled by the browser as if it came through the normal pipeline
-* Allows the use of techniques like WASM to achieve effective processing
-* Allows the use of techniques like Workers to avoid blocking on the main thread
-* Does not negatively impact security or privacy of current communications
+Stream Standards
+==========================
+
+The Streams Standard provides a common set of APIs for creating and interfacing with such streaming data, embodied in readable streams, writable streams, and transform streams.
+
+These APIs have been designed to efficiently map to low-level I/O primitives, including specializations for byte streams where appropriate. 
+
+They allow easy composition of multiple streams into pipe chains, or can be used directly via readers and writers. Finally, they are designed to automatically provide backpressure and queuing.
+
+use cases
+---------------
+* Video effects: piping a readable video stream through a transform stream that applies effects in real time.
+
+* Decompression: piping a file stream through a transform stream that selectively decompresses files from a .tgz archive, turning them into img elements as the user scrolls through an image gallery.
+
+* Image decoding: piping an HTTP response stream through a transform stream that decodes bytes into bitmap data, and then through another transform that translates bitmaps into PNGs.
+
+Model
+-----------------
+
+A chunk is a single piece of data that is written to or read from a stream. It can be of any type; streams can even contain chunks of different types. 
+
+A chunk will often not be the most atomic unit of data for a given stream; for example a byte stream might contain chunks consisting of 16 KiB Uint8Arrays, instead of single bytes.
+
+
 
 
 Reference
 =========================
 * `webrtc-encoded-transform`_
 * `Insertable Stream Explain`_
+* `Streams API`_
