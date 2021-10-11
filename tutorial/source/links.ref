@@ -42,4 +42,6 @@
 
 .. _Insertable Streams: https://w3c.github.io/webrtc-encoded-transform/
 
-.. _Streams API: https://streams.spec.whatwg.org/
+.. _Streams API Spec: https://streams.spec.whatwg.org/
+
+.. _Streams API Concepts: https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts

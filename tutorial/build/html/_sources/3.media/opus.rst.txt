@@ -7,7 +7,7 @@ Opus Codec
 .. include:: ../abbrs.ref
 
 ============ =============
-**Abstract** Opus Codec review
+**Abstract** Opus Codec
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|
@@ -117,7 +117,7 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 不要使用 max_packet 来控制目标可变比特率，用 OPUS_SET_BITRATE 来代替
 
 
-1. Opus编码带宽
+Opus编码带宽
 =============================
 
 Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立体声音乐， 其算法延迟范围从5 ms 到 65.2 ms。在给定的时间，或者 LP 层，或者 MDCT 层，或者两者都有应用。它可无缝地在它的各种操作模式之间切换，这给它很大的灵活性来适应各种内容和网络条件，而无需重新协商当前的会话。
@@ -140,7 +140,34 @@ Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立�
 
 
 
-2.1.7 FEC
+Opus frame size and timestamp increments
+================================================
+
++---------+-----------------+-----+-----+-----+-----+------+------+
+|   Mode  |        fs       | 2.5 |  5  |  10 |  20 |  40  |  60  |
++=========+=================+=====+=====+=====+=====+======+======+
+| ts incr |       all       | 120 | 240 | 480 | 960 | 1920 | 2880 |
++---------+-----------------+-----+-----+-----+-----+------+------+
+|  voice  | NB/MB/WB/SWB/FB |  x  |  x  |  o  |  o  |  o   |  o   |
++---------+-----------------+-----+-----+-----+-----+------+------+
+|  audio  |   NB/WB/SWB/FB  |  o  |  o  |  o  |  o  |  x   |  x   |
++---------+-----------------+-----+-----+-----+-----+------+------+
+
+
+Control Parameters
+===================================
+* bitrate
+* channels
+* audio Bandwidth
+* frame duration
+* complexity
+* packetloss resilience
+* FEC
+* Constant/Variable bitrate
+* DTX
+
+  
+FEC
 -----------------------------------
 
 In-band Forward Error Correction (FEC)
@@ -149,16 +176,14 @@ Packets that are determined to contain perceptually important speech information
 are encoded again at a lower bitrate and this re-encoded information is added to a subsequent packet.
 
 
-2.1.9.  Discontinuous Transmission (DTX)
+Discontinuous Transmission (DTX)
 ----------------------------------------------------------------------
 Discontinuous Transmission (DTX) reduces the bitrate during silence or background noise.
 When DTX is enabled, only one frame is encoded every 400 milliseconds.
 
 
-控制参数
------------------------------------
 
-3. 内部分帧
+内部分帧
 ===================================
 
 
@@ -168,23 +193,21 @@ TOC
 帧打包
 -----------------------------------
 
-4. Opus Decoder 解码
+Opus Decoder 解码
 ===================================
+* Range Decoder
+* SILK Decoder
+* Packet Loss Concealment
+* Configuration Switching
+  
 
 
-
-5. Opus Encoder 编码
+Opus Encoder 编码
 ===================================
+* Range Encoder
+* SILK Encoder
+* CELT Encoder
 
-
-6. 一致性
-====================================
-
-
-
-* `RFC8251 Updates to the Opus Audio Codec <https://tools.ietf.org/html/rfc8251>`_
-
-它由基于线性预测（LP）[LPC]的层和基于改进离散余弦变换（MDCT）[MDCT]的层组成。
 
 
 SDP

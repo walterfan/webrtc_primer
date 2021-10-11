@@ -13,5 +13,8 @@
 
 
    insertable_stream
-   web_codec
+
    media_metrics
+
+   web_codec
+   web_transport

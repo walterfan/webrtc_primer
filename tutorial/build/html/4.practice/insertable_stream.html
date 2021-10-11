@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Web Codecs" href="web_codec.html" />
+    <link rel="next" title="Media Metrics" href="media_metrics.html" />
     <link rel="prev" title="SFU Server" href="sfu.html" /> 
 </head>
 
@@ -100,19 +100,32 @@
 <li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Insertable Stream</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#problem-to-be-solved">Problem to be solved</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#stream-api">Stream API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#use-cases">Use cases</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readablestream">ReadableStream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writablestream">WritableStream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pipe-chains">Pipe chains</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#insertable-streams-api">Insertable Streams API</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#sframetransform">SFrameTransform</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rtcrtpscripttransform">RTCRtpScriptTransform</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#explain">Explain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#problem-to-be-solved">Problem to be solved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Use cases</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#true-end-to-end-encryption-with-webrtc-insertable-streams">True End-to-End Encryption with WebRTC Insertable Streams</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
@@ -203,51 +216,164 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-09</p></td>
+<td><p>2021-10-11</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p>
 <ul>
-<li><p><a class="reference internal" href="#sframetransform" id="id2">SFrameTransform</a></p></li>
-<li><p><a class="reference internal" href="#rtcrtpscripttransform" id="id3">RTCRtpScriptTransform</a></p></li>
+<li><p><a class="reference internal" href="#problem-to-be-solved" id="id3">Problem to be solved</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#explain" id="id4">Explain</a></p>
+<li><p><a class="reference internal" href="#stream-api" id="id4">Stream API</a></p>
 <ul>
-<li><p><a class="reference internal" href="#problem-to-be-solved" id="id5">Problem to be solved</a></p></li>
+<li><p><a class="reference internal" href="#use-cases" id="id5">Use cases</a></p></li>
+<li><p><a class="reference internal" href="#model" id="id6">Model</a></p></li>
+<li><p><a class="reference internal" href="#readablestream" id="id7">ReadableStream</a></p></li>
+<li><p><a class="reference internal" href="#writablestream" id="id8">WritableStream</a></p></li>
+<li><p><a class="reference internal" href="#pipe-chains" id="id9">Pipe chains</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id6">Reference</a></p></li>
+<li><p><a class="reference internal" href="#insertable-streams-api" id="id10">Insertable Streams API</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sframetransform" id="id11">SFrameTransform</a></p></li>
+<li><p><a class="reference internal" href="#rtcrtpscripttransform" id="id12">RTCRtpScriptTransform</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id1" id="id13">Use cases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" id="id14">True End-to-End Encryption with WebRTC Insertable Streams</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id15">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.</p>
+<div class="section" id="problem-to-be-solved">
+<h3><a class="toc-backref" href="#id3">Problem to be solved</a><a class="headerlink" href="#problem-to-be-solved" title="Permalink to this headline">¶</a></h3>
+<p>We need an API for processing media that:</p>
+<ul class="simple">
+<li><p>Allows the processing to be specified by the user, not the browser</p></li>
+<li><p>Allows the processed data to be handled by the browser as if it came through the normal pipeline</p></li>
+<li><p>Allows the use of techniques like WASM to achieve effective processing</p></li>
+<li><p>Allows the use of techniques like Workers to avoid blocking on the main thread</p></li>
+<li><p>Does not negatively impact security or privacy of current communications</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="stream-api">
+<h2><a class="toc-backref" href="#id4">Stream API</a><a class="headerlink" href="#stream-api" title="Permalink to this headline">¶</a></h2>
+<p>The Streams Standard provides a common set of APIs for creating and interfacing with such streaming data, embodied in readable streams, writable streams, and transform streams.</p>
+<p>These APIs have been designed to efficiently map to low-level I/O primitives, including specializations for byte streams where appropriate.</p>
+<p>They allow easy composition of multiple streams into pipe chains, or can be used directly via readers and writers. Finally, they are designed to automatically provide backpressure and queuing.</p>
+<ul class="simple">
+<li><p>Read <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts">Streams API Concepts</a> to understand the basic concepts</p></li>
+</ul>
+<div class="section" id="use-cases">
+<h3><a class="toc-backref" href="#id5">Use cases</a><a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Video effects: piping a readable video stream through a transform stream that applies effects in real time.</p></li>
+<li><p>Decompression: piping a file stream through a transform stream that selectively decompresses files from a .tgz archive, turning them into img elements as the user scrolls through an image gallery.</p></li>
+<li><p>Image decoding: piping an HTTP response stream through a transform stream that decodes bytes into bitmap data, and then through another transform that translates bitmaps into PNGs.</p></li>
+</ul>
+</div>
+<div class="section" id="model">
+<h3><a class="toc-backref" href="#id6">Model</a><a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h3>
+<p>A chunk is a single piece of data that is written to or read from a stream. It can be of any type; streams can even contain chunks of different types.</p>
+<p>A chunk will often not be the most atomic unit of data for a given stream; for example a byte stream might contain chunks consisting of 16 KiB Uint8Arrays, instead of single bytes.</p>
+</div>
+<div class="section" id="readablestream">
+<h3><a class="toc-backref" href="#id7">ReadableStream</a><a class="headerlink" href="#readablestream" title="Permalink to this headline">¶</a></h3>
+<p>A readable stream is a data source represented in JavaScript by a ReadableStream object that flows from an underlying source — this is a resource somewhere on the network or elsewhere on your domain that you want to get data from.</p>
+<img alt="../_images/readable_streams.png" src="../_images/readable_streams.png" />
+<p>There are two types of underlying source:</p>
+<ul class="simple">
+<li><p>Push sources constantly push data at you when you’ve accessed them, and it is up to you to start, pause, or cancel access to the stream.
+Examples include video streams and TCP/Web sockets.</p></li>
+<li><p>Pull sources require you to explicitly request data from them once connected to.
+Examples include a file access operation via a Fetch or XHR call.</p></li>
+</ul>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReadableStream</span><span class="p">({</span>
+    <span class="nx">start</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">},</span>
+    <span class="nx">pull</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">},</span>
+    <span class="nx">cancel</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">},</span>
+    <span class="nx">type</span><span class="p">,</span>
+    <span class="nx">autoAllocateChunkSize</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">highWaterMark</span><span class="p">,</span>
+        <span class="nx">size</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writablestream">
+<h3><a class="toc-backref" href="#id8">WritableStream</a><a class="headerlink" href="#writablestream" title="Permalink to this headline">¶</a></h3>
+<p>A writable stream is a destination into which you can write data, represented in JavaScript by a WritableStream object. This serves as an abstraction over the top of an underlying sink — a lower-level I/O sink into which raw data is written.</p>
+<img alt="../_images/writable_streams.png" src="../_images/writable_streams.png" />
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WritableStream</span><span class="p">({</span>
+        <span class="nx">start</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">},</span>
+        <span class="nx">write</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">},</span>
+        <span class="nx">close</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">},</span>
+        <span class="nx">abort</span><span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">highWaterMark</span><span class="p">,</span>
+        <span class="nx">size</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pipe-chains">
+<h3><a class="toc-backref" href="#id9">Pipe chains</a><a class="headerlink" href="#pipe-chains" title="Permalink to this headline">¶</a></h3>
+<p>The Streams API makes it possible to pipe streams into one another (or at least it will do when browsers implement the relevant functionality) using a structure called a pipe chain</p>
+<img alt="../_images/pipechain.png" src="../_images/pipechain.png" />
+</div>
+</div>
+<div class="section" id="insertable-streams-api">
+<h2><a class="toc-backref" href="#id10">Insertable Streams API</a><a class="headerlink" href="#insertable-streams-api" title="Permalink to this headline">¶</a></h2>
 <p>It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the processing into the pipeline.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// New dictionary
-dictionary RTCInsertableStreams {
-    ReadableStream readable;
-    WritableStream writable;
-};
+<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New dictionary</span>
+<span class="k">dictionary</span> <span class="nc">RTCInsertableStreams</span> <span class="p">{</span>
+    <span class="nc">ReadableStream</span> <span class="nv">readable</span><span class="p">;</span>
+    <span class="nc">WritableStream</span> <span class="nv">writable</span><span class="p">;</span>
+<span class="p">};</span>
 
-typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
+<span class="k">typedef</span> <span class="p">(</span><span class="nc">SFrameTransform</span> <span class="k">or</span> <span class="nc">RTCRtpScriptTransform</span><span class="p">)</span> <span class="nc">RTCRtpTransform</span><span class="p">;</span>
 
-// New methods for RTCRtpSender and RTCRtpReceiver
-partial interface RTCRtpSender {
-    attribute RTCRtpTransform? transform;
-};
+<span class="c1">// New methods for RTCRtpSender and RTCRtpReceiver</span>
+<span class="k">partial</span> <span class="k">interface</span> <span class="nc">RTCRtpSender</span> <span class="p">{</span>
+    <span class="k">attribute</span> <span class="nc">RTCRtpTransform</span><span class="p">?</span> <span class="nv">transform</span><span class="p">;</span>
+<span class="p">};</span>
 
-partial interface RTCRtpReceiver {
-    attribute RTCRtpTransform? transform;
-};
+<span class="k">partial</span> <span class="k">interface</span> <span class="nc">RTCRtpReceiver</span> <span class="p">{</span>
+    <span class="k">attribute</span> <span class="nc">RTCRtpTransform</span><span class="p">?</span> <span class="nv">transform</span><span class="p">;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <p>由上面的定义可知， RTCRtpTransform 有两种实现 SFrameTransform 和 RTCRtpScriptTransform</p>
 <div class="section" id="sframetransform">
-<h3><a class="toc-backref" href="#id2">SFrameTransform</a><a class="headerlink" href="#sframetransform" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">SFrameTransform</a><a class="headerlink" href="#sframetransform" title="Permalink to this headline">¶</a></h3>
 <p>接口定义如下</p>
 <div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>enum SFrameTransformRole {
     &quot;encrypt&quot;,
@@ -293,7 +419,7 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </div>
 </div>
 <div class="section" id="rtcrtpscripttransform">
-<h3><a class="toc-backref" href="#id3">RTCRtpScriptTransform</a><a class="headerlink" href="#rtcrtpscripttransform" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">RTCRtpScriptTransform</a><a class="headerlink" href="#rtcrtpscripttransform" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New enum for video frame types. Will eventually re-use the equivalent defined</span>
 <span class="c1">// by WebCodecs.</span>
 <span class="k">enum</span> <span class="nc">RTCEncodedVideoFrameType</span> <span class="p">{</span>
@@ -362,25 +488,172 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </div>
 </div>
 </div>
-<div class="section" id="explain">
-<h2><a class="toc-backref" href="#id4">Explain</a><a class="headerlink" href="#explain" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="problem-to-be-solved">
-<h3><a class="toc-backref" href="#id5">Problem to be solved</a><a class="headerlink" href="#problem-to-be-solved" title="Permalink to this headline">¶</a></h3>
-<p>We need an API for processing media that:</p>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id13">Use cases</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="true-end-to-end-encryption-with-webrtc-insertable-streams">
+<h3><a class="toc-backref" href="#id14">True End-to-End Encryption with WebRTC Insertable Streams</a><a class="headerlink" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" title="Permalink to this headline">¶</a></h3>
+<p>搭建一个本地的 peer connection, video1 元素放置本地获取的 stream, video2 元素放置从远程获取的 stream</p>
+<p>这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox</p>
+<p>从 RTCPeerConnection 中获取 RTCRtpSender 和 RTCRtpReceiver</p>
 <ul class="simple">
-<li><p>Allows the processing to be specified by the user, not the browser</p></li>
-<li><p>Allows the processed data to be handled by the browser as if it came through the normal pipeline</p></li>
-<li><p>Allows the use of techniques like WASM to achieve effective processing</p></li>
-<li><p>Allows the use of techniques like Workers to avoid blocking on the main thread</p></li>
-<li><p>Does not negatively impact security or privacy of current communications</p></li>
+<li><p>explain: <a class="reference external" href="https://webrtchacks.com/true-end-to-end-encryption-with-webrtc-insertable-streams/">https://webrtchacks.com/true-end-to-end-encryption-with-webrtc-insertable-streams/</a></p></li>
+<li><p>codes: <a class="reference external" href="https://github.com/webrtc/samples/tree/gh-pages/src/content/insertable-streams/endtoend-encryption">https://github.com/webrtc/samples/tree/gh-pages/src/content/insertable-streams/endtoend-encryption</a></p></li>
 </ul>
+<img alt="../_images/insertable_stream_example.png" src="../_images/insertable_stream_example.png" />
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">sender</span> <span class="o">=</span> <span class="nx">pc1</span><span class="p">.</span><span class="nx">addTrack</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">getVideoTracks</span><span class="p">()[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">stream</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedVideoStreams</span><span class="p">()</span> <span class="o">:</span>
+<span class="kd">const</span> <span class="nx">senderTransformStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TransformStream</span><span class="p">({</span>
+    <span class="nx">transform</span><span class="o">:</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//这里可以做加密</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="nx">chunk</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">);</span>
+        <span class="nx">controller</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="nx">chunk</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">senderStreams</span><span class="p">.</span><span class="nx">readableStream</span>
+    <span class="p">.</span><span class="nx">pipeThrough</span><span class="p">(</span><span class="nx">senderTransformStream</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipeTo</span><span class="p">(</span><span class="nx">senderStreams</span><span class="p">.</span><span class="nx">writableStream</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>WebRTC example: <a class="reference external" href="https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/">https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/</a></p></li>
+</ul>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="s1">&#39;./js/worker.js&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;E2EE worker&#39;</span><span class="p">});</span>
+<span class="kd">function</span> <span class="nx">setupSenderTransform</span><span class="p">(</span><span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
+
+<span class="kd">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">senderStreams</span><span class="p">;</span>
+<span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span>
+        <span class="nx">operation</span><span class="o">:</span> <span class="s1">&#39;encode&#39;</span><span class="p">,</span>
+        <span class="nx">readable</span><span class="p">,</span>
+        <span class="nx">writable</span><span class="p">,</span>
+    <span class="p">},</span> <span class="p">[</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">setupReceiverTransform</span><span class="p">(</span><span class="nx">receiver</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">receiverStreams</span> <span class="o">=</span> <span class="nx">receiver</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">receiverStreams</span><span class="p">;</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span>
+        <span class="nx">operation</span><span class="o">:</span> <span class="s1">&#39;decode&#39;</span><span class="p">,</span>
+        <span class="nx">readable</span><span class="p">,</span>
+        <span class="nx">writable</span><span class="p">,</span>
+    <span class="p">},</span> <span class="p">[</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">]);</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>check <a class="reference external" href="https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/endtoend-encryption/js/worker.js">https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/endtoend-encryption/js/worker.js</a> for detail</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">onmessage</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="n">const</span> <span class="p">{</span><span class="n">operation</span><span class="p">}</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">===</span> <span class="s1">&#39;encode&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">const</span> <span class="p">{</span><span class="n">readable</span><span class="p">,</span> <span class="n">writable</span><span class="p">}</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+    <span class="n">const</span> <span class="n">transformStream</span> <span class="o">=</span> <span class="n">new</span> <span class="n">TransformStream</span><span class="p">({</span>
+        <span class="n">transform</span><span class="p">:</span> <span class="n">encodeFunction</span><span class="p">,</span>
+    <span class="p">});</span>
+    <span class="o">//</span><span class="n">处理管道经由</span> <span class="n">transformStream</span> <span class="n">的</span> <span class="n">encodeFunction</span> <span class="n">做</span> <span class="n">encode</span>
+    <span class="n">readable</span>
+        <span class="o">.</span><span class="n">pipeThrough</span><span class="p">(</span><span class="n">transformStream</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">pipeTo</span><span class="p">(</span><span class="n">writable</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">===</span> <span class="s1">&#39;decode&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">const</span> <span class="p">{</span><span class="n">readable</span><span class="p">,</span> <span class="n">writable</span><span class="p">}</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+    <span class="n">const</span> <span class="n">transformStream</span> <span class="o">=</span> <span class="n">new</span> <span class="n">TransformStream</span><span class="p">({</span>
+        <span class="n">transform</span><span class="p">:</span> <span class="n">decodeFunction</span><span class="p">,</span>
+    <span class="p">});</span>
+    <span class="o">//</span><span class="n">处理管道经由</span> <span class="n">transformStream</span> <span class="n">的</span> <span class="n">decodeFunction</span> <span class="n">做</span> <span class="n">decode</span>
+    <span class="n">readable</span>
+        <span class="o">.</span><span class="n">pipeThrough</span><span class="p">(</span><span class="n">transformStream</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">pipeTo</span><span class="p">(</span><span class="n">writable</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">operation</span> <span class="o">===</span> <span class="s1">&#39;setCryptoKey&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">currentCryptoKey</span> <span class="o">!==</span> <span class="n">currentCryptoKey</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">currentKeyIdentifier</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">currentCryptoKey</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">currentCryptoKey</span><span class="p">;</span>
+    <span class="n">useCryptoOffset</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">useCryptoOffset</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>encodeFunction</p></li>
+</ul>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">encodeFunction</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">,</span> <span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">scount</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mf">30</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// dump the first 30 packets.</span>
+        <span class="nx">dump</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">,</span> <span class="s1">&#39;send&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">currentCryptoKey</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="c1">// Any length that is needed can be used for the new buffer.</span>
+        <span class="kd">const</span> <span class="nx">newData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span> <span class="o">+</span> <span class="mf">5</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">newView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">newData</span><span class="p">);</span>
+
+        <span class="kd">const</span> <span class="nx">cryptoOffset</span> <span class="o">=</span> <span class="nx">useCryptoOffset</span><span class="o">?</span> <span class="nx">frameTypeToCryptoOffset</span><span class="p">[</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span> <span class="o">:</span> <span class="mf">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">cryptoOffset</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">newView</span><span class="p">.</span><span class="nx">setInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">view</span><span class="p">.</span><span class="nx">getInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="c1">// This is a bitwise xor of the key with the payload. This is not strong encryption, just a demo.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">cryptoOffset</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">keyByte</span> <span class="o">=</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span> <span class="o">%</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+        <span class="nx">newView</span><span class="p">.</span><span class="nx">setInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">view</span><span class="p">.</span><span class="nx">getInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">^</span> <span class="nx">keyByte</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Append keyIdentifier.</span>
+        <span class="nx">newView</span><span class="p">.</span><span class="nx">setUint8</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">,</span> <span class="nx">currentKeyIdentifier</span> <span class="o">%</span> <span class="mh">0xff</span><span class="p">);</span>
+        <span class="c1">// Append checksum</span>
+        <span class="nx">newView</span><span class="p">.</span><span class="nx">setUint32</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="mh">0xDEADBEEF</span><span class="p">);</span>
+
+        <span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">newData</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">controller</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>decodeFunction</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>function decodeFunction(encodedFrame, controller) {
+    if (rcount++ &lt; 30) { // dump the first 30 packets
+        dump(encodedFrame, &#39;recv&#39;);
+    }
+    const view = new DataView(encodedFrame.data);
+    const checksum = encodedFrame.data.byteLength &gt; 4 ? view.getUint32(encodedFrame.data.byteLength - 4) : false;
+    if (currentCryptoKey) {
+        if (checksum !== 0xDEADBEEF) {
+        console.log(&#39;Corrupted frame received, checksum &#39; +
+                    checksum.toString(16));
+        return; // This can happen when the key is set and there is an unencrypted frame in-flight.
+        }
+        const keyIdentifier = view.getUint8(encodedFrame.data.byteLength - 5);
+        if (keyIdentifier !== currentKeyIdentifier) {
+        console.log(`Key identifier mismatch, got ${keyIdentifier} expected ${currentKeyIdentifier}.`);
+        return;
+        }
+
+        const newData = new ArrayBuffer(encodedFrame.data.byteLength - 5);
+        const newView = new DataView(newData);
+        const cryptoOffset = useCryptoOffset? frameTypeToCryptoOffset[encodedFrame.type] : 0;
+
+        for (let i = 0; i &lt; cryptoOffset; ++i) {
+        newView.setInt8(i, view.getInt8(i));
+        }
+        for (let i = cryptoOffset; i &lt; encodedFrame.data.byteLength - 5; ++i) {
+        const keyByte = currentCryptoKey.charCodeAt(i % currentCryptoKey.length);
+        newView.setInt8(i, view.getInt8(i) ^ keyByte);
+        }
+        encodedFrame.data = newData;
+    } else if (checksum === 0xDEADBEEF) {
+        return; // encrypted in-flight frame but we already forgot about the key.
+    }
+    controller.enqueue(encodedFrame);
+}
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id6">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://w3c.github.io/webrtc-encoded-transform/">webrtc-encoded-transform</a></p></li>
 <li><p><a class="reference external" href="https://github.com/w3c/webrtc-encoded-transform/blob/main/explainer.md">Insertable Stream Explain</a></p></li>
+<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts">Streams API Concepts</a></p></li>
+<li><p><a class="reference external" href="https://streams.spec.whatwg.org/">Streams API Spec</a></p></li>
 </ul>
 </div>
 </div>
@@ -391,7 +664,7 @@ dictionary SFrameTransformErrorEventInit : EventInit {
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="web_codec.html" class="btn btn-neutral float-right" title="Web Codecs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="media_metrics.html" class="btn btn-neutral float-right" title="Media Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="sfu.html" class="btn btn-neutral float-left" title="SFU Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
