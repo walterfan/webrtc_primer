@@ -298,7 +298,18 @@ True End-to-End Encryption with WebRTC Insertable Streams
 
 搭建一个本地的 peer connection, video1 元素放置本地获取的 stream, video2 元素放置从远程获取的 stream
 
-这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox
+这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox, 它从 peer connection 中拿到媒体流，不经 decode 而直接播放。
+
+
+大致流程为:
+
+.. code-block::
+
+    localStream(video1) --> 加密 --> peerConnection --> 解密 --> video2(remoteStream)
+                                        |
+                                        v
+                                    videoMonitor(未解密的)   
+
 
 
 从 RTCPeerConnection 中获取 RTCRtpSender 和 RTCRtpReceiver
