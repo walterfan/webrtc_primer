@@ -493,7 +493,14 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 <div class="section" id="true-end-to-end-encryption-with-webrtc-insertable-streams">
 <h3><a class="toc-backref" href="#id14">True End-to-End Encryption with WebRTC Insertable Streams</a><a class="headerlink" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" title="Permalink to this headline">¶</a></h3>
 <p>搭建一个本地的 peer connection, video1 元素放置本地获取的 stream, video2 元素放置从远程获取的 stream</p>
-<p>这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox</p>
+<p>这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox, 它从 peer connection 中拿到媒体流，不经 decode 而直接播放。</p>
+<p>大致流程为:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">localStream</span><span class="p">(</span><span class="n">video1</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">加密</span> <span class="o">--&gt;</span> <span class="n">peerConnection</span> <span class="o">--&gt;</span> <span class="n">解密</span> <span class="o">--&gt;</span> <span class="n">video2</span><span class="p">(</span><span class="n">remoteStream</span><span class="p">)</span>
+                                    <span class="o">|</span>
+                                    <span class="n">v</span>
+                                <span class="n">videoMonitor</span><span class="p">(</span><span class="n">未解密的</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>从 RTCPeerConnection 中获取 RTCRtpSender 和 RTCRtpReceiver</p>
 <ul class="simple">
 <li><p>explain: <a class="reference external" href="https://webrtchacks.com/true-end-to-end-encryption-with-webrtc-insertable-streams/">https://webrtchacks.com/true-end-to-end-encryption-with-webrtc-insertable-streams/</a></p></li>
