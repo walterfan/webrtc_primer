@@ -21,6 +21,8 @@
 
    media_record
 
+   webrtc_transport
+
    webrtc_signal
 
    webrtc_stats

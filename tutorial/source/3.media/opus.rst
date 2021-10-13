@@ -51,7 +51,7 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 * 浮点和定点实现
 
 互联网音频编码需求
------------------------------
+=====================
 
 `Requirements for an Internet Audio Codec <https://tools.ietf.org/html/rfc6366>`_
 
@@ -117,8 +117,17 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 不要使用 max_packet 来控制目标可变比特率，用 OPUS_SET_BITRATE 来代替
 
 
-Opus编码带宽
+
+
+Opus Architecture
 =============================
+
+
+
+
+
+Opus编码带宽
+-----------------------------
 
 Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立体声音乐， 其算法延迟范围从5 ms 到 65.2 ms。在给定的时间，或者 LP 层，或者 MDCT 层，或者两者都有应用。它可无缝地在它的各种操作模式之间切换，这给它很大的灵活性来适应各种内容和网络条件，而无需重新协商当前的会话。
 
@@ -302,3 +311,4 @@ API
 * `编解码器杂谈：浅析 Opus <https://mbd.baidu.com/ma/s/Qhnhx3tH>`_
 
 * `互联网音频编码需求 - RFC6366  <https://tools.ietf.org/html/rfc6366>`_
+

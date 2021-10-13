@@ -12,6 +12,8 @@
    audio_basic
    audio_qos
    audio_api
+   audio_quality
+   audio_analysis
    
    video_basic
    opus
