@@ -50,13 +50,11 @@
           <div class="row">
 
              <div class="col-lg-6">
-
-                <video width="320" height="240" controls>
-                    <source src="./media/mov_bbb.mp4" type="video/mp4">
-                  Your browser does not support the video tag.
-                  </video>
-                  <br/>
-                <canvas id="canvas" width="408" height="250">
+                <button id="drawChessboard" class="btn btn-success">Draw Chessboard</button>
+                <button id="drawClock" class="btn btn-success">Draw Clock</button>
+                <button id="drawRandomImage" class="btn btn-success">Draw Random</button>
+                
+                <canvas id="myCanvas" width="640" height="480">
                     Your browser not support canvas
                 </canvas>
              </div>
@@ -96,6 +94,23 @@
 	</div>
 </div>
 <script type="text/javascript" src="js/canvas_demo.js"></script>
+<script>
 
+
+    window.onload = function init() {
+        var rtcApp = new RtcApp();
+        rtcApp.init();
+        var drawChessboardButton = document.getElementById("drawChessboard");
+        drawChessboardButton.addEventListener("click", e => rtcApp.drawChessboard(e));
+
+        var drawClockButton = document.getElementById("drawClock");
+        drawClockButton.addEventListener("click", e => rtcApp.drawClock(e));
+
+        var drawRandomImageButton = document.getElementById("drawRandomImage");
+        drawRandomImageButton.addEventListener("click", e => rtcApp.drawRandomImage(e));
+        
+    }
+
+</script>
 </body>
 </html>

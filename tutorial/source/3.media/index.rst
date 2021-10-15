@@ -16,6 +16,8 @@
    audio_analysis
    
    video_basic
+   video_codec
+   
    opus
    yuv
    h264

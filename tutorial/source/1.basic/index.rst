@@ -11,17 +11,15 @@
    
    webrtc_spec
 
-   local_pc
+   webrtc_api
    
-   remote_pc
+   webrtc_flow
 
    media_capture
 
    screen_capture
 
    media_record
-
-   webrtc_transport
 
    webrtc_signal
 

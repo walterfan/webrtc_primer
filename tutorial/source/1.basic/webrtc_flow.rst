@@ -1,5 +1,5 @@
 ######################
-WebRTC 远程连接
+WebRTC 呼叫流程
 ######################
 
 
@@ -89,10 +89,8 @@ Candidate-pair 进行检查 “checking”,如果能连通, 最终状态转换�
 1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器
 =============================================================
 
-nodejs 有强大的 express 和 socket.io
-库,可以帮助我们轻松实现一个视频聊天服务器。 express 是非常流行的 nodejs
-Web 框架，它简单易用， socket.io
-是一个支持浏览器和服务器之间的实时、双向和基于事件的通信的 JavaScript
+nodejs 有强大的 express 和 socket.io 库,可以帮助我们轻松实现一个视频聊天服务器。 express 是非常流行的 nodejs
+Web 框架，它简单易用， socket.io 是一个支持浏览器和服务器之间的实时、双向和基于事件的通信的 JavaScript
 库。它包括 nodejs 服务器和Javascript客户端库。
 
 第一步创建 package.json
