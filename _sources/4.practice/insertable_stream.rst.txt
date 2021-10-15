@@ -20,35 +20,42 @@ Insertable Stream
    :local:
 
 
-Overview
+概述
 =========================
 
 It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.
 
-Problem to be solved
+Insertable Stream 可插入的流是新的 WebRTC API, 可用来操作通过 RTCPeerConnection 传送的 MediaStreamTracks 中的每一个字节。它让上层应用能对 WebRTC 底层媒体进行访问，让以往 WebRTC 应用中许多不可能做的情况都成为可能了
+
+比如替换视频聊天时的背景，实时进行音视频处理（降噪，美颜，打水印，加特效等）
+
+所解决的问题
 ---------------------------
-We need an API for processing media that:
+我们需要 WebRTC 提供 API
 
-* Allows the processing to be specified by the user, not the browser
-* Allows the processed data to be handled by the browser as if it came through the normal pipeline
-* Allows the use of techniques like WASM to achieve effective processing
-* Allows the use of techniques like Workers to avoid blocking on the main thread
-* Does not negatively impact security or privacy of current communications
-
-
-Stream API
+* 允许用户指定的处理，而不仅仅只能通过浏览器
+* 允许浏览器处理由用户处理过的数据，就好像它是通过正常的处理管道一样
+* 允许使用 WASM 等技术实现更有效的媒体处理
+* 允许使用像 Workers 这样的技术来避免主线程阻塞
+* 不会对当前通信的安全或隐私产生负面影响
+  
+Stream API 
 ==========================
 
-The Streams Standard provides a common set of APIs for creating and interfacing with such streaming data, embodied in readable streams, writable streams, and transform streams.
+Streams 标准提供了一组通用的 API，用于创建此类流数据并与之交互，这些数据体现在可读流、可写流和转换流中。
 
-These APIs have been designed to efficiently map to low-level I/O primitives, including specializations for byte streams where appropriate. 
+* readable streams
+* writable streams
+* transform streams.
 
-They allow easy composition of multiple streams into pipe chains, or can be used directly via readers and writers. Finally, they are designed to automatically provide backpressure and queuing.
+这些 API 旨在更有效地映射到低级的 I/O 原始操作，包括在适当的情况下对字节流进行专门的处理。
 
-- Read `Streams API Concepts`_ to understand the basic concepts
+它们允许将多个流轻松组合到管道链中，或者可以通过读取器和写入器直接使用。 最后，它们被设计为自动提供背压和排队。
+
+- 阅读 `Streams API Concepts`_ 来了解背后的基本概念
 
 
-Use cases
+用例
 ---------------
 * Video effects: piping a readable video stream through a transform stream that applies effects in real time.
 
@@ -56,7 +63,7 @@ Use cases
 
 * Image decoding: piping an HTTP response stream through a transform stream that decodes bytes into bitmap data, and then through another transform that translates bitmaps into PNGs.
 
-Model
+模型
 -----------------
 
 A chunk is a single piece of data that is written to or read from a stream. It can be of any type; streams can even contain chunks of different types. 
@@ -64,8 +71,8 @@ A chunk is a single piece of data that is written to or read from a stream. It c
 A chunk will often not be the most atomic unit of data for a given stream; for example a byte stream might contain chunks consisting of 16 KiB Uint8Arrays, instead of single bytes.
 
 
-ReadableStream
------------------
+可读流 ReadableStream
+-----------------------
 A readable stream is a data source represented in JavaScript by a ReadableStream object that flows from an underlying source — this is a resource somewhere on the network or elsewhere on your domain that you want to get data from.
 
 .. image:: ../_static/readable_streams.png

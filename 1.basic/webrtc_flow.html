@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>WebRTC 远程连接 &mdash; webrtc_tutorial 1 documentation</title>
+  <title>WebRTC 呼叫流程 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="WebRTC API 之 Media Capture" href="media_capture.html" />
-    <link rel="prev" title="WebRTC 本地连接" href="local_pc.html" /> 
+    <link rel="prev" title="WebRTC API" href="webrtc_api.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,8 +93,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_spec.html">WebRTC 标准，协议和规范</a></li>
-<li class="toctree-l2"><a class="reference internal" href="local_pc.html">WebRTC 本地连接</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 远程连接</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 呼叫流程</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">概论</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">WebRTC 的信令，媒体以及数据通道</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">会话创建过程(JSEP) 与两个最重要的状态机</a></li>
@@ -123,6 +123,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -173,13 +174,13 @@
         
           <li><a href="index.html">1. WebRTC 基础</a> &raquo;</li>
         
-      <li>WebRTC 远程连接</li>
+      <li>WebRTC 呼叫流程</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/1.basic/remote_pc.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/1.basic/webrtc_flow.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,7 +194,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="webrtc">
-<h1>WebRTC 远程连接<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<h1>WebRTC 呼叫流程<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#id1" id="id8">概论</a></p></li>
@@ -270,10 +271,8 @@ Candidate-pair 进行检查 “checking”,如果能连通, 最终状态转换�
 </div>
 <div class="section" id="id4">
 <h2><a class="toc-backref" href="#id11">1. 我们要写一个上面提到的信令服务器, 同时也作为一个网页服务器</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>nodejs 有强大的 express 和 socket.io
-库,可以帮助我们轻松实现一个视频聊天服务器。 express 是非常流行的 nodejs
-Web 框架，它简单易用， socket.io
-是一个支持浏览器和服务器之间的实时、双向和基于事件的通信的 JavaScript
+<p>nodejs 有强大的 express 和 socket.io 库,可以帮助我们轻松实现一个视频聊天服务器。 express 是非常流行的 nodejs
+Web 框架，它简单易用， socket.io 是一个支持浏览器和服务器之间的实时、双向和基于事件的通信的 JavaScript
 库。它包括 nodejs 服务器和Javascript客户端库。</p>
 <div class="section" id="package-json">
 <h3><a class="toc-backref" href="#id12">第一步创建 package.json</a><a class="headerlink" href="#package-json" title="Permalink to this headline">¶</a></h3>
@@ -1180,7 +1179,7 @@ Chrome浏览器可以通过 chrome://flags/#allow-insecure-localhost
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="media_capture.html" class="btn btn-neutral float-right" title="WebRTC API 之 Media Capture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="local_pc.html" class="btn btn-neutral float-left" title="WebRTC 本地连接" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="webrtc_api.html" class="btn btn-neutral float-left" title="WebRTC API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

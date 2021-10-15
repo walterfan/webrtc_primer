@@ -97,14 +97,30 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">5. WebRTC 工具</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sox.html">SoX</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">FFmpeg</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">命令行</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">ffmpeg 是什么?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">组件</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">命令行工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">FFmpeg 的共享库</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ffmpeg-flow">ffmpeg flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">用法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faq">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mp4-wav">从视频文件 mp4 中提取音频文件 wav</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mp4-avi">转换 mp4 到 avi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">如何根据图片和音频制作视频文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">如何连接两个音频文件？</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mp3-wav">如何将mp3 转换为 wav 文件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcpdump.html">tcpdump</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -176,16 +192,195 @@
             
   <div class="section" id="ffmpeg">
 <h1>FFmpeg<a class="headerlink" href="#ffmpeg" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>FFmpeg</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-15</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id10">ffmpeg 是什么?</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id11">组件</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id12">命令行工具</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">FFmpeg 的共享库</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#ffmpeg-flow" id="id14">ffmpeg flow</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id15">用法</a></p></li>
+<li><p><a class="reference internal" href="#faq" id="id16">FAQ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#mp4-wav" id="id17">从视频文件 mp4 中提取音频文件 wav</a></p></li>
+<li><p><a class="reference internal" href="#mp4-avi" id="id18">转换 mp4 到 avi</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id19">如何根据图片和音频制作视频文件</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id20">如何连接两个音频文件？</a></p></li>
+<li><p><a class="reference internal" href="#mp3-wav" id="id21">如何将mp3 转换为 wav 文件</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id8" id="id22">参考资料</a></p></li>
+</ul>
+</div>
 <div class="section" id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">ffmpeg 是什么?</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>ffmpeg 是一个跨平台的音视频录制,转换和流式传输的完整解决方案，它是一套软件库, 也是一套工具集。</p>
 </div>
 <div class="section" id="id2">
-<h2>命令行<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>ffmpeg -s 1920x1080 -i  src01_1920x1080.yuv -b:v 7776k -r 25 -vcodec libx264 -x264opts ssim src01_1920x1080_0.150.h264
-ffmpeg -i src01_1920x1080_0.150.h264 src01_1920x1080_0.150_264.yuv</p>
-</div>
+<h2><a class="toc-backref" href="#id11">组件</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h2>代码<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3><a class="toc-backref" href="#id12">命令行工具</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ffmpeg.org/ffmpeg.html">ffmpeg</a>: 音视频编码和解码工具</p></li>
+<li><p><a class="reference external" href="https://ffmpeg.org/ffplay.html">ffplay</a>: 媒体播放器</p></li>
+<li><p><a class="reference external" href="https://ffmpeg.org/ffprobe.html">ffprobe</a>:  媒体文件特性探查器</p></li>
+<li><p><a class="reference external" href="https://ffmpeg.org/ffserver.html">ffserver</a>:  基于 HTTP 和 RTSP 协议的多媒体流播放服务器</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id13">FFmpeg 的共享库</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>库</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>libavcodec</p></td>
+<td><p>用于各种多媒体编码</p></td>
+</tr>
+<tr class="row-odd"><td><p>libavdevice</p></td>
+<td><p>用于各种设备</p></td>
+</tr>
+<tr class="row-even"><td><p>libavfilter</p></td>
+<td><p>包含一些过滤器</p></td>
+</tr>
+<tr class="row-odd"><td><p>libavformat</p></td>
+<td><p>音视频媒体格式</p></td>
+</tr>
+<tr class="row-even"><td><p>libavutil</p></td>
+<td><p>包含一些实用例程</p></td>
+</tr>
+<tr class="row-odd"><td><p>libpostproc</p></td>
+<td><p>用于后期处理</p></td>
+</tr>
+<tr class="row-even"><td><p>libswresample</p></td>
+<td><p>用于音频重采样</p></td>
+</tr>
+<tr class="row-odd"><td><p>libswscale</p></td>
+<td><p>用于媒体扩展</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="ffmpeg-flow">
+<h2><a class="toc-backref" href="#id14">ffmpeg flow</a><a class="headerlink" href="#ffmpeg-flow" title="Permalink to this headline">¶</a></h2>
+<p>ffmpeg调用libavformat库（包含demuxers）来读取输入文件，并从中获取包含编码数据的数据包。
+当有多个输入文件时，ffmpeg尝试通过跟踪任何活动输入流上的最低时间戳来保持同步。</p>
+<p>然后将编码的数据包传递给解码器（除非为流选择了streamcopy，请参阅进一步的描述）。
+解码器产生未经压缩的帧（原始视频/ PCM音频/
+…），可以通过过滤进一步处理（见下一节）。
+滤波后，帧被传送到编码器，对编码器进行编码并输出编码的数据包。
+最后，这些被传递给复制器，它将编码的数据包写入输出文件。</p>
+<div class="figure align-default">
+<img alt="ffmpeg flow" src="http://upload-images.jianshu.io/upload_images/1598924-ab4b442d6af1c101.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
+</div>
+<p>在编码之前，ffmpeg可以使用libavfilter库中的过滤器来处理原始音频和视频帧。
+几个链式过滤器形成一个过滤器图。</p>
+<p>ffmpeg区分两种类型的过滤器图：</p>
+<ul class="simple">
+<li><p>简单过滤器图</p></li>
+<li><p>复杂过滤器图。</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id15">用法</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>命令行的基本用法如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="p">[</span><span class="n">global_options</span><span class="p">]</span> <span class="p">[</span><span class="n">input_file_options</span><span class="p">]</span> <span class="o">-</span><span class="n">i</span> <span class="n">input_file</span>
+<span class="p">[</span><span class="n">output_file_options</span><span class="p">]</span> <span class="n">output_file</span>
+</pre></div>
+</div>
+<p>比如</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="o">-</span><span class="n">i</span> <span class="mi">1</span><span class="n">secs</span><span class="o">.</span><span class="n">avi</span> <span class="o">-</span><span class="n">vn</span> <span class="o">-</span><span class="n">acodec</span> <span class="n">pcm_s16le</span> <span class="o">-</span><span class="n">ar</span> <span class="mi">8000</span> <span class="o">-</span><span class="n">ac</span> <span class="mi">1</span> <span class="mi">1</span><span class="n">secs</span><span class="o">.</span><span class="n">wav</span>
+</pre></div>
+</div>
+<p>ffmpeg 支持很多格式和编码，可通过如下命令查看</p>
+<dl>
+<dt>::</dt><dd><p>ffmpeg -formats</p>
+<p>or</p>
+<p>ffmpeg -codecs</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="faq">
+<h2><a class="toc-backref" href="#id16">FAQ</a><a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mp4-wav">
+<h3><a class="toc-backref" href="#id17">从视频文件 mp4 中提取音频文件 wav</a><a class="headerlink" href="#mp4-wav" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fmpeg -i input.mp4 -ab 160k -ac <span class="m">2</span> -ar <span class="m">44100</span> -vn output.wav
+</pre></div>
+</div>
+</div>
+<div class="section" id="mp4-avi">
+<h3><a class="toc-backref" href="#id18">转换 mp4 到 avi</a><a class="headerlink" href="#mp4-avi" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">ffmpeg</span> <span class="pre">-i</span> <span class="pre">input.mp4</span> <span class="pre">output.avi</span>
+<span class="pre">`</span></code></p>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id19">如何根据图片和音频制作视频文件</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_avi</span><span class="p">(</span><span class="n">image_file</span><span class="p">,</span> <span class="n">wave_file</span><span class="p">,</span> <span class="n">avi_file</span><span class="p">):</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;ffmpeg -i </span><span class="si">%s</span><span class="s2"> -i </span><span class="si">%s</span><span class="s2"> -c copy </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">image_file</span><span class="p">,</span> <span class="n">wave_file</span><span class="p">,</span> <span class="n">avi_file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id20">如何连接两个音频文件？</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="o">-</span><span class="n">f</span> <span class="n">concat</span> <span class="o">-</span><span class="n">i</span> <span class="n">mylist</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">c</span> <span class="n">copy</span> <span class="n">output</span><span class="o">.</span><span class="n">wav</span>
+</pre></div>
+</div>
+<p>mylist.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="s1">&#39;4815.wav&#39;</span>
+<span class="n">file</span> <span class="s1">&#39;4816.wav&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mp3-wav">
+<h3><a class="toc-backref" href="#id21">如何将mp3 转换为 wav 文件</a><a class="headerlink" href="#mp3-wav" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>采样率为8000 Hz, 编码为 pcm, 采样深度为16bit</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ffmpeg</span> <span class="o">-</span><span class="n">i</span> <span class="mf">4898.</span><span class="n">mp3</span> <span class="o">-</span><span class="n">acodec</span> <span class="n">pcm_s16le</span> <span class="o">-</span><span class="n">ac</span> <span class="mi">1</span> <span class="o">-</span><span class="n">ar</span> <span class="mi">8000</span> <span class="mf">4898.</span><span class="n">wav</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id22">参考资料</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>官网: <a class="reference external" href="https://ffmpeg.org/">https://ffmpeg.org/</a></p></li>
+<li><p>官方文档: <a class="reference external" href="http://ffmpeg.org/documentation.html">http://ffmpeg.org/documentation.html</a></p></li>
+<li><p>官方书籍: ffmpeg basic - <a class="reference external" href="http://ffmpeg.tv/">http://ffmpeg.tv/</a></p></li>
+</ul>
 </div>
 </div>
 

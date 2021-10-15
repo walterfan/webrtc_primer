@@ -1,5 +1,5 @@
 ######################
-WebRTC 本地连接
+WebRTC API
 ######################
 
 
@@ -15,11 +15,9 @@ WebRTC 本地连接
 
 概论
 ============
-WebRTC 是一套基于 Web 的实时通信解决方案，通过浏览器内置的 API
-来支持音视频通道的搭建。
+WebRTC 是一套基于 Web 的实时通信解决方案，通过浏览器内置的 API 来支持音视频通道的搭建。
 
-简而言之，先在信令通道协商出彼此的媒体和通信参数,
-再通过媒体通道来传输音视频媒体数据。
+简而言之，先在信令通道协商出彼此的媒体和通信参数,再通过媒体通道来传输音视频媒体数据。
 
 JavaScrpt 中用到的三个主要的对象有：
 
@@ -30,9 +28,7 @@ JavaScrpt 中用到的三个主要的对象有：
 对于媒体传输层，WebRTC 规定了用 ICE/STUN/TURN 来连通，用 DTLS 来协商
 SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 
-而在信令层，WebRTC
-并未指定，各个应用可以用自己喜欢的信令协议来进行媒体协商，一般都是用 SDP
-来通过 HTTP, WebSocket 或 SIP 协议承载具体的媒体会话描述。
+而在信令层，WebRTC 并未指定，各个应用可以用自己喜欢的信令协议来进行媒体协商，一般都是用 XMPP, SIP 或者自定义的消息格式包含 SDP，通过 HTTP, WebSocket 或直接用 TCP 协议承载具体的媒体会话描述。
 
 如果我们要进行视频聊天， 最基本的呼叫流程大致如下：
 
@@ -52,22 +48,15 @@ SRTP 密钥，用 SRTP 来传输媒体数据, 用 SCTP 来传输应用数据。
 1) ICE 候选者 ICE　Candidates：包括可用来通信：的地址信息 
 2) 会话描述信息 Session　Description： 包括媒体种类，编码，格式等等。
 
-ICE的全称是" Interactive Connectivity Establishment "
-即交互式连接的建立: 一个用于网络地址转换穿越的协议
+ICE的全称是" Interactive Connectivity Establishment " 即交互式连接的建立: 一个用于网络地址转换穿越的协议
 
-大致的流程如下， Alice 想要和 Bob
-在网上聊天（包括文字，语音和视频），需要经过这些步骤，
+大致的流程如下， Alice 想要和 Bob 在网上聊天（包括文字，语音和视频），需要经过这些步骤，
 看起来很复杂，我们一步细细分解来说
 
 .. figure:: ../_static/call_flow_example.webp
    :alt: call flow example
 
-举两个例子
-
-1. 本地对等连接 Local Peer Connection
-2. 远程对等连接 Remote Peer Connection
-
-本地对等连接
+示例
 ===============
 
 -  详细代码参见

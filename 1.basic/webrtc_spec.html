@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="WebRTC 本地连接" href="local_pc.html" />
+    <link rel="next" title="WebRTC API" href="webrtc_api.html" />
     <link rel="prev" title="WebRTC 概论" href="overview.html" /> 
 </head>
 
@@ -93,12 +93,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 标准，协议和规范</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">标准</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">新标准和规范</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">相关的标准和协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">相关的扩展协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">新标准和规范</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="local_pc.html">WebRTC 本地连接</a></li>
-<li class="toctree-l2"><a class="reference internal" href="remote_pc.html">WebRTC 远程连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_flow.html">WebRTC 呼叫流程</a></li>
 <li class="toctree-l2"><a class="reference internal" href="media_capture.html">WebRTC API 之 Media Capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="screen_capture.html">WebRTC API 之 Screen Capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="media_record.html">WebRTC API 之 Media Record</a></li>
@@ -112,6 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -199,24 +201,198 @@
 <td><p>WIP as draft</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-11</p></td>
+<td><p>2021-10-15</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id3">标准</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id4">新标准和规范</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id4">相关的标准和协议</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id5">相关的扩展协议</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id6">新标准和规范</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id3">标准</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">相关的标准和协议</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>WebRTC 1.0: Real-Time Communication Between Browsers</p></li>
+<li><p>WebRTC standard:</p></li>
 </ul>
+<p><a class="reference external" href="https://www.w3.org/TR/webrtc">https://www.w3.org/TR/webrtc</a></p>
+<ul class="simple">
+<li><p>SDP</p></li>
+</ul>
+<p>参见 <a class="reference external" href="https://www.rfcreader.com/#rfc4566">RFC4566</a> Session Decscription Protocol</p>
+<ul class="simple">
+<li><p>RTP</p></li>
+</ul>
+<p>参见 <a class="reference external" href="https://www.rfcreader.com/#rfc3550">RFC3550</a> Realtime Transport Protocols</p>
+<ul class="simple">
+<li><p>SRTP</p></li>
+</ul>
+<p>参见 <a class="reference external" href="https://www.rfcreader.com/#rfc3711">RFC3711</a> Secure Realtime Transport Protocols</p>
+<ul class="simple">
+<li><p>RTP Profile:</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc3551">https://www.rfcreader.com/#rfc3551</a></p>
+<ul class="simple">
+<li><p>Datagram Transport Layer Security Version 1.2</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc6347">https://www.rfcreader.com/#rfc6347</a></p>
+<ul class="simple">
+<li><p>RTCWeb Offer/Answer Protocol (ROAP)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-jennings-rtcweb-signaling-01">https://tools.ietf.org/html/draft-jennings-rtcweb-signaling-01</a></p>
+<ul class="simple">
+<li><p>Javascript Session Establishment Protocol (JSEP)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8829">https://tools.ietf.org/html/rfc8829</a></p>
+<ul class="simple">
+<li><p>Session Traversal Utilities for NAT (STUN)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc5389">https://tools.ietf.org/html/rfc5389</a></p>
+<ul class="simple">
+<li><p>Traversal Using Relays around NAT (TURN)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc5766">https://tools.ietf.org/html/rfc5766</a></p>
+<ul class="simple">
+<li><p>Interactive Connectivity Establishment (ICE)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8445">https://tools.ietf.org/html/rfc8445</a></p>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id4">新标准和规范</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">相关的扩展协议</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Session Description Protocol (SDP) Offer/Answer Procedures for Interactive Connectivity Establishment (ICE)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8839">https://tools.ietf.org/html/rfc8839</a></p>
+<ul class="simple">
+<li><p>TCP Candidates with Interactive Connectivity Establishment (ICE)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6544">https://tools.ietf.org/html/rfc6544</a></p>
+<ul class="simple">
+<li><p>Trickling ICE</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-ivov-mmusic-trickle-ice-sip-02">https://tools.ietf.org/html/draft-ivov-mmusic-trickle-ice-sip-02</a></p>
+<ul class="simple">
+<li><p>Datagram Transport Layer Security for SRTP (DTLS-SRTP)</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc5764">https://www.rfcreader.com/#rfc5764</a></p>
+<ul class="simple">
+<li><p>Connection-Oriented Media Transport over TLS in SDP</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc4572">https://www.rfcreader.com/#rfc4572</a></p>
+<ul class="simple">
+<li><p>TCP-Based Media Transport in SDP</p></li>
+</ul>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc4145">https://www.rfcreader.com/#rfc4145</a></p>
+<ul class="simple">
+<li><p>Web Real-Time Communication (WebRTC): Media Transport and Use of RTP</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-ietf-rtcweb-rtp-usage-26">https://tools.ietf.org/html/draft-ietf-rtcweb-rtp-usage-26</a></p>
+<ul class="simple">
+<li><p>RFC8834</p></li>
+</ul>
+<p>Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)
+<a class="reference external" href="https://tools.ietf.org/html/rfc5104">https://tools.ietf.org/html/rfc5104</a></p>
+<ul class="simple">
+<li><p>Extended RTP Profile for RTCP-Based Feedback (RTP/AVPF)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc4585">https://tools.ietf.org/html/rfc4585</a></p>
+<ul class="simple">
+<li><p>REMB - RTCP message for Receiver Estimated Maximum Bitrate</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-alvestrand-rmcat-remb-03">https://tools.ietf.org/html/draft-alvestrand-rmcat-remb-03</a></p>
+<ul class="simple">
+<li><p>Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc5104">https://tools.ietf.org/html/rfc5104</a></p>
+<ul class="simple">
+<li><p>A Google Congestion Control Algorithm for Real-Time Communication</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-ietf-rmcat-gcc-02">https://tools.ietf.org/html/draft-ietf-rmcat-gcc-02</a></p>
+<ul class="simple">
+<li><p>Framing RTP and RTCP Packets over Connection-Oriented Transport</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc4571">https://tools.ietf.org/html/rfc4571</a></p>
+<ul class="simple">
+<li><p>Source-Specific Media Attributes in the Session Description Protocol (SDP)</p></li>
+</ul>
+<p>RFC5576: <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5576">https://datatracker.ietf.org/doc/html/rfc5576</a></p>
+<ul class="simple">
+<li><p>Using Simulcast in Session Description Protocol (SDP) and RTP Sessions</p></li>
+</ul>
+<p>RFC8853: <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8853">https://datatracker.ietf.org/doc/html/rfc8853</a></p>
+<ul class="simple">
+<li><p>(RTP) Header Extension for Client-to-Mixer Audio Level Indication</p></li>
+</ul>
+<p>RFC6464: <a class="reference external" href="https://tools.ietf.org/html/rfc6464">https://tools.ietf.org/html/rfc6464</a></p>
+<ul class="simple">
+<li><p>RTP Retransmission Payload Format</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc4588">https://tools.ietf.org/html/rfc4588</a></p>
+<ul class="simple">
+<li><p>Guidelines for Using the Multiplexing Features of RTP to Support Multiple Media Streams</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8872">https://tools.ietf.org/html/rfc8872</a></p>
+<ul class="simple">
+<li><p>Negotiating Media Multiplexing Using SDP</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8843">https://tools.ietf.org/html/rfc8843</a></p>
+<ul class="simple">
+<li><p>RTP Stream Identifier Source Description (SDES)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-ietf-avtext-rid-09">https://tools.ietf.org/html/draft-ietf-avtext-rid-09</a></p>
+<ul class="simple">
+<li><p>WebRTC MediaStream Identification in SDP</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8830">https://tools.ietf.org/html/rfc8830</a></p>
+<ul class="simple">
+<li><p>RTP Extensions for Transport-wide Congestion Control</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-ietf-avtext-rid-09">https://tools.ietf.org/html/draft-ietf-avtext-rid-09</a></p>
+<ul class="simple">
+<li><p>RTP Header Extension for the RTCP Source Description Items</p></li>
+</ul>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc7941">https://datatracker.ietf.org/doc/html/rfc7941</a></p>
+<ul class="simple">
+<li><p>RTP Extensions for Transport-wide Congestion Control (draft-holmer-rmcat-transport-wide-cc-extensions-01)</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01">https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01</a></p>
+<ul class="simple">
+<li><p>A Framework for SDP Attributes when Multiplexing</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc8859">https://tools.ietf.org/html/rfc8859</a></p>
+<ul class="simple">
+<li><p>ULPFEC - RTP Payload Format for Generic Forward Error Correction</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc5109">https://tools.ietf.org/html/rfc5109</a></p>
+<ul class="simple">
+<li><p>RED - RTP Payload for Redundant Audio Data</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc2198">https://tools.ietf.org/html/rfc2198</a></p>
+<ul class="simple">
+<li><p>RTP Payload Format for H.264 Video</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6184">https://tools.ietf.org/html/rfc6184</a></p>
+<ul class="simple">
+<li><p>RTP Payload Format for Scalable Video Coding</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6190">https://tools.ietf.org/html/rfc6190</a></p>
+<ul class="simple">
+<li><p>Definition of the Opus Audio Codec</p></li>
+</ul>
+<p><a class="reference external" href="https://tools.ietf.org/html/rfc6716">https://tools.ietf.org/html/rfc6716</a></p>
+<ul class="simple">
+<li><p>WebRTC Data Channels</p></li>
+</ul>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8831">https://datatracker.ietf.org/doc/html/rfc8831</a></p>
+<ul class="simple">
+<li><p>Datagram Transport Layer Security (DTLS) Encapsulation of SCTP Packets</p></li>
+</ul>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8261">https://datatracker.ietf.org/doc/html/rfc8261</a></p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">新标准和规范</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>The extensions to WebRTC PeerConnection</p></li>
 </ol>
@@ -259,7 +435,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="local_pc.html" class="btn btn-neutral float-right" title="WebRTC 本地连接" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="webrtc_api.html" class="btn btn-neutral float-right" title="WebRTC API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="overview.html" class="btn btn-neutral float-left" title="WebRTC 概论" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

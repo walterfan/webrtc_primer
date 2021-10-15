@@ -51,7 +51,7 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 * 浮点和定点实现
 
 互联网音频编码需求
------------------------------
+=====================
 
 `Requirements for an Internet Audio Codec <https://tools.ietf.org/html/rfc6366>`_
 
@@ -99,7 +99,7 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 * 对传统的兼容
 
 术语
-================
+==================================
 
 * bitrate 比特每秒
 * complexity 复杂度从1到10，复杂度最高为10
@@ -117,8 +117,17 @@ Opus可以处理各种音频应用，包括IP语音，视频会议，游戏内�
 不要使用 max_packet 来控制目标可变比特率，用 OPUS_SET_BITRATE 来代替
 
 
-Opus编码带宽
-=============================
+
+
+Opus Architecture
+==================================
+
+Opus 的整体架构
+
+
+
+Opus Codec bandwidth
+-----------------------------------
 
 Opus 编码可从 6 kbit/s 窄带单声道语音扩展到 510 kbit/s 全带立体声音乐， 其算法延迟范围从5 ms 到 65.2 ms。在给定的时间，或者 LP 层，或者 MDCT 层，或者两者都有应用。它可无缝地在它的各种操作模式之间切换，这给它很大的灵活性来适应各种内容和网络条件，而无需重新协商当前的会话。
 
@@ -177,7 +186,7 @@ are encoded again at a lower bitrate and this re-encoded information is added to
 
 
 Discontinuous Transmission (DTX)
-----------------------------------------------------------------------
+-----------------------------------
 Discontinuous Transmission (DTX) reduces the bitrate during silence or background noise.
 When DTX is enabled, only one frame is encoded every 400 milliseconds.
 
@@ -186,15 +195,81 @@ When DTX is enabled, only one frame is encoded every 400 milliseconds.
 内部分帧
 ===================================
 
+Opus 编码打包到 RTP payload中，可以包含一个或几个帧 frame, 需要关注几个问题
+
+* operation mode
+* audio bandwidth
+* frame size
+* channel count
 
 TOC
 -----------------------------------
 
+Opus 包必需包含最少一个字节，这个字节称为 TOC(Table Of Contents) 内容表，用来指示这个包所采用的模式和配置
+
+::
+
+    0
+    0 1 2 3 4 5 6 7
+    +-+-+-+-+-+-+-+-+
+    | config  |s| c |
+    +-+-+-+-+-+-+-+-+
+
+    Figure 1: The TOC Byte
+
+* 前 5 个字节是 "config", 它有最多 2^5=32 种配置，包括操作模式，音频带宽，和帧大小
+
+LP（SILK） 和 MDCT（CELT）层可以组合在一起为三种可能的操作模式
+
+1. SILK-only mode 用于低带宽连接的音频(wide-band或更低)
+2. Hybrid mode (SILK + CELT) 用于超宽带 SWB 或全宽带 FB 在一个中等带宽
+3. CELT-only mode 用于低延迟的语音或音乐传输（从窄带 NB 和全宽带 FB）
+
+
+::
+
+   +-----------------------+-----------+-----------+-------------------+
+   | Configuration         | Mode      | Bandwidth | Frame Sizes       |
+   | Number(s)             |           |           |                   |
+   +-----------------------+-----------+-----------+-------------------+
+   | 0...3                 | SILK-only | NB        | 10, 20, 40, 60 ms |
+   |                       |           |           |                   |
+   | 4...7                 | SILK-only | MB        | 10, 20, 40, 60 ms |
+   |                       |           |           |                   |
+   | 8...11                | SILK-only | WB        | 10, 20, 40, 60 ms |
+   |                       |           |           |                   |
+   | 12...13               | Hybrid    | SWB       | 10, 20 ms         |
+   |                       |           |           |                   |
+   | 14...15               | Hybrid    | FB        | 10, 20 ms         |
+   |                       |           |           |                   |
+   | 16...19               | CELT-only | NB        | 2.5, 5, 10, 20 ms |
+   |                       |           |           |                   |
+   | 20...23               | CELT-only | WB        | 2.5, 5, 10, 20 ms |
+   |                       |           |           |                   |
+   | 24...27               | CELT-only | SWB       | 2.5, 5, 10, 20 ms |
+   |                       |           |           |                   |
+   | 28...31               | CELT-only | FB        | 2.5, 5, 10, 20 ms |
+   +-----------------------+-----------+-----------+-------------------+
+
+                Table 2: TOC Byte Configuration Parameters
+
+
+* 第 6 个比特标识为 "s",  0 表示单声道，1表示立体声
+* 剩余 2 个比特标识为 "c", 表示每个包有几个帧
+
+    -  0: 1 frame in the packet
+    -  1: 2 frames in the packet, each with equal compressed size
+    -  2: 2 frames in the packet, with different compressed sizes
+    -  3: an arbitrary number of frames in the packet
+
 帧打包
 -----------------------------------
 
+对于上述不同的配置 "config" , 有不同的打包方式
+
 Opus Decoder 解码
 ===================================
+
 * Range Decoder
 * SILK Decoder
 * Packet Loss Concealment
@@ -204,6 +279,7 @@ Opus Decoder 解码
 
 Opus Encoder 编码
 ===================================
+
 * Range Encoder
 * SILK Encoder
 * CELT Encoder
@@ -211,7 +287,7 @@ Opus Encoder 编码
 
 
 SDP
-===========
+===================================
 
 * maxaveragebitrate
 * maxplaybackrate
@@ -224,7 +300,7 @@ SDP
 * sprop-stereo
 
 Example
---------------
+-----------------------------------
 
 .. code-block::
 
@@ -237,7 +313,7 @@ Example
 
 
 API
-===========
+===================================
 * Encodes an Opus frame.
 
 .. code-block:: C++
@@ -285,7 +361,7 @@ API
 
 
 参考资料
-====================================================
+===================================
 
 * `RFC6716 Definition of the Opus Audio Codec <https://tools.ietf.org/html/rfc6716>`_
 
@@ -302,3 +378,4 @@ API
 * `编解码器杂谈：浅析 Opus <https://mbd.baidu.com/ma/s/Qhnhx3tH>`_
 
 * `互联网音频编码需求 - RFC6366  <https://tools.ietf.org/html/rfc6366>`_
+

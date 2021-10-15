@@ -99,14 +99,14 @@
 <li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Insertable Stream</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#problem-to-be-solved">Problem to be solved</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">所解决的问题</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#stream-api">Stream API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#use-cases">Use cases</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#model">Model</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#readablestream">ReadableStream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">用例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readablestream">可读流 ReadableStream</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#writablestream">WritableStream</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pipe-chains">Pipe chains</a></li>
 </ul>
@@ -116,7 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#rtcrtpscripttransform">RTCRtpScriptTransform</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-cases">Use cases</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#true-end-to-end-encryption-with-webrtc-insertable-streams">True End-to-End Encryption with WebRTC Insertable Streams</a></li>
 </ul>
 </li>
@@ -129,6 +129,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -216,78 +217,85 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-11</p></td>
+<td><p>2021-10-15</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p>
+<li><p><a class="reference internal" href="#id1" id="id5">概述</a></p>
 <ul>
-<li><p><a class="reference internal" href="#problem-to-be-solved" id="id3">Problem to be solved</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id6">所解决的问题</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#stream-api" id="id4">Stream API</a></p>
+<li><p><a class="reference internal" href="#stream-api" id="id7">Stream API</a></p>
 <ul>
-<li><p><a class="reference internal" href="#use-cases" id="id5">Use cases</a></p></li>
-<li><p><a class="reference internal" href="#model" id="id6">Model</a></p></li>
-<li><p><a class="reference internal" href="#readablestream" id="id7">ReadableStream</a></p></li>
-<li><p><a class="reference internal" href="#writablestream" id="id8">WritableStream</a></p></li>
-<li><p><a class="reference internal" href="#pipe-chains" id="id9">Pipe chains</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id8">用例</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id9">模型</a></p></li>
+<li><p><a class="reference internal" href="#readablestream" id="id10">可读流 ReadableStream</a></p></li>
+<li><p><a class="reference internal" href="#writablestream" id="id11">WritableStream</a></p></li>
+<li><p><a class="reference internal" href="#pipe-chains" id="id12">Pipe chains</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#insertable-streams-api" id="id10">Insertable Streams API</a></p>
+<li><p><a class="reference internal" href="#insertable-streams-api" id="id13">Insertable Streams API</a></p>
 <ul>
-<li><p><a class="reference internal" href="#sframetransform" id="id11">SFrameTransform</a></p></li>
-<li><p><a class="reference internal" href="#rtcrtpscripttransform" id="id12">RTCRtpScriptTransform</a></p></li>
+<li><p><a class="reference internal" href="#sframetransform" id="id14">SFrameTransform</a></p></li>
+<li><p><a class="reference internal" href="#rtcrtpscripttransform" id="id15">RTCRtpScriptTransform</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id1" id="id13">Use cases</a></p>
+<li><p><a class="reference internal" href="#use-cases" id="id16">Use cases</a></p>
 <ul>
-<li><p><a class="reference internal" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" id="id14">True End-to-End Encryption with WebRTC Insertable Streams</a></p></li>
+<li><p><a class="reference internal" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" id="id17">True End-to-End Encryption with WebRTC Insertable Streams</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id15">Reference</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id18">Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id5">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.</p>
-<div class="section" id="problem-to-be-solved">
-<h3><a class="toc-backref" href="#id3">Problem to be solved</a><a class="headerlink" href="#problem-to-be-solved" title="Permalink to this headline">¶</a></h3>
-<p>We need an API for processing media that:</p>
+<p>Insertable Stream 可插入的流是新的 WebRTC API, 可用来操作通过 RTCPeerConnection 传送的 MediaStreamTracks 中的每一个字节。它让上层应用能对 WebRTC 底层媒体进行访问，让以往 WebRTC 应用中许多不可能做的情况都成为可能了</p>
+<p>比如替换视频聊天时的背景，实时进行音视频处理（降噪，美颜，打水印，加特效等）</p>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id6">所解决的问题</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>我们需要 WebRTC 提供 API</p>
 <ul class="simple">
-<li><p>Allows the processing to be specified by the user, not the browser</p></li>
-<li><p>Allows the processed data to be handled by the browser as if it came through the normal pipeline</p></li>
-<li><p>Allows the use of techniques like WASM to achieve effective processing</p></li>
-<li><p>Allows the use of techniques like Workers to avoid blocking on the main thread</p></li>
-<li><p>Does not negatively impact security or privacy of current communications</p></li>
+<li><p>允许用户指定的处理，而不仅仅只能通过浏览器</p></li>
+<li><p>允许浏览器处理由用户处理过的数据，就好像它是通过正常的处理管道一样</p></li>
+<li><p>允许使用 WASM 等技术实现更有效的媒体处理</p></li>
+<li><p>允许使用像 Workers 这样的技术来避免主线程阻塞</p></li>
+<li><p>不会对当前通信的安全或隐私产生负面影响</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="stream-api">
-<h2><a class="toc-backref" href="#id4">Stream API</a><a class="headerlink" href="#stream-api" title="Permalink to this headline">¶</a></h2>
-<p>The Streams Standard provides a common set of APIs for creating and interfacing with such streaming data, embodied in readable streams, writable streams, and transform streams.</p>
-<p>These APIs have been designed to efficiently map to low-level I/O primitives, including specializations for byte streams where appropriate.</p>
-<p>They allow easy composition of multiple streams into pipe chains, or can be used directly via readers and writers. Finally, they are designed to automatically provide backpressure and queuing.</p>
+<h2><a class="toc-backref" href="#id7">Stream API</a><a class="headerlink" href="#stream-api" title="Permalink to this headline">¶</a></h2>
+<p>Streams 标准提供了一组通用的 API，用于创建此类流数据并与之交互，这些数据体现在可读流、可写流和转换流中。</p>
 <ul class="simple">
-<li><p>Read <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts">Streams API Concepts</a> to understand the basic concepts</p></li>
+<li><p>readable streams</p></li>
+<li><p>writable streams</p></li>
+<li><p>transform streams.</p></li>
 </ul>
-<div class="section" id="use-cases">
-<h3><a class="toc-backref" href="#id5">Use cases</a><a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h3>
+<p>这些 API 旨在更有效地映射到低级的 I/O 原始操作，包括在适当的情况下对字节流进行专门的处理。</p>
+<p>它们允许将多个流轻松组合到管道链中，或者可以通过读取器和写入器直接使用。 最后，它们被设计为自动提供背压和排队。</p>
+<ul class="simple">
+<li><p>阅读 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts">Streams API Concepts</a> 来了解背后的基本概念</p></li>
+</ul>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id8">用例</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Video effects: piping a readable video stream through a transform stream that applies effects in real time.</p></li>
 <li><p>Decompression: piping a file stream through a transform stream that selectively decompresses files from a .tgz archive, turning them into img elements as the user scrolls through an image gallery.</p></li>
 <li><p>Image decoding: piping an HTTP response stream through a transform stream that decodes bytes into bitmap data, and then through another transform that translates bitmaps into PNGs.</p></li>
 </ul>
 </div>
-<div class="section" id="model">
-<h3><a class="toc-backref" href="#id6">Model</a><a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id9">模型</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>A chunk is a single piece of data that is written to or read from a stream. It can be of any type; streams can even contain chunks of different types.</p>
 <p>A chunk will often not be the most atomic unit of data for a given stream; for example a byte stream might contain chunks consisting of 16 KiB Uint8Arrays, instead of single bytes.</p>
 </div>
 <div class="section" id="readablestream">
-<h3><a class="toc-backref" href="#id7">ReadableStream</a><a class="headerlink" href="#readablestream" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">可读流 ReadableStream</a><a class="headerlink" href="#readablestream" title="Permalink to this headline">¶</a></h3>
 <p>A readable stream is a data source represented in JavaScript by a ReadableStream object that flows from an underlying source — this is a resource somewhere on the network or elsewhere on your domain that you want to get data from.</p>
 <img alt="../_images/readable_streams.png" src="../_images/readable_streams.png" />
 <p>There are two types of underlying source:</p>
@@ -319,7 +327,7 @@ Examples include a file access operation via a Fetch or XHR call.</p></li>
 </div>
 </div>
 <div class="section" id="writablestream">
-<h3><a class="toc-backref" href="#id8">WritableStream</a><a class="headerlink" href="#writablestream" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">WritableStream</a><a class="headerlink" href="#writablestream" title="Permalink to this headline">¶</a></h3>
 <p>A writable stream is a destination into which you can write data, represented in JavaScript by a WritableStream object. This serves as an abstraction over the top of an underlying sink — a lower-level I/O sink into which raw data is written.</p>
 <img alt="../_images/writable_streams.png" src="../_images/writable_streams.png" />
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WritableStream</span><span class="p">({</span>
@@ -345,13 +353,13 @@ Examples include a file access operation via a Fetch or XHR call.</p></li>
 </div>
 </div>
 <div class="section" id="pipe-chains">
-<h3><a class="toc-backref" href="#id9">Pipe chains</a><a class="headerlink" href="#pipe-chains" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Pipe chains</a><a class="headerlink" href="#pipe-chains" title="Permalink to this headline">¶</a></h3>
 <p>The Streams API makes it possible to pipe streams into one another (or at least it will do when browsers implement the relevant functionality) using a structure called a pipe chain</p>
 <img alt="../_images/pipechain.png" src="../_images/pipechain.png" />
 </div>
 </div>
 <div class="section" id="insertable-streams-api">
-<h2><a class="toc-backref" href="#id10">Insertable Streams API</a><a class="headerlink" href="#insertable-streams-api" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Insertable Streams API</a><a class="headerlink" href="#insertable-streams-api" title="Permalink to this headline">¶</a></h2>
 <p>It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the processing into the pipeline.</p>
 <div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New dictionary</span>
 <span class="k">dictionary</span> <span class="nc">RTCInsertableStreams</span> <span class="p">{</span>
@@ -373,7 +381,7 @@ Examples include a file access operation via a Fetch or XHR call.</p></li>
 </div>
 <p>由上面的定义可知， RTCRtpTransform 有两种实现 SFrameTransform 和 RTCRtpScriptTransform</p>
 <div class="section" id="sframetransform">
-<h3><a class="toc-backref" href="#id11">SFrameTransform</a><a class="headerlink" href="#sframetransform" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">SFrameTransform</a><a class="headerlink" href="#sframetransform" title="Permalink to this headline">¶</a></h3>
 <p>接口定义如下</p>
 <div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>enum SFrameTransformRole {
     &quot;encrypt&quot;,
@@ -419,7 +427,7 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </div>
 </div>
 <div class="section" id="rtcrtpscripttransform">
-<h3><a class="toc-backref" href="#id12">RTCRtpScriptTransform</a><a class="headerlink" href="#rtcrtpscripttransform" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">RTCRtpScriptTransform</a><a class="headerlink" href="#rtcrtpscripttransform" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New enum for video frame types. Will eventually re-use the equivalent defined</span>
 <span class="c1">// by WebCodecs.</span>
 <span class="k">enum</span> <span class="nc">RTCEncodedVideoFrameType</span> <span class="p">{</span>
@@ -488,10 +496,10 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id13">Use cases</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-cases">
+<h2><a class="toc-backref" href="#id16">Use cases</a><a class="headerlink" href="#use-cases" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="true-end-to-end-encryption-with-webrtc-insertable-streams">
-<h3><a class="toc-backref" href="#id14">True End-to-End Encryption with WebRTC Insertable Streams</a><a class="headerlink" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">True End-to-End Encryption with WebRTC Insertable Streams</a><a class="headerlink" href="#true-end-to-end-encryption-with-webrtc-insertable-streams" title="Permalink to this headline">¶</a></h3>
 <p>搭建一个本地的 peer connection, video1 元素放置本地获取的 stream, video2 元素放置从远程获取的 stream</p>
 <p>这里也放置了一个 videoMonitor 元素来模拟为中间人 middlebox, 它从 peer connection 中拿到媒体流，不经 decode 而直接播放。</p>
 <p>大致流程为:</p>
@@ -655,7 +663,7 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id15">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://w3c.github.io/webrtc-encoded-transform/">webrtc-encoded-transform</a></p></li>
 <li><p><a class="reference external" href="https://github.com/w3c/webrtc-encoded-transform/blob/main/explainer.md">Insertable Stream Explain</a></p></li>

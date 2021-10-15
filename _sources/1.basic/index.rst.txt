@@ -11,9 +11,9 @@
    
    webrtc_spec
 
-   local_pc
+   webrtc_api
    
-   remote_pc
+   webrtc_flow
 
    media_capture
 
