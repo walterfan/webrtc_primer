@@ -26,6 +26,7 @@ WebRTC 新手指南
    3.media/index
    4.practice/index
    5.tool/index
+   6.misc/index
 
 Indices and tables
 ==================

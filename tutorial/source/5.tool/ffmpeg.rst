@@ -83,8 +83,8 @@ ffmpeg区分两种类型的过滤器图：
 
 ::
 
-ffmpeg [global_options] [input_file_options] -i input_file
-[output_file_options] output_file
+    ffmpeg [global_options] [input_file_options] -i input_file
+    [output_file_options] output_file
 
 比如
 
@@ -97,6 +97,9 @@ ffmpeg 支持很多格式和编码，可通过如下命令查看
 
 ::
     ffmpeg -formats
+ 
+    or
+
     ffmpeg -codecs
 
 

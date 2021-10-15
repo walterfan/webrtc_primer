@@ -71,7 +71,7 @@ SDP
 * 为了完成 Offer/Answer 交换，接收方会使用 createAnswer() API生成适当的 answer，使用 setLocalDescription() API应用该 answer，并将 answer 通过信令通道发送回发起方。
 * 发起方获得该`answer`后，它将使用 setRemoteDescription() API进行设置，并且初始设置已完成。可以重复此过程以进行其他 Offer/Answer 交换。
 
-参见 `_RFC3264`_ : An Offer/Answer Model with the Session Description Protocol (SDP)
+参见 `RFC3264`_ : An Offer/Answer Model with the Session Description Protocol (SDP)
 
 SDP 扩展
 ================
@@ -129,5 +129,5 @@ Defines a mechanism to describe RTP sources, identified by their synchronization
 ==============
 * `Signaling and video calling`_
 * `WebIDL Checker`_
-* `_RFC3264`_: An Offer/Answer Model with the Session Description Protocol (SDP)
+* `RFC3264`_: An Offer/Answer Model with the Session Description Protocol (SDP)
 * `SDP for the WebRTC`_

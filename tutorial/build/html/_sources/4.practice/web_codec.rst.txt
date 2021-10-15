@@ -27,11 +27,60 @@ it defines interfaces to codecs for encoding and decoding of audio, video, and i
 Spec: https://w3c.github.io/webcodecs/
 
 
-https://github.com/w3c/webcodecs
+The WebCodecs API gives web developers low-level access to the individual frames of a video stream and chunks of audio. 
 
+It is useful for web applications that require full control over the way media is processed. For example, video or audio editors, and video conferencing.
 
 Interface
 ============================
+
+* AudioDecoder
+ 
+Decodes EncodedAudioChunk objects.
+
+* VideoDecoder
+
+Decodes EncodedVideoChunk objects.
+
+* AudioEncoder
+
+Encodes AudioData objects.
+
+* VideoEncoder
+
+Encodes VideoFrame objects.
+
+* EncodedAudioChunk
+
+Represents codec-specific encoded audio bytes.
+
+* EncodedVideoChunk
+
+Represents codec-specific encoded video bytes.
+
+* AudioData
+
+Represents unencoded audio data.
+
+* VideoFrame
+
+Represents a frame of unencoded video data.
+
+* VideoColorSpace
+
+Represents the color space of a video frame.
+
+* ImageDecoder
+
+Unpacks and decodes image data, giving access to the sequence of frames in an animated image.
+
+* ImageTrackList
+
+Represents the list of tracks available in the image.
+
+* ImageTrack
+
+Represents an individual image track.
 
 
 AudioDecoder Interface
@@ -225,3 +274,8 @@ VideoEncoderConfig
 Example
 =========================
 https://w3c.github.io/webcodecs/samples/
+
+
+Reference
+========================
+https://web.dev/webcodecs/

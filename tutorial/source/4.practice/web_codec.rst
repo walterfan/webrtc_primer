@@ -35,39 +35,51 @@ Interface
 ============================
 
 * AudioDecoder
+ 
 Decodes EncodedAudioChunk objects.
 
 * VideoDecoder
+
 Decodes EncodedVideoChunk objects.
 
 * AudioEncoder
+
 Encodes AudioData objects.
 
 * VideoEncoder
+
 Encodes VideoFrame objects.
 
 * EncodedAudioChunk
+
 Represents codec-specific encoded audio bytes.
 
 * EncodedVideoChunk
+
 Represents codec-specific encoded video bytes.
 
 * AudioData
+
 Represents unencoded audio data.
 
 * VideoFrame
+
 Represents a frame of unencoded video data.
 
 * VideoColorSpace
+
 Represents the color space of a video frame.
 
 * ImageDecoder
+
 Unpacks and decodes image data, giving access to the sequence of frames in an animated image.
 
 * ImageTrackList
+
 Represents the list of tracks available in the image.
 
 * ImageTrack
+
 Represents an individual image track.
 
 
@@ -262,3 +274,8 @@ VideoEncoderConfig
 Example
 =========================
 https://w3c.github.io/webcodecs/samples/
+
+
+Reference
+========================
+https://web.dev/webcodecs/
