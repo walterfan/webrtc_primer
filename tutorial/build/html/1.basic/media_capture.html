@@ -290,74 +290,74 @@
 </pre></div>
 </div>
 <p>输入参数为 MediaStreamConstraints</p>
-<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="k">dictionary</span> <span class="nc">MediaStreamConstraints</span> <span class="p">{</span>
-    <span class="p">(</span><span class="kt">boolean</span> <span class="k">or</span> <span class="nc">MediaTrackConstraints</span><span class="p">)</span> <span class="nv">video</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">(</span><span class="kt">boolean</span> <span class="k">or</span> <span class="nc">MediaTrackConstraints</span><span class="p">)</span> <span class="nv">audio</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">dictionary</span> <span class="nx">MediaStreamConstraints</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kr">boolean</span> <span class="nx">or</span> <span class="nx">MediaTrackConstraints</span><span class="p">)</span> <span class="nx">video</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">(</span><span class="kr">boolean</span> <span class="nx">or</span> <span class="nx">MediaTrackConstraints</span><span class="p">)</span> <span class="nx">audio</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">dictionary</span> <span class="nc">MediaTrackConstraints</span> <span class="p">:</span> <span class="nc">MediaTrackConstraintSet</span> <span class="p">{</span>
-    <span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaTrackConstraintSet</span><span class="p">&gt;</span> <span class="nv">advanced</span><span class="p">;</span>
+<span class="nx">dictionary</span> <span class="nx">MediaTrackConstraints</span> <span class="o">:</span> <span class="nx">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaTrackConstraintSet</span><span class="o">&gt;</span> <span class="nx">advanced</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">dictionary</span> <span class="nc">MediaTrackConstraintSet</span> <span class="p">{</span>
-    <span class="nc">ConstrainULong</span> <span class="nv">width</span><span class="p">;</span>
-    <span class="nc">ConstrainULong</span> <span class="nv">height</span><span class="p">;</span>
-    <span class="nc">ConstrainDouble</span> <span class="nv">aspectRatio</span><span class="p">;</span>
-    <span class="nc">ConstrainDouble</span> <span class="nv">frameRate</span><span class="p">;</span>
-    <span class="nc">ConstrainDOMString</span> <span class="nv">facingMode</span><span class="p">;</span>
-    <span class="nc">ConstrainDOMString</span> <span class="nv">resizeMode</span><span class="p">;</span>
-    <span class="nc">ConstrainULong</span> <span class="nv">sampleRate</span><span class="p">;</span>
-    <span class="nc">ConstrainULong</span> <span class="nv">sampleSize</span><span class="p">;</span>
-    <span class="nc">ConstrainBoolean</span> <span class="nv">echoCancellation</span><span class="p">;</span>
-    <span class="nc">ConstrainBoolean</span> <span class="nv">autoGainControl</span><span class="p">;</span>
-    <span class="nc">ConstrainBoolean</span> <span class="nv">noiseSuppression</span><span class="p">;</span>
-    <span class="nc">ConstrainDouble</span> <span class="nv">latency</span><span class="p">;</span>
-    <span class="nc">ConstrainULong</span> <span class="nv">channelCount</span><span class="p">;</span>
-    <span class="nc">ConstrainDOMString</span> <span class="nv">deviceId</span><span class="p">;</span>
-    <span class="nc">ConstrainDOMString</span> <span class="nv">groupId</span><span class="p">;</span>
+<span class="nx">dictionary</span> <span class="nx">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">width</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">height</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">aspectRatio</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">frameRate</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">facingMode</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">resizeMode</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">sampleRate</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">sampleSize</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">echoCancellation</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">autoGainControl</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">noiseSuppression</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">latency</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">channelCount</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">deviceId</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">groupId</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>返回值是一个 Promise, 成功执行后返回 MediaStream</p>
-<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nd">Exposed</span><span class="p">=</span><span class="n">Window</span><span class="p">]</span>
-<span class="k">interface</span> <span class="nc">MediaStream</span> <span class="p">:</span> <span class="nc">EventTarget</span> <span class="p">{</span>
-    <span class="nc">constructor</span><span class="p">();</span>
-    <span class="nc">constructor</span><span class="p">(</span><span class="nc">MediaStream</span> <span class="nv">stream</span><span class="p">);</span>
-    <span class="nc">constructor</span><span class="p">(</span><span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaStreamTrack</span><span class="p">&gt;</span> <span class="nv">tracks</span><span class="p">);</span>
-    <span class="k">readonly</span> <span class="k">attribute</span> <span class="kt">DOMString</span> <span class="nv">id</span><span class="p">;</span>
-    <span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaStreamTrack</span><span class="p">&gt;</span> <span class="nf">getAudioTracks</span><span class="p">();</span>
-    <span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaStreamTrack</span><span class="p">&gt;</span> <span class="nf">getVideoTracks</span><span class="p">();</span>
-    <span class="kt">sequence</span><span class="p">&lt;</span><span class="nc">MediaStreamTrack</span><span class="p">&gt;</span> <span class="nf">getTracks</span><span class="p">();</span>
-    <span class="nc">MediaStreamTrack</span><span class="p">?</span> <span class="nf">getTrackById</span><span class="p">(</span><span class="kt">DOMString</span> <span class="nv">trackId</span><span class="p">);</span>
-    <span class="nc">undefined</span> <span class="nf">addTrack</span><span class="p">(</span><span class="nc">MediaStreamTrack</span> <span class="nv">track</span><span class="p">);</span>
-    <span class="nc">undefined</span> <span class="nf">removeTrack</span><span class="p">(</span><span class="nc">MediaStreamTrack</span> <span class="nv">track</span><span class="p">);</span>
-    <span class="nc">MediaStream</span> <span class="nf">clone</span><span class="p">();</span>
-    <span class="k">readonly</span> <span class="k">attribute</span> <span class="kt">boolean</span> <span class="nv">active</span><span class="p">;</span>
-    <span class="k">attribute</span> <span class="nc">EventHandler</span> <span class="nv">onaddtrack</span><span class="p">;</span>
-    <span class="k">attribute</span> <span class="nc">EventHandler</span> <span class="nv">onremovetrack</span><span class="p">;</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="nx">Window</span><span class="p">]</span>
+<span class="kr">interface</span> <span class="nx">MediaStream</span> <span class="o">:</span> <span class="nx">EventTarget</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">();</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">MediaStream</span> <span class="nx">stream</span><span class="p">);</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaStreamTrack</span><span class="o">&gt;</span> <span class="nx">tracks</span><span class="p">);</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">DOMString</span> <span class="nx">id</span><span class="p">;</span>
+    <span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaStreamTrack</span><span class="o">&gt;</span> <span class="nx">getAudioTracks</span><span class="p">();</span>
+    <span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaStreamTrack</span><span class="o">&gt;</span> <span class="nx">getVideoTracks</span><span class="p">();</span>
+    <span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaStreamTrack</span><span class="o">&gt;</span> <span class="nx">getTracks</span><span class="p">();</span>
+    <span class="nx">MediaStreamTrack</span><span class="o">?</span> <span class="nx">getTrackById</span><span class="p">(</span><span class="nx">DOMString</span> <span class="nx">trackId</span><span class="p">);</span>
+    <span class="kc">undefined</span> <span class="nx">addTrack</span><span class="p">(</span><span class="nx">MediaStreamTrack</span> <span class="nx">track</span><span class="p">);</span>
+    <span class="kc">undefined</span> <span class="nx">removeTrack</span><span class="p">(</span><span class="nx">MediaStreamTrack</span> <span class="nx">track</span><span class="p">);</span>
+    <span class="nx">MediaStream</span> <span class="nx">clone</span><span class="p">();</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="kr">boolean</span> <span class="nx">active</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="nx">EventHandler</span> <span class="nx">onaddtrack</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="nx">EventHandler</span> <span class="nx">onremovetrack</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>
 <p>The MediaStreamTrack object represents media of a single type that originates from one media source in the User Agent, e.g. video produced by a web camera. A MediaStream is used to group several MediaStreamTrack objects into one unit that can be recorded or rendered in a media element.</p>
 <p>Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks in a MediaStream are intended to be synchronized when rendered. This is not a hard requirement, since it might not be possible to synchronize tracks from sources that have different clocks. Different MediaStream objects do not need to be synchronized.</p>
-<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>[Exposed=Window]
-interface MediaStreamTrack : EventTarget {
-    readonly attribute DOMString kind;
-    readonly attribute DOMString id;
-    readonly attribute DOMString label;
-    attribute boolean enabled;
-    readonly attribute boolean muted;
-    attribute EventHandler onmute;
-    attribute EventHandler onunmute;
-    readonly attribute MediaStreamTrackState readyState;
-    attribute EventHandler onended;
-    MediaStreamTrack clone();
-    undefined stop();
-    MediaTrackCapabilities getCapabilities();
-    MediaTrackConstraints getConstraints();
-    MediaTrackSettings getSettings();
-    Promise&lt;undefined&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
-};
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="nx">Window</span><span class="p">]</span>
+<span class="kr">interface</span> <span class="nx">MediaStreamTrack</span> <span class="o">:</span> <span class="nx">EventTarget</span> <span class="p">{</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">DOMString</span> <span class="nx">kind</span><span class="p">;</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">DOMString</span> <span class="nx">id</span><span class="p">;</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">DOMString</span> <span class="nx">label</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="kr">boolean</span> <span class="nx">enabled</span><span class="p">;</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="kr">boolean</span> <span class="nx">muted</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="nx">EventHandler</span> <span class="nx">onmute</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="nx">EventHandler</span> <span class="nx">onunmute</span><span class="p">;</span>
+    <span class="nx">readonly</span> <span class="nx">attribute</span> <span class="nx">MediaStreamTrackState</span> <span class="nx">readyState</span><span class="p">;</span>
+    <span class="nx">attribute</span> <span class="nx">EventHandler</span> <span class="nx">onended</span><span class="p">;</span>
+    <span class="nx">MediaStreamTrack</span> <span class="nx">clone</span><span class="p">();</span>
+    <span class="kc">undefined</span> <span class="nx">stop</span><span class="p">();</span>
+    <span class="nx">MediaTrackCapabilities</span> <span class="nx">getCapabilities</span><span class="p">();</span>
+    <span class="nx">MediaTrackConstraints</span> <span class="nx">getConstraints</span><span class="p">();</span>
+    <span class="nx">MediaTrackSettings</span> <span class="nx">getSettings</span><span class="p">();</span>
+    <span class="nb">Promise</span><span class="o">&lt;</span><span class="kc">undefined</span><span class="o">&gt;</span> <span class="nx">applyConstraints</span><span class="p">(</span><span class="nx">optional</span> <span class="nx">MediaTrackConstraints</span> <span class="nx">constraints</span> <span class="o">=</span> <span class="p">{});</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 <div class="section" id="example">

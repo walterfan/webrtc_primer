@@ -97,7 +97,7 @@ GUM-getUserMedia
 
 输入参数为 MediaStreamConstraints 
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     dictionary MediaStreamConstraints {
         (boolean or MediaTrackConstraints) video = false;
@@ -128,7 +128,7 @@ GUM-getUserMedia
 
 返回值是一个 Promise, 成功执行后返回 MediaStream
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=Window]
     interface MediaStream : EventTarget {
@@ -153,7 +153,7 @@ The MediaStreamTrack object represents media of a single type that originates fr
 
 Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks in a MediaStream are intended to be synchronized when rendered. This is not a hard requirement, since it might not be possible to synchronize tracks from sources that have different clocks. Different MediaStream objects do not need to be synchronized.
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=Window]
     interface MediaStreamTrack : EventTarget {

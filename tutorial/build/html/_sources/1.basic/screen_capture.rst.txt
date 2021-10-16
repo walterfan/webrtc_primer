@@ -57,7 +57,7 @@ Display surface 显示表面的 source pixel ratio 源像素比是 1 英寸的 1
 接口
 =========================
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     partial interface MediaDevices {
         Promise<MediaStream> getDisplayMedia(optional DisplayMediaStreamConstraints constraints = {});

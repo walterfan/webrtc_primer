@@ -361,21 +361,21 @@
 <h2><a class="toc-backref" href="#id14">可插入流 Insertable Streams API</a><a class="headerlink" href="#insertable-streams-api" title="Permalink to this headline">¶</a></h2>
 <p>可插入流其实指的是一种转换流，它意为可以在媒体流的处理过程中插入一些处理逻辑。
 它可使用 RTCRtpSender 和 RTCRtpReceiver 上附加的 API 来将处理代码插入媒体流的处理管道。</p>
-<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span><span class="c1">// New dictionary</span>
-<span class="k">dictionary</span> <span class="nc">RTCInsertableStreams</span> <span class="p">{</span>
-    <span class="nc">ReadableStream</span> <span class="nv">readable</span><span class="p">;</span>
-    <span class="nc">WritableStream</span> <span class="nv">writable</span><span class="p">;</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="c1">// New dictionary</span>
+<span class="nx">dictionary</span> <span class="nx">RTCInsertableStreams</span> <span class="p">{</span>
+    <span class="nx">ReadableStream</span> <span class="nx">readable</span><span class="p">;</span>
+    <span class="nx">WritableStream</span> <span class="nx">writable</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">typedef</span> <span class="p">(</span><span class="nc">SFrameTransform</span> <span class="k">or</span> <span class="nc">RTCRtpScriptTransform</span><span class="p">)</span> <span class="nc">RTCRtpTransform</span><span class="p">;</span>
+<span class="nx">typedef</span> <span class="p">(</span><span class="nx">SFrameTransform</span> <span class="nx">or</span> <span class="nx">RTCRtpScriptTransform</span><span class="p">)</span> <span class="nx">RTCRtpTransform</span><span class="p">;</span>
 
 <span class="c1">// New methods for RTCRtpSender and RTCRtpReceiver</span>
-<span class="k">partial</span> <span class="k">interface</span> <span class="nc">RTCRtpSender</span> <span class="p">{</span>
-    <span class="k">attribute</span> <span class="nc">RTCRtpTransform</span><span class="p">?</span> <span class="nv">transform</span><span class="p">;</span>
+<span class="nx">partial</span> <span class="kr">interface</span> <span class="nx">RTCRtpSender</span> <span class="p">{</span>
+    <span class="nx">attribute</span> <span class="nx">RTCRtpTransform</span><span class="o">?</span> <span class="nx">transform</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="k">partial</span> <span class="k">interface</span> <span class="nc">RTCRtpReceiver</span> <span class="p">{</span>
-    <span class="k">attribute</span> <span class="nc">RTCRtpTransform</span><span class="p">?</span> <span class="nv">transform</span><span class="p">;</span>
+<span class="nx">partial</span> <span class="kr">interface</span> <span class="nx">RTCRtpReceiver</span> <span class="p">{</span>
+    <span class="nx">attribute</span> <span class="nx">RTCRtpTransform</span><span class="o">?</span> <span class="nx">transform</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
 </div>

@@ -1,8 +1,8 @@
 :orphan:
 
-############
-数字音频
-############
+###################
+数字音频处理
+###################
 
 
 .. include:: ../links.ref
@@ -10,7 +10,7 @@
 .. include:: ../abbrs.ref
 
 ============ ==========================
-**Abstract** 数字音频
+**Abstract** 数字音频处理
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|

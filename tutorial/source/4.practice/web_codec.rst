@@ -86,7 +86,7 @@ Represents an individual image track.
 AudioDecoder Interface
 -----------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=(Window,DedicatedWorker), SecureContext]
     interface AudioDecoder {
@@ -116,7 +116,7 @@ AudioDecoder Interface
 VideoDecoder Interface
 -----------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=(Window,DedicatedWorker), SecureContext]
     interface VideoDecoder {
@@ -146,7 +146,7 @@ VideoDecoder Interface
 AudioEncoder Interface
 -------------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=(Window,DedicatedWorker), SecureContext]
     interface AudioEncoder {
@@ -180,7 +180,7 @@ VideoEncoder Interface
 -----------------------------
 
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     [Exposed=(Window,DedicatedWorker), SecureContext]
     interface VideoEncoder {
@@ -211,7 +211,7 @@ VideoEncoder Interface
 AudioDecoderConfig
 -------------------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     dictionary AudioDecoderConfig {
         required DOMString codec;
@@ -223,7 +223,7 @@ AudioDecoderConfig
 VideoDecoderConfig
 -------------------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     dictionary VideoDecoderConfig {
         required DOMString codec;
@@ -240,7 +240,7 @@ VideoDecoderConfig
 AudioEncoderConfig
 -------------------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     dictionary AudioEncoderConfig {
         required DOMString codec;
@@ -254,7 +254,7 @@ AudioEncoderConfig
 VideoEncoderConfig
 -------------------------------------
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     dictionary VideoEncoderConfig {
         required DOMString codec;

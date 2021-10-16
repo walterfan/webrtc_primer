@@ -157,7 +157,7 @@ Stream API 可以用一个称为 pipe chain 的结构将这些流一个一个串
 可插入流其实指的是一种转换流，它意为可以在媒体流的处理过程中插入一些处理逻辑。
 它可使用 RTCRtpSender 和 RTCRtpReceiver 上附加的 API 来将处理代码插入媒体流的处理管道。
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     // New dictionary
     dictionary RTCInsertableStreams {
