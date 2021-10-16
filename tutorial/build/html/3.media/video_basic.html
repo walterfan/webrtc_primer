@@ -120,7 +120,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="video_codec.html">视频编码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
 <li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
@@ -216,7 +216,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-15</p></td>
+<td><p>2021-10-16</p></td>
 </tr>
 </tbody>
 </table>
@@ -285,22 +285,22 @@
 <h3><a class="toc-backref" href="#id14">YUV</a><a class="headerlink" href="#yuv" title="Permalink to this headline">¶</a></h3>
 <p>Y 指亮度信号
 U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度的白色之间的差别</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">YUVfromRGB</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">V</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">R</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">G</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">B</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">Y</span> <span class="o">=</span>  <span class="mf">0.257</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="mf">0.504</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span>  <span class="mi">16</span><span class="p">;</span>
-  <span class="n">U</span> <span class="o">=</span> <span class="mf">-0.148</span> <span class="o">*</span> <span class="n">R</span> <span class="o">-</span> <span class="mf">0.291</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.439</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">128</span><span class="p">;</span>
-  <span class="n">V</span> <span class="o">=</span>  <span class="mf">0.439</span> <span class="o">*</span> <span class="n">R</span> <span class="o">-</span> <span class="mf">0.368</span> <span class="o">*</span> <span class="n">G</span> <span class="o">-</span> <span class="mf">0.071</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">128</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">RGBfromYUV</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">G</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">B</span><span class="p">,</span> <span class="kt">double</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">U</span><span class="p">,</span> <span class="kt">double</span> <span class="n">V</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">Y</span> <span class="o">-=</span> <span class="mi">16</span><span class="p">;</span>
-  <span class="n">U</span> <span class="o">-=</span> <span class="mi">128</span><span class="p">;</span>
-  <span class="n">V</span> <span class="o">-=</span> <span class="mi">128</span><span class="p">;</span>
-  <span class="n">R</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="mf">1.596</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
-  <span class="n">G</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">-</span> <span class="mf">0.392</span> <span class="o">*</span> <span class="n">U</span> <span class="o">-</span> <span class="mf">0.813</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
-  <span class="n">B</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="mf">2.017</span> <span class="o">*</span> <span class="n">U</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>  <span class="kt">void</span> <span class="nf">YUVfromRGB</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">V</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">R</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">G</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">B</span><span class="p">)</span>
+<span class="linenos"> 2</span>  <span class="p">{</span>
+<span class="linenos"> 3</span>    <span class="n">Y</span> <span class="o">=</span>  <span class="mf">0.257</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="mf">0.504</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span>  <span class="mi">16</span><span class="p">;</span>
+<span class="linenos"> 4</span>    <span class="n">U</span> <span class="o">=</span> <span class="mf">-0.148</span> <span class="o">*</span> <span class="n">R</span> <span class="o">-</span> <span class="mf">0.291</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.439</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">128</span><span class="p">;</span>
+<span class="linenos"> 5</span>    <span class="n">V</span> <span class="o">=</span>  <span class="mf">0.439</span> <span class="o">*</span> <span class="n">R</span> <span class="o">-</span> <span class="mf">0.368</span> <span class="o">*</span> <span class="n">G</span> <span class="o">-</span> <span class="mf">0.071</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span> <span class="mi">128</span><span class="p">;</span>
+<span class="linenos"> 6</span>  <span class="p">}</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>  <span class="kt">void</span> <span class="nf">RGBfromYUV</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">G</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">B</span><span class="p">,</span> <span class="kt">double</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">U</span><span class="p">,</span> <span class="kt">double</span> <span class="n">V</span><span class="p">)</span>
+<span class="linenos"> 9</span>  <span class="p">{</span>
+<span class="linenos">10</span>    <span class="n">Y</span> <span class="o">-=</span> <span class="mi">16</span><span class="p">;</span>
+<span class="linenos">11</span>    <span class="n">U</span> <span class="o">-=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="linenos">12</span>    <span class="n">V</span> <span class="o">-=</span> <span class="mi">128</span><span class="p">;</span>
+<span class="linenos">13</span>    <span class="n">R</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="mf">1.596</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
+<span class="linenos">14</span>    <span class="n">G</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">-</span> <span class="mf">0.392</span> <span class="o">*</span> <span class="n">U</span> <span class="o">-</span> <span class="mf">0.813</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
+<span class="linenos">15</span>    <span class="n">B</span> <span class="o">=</span> <span class="mf">1.164</span> <span class="o">*</span> <span class="n">Y</span> <span class="o">+</span> <span class="mf">2.017</span> <span class="o">*</span> <span class="n">U</span><span class="p">;</span>
+<span class="linenos">16</span>  <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -344,10 +344,10 @@ U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度�
 <tr class="row-odd"><td><p>1080p</p></td>
 <td><p>1920 x 1080</p></td>
 </tr>
-<tr class="row-even"><td><p>4K</p></td>
+<tr class="row-even"><td><p>2K</p></td>
 <td><p>3840 × 2160</p></td>
 </tr>
-<tr class="row-odd"><td><p>8K</p></td>
+<tr class="row-odd"><td><p>4K</p></td>
 <td><p>7680 × 4320</p></td>
 </tr>
 </tbody>

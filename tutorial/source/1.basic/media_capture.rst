@@ -179,39 +179,40 @@ Each MediaStream can contain zero or more MediaStreamTrack objects. All tracks i
 Example
 --------------------------
 
-.. code-block:: Javascript
 
-    <script>
-        const constraints = {
-            video: {
-               deviceId: localStorage.camId,
-                width: {min: 640, ideal: 1280, max: 1280},
-                height: {min: 480, ideal: 720},
-                aspectRatio: 3/2,
-                frameRate: {min: 20}
-            },
-            audio: {
-                deviceId: localStorage.micId,
-                channelCount: 2
-            }
-        };
 
-        function handleSuccess(stream) {
-            document.querySelector('video').srcObject = stream;
+.. code-block:: JavaScript
+
+    const constraints = {
+        video: {
+            deviceId: localStorage.camId,
+            width: {min: 640, ideal: 1280, max: 1280},
+            height: {min: 480, ideal: 720},
+            aspectRatio: 3/2,
+            frameRate: {min: 20}
+        },
+        audio: {
+            deviceId: localStorage.micId,
+            channelCount: 2
         }
+    };
 
-        function handleError(error) {
-            console.log('getUserMedia error: ', error);
-        }
+    function handleSuccess(stream) {
+        document.querySelector('video').srcObject = stream;
+    }
 
-        navigator.mediaDevices.getUserMedia(constraints)
-                .then(handleSuccess)
-                .catch(handleError);
-    </script>
+    function handleError(error) {
+        console.log('getUserMedia error: ', error);
+    }
+
+    navigator.mediaDevices.getUserMedia(constraints)
+            .then(handleSuccess)
+            .catch(handleError);
+
 
 
 
 参考资料
-============
+====================
 * `MDN WebRTC API`_
 * `W3C Media Capture and Streams Spec`_
