@@ -14,13 +14,9 @@
    audio_api
    audio_quality
    audio_analysis
-   
+   opus
+
    video_basic
    video_codec
-   
-   opus
    yuv
    h264
-
-   mathematics
-   signal
