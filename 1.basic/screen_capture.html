@@ -241,58 +241,58 @@
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id7">接口</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-WebIDL notranslate"><div class="highlight"><pre><span></span>partial interface MediaDevices {
-    Promise&lt;MediaStream&gt; getDisplayMedia(optional DisplayMediaStreamConstraints constraints = {});
-};
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">partial</span> <span class="kr">interface</span> <span class="nx">MediaDevices</span> <span class="p">{</span>
+    <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">MediaStream</span><span class="o">&gt;</span> <span class="nx">getDisplayMedia</span><span class="p">(</span><span class="nx">optional</span> <span class="nx">DisplayMediaStreamConstraints</span> <span class="nx">constraints</span> <span class="o">=</span> <span class="p">{});</span>
+<span class="p">};</span>
 
-dictionary DisplayMediaStreamConstraints {
-    (boolean or MediaTrackConstraints) video = true;
-    (boolean or MediaTrackConstraints) audio = false;
-};
+<span class="nx">dictionary</span> <span class="nx">DisplayMediaStreamConstraints</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kr">boolean</span> <span class="nx">or</span> <span class="nx">MediaTrackConstraints</span><span class="p">)</span> <span class="nx">video</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">(</span><span class="kr">boolean</span> <span class="nx">or</span> <span class="nx">MediaTrackConstraints</span><span class="p">)</span> <span class="nx">audio</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
 
-dictionary MediaTrackConstraints : MediaTrackConstraintSet {
-    sequence&lt;MediaTrackConstraintSet&gt; advanced;
-};
+<span class="nx">dictionary</span> <span class="nx">MediaTrackConstraints</span> <span class="o">:</span> <span class="nx">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="nx">sequence</span><span class="o">&lt;</span><span class="nx">MediaTrackConstraintSet</span><span class="o">&gt;</span> <span class="nx">advanced</span><span class="p">;</span>
+<span class="p">};</span>
 
-dictionary MediaTrackConstraintSet {
-    ConstrainULong width;
-    ConstrainULong height;
-    ConstrainDouble aspectRatio;
-    ConstrainDouble frameRate;
-    ConstrainDOMString facingMode;
-    ConstrainDOMString resizeMode;
-    ConstrainULong sampleRate;
-    ConstrainULong sampleSize;
-    ConstrainBoolean echoCancellation;
-    ConstrainBoolean autoGainControl;
-    ConstrainBoolean noiseSuppression;
-    ConstrainDouble latency;
-    ConstrainULong channelCount;
-    ConstrainDOMString deviceId;
-    ConstrainDOMString groupId;
-};
+<span class="nx">dictionary</span> <span class="nx">MediaTrackConstraintSet</span> <span class="p">{</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">width</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">height</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">aspectRatio</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">frameRate</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">facingMode</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">resizeMode</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">sampleRate</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">sampleSize</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">echoCancellation</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">autoGainControl</span><span class="p">;</span>
+    <span class="nx">ConstrainBoolean</span> <span class="nx">noiseSuppression</span><span class="p">;</span>
+    <span class="nx">ConstrainDouble</span> <span class="nx">latency</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">channelCount</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">deviceId</span><span class="p">;</span>
+    <span class="nx">ConstrainDOMString</span> <span class="nx">groupId</span><span class="p">;</span>
+<span class="p">};</span>
 
 
-partial dictionary MediaTrackSupportedConstraints {
-    boolean displaySurface = true;
-    boolean logicalSurface = true;
-    boolean cursor = true;
-    boolean restrictOwnAudio = true;
-    boolean suppressLocalAudioPlayback = true;
-};
+<span class="nx">partial</span> <span class="nx">dictionary</span> <span class="nx">MediaTrackSupportedConstraints</span> <span class="p">{</span>
+    <span class="kr">boolean</span> <span class="nx">displaySurface</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kr">boolean</span> <span class="nx">logicalSurface</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kr">boolean</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kr">boolean</span> <span class="nx">restrictOwnAudio</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="kr">boolean</span> <span class="nx">suppressLocalAudioPlayback</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
 
-enum DisplayCaptureSurfaceType {
-    &quot;monitor&quot;,
-    &quot;window&quot;,
-    &quot;application&quot;,
-    &quot;browser&quot;
-};
+<span class="kr">enum</span> <span class="nx">DisplayCaptureSurfaceType</span> <span class="p">{</span>
+    <span class="s2">&quot;monitor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;window&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;application&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;browser&quot;</span>
+<span class="p">};</span>
 
-enum CursorCaptureConstraint {
-    &quot;never&quot;,
-    &quot;always&quot;,
-    &quot;motion&quot;
-};
+<span class="kr">enum</span> <span class="nx">CursorCaptureConstraint</span> <span class="p">{</span>
+    <span class="s2">&quot;never&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;always&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;motion&quot;</span>
+<span class="p">};</span>
 </pre></div>
 </div>
 </div>
