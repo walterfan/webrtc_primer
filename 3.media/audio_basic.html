@@ -118,7 +118,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#application">语音应用程序 Application</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">主要指标</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">语音质量评价标准</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#faq">FAQ</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#hz">为什么语音采样需要 8000 Hz？</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pcm">PCM 是什么？</a></li>
@@ -133,7 +132,7 @@
 <li class="toctree-l2"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="video_codec.html">视频编码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
 <li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
@@ -215,41 +214,40 @@
 <h1>Audio Basic<a class="headerlink" href="#audio-basic" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#audio" id="id12">Audio 声音是什么</a></p></li>
-<li><p><a class="reference internal" href="#glossaries" id="id13">Glossaries</a></p>
+<li><p><a class="reference internal" href="#audio" id="id11">Audio 声音是什么</a></p></li>
+<li><p><a class="reference internal" href="#glossaries" id="id12">Glossaries</a></p>
 <ul>
-<li><p><a class="reference internal" href="#agc" id="id14">AGC</a></p></li>
-<li><p><a class="reference internal" href="#aec" id="id15">AEC</a></p></li>
-<li><p><a class="reference internal" href="#ans" id="id16">ANS</a></p></li>
-<li><p><a class="reference internal" href="#decibel" id="id17">Decibel 分贝</a></p></li>
-<li><p><a class="reference internal" href="#snr" id="id18">信噪比 SNR</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id19">声压</a></p></li>
-<li><p><a class="reference internal" href="#spl-sound-press-level" id="id20">声压级 SPL (Sound Press Level)</a></p></li>
+<li><p><a class="reference internal" href="#agc" id="id13">AGC</a></p></li>
+<li><p><a class="reference internal" href="#aec" id="id14">AEC</a></p></li>
+<li><p><a class="reference internal" href="#ans" id="id15">ANS</a></p></li>
+<li><p><a class="reference internal" href="#decibel" id="id16">Decibel 分贝</a></p></li>
+<li><p><a class="reference internal" href="#snr" id="id17">信噪比 SNR</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id18">声压</a></p></li>
+<li><p><a class="reference internal" href="#spl-sound-press-level" id="id19">声压级 SPL (Sound Press Level)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id21">Audio 频宽</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id22">Audio 语音质量</a></p>
+<li><p><a class="reference internal" href="#id5" id="id20">Audio 频宽</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id21">Audio 语音质量</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id23">语音质量测量</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id22">语音质量测量</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id8" id="id24">信令协议</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id25">媒体传输协议</a></p></li>
-<li><p><a class="reference internal" href="#codec" id="id26">Codec</a></p></li>
-<li><p><a class="reference internal" href="#application" id="id27">语音应用程序 Application</a></p></li>
-<li><p><a class="reference internal" href="#functions" id="id28">Functions</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id29">主要指标</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id30">语音质量评价标准</a></p></li>
-<li><p><a class="reference internal" href="#faq" id="id31">FAQ</a></p>
+<li><p><a class="reference internal" href="#id8" id="id23">信令协议</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id24">媒体传输协议</a></p></li>
+<li><p><a class="reference internal" href="#codec" id="id25">Codec</a></p></li>
+<li><p><a class="reference internal" href="#application" id="id26">语音应用程序 Application</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id27">Functions</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id28">主要指标</a></p></li>
+<li><p><a class="reference internal" href="#faq" id="id29">FAQ</a></p>
 <ul>
-<li><p><a class="reference internal" href="#hz" id="id32">为什么语音采样需要 8000 Hz？</a></p></li>
-<li><p><a class="reference internal" href="#pcm" id="id33">PCM 是什么？</a></p></li>
+<li><p><a class="reference internal" href="#hz" id="id30">为什么语音采样需要 8000 Hz？</a></p></li>
+<li><p><a class="reference internal" href="#pcm" id="id31">PCM 是什么？</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="audio">
-<h2><a class="toc-backref" href="#id12">Audio 声音是什么</a><a class="headerlink" href="#audio" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Audio 声音是什么</a><a class="headerlink" href="#audio" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>声音是气压形成的波</p>
 <ul>
@@ -268,24 +266,24 @@
 </ul>
 </div>
 <div class="section" id="glossaries">
-<h2><a class="toc-backref" href="#id13">Glossaries</a><a class="headerlink" href="#glossaries" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Glossaries</a><a class="headerlink" href="#glossaries" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="agc">
-<h3><a class="toc-backref" href="#id14">AGC</a><a class="headerlink" href="#agc" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">AGC</a><a class="headerlink" href="#agc" title="Permalink to this headline">¶</a></h3>
 <p>自动增益补偿功能（Automatic Gain Control）</p>
 <p>AGC可以自动调麦克风的收音量，使与会者收到一定的音量水平，不会因发言者与麦克风的距离改变时，声音有忽大忽小声的缺点。</p>
 </div>
 <div class="section" id="aec">
-<h3><a class="toc-backref" href="#id15">AEC</a><a class="headerlink" href="#aec" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">AEC</a><a class="headerlink" href="#aec" title="Permalink to this headline">¶</a></h3>
 <p>声学回声消除 （ Acoustic Echo Canceller）</p>
 <p>AEC的工作原理是通过对讲话者的输出建模，并且将其从麦克风捕捉的信号里除去。AEC有助于确保对方听不到回声。AEC是对扬声器信号与由它产生的多路径回声的相关性为基础，建立远端信号的语音模型，利用它对回声进行估计，并不断地修改滤波器的系数，使得估计值更加逼近真实的回声。然后，将回声估计值从话筒的输入信号中减去，从而达到消除回声的目的，AEC还将话筒的输入与扬声器过去的值相比较，从而消除延长延迟的多次反射的声学回声。根椐存储器存放的过去的扬声器的输出值的多少，AEC可以消除各种延迟的回声。</p>
 </div>
 <div class="section" id="ans">
-<h3><a class="toc-backref" href="#id16">ANS</a><a class="headerlink" href="#ans" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">ANS</a><a class="headerlink" href="#ans" title="Permalink to this headline">¶</a></h3>
 <p>背景噪音抑制功能（Automatic Noise Suppression）</p>
 <p>ANS可探测出背景固定频率的杂音并消除背景噪音，例如：风扇、空调声自动滤除。呈现出与会者清晰的声音。</p>
 </div>
 <div class="section" id="decibel">
-<h3><a class="toc-backref" href="#id17">Decibel 分贝</a><a class="headerlink" href="#decibel" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Decibel 分贝</a><a class="headerlink" href="#decibel" title="Permalink to this headline">¶</a></h3>
 <p>人们以分贝为单位来表示声音的强弱，符号为dB。0分贝刚刚引起听觉。人们把频率高于人耳所能听到的声叫做超声波，把频率低于人耳所能听到的声叫做次声波。</p>
 <p>分贝其实是一个比值，它也可用于如下计量</p>
 <ol class="arabic simple">
@@ -295,13 +293,13 @@
 </ol>
 </div>
 <div class="section" id="snr">
-<h3><a class="toc-backref" href="#id18">信噪比 SNR</a><a class="headerlink" href="#snr" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">信噪比 SNR</a><a class="headerlink" href="#snr" title="Permalink to this headline">¶</a></h3>
 <p>正确信号的能量与噪声能量的比例称为信噪比 SNR - Signal Noise Ratio</p>
 <div class="math notranslate nohighlight" id="id1">
 <span id="equation-snr"></span><span class="eqno">(1)<a class="headerlink" href="#id1" title="Permalink to this equation">¶</a></span>\[SNR = 10 log_{10} \frac{V_{signal}^2}{V_{noise}^2} = 20 log_{10} \frac{V_{signal}}{V_{noise}}\]</div>
 </div>
 <div class="section" id="id2">
-<h3><a class="toc-backref" href="#id19">声压</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">声压</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>有效声压</p></li>
 </ul>
@@ -309,7 +307,7 @@
 <span id="equation"></span><span class="eqno">(2)<a class="headerlink" href="#id3" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}p_x = \sqrt{ \frac{1}{T}  \sum_{n=1}^N x^2 \Delta t}\\    = \sqrt{ \frac{1}{N\Delta t}  \sum_{n=1}^N x^2 \Delta t}\\    = \sqrt{ \frac{1}{N}  \sum_{n=1}^N x^2}\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="spl-sound-press-level">
-<h3><a class="toc-backref" href="#id20">声压级 SPL (Sound Press Level)</a><a class="headerlink" href="#spl-sound-press-level" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">声压级 SPL (Sound Press Level)</a><a class="headerlink" href="#spl-sound-press-level" title="Permalink to this headline">¶</a></h3>
 <p>声音的有效声压与基准声压之比，取以10 为底的对数，再乘以 20， 即为声压级</p>
 <ul class="simple">
 <li><p>声压级</p></li>
@@ -319,7 +317,7 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id21">Audio 频宽</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">Audio 频宽</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 15%" />
@@ -359,7 +357,7 @@
 </table>
 </div>
 <div class="section" id="id6">
-<h2><a class="toc-backref" href="#id22">Audio 语音质量</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">Audio 语音质量</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>清晰度</p>
 <ul>
@@ -492,7 +490,7 @@
 </li>
 </ul>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id23">语音质量测量</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">语音质量测量</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>MOS 平均意见得分</p></li>
 <li><p>PSQM 感知通话质量测量</p></li>
@@ -502,7 +500,7 @@
 </div>
 </div>
 <div class="section" id="id8">
-<h2><a class="toc-backref" href="#id24">信令协议</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">信令协议</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>H.323</p></li>
 <li><p>MGCP: RFC3661</p></li>
@@ -513,7 +511,7 @@
 </ul>
 </div>
 <div class="section" id="id9">
-<h2><a class="toc-backref" href="#id25">媒体传输协议</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id24">媒体传输协议</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>RTP</p></li>
 <li><p>RTCP</p></li>
@@ -522,7 +520,7 @@
 </ul>
 </div>
 <div class="section" id="codec">
-<h2><a class="toc-backref" href="#id26">Codec</a><a class="headerlink" href="#codec" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id25">Codec</a><a class="headerlink" href="#codec" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>PCM: 将采样过后的振幅进行量化所得到的编码</p></li>
 <li><p>G.711
@@ -543,7 +541,7 @@
 </ul>
 </div>
 <div class="section" id="application">
-<h2><a class="toc-backref" href="#id27">语音应用程序 Application</a><a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">语音应用程序 Application</a><a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>IVR 语音交互应答</p>
 <ul>
@@ -591,7 +589,7 @@
 </ul>
 </div>
 <div class="section" id="functions">
-<h2><a class="toc-backref" href="#id28">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id27">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Signaling by SIP, XMPP or others</p></li>
 <li><p>RTP Rx/Tx (receiving/transmitting)</p></li>
@@ -610,7 +608,7 @@
 </ul>
 </div>
 <div class="section" id="id10">
-<h2><a class="toc-backref" href="#id29">主要指标</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">主要指标</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>编码速率/比特率</p>
 <p>8 ~ 16 kbit/s 称为中码率，高于它为高码率， 小于它即为低码率，2.4 ~ 8 kbit/s， 小于2.4 kbit/s 称为超低码率</p>
@@ -626,26 +624,16 @@
 - 合成级</p></li>
 </ul>
 </div>
-<div class="section" id="id11">
-<h2><a class="toc-backref" href="#id30">语音质量评价标准</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li><p>主观评价</p></li>
-</ol>
-<ul class="simple">
-<li><p>清晰度或可懂度 Intelligibility</p></li>
-<li><p>音质 Quality</p></li>
-</ul>
-</div>
 <div class="section" id="faq">
-<h2><a class="toc-backref" href="#id31">FAQ</a><a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id29">FAQ</a><a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hz">
-<h3><a class="toc-backref" href="#id32">为什么语音采样需要 8000 Hz？</a><a class="headerlink" href="#hz" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">为什么语音采样需要 8000 Hz？</a><a class="headerlink" href="#hz" title="Permalink to this headline">¶</a></h3>
 <p>人类说话产生的频率是正常范围是 300Hz ~ 3400 Hz，滤波器会把这个频率范围之外的信号过滤掉
 根据采样定理， 3400 -&gt; 4000 * 2 = 8000 Hz， 而采样周期为 1秒/8000次 = 125us</p>
 <p>注：采样定理：如果信号带宽小于采样频率的二分之一，那么此时这些离散的采样点能够完全表示原信号。</p>
 </div>
 <div class="section" id="pcm">
-<h3><a class="toc-backref" href="#id33">PCM 是什么？</a><a class="headerlink" href="#pcm" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">PCM 是什么？</a><a class="headerlink" href="#pcm" title="Permalink to this headline">¶</a></h3>
 <p>PCM(Pulse Code Modulation) 即脉冲编码调制，每秒8000次抽样，每次抽样用一个 8bit 二进制数表示其振幅。
 每秒需要传输 64k bit = 8 * 8000</p>
 </div>
