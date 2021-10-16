@@ -22,13 +22,13 @@
 主要内容
 =====================
 
-
-* `数字音频`_
-* `数字视频`_
-
-
+* `数字图像处理`_
+* `数字音频处理`_
+* `数字视频处理`_
 
 
 
-.. _数字音频: multimedia_audio.html
-.. _数字视频: multimedia_video.html
+
+.. _数字图像处理: multimedia_audio.html
+.. _数字音频处理: multimedia_audio.html
+.. _数字视频处理: multimedia_video.html

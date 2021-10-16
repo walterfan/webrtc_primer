@@ -23,56 +23,10 @@
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
 
-    weblog("-------- Available User Devices -----------")
-    listUserDevices();
 
-    const constraints = window.constraints = {
-      audio: false,
-      video: true
-    };
+    document.querySelector('#open').addEventListener('click', e => openCamera(e));
 
-    const resSelect = document.querySelector('select#resolution');
-    var selectedRes = resSelect.value;
-
-
-    switch(selectedRes) {
-      case "qvga":
-        constraints.video = {
-          mandatory: {
-            maxWidth: 320,
-            maxHeight: 240
-          }
-        }  
-        break;
-      case "vga":
-        constraints.video = {
-            mandatory: {
-              maxWidth: 640,
-              maxHeight: 480
-            }
-          }  
-        
-        break;
-      default:
-        constraints.video = {
-            mandatory: {
-              maxWidth: 1024,
-              maxHeight: 768
-            }
-          }  
-        
-        break;
-    }      
-    
-    const filterSelect = document.querySelector('select#filter');
-    filterSelect.onchange = function() {
-      const video = document.querySelector('video');
-      video.className = filterSelect.value;
-    };
-
-    document.querySelector('#open').addEventListener('click', e => openCamera(e, constraints));
-
-    document.querySelector('#close').addEventListener('click', e => closeCamera(e, constraints));
+    document.querySelector('#close').addEventListener('click', e => closeCamera(e));
 
     document.querySelector('#snapshot').addEventListener('click', e => takeSnapshot(e));
     
@@ -108,9 +62,13 @@
                       <button class="btn btn-default" autocomplete="off" id="open">Open Camera</button>
                       <label for="resolution">resolution </label>
                       <select id="resolution">
-                          <option value="qvga">320*240</option>
-                          <option value="vga">640*480</option>
-                          <option value="hd">1280*960</option>
+                          <option value="90p">160 x 90</option>
+                          <option value="180p">320 x 180</option>
+                          <option value="360p">640 x 360</option>
+                          <option value="720p">1280 x 720</option>
+                          <option value="1080p">1920 x 1080</option>
+                          <option value="2k">3840 × 2160</option>
+                          <option value="4k">7680 × 4320</option>
                       </select>
 
                       <button class="btn btn-default" autocomplete="off" id="close">Close Camera</button>

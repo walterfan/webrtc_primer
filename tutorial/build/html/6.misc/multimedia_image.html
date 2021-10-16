@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6. WebRTC 关联技术 &mdash; webrtc_tutorial 1 documentation</title>
+  <title>数字图像处理 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -40,9 +40,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="信号处理基础" href="signal.html" />
-    <link rel="prev" title="tcpdump" href="../5.tool/tcpdump.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,20 +86,14 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. WebRTC 关联技术</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -150,13 +142,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>6. WebRTC 关联技术</li>
+      <li>数字图像处理</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/6.misc/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/6.misc/multimedia_image.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,16 +161,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="webrtc">
-<h1>6. WebRTC 关联技术<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+  <div class="section" id="id1">
+<h1>数字图像处理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>数字图像处理</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-16</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id6">简介</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="signal.html">信号处理基础</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+<li><p><a class="reference internal" href="#id3" id="id7">图片文件格式</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id8">颜色模型</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id9">图像处理</a></p></li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id6">简介</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>黑白图像</p></li>
+<li><p>灰度图像：一个像素用一个字节来表示，那么一个字节类型的二维数组可以来表示一幅灰度图像</p></li>
+<li><p>彩色图像：</p>
+<ul>
+<li><p>每个像素用三个字节来表示，那么一个元组类型（R, G，B）的的二维数组可以来表示一幅真彩色图像</p></li>
+<li><p>每个像素用四个字节来表示，那么一个元组类型（R, G，B，A）的的二维数组可以来表示一幅有透明度的真彩色图像</p></li>
+<li><p>每个像素用一个字节来表示，这个字节是一个颜色查找表中的一个索引</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id7">图片文件格式</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>GIF</p></li>
+<li><p>JPEG</p></li>
+<li><p>PNG</p></li>
+<li><p>TIFF</p></li>
+<li><p>BMP</p></li>
+<li><p>WMF</p></li>
+<li><p>Netpbm Format</p></li>
+<li><p>EXIF</p></li>
+<li><p>PS</p></li>
+<li><p>PDF</p></li>
+<li><p>PTM</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id8">颜色模型</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>RGB</p></li>
+<li><p>CMYK</p></li>
+<li><p>YUV</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id9">图像处理</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>图像采集</p></li>
+<li><p>图像增强</p></li>
+<li><p>图像复原</p></li>
+<li><p>图像识别</p></li>
+<li><p>图像分割</p></li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -187,10 +249,6 @@
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="signal.html" class="btn btn-neutral float-right" title="信号处理基础" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../5.tool/tcpdump.html" class="btn btn-neutral float-left" title="tcpdump" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

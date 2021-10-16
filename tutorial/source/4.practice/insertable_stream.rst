@@ -23,8 +23,6 @@ Insertable Stream
 概述
 =========================
 
-It is new WebRTC API manipulating the bits on MediaStreamTracks being sent via an RTCPeerConnection.
-
 Insertable Stream 可插入的流是新的 WebRTC API, 可用来操作通过 RTCPeerConnection 传送的 MediaStreamTracks 中的每一个字节。它让上层应用能对 WebRTC 底层媒体进行访问，让以往 WebRTC 应用中许多不可能做的情况都成为可能了
 
 比如替换视频聊天时的背景，实时进行音视频处理（降噪，美颜，打水印，加特效等）
@@ -46,7 +44,7 @@ Streams 标准提供了一组通用的 API，用于创建此类流数据并与�
 
 * readable streams
 * writable streams
-* transform streams.
+* transform streams 
 
 这些 API 旨在更有效地映射到低级的 I/O 原始操作，包括在适当的情况下对字节流进行专门的处理。
 
@@ -57,51 +55,54 @@ Streams 标准提供了一组通用的 API，用于创建此类流数据并与�
 
 用例
 ---------------
-* Video effects: piping a readable video stream through a transform stream that applies effects in real time.
+* 视频特效: 传入一个视频流 ，通过 transform stream 来实时地应用特效
 
-* Decompression: piping a file stream through a transform stream that selectively decompresses files from a .tgz archive, turning them into img elements as the user scrolls through an image gallery.
+* 解压： 传入一个文件流，通过 transform stream 有选择地从压缩包中解压文件，当用户滚动浏览图库时将它们转换为 img 元素。
 
-* Image decoding: piping an HTTP response stream through a transform stream that decodes bytes into bitmap data, and then through another transform that translates bitmaps into PNGs.
+* 图像解码：传入一个 HTTP 响应流，通过 transform stream 将字节流解码为 bitmap，再接一个 transform stream 将 bitmap 转换为 png
+
 
 模型
 -----------------
 
-A chunk is a single piece of data that is written to or read from a stream. It can be of any type; streams can even contain chunks of different types. 
+一个数据块，称之为 chunk，它是从一个流中读入或写出的一个数据片段，它可以是任意类型，一个流甚至可以包含不同类型的 chunk
 
-A chunk will often not be the most atomic unit of data for a given stream; for example a byte stream might contain chunks consisting of 16 KiB Uint8Arrays, instead of single bytes.
+对于给定的流，chunk 通常不是最原子的数据单元； 例如，字节流可能包含由 16 KiB Uint8Array 组成的块，而不是单个字节。
+
 
 
 可读流 ReadableStream
------------------------
-A readable stream is a data source represented in JavaScript by a ReadableStream object that flows from an underlying source — this is a resource somewhere on the network or elsewhere on your domain that you want to get data from.
+--------------------------------
+
+readable stream 是在 JavaScript 中由来自底层的 ReadableStream 对象表示的数据源——这是网络上或者本地某个地方的资源，可以从中获取数据。
 
 .. image:: ../_static/readable_streams.png
 
 
-There are two types of underlying source:
+有两种类型的底层数据源：
 
-* Push sources constantly push data at you when you’ve accessed them, and it is up to you to start, pause, or cancel access to the stream. 
-  Examples include video streams and TCP/Web sockets.
+1) 推送源 Push sources，它在您访问它时不断向您推送数据，可以开始、暂停或取消对流的访问，例如视频流和 TCP/Web 套接字中的数据流。
 
-* Pull sources require you to explicitly request data from them once connected to. 
-  Examples include a file access operation via a Fetch or XHR call.
+2) 拉取源 Pull sources： 它要求您在连接后明确向它们请求数据，例如通过过 Fetch 或 XHR 调用进行的文件访问操作.
 
+
+ReadableStream 代码示例：
 
 .. code-block:: JavaScript
 
 
     const stream = new ReadableStream({
-        start(controller) {
+            start(controller) {
 
-        },
-        pull(controller) {
+            },
+            pull(controller) {
 
-        },
-        cancel() {
+            },
+            cancel() {
 
-        },
-        type,
-        autoAllocateChunkSize
+            },
+            type,
+            autoAllocateChunkSize
         }, 
         {
             highWaterMark,
@@ -109,12 +110,16 @@ There are two types of underlying source:
         }
     );
 
-WritableStream
------------------
-A writable stream is a destination into which you can write data, represented in JavaScript by a WritableStream object. This serves as an abstraction over the top of an underlying sink — a lower-level I/O sink into which raw data is written.
 
+可写流 WritableStream
+--------------------------------
+
+可写流是您可以写入数据的目的地，在 JavaScript 中由 WritableStream 对象表示。 它用作对于底层接收器之上的抽象，一个可写入原始数据的底层的 I/O sink。
 
 .. image:: ../_static/writable_streams.png
+
+
+WritableStream 代码示例：
 
 .. code-block:: JavaScript
         
@@ -139,18 +144,18 @@ A writable stream is a destination into which you can write data, represented in
     );
 
 
-Pipe chains
--------------------
-
-The Streams API makes it possible to pipe streams into one another (or at least it will do when browsers implement the relevant functionality) using a structure called a pipe chain
+管道链 Pipe chains
+----------------------------
+Stream API 可以用一个称为 pipe chain 的结构将这些流一个一个串起来，具体方法有 pipeThrough 和 pipeTo
 
 .. image:: ../_static/pipechain.png
 
 
-Insertable Streams API
-===========================
+可插入流 Insertable Streams API
+=======================================
 
-It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the processing into the pipeline.
+可插入流其实指的是一种转换流，它意为可以在媒体流的处理过程中插入一些处理逻辑。
+它可使用 RTCRtpSender 和 RTCRtpReceiver 上附加的 API 来将处理代码插入媒体流的处理管道。
 
 .. code-block:: WebIDL
 
@@ -171,13 +176,17 @@ It uses an additional API on RTCRtpSender and RTCRtpReceiver to insert the proce
         attribute RTCRtpTransform? transform;
     };
 
-由上面的定义可知， RTCRtpTransform 有两种实现 SFrameTransform 和 RTCRtpScriptTransform
+由上面的定义可知，可插入流通过转换器 RTCRtpTransform 来实现，有两种转换器
+
+1) SFrameTransform: 主要用来加解密， S 是 Secure 的首字母
+2) RTCRtpScriptTransform：指对一般的 audio/video 帧的转换
 
 SFrameTransform
 -----------------------
+
 接口定义如下
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
     enum SFrameTransformRole {
         "encrypt",
@@ -224,11 +233,11 @@ SFrameTransform
 RTCRtpScriptTransform
 ---------------------------
 
+接口定义如下
 
-.. code-block:: WebIDL
+.. code-block:: JavaScript
 
-    // New enum for video frame types. Will eventually re-use the equivalent defined
-    // by WebCodecs.
+    // 定义视频帧的类型，最终会由 WebCodecs 标准来定义
     enum RTCEncodedVideoFrameType {
         "empty",
         "key",
@@ -246,8 +255,7 @@ RTCRtpScriptTransform
         sequence<long> contributingSources;
     };
 
-    // New interfaces to define encoded video and audio frames. Will eventually
-    // re-use or extend the equivalent defined in WebCodecs.
+    //定义编码过的 video 和 audio 帧. 最终会由 WebCodecs 标准来定义.
     [Exposed=(Window,DedicatedWorker)]
     interface RTCEncodedVideoFrame {
         readonly attribute RTCEncodedVideoFrameType type;
@@ -256,6 +264,7 @@ RTCRtpScriptTransform
         RTCEncodedVideoFrameMetadata getMetadata();
     };
 
+    //音频帧的元数据，包含RTP中定义的 SSRC, CSRC
     dictionary RTCEncodedAudioFrameMetadata {
         long synchronizationSource;
         sequence<long> contributingSources;
@@ -269,7 +278,7 @@ RTCRtpScriptTransform
     };
 
 
-    // New interfaces to expose JavaScript-based transforms.
+    // 定义 JavaScript-based transforms.
 
     [Exposed=DedicatedWorker]
     interface RTCTransformEvent : Event {
@@ -294,13 +303,10 @@ RTCRtpScriptTransform
 
 
 
-
-
-
-Use cases
+案例
 ===================
 
-True End-to-End Encryption with WebRTC Insertable Streams
+通过 WebRTC Insertable Streams 实现的真正的端到端加密
 ---------------------------------------------------------------
 
 搭建一个本地的 peer connection, video1 元素放置本地获取的 stream, video2 元素放置从远程获取的 stream
@@ -322,13 +328,26 @@ True End-to-End Encryption with WebRTC Insertable Streams
 从 RTCPeerConnection 中获取 RTCRtpSender 和 RTCRtpReceiver
 
 
-
 * explain: https://webrtchacks.com/true-end-to-end-encryption-with-webrtc-insertable-streams/
 
 * codes: https://github.com/webrtc/samples/tree/gh-pages/src/content/insertable-streams/endtoend-encryption
 
 
 .. image:: ../_static/insertable_stream_example.png
+
+下面的代码演示如何在原本发送到远端的视频流，RTCRtpSender 中的数据流是
+
+::
+
+    readableStream --> writableStream
+
+现在在中间插入一个转换流
+
+::
+
+    readableStream --> senderTransformStream -> writableStream
+
+代码示例：
 
 .. code-block:: JavaScript
 
@@ -341,38 +360,47 @@ True End-to-End Encryption with WebRTC Insertable Streams
             controller.enqueue(chunk);
         }
     });
+    
     senderStreams.readableStream
         .pipeThrough(senderTransformStream)
         .pipeTo(senderStreams.writableStream);
 
-* WebRTC example: https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/
+* 完整代码参见 WebRTC example: https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/
+
+
+转换流的实现是在一个 web worker 中实现的，主线程与 worker 线程通过消息来通信
 
 .. code-block:: JavaScript
 
     const worker = new Worker('./js/worker.js', {name: 'E2EE worker'});
     function setupSenderTransform(sender) {
-    const senderStreams = sender.createEncodedStreams();
+        const senderStreams = sender.createEncodedStreams();
 
-    const {readable, writable} = senderStreams;
-    worker.postMessage({
-            operation: 'encode',
-            readable,
-            writable,
-        }, [readable, writable]);
-    }
-
-    function setupReceiverTransform(receiver) {
-        const receiverStreams = receiver.createEncodedStreams();
-        const {readable, writable} = receiverStreams;
+        const {readable, writable} = senderStreams;
         worker.postMessage({
-            operation: 'decode',
-            readable,
-            writable,
-        }, [readable, writable]);
+                operation: 'encode',
+                readable,
+                writable,
+            }, [readable, writable]);
         }
 
-check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/endtoend-encryption/js/worker.js for detail
+        function setupReceiverTransform(receiver) {
+            const receiverStreams = receiver.createEncodedStreams();
+            const {readable, writable} = receiverStreams;
+            worker.postMessage({
+                operation: 'decode',
+                readable,
+                writable,
+            }, [readable, writable]);
+        }
+    }
 
+详细代码参见 https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-streams/endtoend-encryption/js/worker.js 
+
+在 worker 中
+
+* 对于 encode 消息的处理就是插入一个用来加密的 transformStream（处理函数为 encodeFunction）
+* 对于 decode 消息的处理就是插入一个用来解密的 transformStream（处理函数为 decodeFunction）
 
 .. code-block::
 
@@ -407,7 +435,7 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
     };
 
 
-* encodeFunction
+* encodeFunction 的实现如下，主要是把视频帧中的数据取出，将视频数据与加密 key 进行异或, 做一个简单的加密，然后再加入 key 的标识和校验和 (checksum), 再把处理过的数据写回 encodedFrame.data。最后，将 encodedFrame 追加到 controller 的队列末尾。
 
 .. code-block:: JavaScript
 
@@ -423,12 +451,12 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
 
             const cryptoOffset = useCryptoOffset? frameTypeToCryptoOffset[encodedFrame.type] : 0;
             for (let i = 0; i < cryptoOffset && i < encodedFrame.data.byteLength; ++i) {
-            newView.setInt8(i, view.getInt8(i));
+                newView.setInt8(i, view.getInt8(i));
             }
             // This is a bitwise xor of the key with the payload. This is not strong encryption, just a demo.
             for (let i = cryptoOffset; i < encodedFrame.data.byteLength; ++i) {
-            const keyByte = currentCryptoKey.charCodeAt(i % currentCryptoKey.length);
-            newView.setInt8(i, view.getInt8(i) ^ keyByte);
+                const keyByte = currentCryptoKey.charCodeAt(i % currentCryptoKey.length);
+                newView.setInt8(i, view.getInt8(i) ^ keyByte);
             }
             // Append keyIdentifier.
             newView.setUint8(encodedFrame.data.byteLength, currentKeyIdentifier % 0xff);
@@ -443,6 +471,8 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
 
 * decodeFunction
 
+decodeFunction 的实现如下，主要是把视频帧中的数据取出，先检查校验和(checksum), 再检查加密 key 的标识，如果都没问题就用加密 key 与视频数据进行再次异或来实现简单的解密，最后，将 decodedFrame 追加到 controller 的队列末尾。
+  
 .. code-block::
 
     function decodeFunction(encodedFrame, controller) {
@@ -453,14 +483,14 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
         const checksum = encodedFrame.data.byteLength > 4 ? view.getUint32(encodedFrame.data.byteLength - 4) : false;
         if (currentCryptoKey) {
             if (checksum !== 0xDEADBEEF) {
-            console.log('Corrupted frame received, checksum ' +
-                        checksum.toString(16));
-            return; // This can happen when the key is set and there is an unencrypted frame in-flight.
+                console.log('Corrupted frame received, checksum ' + checksum.toString(16));
+                return; // 这可能是加密 key 设定了，但是收到了未加密的视频帧
             }
             const keyIdentifier = view.getUint8(encodedFrame.data.byteLength - 5);
             if (keyIdentifier !== currentKeyIdentifier) {
-            console.log(`Key identifier mismatch, got ${keyIdentifier} expected ${currentKeyIdentifier}.`);
-            return;
+                // 这是加密 key 和解密的 key 不一致
+                console.log(`Key identifier mismatch, got ${keyIdentifier} expected ${currentKeyIdentifier}.`);
+                return;
             }
 
             const newData = new ArrayBuffer(encodedFrame.data.byteLength - 5);
@@ -468,11 +498,11 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
             const cryptoOffset = useCryptoOffset? frameTypeToCryptoOffset[encodedFrame.type] : 0;
 
             for (let i = 0; i < cryptoOffset; ++i) {
-            newView.setInt8(i, view.getInt8(i));
+                newView.setInt8(i, view.getInt8(i));
             }
             for (let i = cryptoOffset; i < encodedFrame.data.byteLength - 5; ++i) {
-            const keyByte = currentCryptoKey.charCodeAt(i % currentCryptoKey.length);
-            newView.setInt8(i, view.getInt8(i) ^ keyByte);
+                const keyByte = currentCryptoKey.charCodeAt(i % currentCryptoKey.length);
+                newView.setInt8(i, view.getInt8(i) ^ keyByte);
             }
             encodedFrame.data = newData;
         } else if (checksum === 0xDEADBEEF) {
@@ -482,7 +512,7 @@ check https://github.com/webrtc/samples/blob/gh-pages/src/content/insertable-str
     }
 
 
-
+至此，无论是采用 P2P 还是 SFU, 都不怕再有“中间人攻击”，只有通信的双方共享一个加密 key , 他们之间才能看到彼此正常的视频。在实际应用了，加密 key 的管理会更复杂，还需要加盐，加密算法多半会用  AES。
 
 Reference
 =========================

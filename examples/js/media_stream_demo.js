@@ -39,9 +39,83 @@ function errorMsg(msg, error) {
   }
 }
 
-async function openCamera(e, constraints) {
+async function openCamera(e) {
+
+  weblog("-------- Available User Devices -----------")
+  listUserDevices();
+
+  const constraints = window.constraints = {
+    audio: false,
+    video: true
+  };
+
+  const resSelect = document.querySelector('select#resolution');
+  var selectedRes = resSelect.value;
+
+  console.log("selectedRes=", selectedRes);
+  switch(selectedRes) {
+    case "90p":
+      constraints.video = {
+        mandatory: {
+          maxWidth: 160,
+          maxHeight: 90
+        }
+      }  
+      break;
+    case "180p":
+      constraints.video = {
+          mandatory: {
+            maxWidth: 320,
+            maxHeight: 180
+          }
+        }    
+      break;
+    case "360p":
+      constraints.video = {
+          mandatory: {
+            maxWidth: 640,
+            maxHeight: 360
+          }
+        }    
+      break;
+    
+    case "720p":
+      constraints.video = {
+          mandatory: {
+            maxWidth: 1280,
+            maxHeight: 720
+          }
+        }    
+      break;
+    case "1080p":
+      constraints.video = {
+          mandatory: {
+            maxWidth: 1920,
+            maxHeight: 1080
+          }
+        }    
+      break;
+    default:
+      constraints.video = {
+          mandatory: {
+            maxWidth: 1024,
+            maxHeight: 768
+          }
+        }  
+      
+      break;
+  }      
+  
+  const filterSelect = document.querySelector('select#filter');
+  filterSelect.onchange = function() {
+    const video = document.querySelector('video');
+    video.className = filterSelect.value;
+  };
+
   try {
+    console.log("to getUserMedia, constraints: ", constraints);
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    
     handleSuccess(stream);
     e.target.disabled = true;
     document.querySelector('#close').disabled = false;
