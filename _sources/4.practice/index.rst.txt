@@ -11,10 +11,6 @@
    wasm
    sfu
 
+   webrtc_qos
 
-   insertable_stream
 
-   media_metrics
-
-   web_codec
-   web_transport

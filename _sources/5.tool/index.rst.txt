@@ -12,3 +12,5 @@
    ffmpeg
    janus
    tcpdump
+   apprtc
+   mediasoup

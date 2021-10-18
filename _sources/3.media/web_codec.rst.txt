@@ -22,6 +22,17 @@ Web Codecs
 
 Overview
 =========================
+
+在WebRTC中，音频使用 opus codec 来做音频的编解码，视频使用 vp8 或 h.264 等库来做视频的编解码。
+
+以下两篇规范对于 WebRTC 所需要的 codec 有详细要求
+
+`RFC7874`_ "WebRTC Audio Codec and Processing Requirements" 
+`RFC7742`_ "WebRTC Video Processing and Codec Requirements" 
+
+
+用户在以前是没有办法来触及底层的编解码过程
+
 it defines interfaces to codecs for encoding and decoding of audio, video, and images.
 
 Spec: https://w3c.github.io/webcodecs/
@@ -279,3 +290,6 @@ https://w3c.github.io/webcodecs/samples/
 Reference
 ========================
 https://web.dev/webcodecs/
+
+
+.. _WebRTC Video Processing and Codec Requirements: https://datatracker.ietf.org/doc/html/rfc7742

@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Web Transport" href="web_transport.html" />
-    <link rel="prev" title="Media Metrics" href="media_metrics.html" /> 
+    <link rel="prev" title="Insertable Stream" href="insertable_stream.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,14 +92,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 实践篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
 <li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Web Codecs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#interface">Interface</a><ul>
@@ -120,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
@@ -170,7 +168,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
         
       <li>Web Codecs</li>
     
@@ -178,7 +176,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/4.practice/web_codec.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/3.media/web_codec.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -209,7 +207,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-16</p></td>
+<td><p>2021-10-18</p></td>
 </tr>
 </tbody>
 </table>
@@ -234,6 +232,11 @@
 </div>
 <div class="section" id="overview">
 <h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>在WebRTC中，音频使用 opus codec 来做音频的编解码，视频使用 vp8 或 h.264 等库来做视频的编解码。</p>
+<p>以下两篇规范对于 WebRTC 所需要的 codec 有详细要求</p>
+<p><a class="reference external" href="https://www.rfcreader.com/#rfc7874">RFC7874</a> “WebRTC Audio Codec and Processing Requirements”
+<a class="reference external" href="https://www.rfcreader.com/#rfc7742">RFC7742</a> “WebRTC Video Processing and Codec Requirements”</p>
+<p>用户在以前是没有办法来触及底层的编解码过程</p>
 <p>it defines interfaces to codecs for encoding and decoding of audio, video, and images.</p>
 <p>Spec: <a class="reference external" href="https://w3c.github.io/webcodecs/">https://w3c.github.io/webcodecs/</a></p>
 <p>The WebCodecs API gives web developers low-level access to the individual frames of a video stream and chunks of audio.</p>
@@ -476,7 +479,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="web_transport.html" class="btn btn-neutral float-right" title="Web Transport" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="media_metrics.html" class="btn btn-neutral float-left" title="Media Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="insertable_stream.html" class="btn btn-neutral float-left" title="Insertable Stream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

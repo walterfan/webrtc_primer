@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Insertable Stream" href="insertable_stream.html" />
+    <link rel="next" title="WebRTC QoS" href="webrtc_qos.html" />
     <link rel="prev" title="WebAssebly" href="wasm.html" /> 
 </head>
 
@@ -94,23 +94,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 实践篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 应用实践要点</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SFU Server</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sfu">SFU 所需要的相关库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#janus">Janus</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#reactor">Reactor</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#library">library</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#janus-as-an-example">Janus as an example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
@@ -188,17 +185,13 @@
 <h1>SFU Server<a class="headerlink" href="#sfu-server" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>An SFU (Selective Forwarding Unit) receives audio and video streams from endpoints and relays them to everyone else (endpoints send one and receive many). Each receiver endpoint can select which streams and spatial/temporal layers it receives. Compared to a mixer or MCU (Multipoint Control Unit) this design leads to a better performance, higher throughput and less latency. It’s highly scalable and requires much less resources given that it does not transcode or mix media.</p>
-<p>Since endpoints get the other endpoints’ media separately, they can have a personalized layout and choose which streams to render and how to display them.</p>
-<p>It is Audio/video router</p>
-<p>Pattern: publish/subscribe</p>
+<p>选择性转发单元 SFU（Selective Forwarding Unit）在各个端点之间交换音频和视频流。 每个接收器方可以选择它所要接收的流和层（空间/时间上）。 与 MCU（多点控制单元）相比，这种设计可以带来更好的性能、更高的吞吐量和更少的延迟。 鉴于它不做转码或合成媒体，所以它具有高度可扩展性，并且需要的资源少得多。</p>
+<p>由于各个端点分别获取其他端点的媒体，因此它们可以具有个性化的布局，并选择自己所要呈现的媒体流，以及决定如何显示它们。</p>
+<p>SFU 可以看作一个多媒体流的路由器，实践中可以应用发布订阅模式（ publish/subscribe pattern）</p>
+<img alt="../_images/webrtc_sfu.webp" src="../_images/webrtc_sfu.webp" />
 </div>
-</div>
-<div class="section" id="reactor">
-<h1>Reactor<a class="headerlink" href="#reactor" title="Permalink to this headline">¶</a></h1>
-<p>Reactor pattern</p>
-<div class="section" id="library">
-<h2>library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sfu">
+<h2>SFU 所需要的相关库<a class="headerlink" href="#sfu" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>libevent:</p>
 <ul>
@@ -219,8 +212,10 @@
 <li><p>join , joinandconfigure , configure , publish , unpublish , start , pause , switch and leave requests instead are all asynchronous</p></li>
 </ul>
 </div>
-<div class="section" id="janus-as-an-example">
-<h2>Janus as an example<a class="headerlink" href="#janus-as-an-example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="janus">
+<h3>Janus<a class="headerlink" href="#janus" title="Permalink to this headline">¶</a></h3>
 <p>refer to <a class="reference external" href="https://janus.conf.meetecho.com/docs/videoroom.html">https://janus.conf.meetecho.com/docs/videoroom.html</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">room</span><span class="o">-&lt;</span><span class="n">unique</span> <span class="n">room</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">description</span> <span class="o">=</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">my</span> <span class="n">awesome</span> <span class="n">room</span>
@@ -268,6 +263,7 @@
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -283,7 +279,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="insertable_stream.html" class="btn btn-neutral float-right" title="Insertable Stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="webrtc_qos.html" class="btn btn-neutral float-right" title="WebRTC QoS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="wasm.html" class="btn btn-neutral float-left" title="WebAssebly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

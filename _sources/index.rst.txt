@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-WebRTC 新手指南
+WebRTC 学习笔记
 =======================================
 
 ============ =============
