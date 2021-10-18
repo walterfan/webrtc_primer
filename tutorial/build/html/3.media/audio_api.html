@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Audio Quality" href="audio_quality.html" />
-    <link rel="prev" title="Audio QoS" href="audio_qos.html" /> 
+    <link rel="prev" title="Acoustic Echo Canceller" href="audio_aec.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,32 +94,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Web Audio API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#api">API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#baseaudiocontext">BaseAudioContext</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#audiocontext">AudioContext</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#audionode">AudioNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#scriptprocessornode">ScriptProcessorNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#audiobuffer">AudioBuffer</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Web Audio API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#faq">FAQ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#faq">FAQ</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#how-to-visualize-audio-wave">how to visualize audio wave</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#how-to-create-an-audiobuffer-and-fill-it-with-random-white-noise">how to create an AudioBuffer and fill it with random white noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="video_codec.html">视频编码</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
@@ -174,6 +169,8 @@
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+          <li><a href="webrtc_audio.html">WebRTC 音频</a> &raquo;</li>
         
       <li>Web Audio API</li>
     
@@ -503,7 +500,7 @@ that is dispatched to ScriptProcessorNode node types.</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="audio_quality.html" class="btn btn-neutral float-right" title="Audio Quality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="audio_qos.html" class="btn btn-neutral float-left" title="Audio QoS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="audio_aec.html" class="btn btn-neutral float-left" title="Acoustic Echo Canceller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

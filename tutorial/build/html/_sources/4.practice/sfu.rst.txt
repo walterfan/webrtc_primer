@@ -6,24 +6,20 @@ SFU Server
 Overview
 ====================
 
-An SFU (Selective Forwarding Unit) receives audio and video streams from endpoints and relays them to everyone else (endpoints send one and receive many). Each receiver endpoint can select which streams and spatial/temporal layers it receives. Compared to a mixer or MCU (Multipoint Control Unit) this design leads to a better performance, higher throughput and less latency. It's highly scalable and requires much less resources given that it does not transcode or mix media.
+选择性转发单元 SFU（Selective Forwarding Unit）在各个端点之间交换音频和视频流。 每个接收器方可以选择它所要接收的流和层（空间/时间上）。 与 MCU（多点控制单元）相比，这种设计可以带来更好的性能、更高的吞吐量和更少的延迟。 鉴于它不做转码或合成媒体，所以它具有高度可扩展性，并且需要的资源少得多。
 
-Since endpoints get the other endpoints' media separately, they can have a personalized layout and choose which streams to render and how to display them.
+由于各个端点分别获取其他端点的媒体，因此它们可以具有个性化的布局，并选择自己所要呈现的媒体流，以及决定如何显示它们。
 
+SFU 可以看作一个多媒体流的路由器，实践中可以应用发布订阅模式（ publish/subscribe pattern）
 
-It is Audio/video router
-
-Pattern: publish/subscribe
-
-#####################
-Reactor
-#####################
-
-Reactor pattern
+.. image:: ../_static/webrtc_sfu.webp
 
 
-library
-=================
+
+
+
+SFU 所需要的相关库
+==========================
 
 * libevent:
 
@@ -40,8 +36,11 @@ Features
 
 - join , joinandconfigure , configure , publish , unpublish , start , pause , switch and leave requests instead are all asynchronous
 
-Janus as an example
+Example
 ====================
+
+Janus
+--------------------
 
 refer to https://janus.conf.meetecho.com/docs/videoroom.html  
 

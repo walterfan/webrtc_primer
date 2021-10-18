@@ -333,7 +333,7 @@ RTCRtpScriptTransform
 * codes: https://github.com/webrtc/samples/tree/gh-pages/src/content/insertable-streams/endtoend-encryption
 
 
-.. image:: ../_static/insertable_stream_example.png
+.. image:: ../_static/webrtc_stream_pipe.webp
 
 下面的代码演示如何在原本发送到远端的视频流，RTCRtpSender 中的数据流是
 
@@ -514,11 +514,12 @@ decodeFunction 的实现如下，主要是把视频帧中的数据取出，先�
 
 至此，无论是采用 P2P 还是 SFU, 都不怕再有“中间人攻击”，只有通信的双方共享一个加密 key , 他们之间才能看到彼此正常的视频。在实际应用了，加密 key 的管理会更复杂，还需要加盐，加密算法多半会用  AES。
 
-Reference
+参考资料
 =========================
+* `WebRTC End to End encryption example`_
 * `webrtc-encoded-transform`_
 * `Insertable Stream Explain`_
 * `Streams API Concepts`_
 * `Streams API Spec`_
 
- 
+.. _WebRTC End to End encryption example: https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/

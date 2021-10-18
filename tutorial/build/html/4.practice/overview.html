@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>WebRTC 实践篇 &mdash; webrtc_tutorial 1 documentation</title>
+  <title>WebRTC 应用实践要点 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -94,14 +94,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 实践篇</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 应用实践要点</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">WebRTC 服务器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">服务器的主要功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#p2p">P2P</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sfu">SFU</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcu">MCU</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">服务器中需要维护领域对象</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sfu.html#reactor">Reactor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="media_metrics.html">Media Metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
@@ -156,7 +162,7 @@
         
           <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
         
-      <li>WebRTC 实践篇</li>
+      <li>WebRTC 应用实践要点</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,7 +182,148 @@
            <div itemprop="articleBody">
             
   <div class="section" id="webrtc">
-<h1>WebRTC 实践篇<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<h1>WebRTC 应用实践要点<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id4">WebRTC 服务器</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id5">服务器的主要功能</a></p>
+<ul>
+<li><p><a class="reference internal" href="#p2p" id="id6">P2P</a></p></li>
+<li><p><a class="reference internal" href="#sfu" id="id7">SFU</a></p></li>
+<li><p><a class="reference internal" href="#mcu" id="id8">MCU</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id3" id="id9">服务器中需要维护领域对象</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id4">WebRTC 服务器</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WebRTC 的服务器大体分为信令服务器和媒体服务器</p>
+<p>WebRTC 信令服务器是主要功能是为 WebRTC 通讯搭建一个了解彼此能力的通道, 交换信息, 同步改动.</p>
+<p>而媒体服务器就是用来交换媒体，包括对媒体数据的加解密，编解码，带宽和速率控制等功能</p>
+<p>不同的 <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc5117.html">RTP Toplogies</a> 对服务器有不同的要求, WebRTC 或者说多媒体通信一般有如下的几种拓扑结构：</p>
+<ol class="arabic simple">
+<li><p>Point to Point 点对点</p></li>
+<li><p>Point to Multipoint Using Multicast 单点到多点（使用多播）</p></li>
+<li><p>Point to Multipoint Using the RFC 3550 Translator  单点到多点（使用RFC3550 的 Translator）</p></li>
+<li><p>Point to Multipoint Using the RFC 3550 Mixer Model 单点到多点（使用RFC3550 的Mixer）</p></li>
+<li><p>Point to Multipoint Using Video Switching MCUs 单点到多点（使用视频切换）</p></li>
+<li><p>Point to Multipoint Using RTCP-Terminating MCU 单点到多点（使用RTCP 终结方式）</p></li>
+<li><p>Non-Symmetric Mixer/Translators 非对称的 mixer/translator</p></li>
+<li><p>Combining Topologies 混合拓扑</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id5">服务器的主要功能</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="p2p">
+<h3><a class="toc-backref" href="#id6">P2P</a><a class="headerlink" href="#p2p" title="Permalink to this headline">¶</a></h3>
+<p>如果是两个人之间的端到端 (P2P) 的通信, 信令服务器的功能很简单</p>
+<ol class="arabic simple">
+<li><p>交换媒体通信和处理能力,主要是以 SDP 来描述</p></li>
+<li><p>交换连接地址, 比如 ICE Candidate</p></li>
+</ol>
+<p>而由于是点对点的通信，媒体服务器也就不需要了。</p>
+<img alt="../_images/webrtc_p2p.png" src="../_images/webrtc_p2p.png" />
+</div>
+<div class="section" id="sfu">
+<h3><a class="toc-backref" href="#id7">SFU</a><a class="headerlink" href="#sfu" title="Permalink to this headline">¶</a></h3>
+<p>如果是 SFU(Selective Forward Unit), 那么它的信令服务器除了上述的 SDP 媒体参数协商， ICE 连接地址交换，还有参加 RTP 会话的参加者信息的同步。</p>
+<img alt="../_images/webrtc_sfu.webp" src="../_images/webrtc_sfu.webp" />
+<p>多个人之间的会议系统, 信令控制会麻烦很多,除了上述两个基本功能之外, 还要有</p>
+<ul class="simple">
+<li><p>会议管理</p></li>
+<li><p>成员管理</p></li>
+<li><p>设备管理</p></li>
+<li><p>会话管理</p></li>
+<li><p>连接管理</p></li>
+<li><p>媒体管理</p></li>
+<li><p>管理会议中的实体</p></li>
+</ul>
+<p>在 RFC4575 中有这样的定义</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conference</span><span class="o">-</span><span class="n">info</span>
+    <span class="o">|</span>
+    <span class="o">|--</span> <span class="n">conference</span><span class="o">-</span><span class="n">description</span>
+    <span class="o">|</span>
+    <span class="o">|--</span> <span class="n">host</span><span class="o">-</span><span class="n">info</span>
+    <span class="o">|</span>
+    <span class="o">|--</span> <span class="n">conference</span><span class="o">-</span><span class="n">state</span>
+    <span class="o">|</span>
+    <span class="o">|--</span> <span class="n">users</span>
+    <span class="o">|</span>    <span class="o">|--</span> <span class="n">user</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|--</span> <span class="n">endpoint</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|--</span> <span class="n">media</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|--</span> <span class="n">media</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|--</span> <span class="n">call</span><span class="o">-</span><span class="n">info</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|</span>
+    <span class="o">|</span>    <span class="o">|</span>    <span class="o">|--</span> <span class="n">endpoint</span>
+    <span class="o">|</span>    <span class="o">|</span>         <span class="o">|--</span> <span class="n">media</span>
+    <span class="o">|</span>    <span class="o">|--</span> <span class="n">user</span>
+    <span class="o">|</span>         <span class="o">|--</span> <span class="n">endpoint</span>
+    <span class="o">|</span>              <span class="o">|--</span> <span class="n">media</span>
+    <span class="o">|</span>
+
+    <span class="o">|--</span> <span class="n">sidebars</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">ref</span>
+    <span class="o">|</span>    <span class="o">|--</span> <span class="n">entry</span>
+    <span class="o">|</span>    <span class="o">|--</span> <span class="n">entry</span>
+    <span class="o">|</span>
+    <span class="o">|--</span> <span class="n">sidebars</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">val</span>
+        <span class="o">|--</span> <span class="n">entry</span>
+        <span class="o">|</span>    <span class="o">|--</span> <span class="n">users</span>
+        <span class="o">|</span>         <span class="o">|--</span> <span class="n">user</span>
+        <span class="o">|</span>         <span class="o">|--</span> <span class="n">user</span>
+        <span class="o">|--</span> <span class="n">entry</span>
+            <span class="o">|--</span> <span class="n">users</span>
+                    <span class="o">|--</span> <span class="n">user</span>
+                    <span class="o">|--</span> <span class="n">user</span>
+                    <span class="o">|--</span> <span class="n">user</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mcu">
+<h3><a class="toc-backref" href="#id8">MCU</a><a class="headerlink" href="#mcu" title="Permalink to this headline">¶</a></h3>
+<p>Multiple Control Unit 多点控制单元相比 SFU, 它有着对于媒体流的 Mix 和 translate 功能，可以很好地适配传统的通信设备，在实际应用中，一般我们会以 SFU 为主， MCU 为辅，共同形成一个服务器集群。</p>
+<img alt="../_images/webrtc_mcu.png" src="../_images/webrtc_mcu.png" />
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">服务器中需要维护领域对象</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>在 WebRTC 服务器上，我们一般会维护如下的领域对象</p>
+<ul class="simple">
+<li><p>Conference</p></li>
+<li><p>Session</p></li>
+<li><p>Participate</p></li>
+<li><p>Device</p></li>
+<li><p>Connection</p></li>
+<li><p>MediaSession</p></li>
+<li><p>MediaSessionDescription</p></li>
+<li><p>MediaStream</p></li>
+<li><p>MediaStreamTrack</p></li>
+<li><p>等等</p></li>
+</ul>
+<p>领域对象的具体内容从略，一般有如下的 Command 或 Event</p>
+<p>应用层的事件大约可以分为 5 类</p>
+<ul class="simple">
+<li><p>Request: 包括 command</p></li>
+<li><p>Response</p></li>
+<li><p>Subscribe</p></li>
+<li><p>Notify</p></li>
+<li><p>Message 就是一个消息，不要求响应, 例如 Presence 出席信息</p></li>
+</ul>
+<p>具体的有</p>
+<ul class="simple">
+<li><p>Start</p></li>
+<li><p>End</p></li>
+<li><p>Join</p></li>
+<li><p>Leave</p></li>
+<li><p>Offer</p></li>
+<li><p>Answer</p></li>
+<li><p>Mute</p></li>
+<li><p>Unmute</p></li>
+<li><p>Expel</p></li>
+<li><p>RaiseHand</p></li>
+<li><p>等等</p></li>
+</ul>
+</div>
 </div>
 
 

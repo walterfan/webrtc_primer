@@ -16,7 +16,7 @@ wasm 描述一个内存安全的沙箱执行环境，可在 JavaScript 虚拟机
 
 相对 wasm 的二进制文件格式，它还有对应的 wat 可读文本格式。
 
-.. figure:: v8_pipeline_wasm.png
+.. figure:: ../_static/v8_pipeline_wasm.png
    :scale: 100 %
    :alt: V8 Pipeline Design + WASM
 

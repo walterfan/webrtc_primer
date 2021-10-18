@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="视频编码" href="video_codec.html" />
-    <link rel="prev" title="Opus Codec" href="opus.html" /> 
+    <link rel="prev" title="WebRTC 视频" href="webrtc_video.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,34 +94,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opus.html">Opus Codec</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Video Basic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">颜色</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">光的三基色</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">色彩三要素</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Video Basic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">颜色</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">颜色模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">数字图像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools">Tools</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">颜色模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#rgb">RGB</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#yuv">YUV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video_codec.html">视频编码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_video.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_video.html#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">数字图像</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">显示分辨率</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#tools">Tools</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="video_codec.html">视频编码</a></li>
-<li class="toctree-l2"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
-<li class="toctree-l2"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
@@ -177,6 +169,8 @@
         
           <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
         
+          <li><a href="webrtc_video.html">WebRTC 视频</a> &raquo;</li>
+        
       <li>Video Basic</li>
     
     
@@ -214,7 +208,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-16</p></td>
+<td><p>2021-10-18</p></td>
 </tr>
 </tbody>
 </table>
@@ -437,7 +431,7 @@ Its functionality can also be used through the “Image Events” AppleScript su
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="video_codec.html" class="btn btn-neutral float-right" title="视频编码" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="opus.html" class="btn btn-neutral float-left" title="Opus Codec" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="webrtc_video.html" class="btn btn-neutral float-left" title="WebRTC 视频" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

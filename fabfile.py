@@ -22,6 +22,13 @@ def md2rst(src, dest=None):
     local(cmd)
 
 @task
+def rst2md(src, dest=None):
+    if not dest:
+        dest = src[:-4] + ".md";
+    cmd = "pandoc {} -f rst -t markdown -o {}".format(src, dest)
+    local(cmd)
+
+@task
 def make_guide():
     with lcd(GUIDE_PATH):
         build_cmd = 'make clean html'
