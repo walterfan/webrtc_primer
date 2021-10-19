@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="WebRTC API 之 Screen Capture" href="screen_capture.html" />
-    <link rel="prev" title="WebRTC 呼叫流程" href="webrtc_flow.html" /> 
+    <link rel="prev" title="Media Device" href="media_device.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_spec.html">WebRTC 标准，协议和规范</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_flow.html">WebRTC 呼叫流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_device.html">Media Device</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC API 之 Media Capture</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#enumeratedevices">enumerateDevices</a></li>
@@ -206,7 +207,7 @@
 <td><p>WIP as draft</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-18</p></td>
+<td><p>2021-10-19</p></td>
 </tr>
 </tbody>
 </table>
@@ -301,8 +302,8 @@
 <span class="p">};</span>
 
 <span class="nx">dictionary</span> <span class="nx">MediaTrackConstraintSet</span> <span class="p">{</span>
-    <span class="nx">ConstrainULong</span> <span class="nx">width</span><span class="p">;</span>
-    <span class="nx">ConstrainULong</span> <span class="nx">height</span><span class="p">;</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">width</span><span class="p">;</span>  <span class="c1">//视频帧高度</span>
+    <span class="nx">ConstrainULong</span> <span class="nx">height</span><span class="p">;</span> <span class="c1">//视频帧宽度</span>
     <span class="nx">ConstrainDouble</span> <span class="nx">aspectRatio</span><span class="p">;</span>
     <span class="nx">ConstrainDouble</span> <span class="nx">frameRate</span><span class="p">;</span>
     <span class="nx">ConstrainDOMString</span> <span class="nx">facingMode</span><span class="p">;</span>
@@ -408,7 +409,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="screen_capture.html" class="btn btn-neutral float-right" title="WebRTC API 之 Screen Capture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="webrtc_flow.html" class="btn btn-neutral float-left" title="WebRTC 呼叫流程" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="media_device.html" class="btn btn-neutral float-left" title="Media Device" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -12,5 +12,6 @@
    sfu
 
    webrtc_qos
+   webrtc_rtx
 
 

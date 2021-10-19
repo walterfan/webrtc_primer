@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Audio Level &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Audio QoS" href="audio_qos.html" />
+    <link rel="prev" title="Audio Basic" href="audio_basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Audio Level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">度量单位</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Audio Level</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#metrics">Metrics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">示例代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+          <li><a href="webrtc_audio.html">WebRTC 音频</a> &raquo;</li>
+        
+      <li>Audio Level</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/3.media/audio_level.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="audio-level">
+<h1>Audio Level<a class="headerlink" href="#audio-level" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>Audio Level</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-19</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id8">概述</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id9">声压</a></p></li>
+<li><p><a class="reference internal" href="#spl-sound-press-level" id="id10">声压级 SPL (Sound Press Level)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id5" id="id11">度量单位</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dbv" id="id12">dBV</a></p></li>
+<li><p><a class="reference internal" href="#dbm" id="id13">dBm</a></p></li>
+<li><p><a class="reference internal" href="#db-spl" id="id14">dB SPL</a></p></li>
+<li><p><a class="reference internal" href="#dbov" id="id15">dBov</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id6" id="id16">Audio Level</a></p></li>
+<li><p><a class="reference internal" href="#metrics" id="id17">Metrics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#audiolevel" id="id18">audioLevel</a></p></li>
+<li><p><a class="reference internal" href="#totalaudioenergy" id="id19">totalAudioEnergy</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id20">示例代码</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id21">Reference</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id8">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>音频电平 Audio Level 就是指声音的高低，它主要是指声波的振幅，我们先了解几个概念</p>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id9">声压</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>有效声压</p></li>
+</ul>
+<div class="math notranslate nohighlight" id="id3">
+<span id="equation"></span><span class="eqno">(1)<a class="headerlink" href="#id3" title="Permalink to this equation">¶</a></span>\[ \begin{align}\begin{aligned}p_x = \sqrt{ \frac{1}{T}  \sum_{n=1}^N x^2 \Delta t}\\    = \sqrt{ \frac{1}{N\Delta t}  \sum_{n=1}^N x^2 \Delta t}\\    = \sqrt{ \frac{1}{N}  \sum_{n=1}^N x^2}\end{aligned}\end{align} \]</div>
+</div>
+<div class="section" id="spl-sound-press-level">
+<h3><a class="toc-backref" href="#id10">声压级 SPL (Sound Press Level)</a><a class="headerlink" href="#spl-sound-press-level" title="Permalink to this headline">¶</a></h3>
+<p>声音的有效声压与基准声压之比，取以10 为底的对数，再乘以 20， 即为声压级</p>
+<ul class="simple">
+<li><p>声压级</p></li>
+</ul>
+<div class="math notranslate nohighlight" id="id4">
+<span id="equation"></span><span class="eqno">(2)<a class="headerlink" href="#id4" title="Permalink to this equation">¶</a></span>\[ L_p = 20 lg \frac{p_e}{p_ref}\]</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">度量单位</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>分贝（dB）是十分之一贝尔（B）：1B = 10dB。1贝尔的两个功率量的比值是10:1，1贝尔的两个场量的比值是{displaystyle {sqrt {10}}:1}{sqrt {10}}:1[1]。</p>
+<p>使用分贝有很多便利之处：</p>
+<ul class="simple">
+<li><p>分贝实际上是对数值，因此可以用常用的数量来表示非常大的比值，可以清楚地表示非常大的数量变化。</p></li>
+<li><p>多部件系统的整体增益（如级联的放大器）可以直接用各部件的增益分贝相加而求得。不必把这些增益值相乘（例如log(A × B × C) = log(A) + log(B) + log(C)）。</p></li>
+<li><p>人对强度的感知，如声音或者光照，更接近与强度的对数成正比而不是强度值本身，依据韦伯定理，因此分贝值可用于描述感知级别或级差。</p></li>
+</ul>
+<p>dB与后缀的组合，指出计算比值时的参考值。例如dBm指示功率值与1毫瓦的比值的分贝数。</p>
+<p>如果计算分贝时的参考值明确、确切地给出，那么分贝数值可以作为绝对量，如同被测量的功率量或者场量。例如，20dBm即为100毫瓦。</p>
+<p>SI国际单位制不允许使用分贝与后缀的组合形式如dBm, dBu, dBA，等等[13]。但这种不遵从SI单位制的表示却广泛应用于很多场合。</p>
+<div class="section" id="dbv">
+<h3><a class="toc-backref" href="#id12">dBV</a><a class="headerlink" href="#dbv" title="Permalink to this headline">¶</a></h3>
+<p>dB(VRMS) – voltage relative to 1 volt, regardless of impedance.[3] This is used to measure microphone sensitivity, and also to specify the consumer line-level of −10 dBV, in order to reduce manufacturing costs relative to equipment using a +4 dBu line-level signal.[45]</p>
+</div>
+<div class="section" id="dbm">
+<h3><a class="toc-backref" href="#id13">dBm</a><a class="headerlink" href="#dbm" title="Permalink to this headline">¶</a></h3>
+<p>dB(mW) – power relative to 1 milliwatt. In audio and telephony, dBm is typically referenced relative to a 600 Ω impedance,[56] which corresponds to a voltage level of 0.775 volts or 775 millivolts.</p>
+</div>
+<div class="section" id="db-spl">
+<h3><a class="toc-backref" href="#id14">dB SPL</a><a class="headerlink" href="#db-spl" title="Permalink to this headline">¶</a></h3>
+<p>dB（声压级，sound pressure level）–在空气或其它气体中的声压，参考值为20微帕斯卡（μPa） = 2×10−5 Pa，这是人能听到的最安静的声音。大致相当于3米外蚊子飞行的声音。经常被缩写为”dB”，这造成了很多误解以为”dB”是个有量纲的绝对单位。对于水声或其它液体，参考值是1 μPa[18]。</p>
+<p>dB SPL (sound pressure level) – for sound in air and other gases, relative to 20 micropascals (μPa), or 2×10−5 Pa, approximately the quietest sound a human can hear. For sound in water and other liquids, a reference pressure of 1 μPa is used.[51]
+An RMS sound pressure of one pascal corresponds to a level of 94 dB SPL.</p>
+</div>
+<div class="section" id="dbov">
+<h3><a class="toc-backref" href="#id15">dBov</a><a class="headerlink" href="#dbov" title="Permalink to this headline">¶</a></h3>
+<p>dB（过载，overload）–信号的幅值，参照于设备的最大在限幅（clipping）发生前的最大允许值。</p>
+<p>对于人声来说，dBov 是以分贝表示的电平，参考值是人耳所能听到（忍受）的最大的声音。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id16">Audio Level</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>RFC6464 中规定声音电平 audio level 以一字节扩展头的最低 7 个比特来表示，此字节的最高一位是一个标志位 “V”。</p>
+<ul class="simple">
+<li><p>最低7位比特：表示 audio level 单位是 -dBov，其值从 0（最大声） 到 127（静音） ，代表着 dBov 的 0（最大声） 到 -127（静音）</p></li>
+<li><p>最高1位比特：表示这个包否包含语音(voice activity), 如果在 SDP 协商中没有启用 “vad”(Voice Activity Detection) 语音活动检测，就忽略这个比特</p></li>
+</ul>
+</div>
+<div class="section" id="metrics">
+<h2><a class="toc-backref" href="#id17">Metrics</a><a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="audiolevel">
+<h3><a class="toc-backref" href="#id18">audioLevel</a><a class="headerlink" href="#audiolevel" title="Permalink to this headline">¶</a></h3>
+<p>type: double</p>
+<p>Only exists for audio. Represents the audio level of the receiving track. For audio levels of tracks attached locally, see RTCAudioSourceStats instead.</p>
+<p>The value is between 0..1 (linear), where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents approximately 6 dBSPL change in the sound pressure level from 0 dBov.</p>
+<p>The audioLevel is averaged over some small interval, using the algorithm described under totalAudioEnergy. The interval used is implementation dependent.</p>
+</div>
+<div class="section" id="totalaudioenergy">
+<h3><a class="toc-backref" href="#id19">totalAudioEnergy</a><a class="headerlink" href="#totalaudioenergy" title="Permalink to this headline">¶</a></h3>
+<p>type: double</p>
+<p>Only exists for audio. Represents the audio energy of the receiving track. For audio energy of tracks attached locally, see RTCAudioSourceStats instead.</p>
+<p>This value must be computed as follows: for each audio sample that is received (and thus counted by totalSamplesReceived), add the sample’s value divided by the highest-intensity encodable value, squared and then multiplied by the duration of the sample in seconds. In other words, duration * Math.pow(energy/maxEnergy, 2).</p>
+<p>This can be used to obtain a root mean square (RMS) value that uses the same units as audioLevel, as defined in [RFC6464]. It can be converted to these units using the formula Math.sqrt(totalAudioEnergy/totalSamplesDuration). This calculation can also be performed using the differences between the values of two different getStats() calls, in order to compute the average audio level over any desired time interval. In other words, do Math.sqrt((energy2 - energy1)/(duration2 - duration1)).</p>
+<p>For example, if a 10ms packet of audio is produced with an RMS of 0.5 (out of 1.0), this should add 0.5 * 0.5 * 0.01 = 0.0025 to totalAudioEnergy. If another 10ms packet with an RMS of 0.1 is received, this should similarly add 0.0001 to totalAudioEnergy. Then, Math.sqrt(totalAudioEnergy/totalSamplesDuration) becomes Math.sqrt(0.0026/0.02) = 0.36, which is the same value that would be obtained by doing an RMS calculation over the contiguous 20ms segment of audio.</p>
+<p>If multiple audio channels are used, the audio energy of a sample refers to the highest energy of any channel.</p>
+<p>这个度量指标只存在于音频中。它表示接收轨道的音频能量。有关本地附加轨道的音频能量，请参阅 RTCAudioSourceStats。</p>
+<p>该值必须按如下方式计算：</p>
+<p>对于接收到的每个音频样本（因此按 totalSamplesReceived 计数），将样本值除以最高强度的可编码值，平方，然后乘以以秒为单位的样本持续时间。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">duration</span> <span class="o">*</span> <span class="n">Math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">energy</span><span class="o">/</span><span class="n">maxEnergy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>这可用于获得与 audioLevel 使用相同单位的均方根 (RMS) 值，如 [RFC6464] 中所定义。可以使用公式 Math.sqrt(totalAudioEnergy/totalSamplesDuration) 将其转换为这些单位。也可以使用两个不同 getStats() 调用的值之间的差异来执行此计算，以便计算任何所需时间间隔内的平均音频电平。换句话说，做 Math.sqrt((energy2 - energy1)/(duration2 - duration1))。</p>
+<p>例如，如果生成一个 10 毫秒的音频数据包，其 RMS 为 0.5（超出 1.0），则应将 0.5 * 0.5 * 0.01 = 0.0025 添加到 totalAudioEnergy。如果接收到另一个 RMS 为 0.1 的 10ms 数据包，这应该类似地将 0.0001 添加到 totalAudioEnergy。然后，Math.sqrt(totalAudioEnergy/totalSamplesDuration) 变为 Math.sqrt(0.0026/0.02) = 0.36，这与通过对连续 20 毫秒音频段进行 RMS 计算获得的值相同。</p>
+<p>如果使用多个音频通道，则样本的音频能量是指任一通道的最高能量。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id20">示例代码</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6464">RFC6464</a> 中有计算 Audio Level 的 java 代码</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span> <span class="cm">/*</span>
+<span class="cm">   Copyright (c) 2011 IETF Trust and the persons identified</span>
+<span class="cm">   as authors of the code.  All rights reserved.</span>
+
+<span class="cm">   Redistribution and use in source and binary forms, with</span>
+<span class="cm">   or without modification, is permitted pursuant to, and subject</span>
+<span class="cm">   to the license terms contained in, the Simplified BSD License</span>
+<span class="cm">   set forth in Section 4.c of the IETF Trust&#39;s Legal Provisions</span>
+<span class="cm">   Relating to IETF Documents (http://trustee.ietf.org/license-info).</span>
+<span class="cm">*/</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Calculates the audio level of specific samples of a signal</span>
+<span class="cm"> * relative to overload.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AudioLevelCalculator</span>
+<span class="p">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Calculates the audio level of a signal with specific</span>
+<span class="cm">     * &lt;tt&gt;samples&lt;/tt&gt;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param samples  the samples whose audio level we need to</span>
+<span class="cm">     * calculate.  The samples are specified as an &lt;tt&gt;int&lt;/tt&gt;</span>
+<span class="cm">     * array starting at &lt;tt&gt;offset&lt;/tt&gt;, extending &lt;tt&gt;length&lt;/tt&gt;</span>
+<span class="cm">     * number of elements, and each &lt;tt&gt;int&lt;/tt&gt; element in the</span>
+<span class="cm">     * specified range representing a sample whose audio level we</span>
+
+<span class="cm">     * need to calculate.  Though a sample is provided in the</span>
+<span class="cm">     * form of an &lt;tt&gt;int&lt;/tt&gt; value, the sample size in bits</span>
+<span class="cm">     * is determined by the caller via &lt;tt&gt;overload&lt;/tt&gt;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param offset  the offset in &lt;tt&gt;samples&lt;/tt&gt; at which the</span>
+<span class="cm">     * samples start.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param length  the length of the signal specified in</span>
+<span class="cm">     * &lt;tt&gt;samples&lt;tt&gt;, starting at &lt;tt&gt;offset&lt;/tt&gt;.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @param overload  the overload (point) of &lt;tt&gt;signal&lt;/tt&gt;.</span>
+<span class="cm">     * For example, &lt;tt&gt;overload&lt;/tt&gt; can be {@link Byte#MAX_VALUE}</span>
+<span class="cm">     * for 8-bit signed samples or {@link Short#MAX_VALUE} for</span>
+<span class="cm">     * 16-bit signed samples.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return  the audio level of the specified signal.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateAudioLevel</span><span class="p">(</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">samples</span><span class="p">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">,</span>
+        <span class="kt">int</span> <span class="n">overload</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cm">/*</span>
+<span class="cm">         * Calculate the root mean square (RMS) of the signal.</span>
+<span class="cm">         */</span>
+        <span class="kt">double</span> <span class="n">rms</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(;</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">offset</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">double</span> <span class="n">sample</span> <span class="o">=</span> <span class="n">samples</span><span class="o">[</span><span class="n">offset</span><span class="o">]</span><span class="p">;</span>
+
+            <span class="n">sample</span> <span class="o">/=</span> <span class="n">overload</span><span class="p">;</span>
+            <span class="n">rms</span> <span class="o">+=</span> <span class="n">sample</span> <span class="o">*</span> <span class="n">sample</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">rms</span> <span class="o">=</span> <span class="p">(</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">rms</span> <span class="o">/</span> <span class="n">length</span><span class="p">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         * The audio level is a logarithmic measure of the</span>
+<span class="cm">         * rms level of an audio sample relative to a reference</span>
+<span class="cm">         * value and is measured in decibels.</span>
+<span class="cm">         */</span>
+        <span class="kt">double</span> <span class="n">db</span><span class="p">;</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         * The minimum audio level permitted.</span>
+<span class="cm">         */</span>
+        <span class="kd">final</span> <span class="kt">double</span> <span class="n">MIN_AUDIO_LEVEL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">127</span><span class="p">;</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         * The maximum audio level permitted.</span>
+<span class="cm">         */</span>
+        <span class="kd">final</span> <span class="kt">double</span> <span class="n">MAX_AUDIO_LEVEL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">rms</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="cm">/*</span>
+<span class="cm">             * The &quot;zero&quot; reference level is the overload level,</span>
+<span class="cm">             * which corresponds to 1.0 in this calculation, because</span>
+<span class="cm">             * the samples are normalized in calculating the RMS.</span>
+<span class="cm">             */</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">Math</span><span class="p">.</span><span class="na">log10</span><span class="p">(</span><span class="n">rms</span><span class="p">);</span>
+
+            <span class="cm">/*</span>
+<span class="cm">             * Ensure that the calculated level is within the minimum</span>
+<span class="cm">             * and maximum range permitted.</span>
+<span class="cm">             */</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">db</span> <span class="o">&lt;</span> <span class="n">MIN_AUDIO_LEVEL</span><span class="p">)</span>
+                <span class="n">db</span> <span class="o">=</span> <span class="n">MIN_AUDIO_LEVEL</span><span class="p">;</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">db</span> <span class="o">&gt;</span> <span class="n">MAX_AUDIO_LEVEL</span><span class="p">)</span>
+                <span class="n">db</span> <span class="o">=</span> <span class="n">MAX_AUDIO_LEVEL</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">db</span> <span class="o">=</span> <span class="n">MIN_AUDIO_LEVEL</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">Math</span><span class="p">.</span><span class="na">round</span><span class="p">(</span><span class="n">db</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id21">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6464">RFC6464</a>: A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6465">RFC6465</a>: A Real-time Transport Protocol (RTP) Header Extension for Mixer-to-Client Audio Level Indication</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="audio_qos.html" class="btn btn-neutral float-right" title="Audio QoS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="audio_basic.html" class="btn btn-neutral float-left" title="Audio Basic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -109,8 +109,8 @@ GUM-getUserMedia
     };
 
     dictionary MediaTrackConstraintSet {
-        ConstrainULong width;
-        ConstrainULong height;
+        ConstrainULong width;  //视频帧高度
+        ConstrainULong height; //视频帧宽度
         ConstrainDouble aspectRatio;
         ConstrainDouble frameRate;
         ConstrainDOMString facingMode;

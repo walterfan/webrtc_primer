@@ -101,3 +101,11 @@ Compression and media resilliency feature
 * 网络抽象层
 * 渐进式解码器刷新（GDR）帧
 * 长期参考图片（LTRP）帧
+
+
+
+Reference
+================
+* `Web video codec guide`_
+
+.. _Web video codec guide: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codec

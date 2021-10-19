@@ -31,7 +31,7 @@ Overview
 `RFC7742`_ "WebRTC Video Processing and Codec Requirements" 
 
 
-用户在以前是没有办法来触及底层的编解码过程
+浏览器用户在以前是没有办法来触及底层的编解码过程的， 直到 Web codec 和 
 
 it defines interfaces to codecs for encoding and decoding of audio, video, and images.
 

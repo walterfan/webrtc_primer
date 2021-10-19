@@ -65,32 +65,6 @@ Decibel 分贝
 
    SNR = 10 log_{10} \frac{V_{signal}^2}{V_{noise}^2} = 20 log_{10} \frac{V_{signal}}{V_{noise}}
 
-声压
------------------
-
-* 有效声压
-
-.. math::
-   :name: 有效声压
-
-   p_x = \sqrt{ \frac{1}{T}  \sum_{n=1}^N x^2 \Delta t}
-
-       = \sqrt{ \frac{1}{N\Delta t}  \sum_{n=1}^N x^2 \Delta t}
-
-       = \sqrt{ \frac{1}{N}  \sum_{n=1}^N x^2}
-
-
-声压级 SPL (Sound Press Level)
--------------------------------------
-
-声音的有效声压与基准声压之比，取以10 为底的对数，再乘以 20， 即为声压级
-
-* 声压级
-
-.. math::
-   :name: 声压级
-
-    L_p = 20 lg \frac{p_e}{p_ref}
 
 Audio 频宽
 =================================

@@ -15,6 +15,8 @@
    
    webrtc_flow
 
+   media_device
+
    media_capture
 
    screen_capture

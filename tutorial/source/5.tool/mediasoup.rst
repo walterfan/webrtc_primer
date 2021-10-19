@@ -35,6 +35,18 @@ Mediasoup is a opensource project, its server and client side libraries are desi
 * Enable integration with well known multimedia libraries/tools.
 
 
+Example
+================
+
+
+* https://github.com/versatica/mediasoup-demo
+
+
+.. code-block:: bash
+
+    $ git clone https://github.com/versatica/mediasoup-demo.git
+    $ cd mediasoup-demo
+    $ git checkout v3
 
 Reference
 ===============
