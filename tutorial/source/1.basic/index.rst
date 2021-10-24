@@ -27,6 +27,8 @@
 
    webrtc_signal
 
+   webrtc_sdp
+
    webrtc_stats
 
    video_chat

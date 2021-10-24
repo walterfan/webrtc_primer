@@ -38,9 +38,6 @@ def get_freq(bit):
     return freq_in_hertz
 
 decoded_freqs = [get_freq(bit) for bit in range(bits)]
-
-print("--- frequencies ---")
-unique_feqs = list(set(decoded_freqs))
-unique_feqs.sort()
-print(unique_feqs)
-
+print(decoded_freqs)
+bitsarr = [1 if freq == 800 else 0 for freq in decoded_freqs]
+# refer to https://stackoverflow.com/questions/3694918/how-to-extract-frequency-associated-with-fft-values-in-python
