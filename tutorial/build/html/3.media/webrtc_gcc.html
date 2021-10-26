@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>MediaSoup &mdash; webrtc_tutorial 1 documentation</title>
+  <title>WebRTC Congestion Control &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. WebRTC 关联技术" href="../6.misc/index.html" />
-    <link rel="prev" title="AppRTC" href="apprtc.html" /> 
+    <link rel="next" title="Insertable Stream" href="insertable_stream.html" />
+    <link rel="prev" title="WebRTC RTX" href="webrtc_rtx.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,22 +92,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC Congestion Control</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">5. WebRTC 工具</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sox.html">SoX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tcpdump.html">tcpdump</a></li>
-<li class="toctree-l2"><a class="reference internal" href="apprtc.html">AppRTC</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MediaSoup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
@@ -157,15 +160,15 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">5. WebRTC 工具</a> &raquo;</li>
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
         
-      <li>MediaSoup</li>
+      <li>WebRTC Congestion Control</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/5.tool/mediasoup.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/3.media/webrtc_gcc.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -178,8 +181,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mediasoup">
-<h1>MediaSoup<a class="headerlink" href="#mediasoup" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="webrtc-congestion-control">
+<h1>WebRTC Congestion Control<a class="headerlink" href="#webrtc-congestion-control" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -187,7 +190,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
-<td><p>MediaSoup</p></td>
+<td><p>WebRTC 拥塞控制</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Authors</strong></p></td>
 <td><p>Walter Fan</p></td>
@@ -196,47 +199,25 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-24</p></td>
+<td><p>2021-10-26</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
-<li><p><a class="reference internal" href="#example" id="id2">Example</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id3">Reference</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id3">简介</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id4">参考资料</a></p></li>
 </ul>
 </div>
-<div class="section" id="overview">
-<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Mediasoup is a opensource project, its server and client side libraries are designed to accomplish with the following goals:</p>
-<ul class="simple">
-<li><p>Be a SFU (Selective Forwarding Unit).</p></li>
-<li><p>Support both WebRTC and plain RTP input and output.</p></li>
-<li><p>Be a Node.js module in server side.</p></li>
-<li><p>Be a tiny JavaScript and C++ libraries in client side.</p></li>
-<li><p>Be minimalist: just handle the media layer.</p></li>
-<li><p>Be signaling agnostic: do not mandate any signaling protocol.</p></li>
-<li><p>Be super low level API.</p></li>
-<li><p>Support all existing WebRTC endpoints.</p></li>
-<li><p>Enable integration with well known multimedia libraries/tools.</p></li>
-</ul>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id3">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>视频会议需要低延迟和高带宽</p>
 </div>
-<div class="section" id="example">
-<h2><a class="toc-backref" href="#id2">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id4">参考资料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/versatica/mediasoup-demo">https://github.com/versatica/mediasoup-demo</a></p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/versatica/mediasoup-demo.git
-$ <span class="nb">cd</span> mediasoup-demo
-$ git checkout v3
-</pre></div>
-</div>
-</div>
-<div class="section" id="reference">
-<h2><a class="toc-backref" href="#id3">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://mediasoup.org/">MediaSoup offical site</a></p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/draft-alvestrand-rmcat-remb-03">REMB</a> : RTCP message for Receiver Estimated Maximum Bitrate</p></li>
+<li><p><a class="reference external" href="https://tools.ietf.org/html/draft-ietf-rmcat-gcc-02">GCC</a>: A Google Congestion Control Algorithm for Real-Time Communication</p></li>
 </ul>
 </div>
 </div>
@@ -247,8 +228,8 @@ $ git checkout v3
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../6.misc/index.html" class="btn btn-neutral float-right" title="6. WebRTC 关联技术" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="apprtc.html" class="btn btn-neutral float-left" title="AppRTC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="insertable_stream.html" class="btn btn-neutral float-right" title="Insertable Stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="webrtc_rtx.html" class="btn btn-neutral float-left" title="WebRTC RTX" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

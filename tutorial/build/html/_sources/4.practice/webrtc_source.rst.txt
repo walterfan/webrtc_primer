@@ -1,5 +1,5 @@
 #################
-WebRTC RTX
+WebRTC 源码分析
 #################
 
 .. include:: ../links.ref
@@ -7,7 +7,7 @@ WebRTC RTX
 .. include:: ../abbrs.ref
 
 ============ ==========================
-**Abstract** WebRTC RTX
+**Abstract** WebRTC Source
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|
@@ -20,12 +20,3 @@ WebRTC RTX
 
 Overview
 =============
-RTX 即 RTransmission, 用于丢包重传， 它使用额外的 ssrc 
-
-
-Reference
-==============
-* `RFC4588`_: RTP Retransmission Payload Format
-* `Implement RTX for WebRTC`_
-
-.. _Implement RTX for WebRTC: https://bugzilla.mozilla.org/show_bug.cgi?id=1164187

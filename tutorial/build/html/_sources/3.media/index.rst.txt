@@ -12,6 +12,11 @@
    webrtc_audio
    webrtc_video
 
+   webrtc_qos
+   webrtc_fec
+   webrtc_rtx
+   webrtc_gcc
+
    insertable_stream
    web_codec
    web_transport

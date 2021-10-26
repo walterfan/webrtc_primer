@@ -54,7 +54,7 @@ RTP 会话中会包含多路的媒体流 media stream，每一路流由 ssrc 这
 
 
 术语
-=========
+==================
 
 *  CNAME: Canonical Endpoint Identifier, defined in [RFC3550]
 
@@ -69,3 +69,27 @@ RTP 会话中会包含多路的媒体流 media stream，每一路流由 ssrc 这
 *  SDES: Source Description, defined in [RFC3550]
 
 *  SSRC: Synchronization Source, defined in [RFC3550]
+
+传输控制
+==================
+
+* Bandwidth estimation
+* Send control
+* Loas concealment
+* AV sync
+
+.. image:: ../_static/webrtc_flow.png
+   :alt: webrtc_flow
+
+
+参考资料
+====================
+* `Understanding the Dynamic Behaviour of the Google Congestion Control for RTCWeb`_
+* `GCC Analysis <https://www.aitrans.online/static/paper/Gcc-analysis.pdf>`_
+* `RTP Extensions for Transport-wide Congestion Control`_
+* `A Google Congestion Control Algorithm for Real-Time Communication`_
+
+.. _RTP Extensions for Transport-wide Congestion Control: https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
+.. _A Google Congestion Control Algorithm for Real-Time Communication:  https://tools.ietf.org/html/draft-ietf-rmcat-gcc-02
+
+.. _Understanding the Dynamic Behaviour of the Google Congestion Control for RTCWeb: https://ieeexplore.ieee.org/document/6691458

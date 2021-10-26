@@ -10,6 +10,6 @@
    overview
    websocket
    
-   webrtc_transport
+   webrtc_transmission
    webrtc_rtp
    ice
