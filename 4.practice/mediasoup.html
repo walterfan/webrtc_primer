@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>WebAssebly &mdash; webrtc_tutorial 1 documentation</title>
+  <title>MediaSoup &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SFU Server" href="sfu.html" />
-    <link rel="prev" title="WebRTC 应用实践要点" href="overview.html" /> 
+    <link rel="next" title="5. WebRTC 工具" href="../5.tool/index.html" />
+    <link rel="prev" title="Janus Gateway" href="janus.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,15 +95,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">4. WebRTC 实践</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 应用实践要点</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">WebAssebly</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="wasm.html">WebAssebly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sfu.html">SFU Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_source.html">WebRTC 源码分析</a></li>
 <li class="toctree-l2"><a class="reference internal" href="janus.html">Janus Gateway</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mediasoup.html">MediaSoup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MediaSoup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
@@ -158,13 +159,13 @@
         
           <li><a href="index.html">4. WebRTC 实践</a> &raquo;</li>
         
-      <li>WebAssebly</li>
+      <li>MediaSoup</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/4.practice/wasm.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/4.practice/mediasoup.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,33 +178,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="webassebly">
-<h1>WebAssebly<a class="headerlink" href="#webassebly" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>WebAssembly 的基本想法就是让浏览器加载由其他语言编译而成的二进制模块,并高效地解释和执行, 从而提高性能。</p>
-<p>Javascript 之所以慢，一个重要原因就是它是解释执行的，</p>
-<p>WebAssembly 简称 wasm 是一种新型的二进制代码格式， 浏览器可以用类似模块加载的方式来加载，解析和执行 wasm 文件。</p>
-<p>wasm 描述一个内存安全的沙箱执行环境，可在 JavaScript 虚拟机中实现， 并遵循与 Web 应用一致的同源策略来保证其安全性。</p>
-<p>相对 wasm 的二进制文件格式，它还有对应的 wat 可读文本格式。</p>
-<div class="figure align-default">
-<a class="reference internal image-reference" href="../_images/v8_pipeline_wasm.png"><img alt="V8 Pipeline Design + WASM" src="../_images/v8_pipeline_wasm.png" style="width: 964.0px; height: 436.0px;" /></a>
+  <div class="section" id="mediasoup">
+<h1>MediaSoup<a class="headerlink" href="#mediasoup" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>MediaSoup</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-26</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#example" id="id2">Example</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id3">Reference</a></p></li>
+</ul>
 </div>
-<p>所有变量存储的数据类型都是在程序运行之前就已经确定，并在后续运行过程中无法更改。</p>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Mediasoup is a opensource project, its server and client side libraries are designed to accomplish with the following goals:</p>
+<ul class="simple">
+<li><p>Be a SFU (Selective Forwarding Unit).</p></li>
+<li><p>Support both WebRTC and plain RTP input and output.</p></li>
+<li><p>Be a Node.js module in server side.</p></li>
+<li><p>Be a tiny JavaScript and C++ libraries in client side.</p></li>
+<li><p>Be minimalist: just handle the media layer.</p></li>
+<li><p>Be signaling agnostic: do not mandate any signaling protocol.</p></li>
+<li><p>Be super low level API.</p></li>
+<li><p>Support all existing WebRTC endpoints.</p></li>
+<li><p>Enable integration with well known multimedia libraries/tools.</p></li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2><a class="toc-backref" href="#id2">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/versatica/mediasoup-demo">https://github.com/versatica/mediasoup-demo</a></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/versatica/mediasoup-demo.git
+$ <span class="nb">cd</span> mediasoup-demo
+$ git checkout v3
+</pre></div>
+</div>
 </div>
 <div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://webassembly.org/getting-started/developers-guide/">WebAssembly Getting Started</a></p></li>
-</ul>
-<ul class="simple">
-<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/WebAssembly/existing_C_to_wasm">Compiling an Existing C Module to WebAssembly</a></p></li>
-</ul>
-<ul class="simple">
-<li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm">Compiling a New C/C++ Module to WebAssembly</a></p></li>
-</ul>
-<ul class="simple">
-<li><p><a class="reference external" href="https://blog.sessionstack.com/how-javascript-works-a-comparison-with-webassembly-why-in-certain-cases-its-better-to-use-it-d80945172d79">A comparison with WebAssembly</a>.</p></li>
+<li><p><a class="reference external" href="https://mediasoup.org/">MediaSoup offical site</a></p></li>
 </ul>
 </div>
 </div>
@@ -214,8 +247,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="sfu.html" class="btn btn-neutral float-right" title="SFU Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="overview.html" class="btn btn-neutral float-left" title="WebRTC 应用实践要点" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../5.tool/index.html" class="btn btn-neutral float-right" title="5. WebRTC 工具" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="janus.html" class="btn btn-neutral float-left" title="Janus Gateway" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

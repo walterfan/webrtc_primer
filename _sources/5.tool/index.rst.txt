@@ -10,7 +10,7 @@
   
    sox
    ffmpeg
-   janus
+
    tcpdump
    apprtc
-   mediasoup
+

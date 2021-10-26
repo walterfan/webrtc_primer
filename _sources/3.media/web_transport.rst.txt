@@ -22,3 +22,7 @@ Web Transport
 
 Overview
 =========================
+* Bandwidth estimation
+* Send control
+* Loas concealment
+* AV sync
