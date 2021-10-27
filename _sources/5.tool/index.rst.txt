@@ -7,7 +7,7 @@
    :maxdepth: 1
    :caption: Contents:
 
-  
+   devtools
    sox
    ffmpeg
 
