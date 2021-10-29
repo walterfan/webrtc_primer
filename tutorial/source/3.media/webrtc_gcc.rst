@@ -56,6 +56,6 @@ WebRTC Congestion Control
 =========================
 * `REMB`_ : RTCP message for Receiver Estimated Maximum Bitrate
 * `GCC`_: A Google Congestion Control Algorithm for Real-Time Communication
-
+* `Analysis and Design of the Google Congestion Control for WebRTC <https://c3lab.poliba.it/images/6/65/Gcc-analysis.pdf>`_
 
 
