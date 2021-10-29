@@ -1,13 +1,13 @@
-#################
-WebRTC 源码分析
-#################
+####################
+WebRTC test suite
+####################
 
 .. include:: ../links.ref
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
 ============ ==========================
-**Abstract** WebRTC Source
+**Abstract** WebRTC test suite
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|
@@ -21,22 +21,12 @@ WebRTC 源码分析
 Overview
 =============
 
+`WebRTC test suite`_
+WebRTC 
 
-Modules
-=============
-* API
-* audio
-* video
-
-
-
-RtpSender
+参考资料
 ==============
-* rtp_sender_interface.h
+https://github.com/web-platform-tests/wpt
 
 
-Reference
-==========
-* `Chromium Code Search`_
-
-.. _Chromium Code Search: https://source.chromium.org/chromium/chromium/src
+.. _WebRTC test suite: https://github.com/web-platform-tests/wpt/tree/master/webrtc/

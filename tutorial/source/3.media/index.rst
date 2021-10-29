@@ -15,7 +15,7 @@
    webrtc_qos
    webrtc_fec
    webrtc_rtx
-   webrtc_gcc
+   webrtc_rcc
 
    insertable_stream
    web_codec

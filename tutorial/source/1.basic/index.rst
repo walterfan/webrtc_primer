@@ -9,6 +9,10 @@
 
    overview
    
+   html5
+
+   web_browser
+
    webrtc_spec
 
    webrtc_api
@@ -33,5 +37,4 @@
 
    video_chat
 
-   html5
 
