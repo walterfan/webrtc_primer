@@ -126,6 +126,34 @@ FAQ
 * forward error correction
 
 
+分辨率与比特率之间的关系
+--------------------------------------------
+
+参见 https://chromium.googlesource.com/external/webrtc/+/master/media/engine/webrtc_video_engine.cc#326
+
+.. code-block:: c++
+
+  // The selected thresholds for QVGA and VGA corresponded to a QP around 10.
+  // The change in QP declined above the selected bitrates.
+  static int GetMaxDefaultVideoBitrateKbps(int width,
+                                          int height,
+                                          bool is_screenshare) {
+    int max_bitrate;
+    if (width * height <= 320 * 240) {
+      max_bitrate = 600;
+    } else if (width * height <= 640 * 480) {
+      max_bitrate = 1700;
+    } else if (width * height <= 960 * 540) {
+      max_bitrate = 2000;
+    } else {
+      max_bitrate = 2500;
+    }
+    if (is_screenshare)
+      max_bitrate = std::max(max_bitrate, 1200);
+    return max_bitrate;
+  }
+
+
 
 参考资料
 ======================
