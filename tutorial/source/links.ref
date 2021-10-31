@@ -48,7 +48,7 @@
 
 .. _SDP for the WebRTC: https://tools.ietf.org/html/draft-nandakumar-rtcweb-sdp-08 
 
-
+.. _GCC: https://datatracker.ietf.org/doc/html/draft-ietf-rmcat-gcc-02
 .. _REMB: https://tools.ietf.org/html/draft-alvestrand-rmcat-remb-03
 
 .. _RFC3264: https://tools.ietf.org/html/rfc3264 
@@ -76,3 +76,12 @@
 
 .. _RFC8825: https://datatracker.ietf.org/doc/html/rfc8825
 .. _RFC8836: https://datatracker.ietf.org/doc/html/rfc8836
+
+.. _RFC8843: https://datatracker.ietf.org/doc/html/rfc8843
+
+.. _RFC5761: https://www.rfcreader.com/#rfc5761
+
+.. _RFC8858: https://www.rfcreader.com/#rfc8858
+.. _RFC8860: https://www.rfcreader.com/#rfc8860
+.. _RFC8872: https://www.rfcreader.com/#rfc8872
+

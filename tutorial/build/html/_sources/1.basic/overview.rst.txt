@@ -43,7 +43,7 @@ WebRTC 是一个开放的网络框架，可在浏览器中启用实时通信，�
 * 媒体设备的访问 MediaDevices
 * 媒体流的捕获 Media Stream Capture
 * 对等连接 Peer connection
-* 远程流 Remote Stream
+* 本地和远程媒体流 Local and Remote Stream
 * 数据通道 Data Channel
 * 中转服务器 Turn Server
 
@@ -56,7 +56,7 @@ WebRTC 是一个开放的网络框架，可在浏览器中启用实时通信，�
 * 网络 - 通过 ICE, TURN, STUN 的 NAT 穿透与连接
 
 
-三在任务
+三大任务
 ------------------------------
 * 获取音视频流 audio and video
 * 音视频媒体流的通信
@@ -69,6 +69,16 @@ WebRTC 是一个开放的网络框架，可在浏览器中启用实时通信，�
 * 对等连接 RTCPeerConnection
 * 数据通道 RTCDataChannel 
 
+
+WebRTC 应用的核心功能
+===============================
+* 用户管理 User management
+* 会话管理 Session management
+* 信令管理 Signal management
+* 连接管理 Connection management
+* 设备管理 Device management
+* 媒体流管理 Media Stream/Track management
+* 媒体统计和度量 Media statistics and metrics
 
 参考资料
 ===============================

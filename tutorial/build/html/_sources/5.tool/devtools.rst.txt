@@ -8,7 +8,7 @@ Devtools
 .. include:: ../abbrs.ref
 
 ============ ==========================
-**Abstract** Chome devtools
+**Abstract** devtools
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|
@@ -24,3 +24,6 @@ Chome Devtools
 * `Analyze runtime performance`_
   
 .. _Analyze runtime performance: https://developer.chrome.com/docs/devtools/evaluate-performance/
+
+Chome Devtools
+====================

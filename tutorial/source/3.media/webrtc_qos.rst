@@ -26,6 +26,9 @@ WebRTC QoS
 
 为提高通信质量，通过有如下手段：
 
+.. image:: ../_static/webrtc_flow.png
+  :alt: webrtc_flow
+
 * 反馈 Feedback 和重传 RTX(Retransimission)
   
   通过 NACK(Negative ACK), PLI(Picture Loss Indication), FIR(Full Intra Request) 这些反馈机制要求发送方重新发包
@@ -67,7 +70,7 @@ WebRTC 内置的机制
 https://www.w3.org/TR/mst-content-hint/
 
 
-
+177 5191 0482
 
 Glossary
 ==================
@@ -121,6 +124,8 @@ FAQ
 * retransmission
 * interleaving
 * forward error correction
+
+
 
 参考资料
 ======================

@@ -11,6 +11,8 @@
    
    html5
 
+   javascript
+
    web_browser
 
    webrtc_spec

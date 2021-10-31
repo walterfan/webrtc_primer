@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="javascript.html">JavaScript Can Do More</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_browser.html">Web Browser for RTC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_spec.html">WebRTC 标准，协议和规范</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_flow.html">WebRTC 呼叫流程</a></li>
@@ -111,12 +114,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#sdp-grouping-framework">SDP Grouping Framework</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#source-specific-media-attributes-in-sdp">Source-Specific Media Attributes in SDP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sdp-examples">SDP examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">参见资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">参见资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_stats.html">WebRTC stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
-<li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
@@ -197,27 +199,27 @@
 <h1>WebRTC SDP<a class="headerlink" href="#webrtc-sdp" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id4">overview</a></p></li>
-<li><p><a class="reference internal" href="#an-offer-answer-model-with-the-sdp" id="id5">An Offer/Answer Model with the SDP</a></p></li>
-<li><p><a class="reference internal" href="#rtp-profile-for-audio-and-video-conferences-with-minimal-control" id="id6">RTP Profile for Audio and Video Conferences with Minimal Control</a></p></li>
-<li><p><a class="reference internal" href="#sdp-for-ice-and-dtls" id="id7">SDP for ICE and DTLS</a></p></li>
-<li><p><a class="reference internal" href="#sdp-extension" id="id8">SDP extension</a></p></li>
-<li><p><a class="reference internal" href="#negotiating-media-multiplexing-using-sdp" id="id9">Negotiating Media Multiplexing Using SDP</a></p></li>
-<li><p><a class="reference internal" href="#sdp-grouping-framework" id="id10">SDP Grouping Framework</a></p></li>
-<li><p><a class="reference internal" href="#source-specific-media-attributes-in-sdp" id="id11">Source-Specific Media Attributes in SDP</a></p></li>
-<li><p><a class="reference internal" href="#sdp-examples" id="id12">SDP examples</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id13">参见资料</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id5">overview</a></p></li>
+<li><p><a class="reference internal" href="#an-offer-answer-model-with-the-sdp" id="id6">An Offer/Answer Model with the SDP</a></p></li>
+<li><p><a class="reference internal" href="#rtp-profile-for-audio-and-video-conferences-with-minimal-control" id="id7">RTP Profile for Audio and Video Conferences with Minimal Control</a></p></li>
+<li><p><a class="reference internal" href="#sdp-for-ice-and-dtls" id="id8">SDP for ICE and DTLS</a></p></li>
+<li><p><a class="reference internal" href="#sdp-extension" id="id9">SDP extension</a></p></li>
+<li><p><a class="reference internal" href="#negotiating-media-multiplexing-using-sdp" id="id10">Negotiating Media Multiplexing Using SDP</a></p></li>
+<li><p><a class="reference internal" href="#sdp-grouping-framework" id="id11">SDP Grouping Framework</a></p></li>
+<li><p><a class="reference internal" href="#source-specific-media-attributes-in-sdp" id="id12">Source-Specific Media Attributes in SDP</a></p></li>
+<li><p><a class="reference internal" href="#sdp-examples" id="id13">SDP examples</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id14">参见资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id4">overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>An SDP session description includes the following:
 * Session name and purpose
 * Time(s) the session is active
 * The media comprising the session o Information needed to receive those media (addresses, ports, formats, etc.)</p>
 </div>
 <div class="section" id="an-offer-answer-model-with-the-sdp">
-<h2><a class="toc-backref" href="#id5">An Offer/Answer Model with the SDP</a><a class="headerlink" href="#an-offer-answer-model-with-the-sdp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">An Offer/Answer Model with the SDP</a><a class="headerlink" href="#an-offer-answer-model-with-the-sdp" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>每当需要 Offer/Answer 交换时，发起方都会通过调用 createOffer() API 创建 Offer。</p></li>
 <li><p>然后，应用程序使用该 Offer 通过 setLocalDescription() API来设置其本地配置。 offer 最终通过其首选的信令机制（例如WebSockets）发送到远程端；收到该 offer 后，远程方将使用 setRemoteDescription()API进行安置。</p></li>
@@ -226,15 +228,15 @@
 <p>参见  <a class="reference external" href="https://tools.ietf.org/html/rfc3264">RFC3264</a></p>
 </div>
 <div class="section" id="rtp-profile-for-audio-and-video-conferences-with-minimal-control">
-<h2><a class="toc-backref" href="#id6">RTP Profile for Audio and Video Conferences with Minimal Control</a><a class="headerlink" href="#rtp-profile-for-audio-and-video-conferences-with-minimal-control" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">RTP Profile for Audio and Video Conferences with Minimal Control</a><a class="headerlink" href="#rtp-profile-for-audio-and-video-conferences-with-minimal-control" title="Permalink to this headline">¶</a></h2>
 <p>参见  <a class="reference external" href="https://tools.ietf.org/html/rfc3551">RFC3551</a></p>
 </div>
 <div class="section" id="sdp-for-ice-and-dtls">
-<h2><a class="toc-backref" href="#id7">SDP for ICE and DTLS</a><a class="headerlink" href="#sdp-for-ice-and-dtls" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">SDP for ICE and DTLS</a><a class="headerlink" href="#sdp-for-ice-and-dtls" title="Permalink to this headline">¶</a></h2>
 <p>关于 DTLS extension to establish keys for SRTP, 请参见 <a class="reference external" href="https://tools.ietf.org/html/rfc5764">RFC5764</a></p>
 </div>
 <div class="section" id="sdp-extension">
-<h2><a class="toc-backref" href="#id8">SDP extension</a><a class="headerlink" href="#sdp-extension" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">SDP extension</a><a class="headerlink" href="#sdp-extension" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>DTLS fingerprint for SRTP (a=fingerprint)</p></li>
 <li><p>RTP/RTCP Multiplexing (a=rtcp-mux)</p></li>
@@ -246,7 +248,7 @@
 </ul>
 </div>
 <div class="section" id="negotiating-media-multiplexing-using-sdp">
-<h2><a class="toc-backref" href="#id9">Negotiating Media Multiplexing Using SDP</a><a class="headerlink" href="#negotiating-media-multiplexing-using-sdp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Negotiating Media Multiplexing Using SDP</a><a class="headerlink" href="#negotiating-media-multiplexing-using-sdp" title="Permalink to this headline">¶</a></h2>
 <p>该扩展可以与SDP提供/应答机制一起使用，以协商使用单个传输（5元组）来发送和接收由多个SDP媒体描述所描述的媒体
 5-tuple：client ip, client port, server ip, server port, protocol
 Allow an SDP ‘group’ attribute to contain an identification-tag that identifies a “m=” section with the port set to zero.
@@ -254,7 +256,7 @@ It is to use a single transport(BUNDLE transport) for multiple media streams, de
 <p>请参见  <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8843">RFC8843</a></p>
 </div>
 <div class="section" id="sdp-grouping-framework">
-<h2><a class="toc-backref" href="#id10">SDP Grouping Framework</a><a class="headerlink" href="#sdp-grouping-framework" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">SDP Grouping Framework</a><a class="headerlink" href="#sdp-grouping-framework" title="Permalink to this headline">¶</a></h2>
 <p>The Session Description Protocol (SDP) Grouping Framework</p>
 <ul>
 <li><p>Use of “group” and “mid”</p></li>
@@ -270,7 +272,7 @@ It is to use a single transport(BUNDLE transport) for multiple media streams, de
 <p>请参见  <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5888">RFC5888</a></p>
 </div>
 <div class="section" id="source-specific-media-attributes-in-sdp">
-<h2><a class="toc-backref" href="#id11">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#source-specific-media-attributes-in-sdp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#source-specific-media-attributes-in-sdp" title="Permalink to this headline">¶</a></h2>
 <p>Defines a mechanism to describe RTP sources, identified by their synchronization source (SSRC) identifier, in SDP, to associate attributes with these sources, and to express relationships among individual sources.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="o">&lt;</span><span class="n">ssrc</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">attribute</span><span class="o">&gt;</span>
 <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="o">&lt;</span><span class="n">ssrc</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">attribute</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span>
@@ -280,11 +282,11 @@ It is to use a single transport(BUNDLE transport) for multiple media streams, de
 <p>请参见  <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5576">RFC5576</a></p>
 </div>
 <div class="section" id="sdp-examples">
-<h2><a class="toc-backref" href="#id12">SDP examples</a><a class="headerlink" href="#sdp-examples" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">SDP examples</a><a class="headerlink" href="#sdp-examples" title="Permalink to this headline">¶</a></h2>
 <p>请参见 <a class="reference external" href="https://tools.ietf.org/html/draft-nandakumar-rtcweb-sdp-08">https://tools.ietf.org/html/draft-nandakumar-rtcweb-sdp-08</a></p>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id13">参见资料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">参见资料</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.rfcreader.com/#rfc4566">SDP: Session Description Protocol</a></p></li>
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3264">An Offer/Answer Model with the Session Description Protocol (SDP)</a></p></li>

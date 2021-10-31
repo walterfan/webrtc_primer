@@ -115,6 +115,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#id11">随机信号处理</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">滤波</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
@@ -208,40 +209,41 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-10-27</p></td>
+<td><p>2021-10-31</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id13">信号是什么</a></p>
+<li><p><a class="reference internal" href="#id2" id="id14">信号是什么</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id14">信号的分类</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">信号的分类</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id4" id="id15">信号处理中用到的统计值</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id16">什么是数字信号处理</a></p>
+<li><p><a class="reference internal" href="#id4" id="id16">信号处理中用到的统计值</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">什么是数字信号处理</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id6" id="id17">数字信号处理所牵涉到的理论</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id18">数字信号处理在实时通信中的应用</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id18">数字信号处理所牵涉到的理论</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id19">数字信号处理在实时通信中的应用</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id8" id="id19">数字信号处理的关键技术</a></p>
+<li><p><a class="reference internal" href="#id8" id="id20">数字信号处理的关键技术</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id9" id="id20">经典信号处理</a></p></li>
-<li><p><a class="reference internal" href="#id10" id="id21">现代信号处理</a></p></li>
-<li><p><a class="reference internal" href="#id11" id="id22">随机信号处理</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id21">经典信号处理</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id22">现代信号处理</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id23">随机信号处理</a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#id12" id="id24">滤波</a></p></li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id13">信号是什么</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">信号是什么</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>信号就是随一个参数变化的某种物理量，例如电压电流信号，语音信号，振动信号，等等</p>
 <p>我们在实时通信中所说的信号代表一般都是指一个随时间变化的量。</p>
 <p>以声音信号为例，声音是空气压力的变化产生的，声音信号则代表着空气压力随时间的变化。</p>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id14">信号的分类</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">信号的分类</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>按其表示方式可分为模拟信号和数字信号</p></li>
 <li><p>按其连续性可分为连续信号和离散信号</p></li>
@@ -291,7 +293,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h2><a class="toc-backref" href="#id15">信号处理中用到的统计值</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">信号处理中用到的统计值</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>平均值 mean</p></li>
 </ul>
@@ -333,7 +335,7 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id16">什么是数字信号处理</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">什么是数字信号处理</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>数字信号处理是利用计算机或专用设备，以数值计算的方法对信号进行采集，变换，合成与识别等加工处理，
 借以达到提取信息和应用信息的目的。</p>
 <ul class="simple">
@@ -341,7 +343,7 @@
 <li><p>信息处理： 对信号进行处理，以利于应用，例如压缩，滤波，等等</p></li>
 </ul>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id17">数字信号处理所牵涉到的理论</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">数字信号处理所牵涉到的理论</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>通信理论</p></li>
 <li><p>数值分析</p></li>
@@ -353,7 +355,7 @@
 </ul>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id18">数字信号处理在实时通信中的应用</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">数字信号处理在实时通信中的应用</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>语音数据压缩</p></li>
 <li><p>视频数据压缩</p></li>
@@ -367,9 +369,9 @@
 </div>
 </div>
 <div class="section" id="id8">
-<h2><a class="toc-backref" href="#id19">数字信号处理的关键技术</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">数字信号处理的关键技术</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id20">经典信号处理</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">经典信号处理</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>时频分析
 频频分析</p>
 <ul class="simple">
@@ -377,7 +379,7 @@
 </ul>
 </div>
 <div class="section" id="id10">
-<h3><a class="toc-backref" href="#id21">现代信号处理</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">现代信号处理</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>短时傅立叶变换 STFT(Short Time Fourier Transform)</p></li>
 <li><p>窗函数：高斯窗，汉明窗</p></li>
@@ -388,7 +390,7 @@
 </ul>
 </div>
 <div class="section" id="id11">
-<h3><a class="toc-backref" href="#id22">随机信号处理</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">随机信号处理</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>自适应滤波器</p>
 <ul>
@@ -398,6 +400,21 @@
 </li>
 </ul>
 </div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id24">滤波</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>滤波</p></li>
+</ul>
+<blockquote class="epigraph">
+<div><p>本质上来讲，滤波就是一个信号处理与变换(去除或减弱不想要的成分，增强所需成分)的过程。</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>卡尔曼滤波</p></li>
+</ul>
+<blockquote class="epigraph">
+<div><p>卡尔曼滤波属于一种软件滤波方法，其基本思想是：以最小均方误差为最佳估计准则，采用信号与噪声的状态空间模型，利用前一时刻的估计值和当前时刻的观测值来更新对状态变量的估计，求出当前时刻的估计值。算法根据建立的系统方程和观测方程对需要处理的信号做出满足最小均方误差的估计。</p>
+</div></blockquote>
 </div>
 </div>
 
