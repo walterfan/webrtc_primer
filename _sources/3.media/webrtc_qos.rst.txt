@@ -26,9 +26,13 @@ WebRTC QoS
 
 为提高通信质量，通过有如下手段：
 
+.. image:: ../_static/webrtc_flow.png
+  :alt: webrtc_flow
+
 * 反馈 Feedback 和重传 RTX(Retransimission)
   
   通过 NACK(Negative ACK), PLI(Picture Loss Indication), FIR(Full Intra Request) 这些反馈机制要求发送方重新发包
+  重传在网络拥塞时并非最好的选择，反而会把加重拥塞，要在发送端做平滑的速率控制 (rate controller)
 
 * 纠错 FEC
   
@@ -50,6 +54,23 @@ WebRTC QoS
 以 Video 为例， 在网络会议中需要流畅的视频，可是带宽有限，网络质量不是太好，这样就需要降低视频和图像质量（例如降低分辨率，帧率等）
 所以我们需要在高质量与低延迟之间做平衡，如何平衡的依据很重要，我们要看度量数据(metrics), 例如丢包，延迟，抖动等数据。
 
+发送方
+* 根据丢包(remotePacketLoss)和延迟(RTT), 调整分辨率和帧率
+* 通过启用 FEC 来避免重传(retransmission)
+
+接收方
+* 根据丢包(packetLoss)和延迟(receiveSkew), 抖动(jitter) 来估算带宽，发送  REMB 来告知发送方调整带宽
+* use FEC to repair error
+
+WebRTC 内置的机制
+============================
+在 API 层面
+* MediaStreamTrack Content Hints
+
+https://www.w3.org/TR/mst-content-hint/
+
+
+177 5191 0482
 
 Glossary
 ==================
@@ -103,6 +124,8 @@ FAQ
 * retransmission
 * interleaving
 * forward error correction
+
+
 
 参考资料
 ======================

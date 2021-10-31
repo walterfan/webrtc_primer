@@ -12,6 +12,7 @@
    sfu
 
    webrtc_source
+   webrtc_test
 
    janus
    mediasoup

@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>JavaScript Can Do More &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Web Browser for RTC" href="web_browser.html" />
+    <link rel="prev" title="HTML5 for WebRTC" href="html5.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="html5.html">HTML5 for WebRTC</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">JavaScript Can Do More</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">类与模块的完善</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">异步功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">多线程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="web_browser.html">Web Browser for RTC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_spec.html">WebRTC 标准，协议和规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_api.html">WebRTC API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_flow.html">WebRTC 呼叫流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_device.html">Media Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_capture.html">WebRTC API 之 Media Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="screen_capture.html">WebRTC API 之 Screen Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media_record.html">WebRTC API 之 Media Record</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_extension.html">WebRTC extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_signal.html">WebRTC 的信令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_sdp.html">WebRTC SDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_stats.html">WebRTC stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">1. WebRTC 基础</a> &raquo;</li>
+        
+      <li>JavaScript Can Do More</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/1.basic/javascript.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="javascript-can-do-more">
+<h1>JavaScript Can Do More<a class="headerlink" href="#javascript-can-do-more" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>JavaScript Can Do More</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-10-31</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id1" id="id6">概述</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id7">类与模块的完善</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id8">异步功能</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id9">多线程</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id10">参考资料</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id6">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript 早已今非昔比，浏览器的功能越来越丰富，几乎成为了第二个操作系统类的开发平台，而 JavaScript 作为每个浏览器都支持的脚本语言在近年来也发扬光大，伴随着nodejs的发展， 它也从一门依附于浏览器的脚本语言发展成为了一门全栈语言。</p>
+<p>我曾经写过一篇吐槽的文章：”<a class="reference external" href="https://www.jianshu.com/p/e301932c5b6d">C++程序员眼中丑陋的 JS</a>”, 从 C++ 程序员的角度，历数 JavaScript 的种种不是。现在看来，观点有点偏激，在充分了解了 JS 这几年的发展之后，不得不对它刮目相看。</p>
+<p>例如，在 “Modern JavaScript Features That Every Programmer Must Know..!” 中提到过的 Top features</p>
+<ul class="simple">
+<li><p>The let keyword</p></li>
+<li><p>The const keyword</p></li>
+<li><p>JavaScript Arrow Functions</p></li>
+<li><p>JavaScript Classes</p></li>
+<li><p>Template literals</p></li>
+<li><p>Freeze Objects</p></li>
+<li><p>Destructuring</p></li>
+<li><p>Promises</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id7">类与模块的完善</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id8">异步功能</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id9">多线程</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id10">参考资料</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://medium.com/devtechtoday/modern-javascript-features-that-every-programmer-must-know-83a1f37af2f2">Modern JavaScript Features That Every Programmer Must Know</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="web_browser.html" class="btn btn-neutral float-right" title="Web Browser for RTC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="html5.html" class="btn btn-neutral float-left" title="HTML5 for WebRTC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
