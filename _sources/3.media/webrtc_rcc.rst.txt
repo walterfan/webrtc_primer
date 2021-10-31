@@ -36,14 +36,19 @@ WebRTC RTP Congestion Control
 在接收方，根据 RTP 包到达的时间延迟，通过 arrival time filter, 估算出网络延迟 m(ti), 经过 over-user detector 来判断当前网络的拥塞情况， 再由 Remote rate controller 根据规则计算出最大码率 Ar, 通过 RTCP REMB 消息将 Ar 发回给发送方。 发送方再由 A_s, A_r 和配置，计算出目标的码率 A, 应用到 Encoder 和 Packed Sender 来控制发送方的码率。
 
 
-.. image:: ../_static/gcc-architecture.png
+.. figure:: ../_static/gcc-architecture.png
+   :scale: 90 %
    :alt: gcc-architecture
+   :align: center
+
+   GCC Architecture
+
 
 术语
 =========================
 * RMCAT: RTP Media Congestion Avoidance Techniques 即 RTP 媒体拥塞避免技术
   
-* 排队延迟
+* 排队延迟  queuing delay
 
 * 延迟梯度
 
@@ -65,7 +70,7 @@ WebRTC RTP Congestion Control
 
 基本要求：在最多几百毫秒之内，接收方能够连贯流畅地听到或看到发送方的声音，图像或视频。
 
-具体要求, 参见 `RFC8836`
+具体要求, 参见 [#]_ `RFC8836`_
 
 1.   The congestion control algorithm MUST attempt to provide as-low-as-possible-delay transit for interactive real-time traffic while still providing a useful amount of bandwidth.
 
@@ -90,91 +95,36 @@ WebRTC RTP Congestion Control
 
 11.  The algorithm SHOULD be stable and maintain low delay when faced  with Active Queue Management (AQM) algorithms.  Also note that these algorithms may apply across multiple queues in the bottleneck or to a single queue.
 
-平滑发送 Smooth/Paced Sender
-============================================
-* send rate
-* ack rate
-  
-Google Congestion Control
-============================================
 
-1. 到达时间滤波器 arrival time filter
+拥塞控制算法必须尝试为交互式实时流量提供尽可能低的延迟传输，同时仍然提供有用的带宽量。
 
-两个包发送的间隔 T(i) – T(i-1) 和接收的间隔 t(i) – t(i-1) 在理想情况下是相同的，实际上会有不同.
-也就是说包的到达时间并未保持稳定的速度。 在计算的时候可以用以帧分组，对两个组的到达时间进行计算。
+该算法必须对其他流公平，包括实时流（例如自身的其他实例）和 TCP 流，包括长期流和突发，例如典型的 Web 浏览会话生成的流量。
 
-.. image:: ../_static/rtp_packet_skew.png
-   :alt: packet transmission delay
+该算法不应该使竞争 TCP 流饥饿，并且应该尽可能避免 TCP 流饥饿
 
+该算法应该尽快适应流开始时的初始网络条件。
 
-.. code-block::
+如果 RTP 流停止或不连续（例如，当使用语音活动检测时），算法应该是稳定的。
 
-   # 发送间隔与到达时间之间的延时
-   d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
+在可能的情况下，当 RTP 流共享一个公共瓶颈时，算法应该合并在两个端点之间发送的多个 RTP 流之间的信息，无论这些流是否复用到相同的端口。
 
-   # 两组包之间的大小之差
-   dL(i) = L(i) - l(i-1)
+该算法不应该需要来自网络元素的任何特殊支持才能传达与拥塞相关的信息。
 
-   # C(i) 表示带宽
-   d(i) = dL(i)/C(i) + m(i) + v(i)   
+由于这里假设是一组 RTP 流，反向通道通常应该通过 RTP 控制协议 (RTCP) 完成
 
-   其中dL(i)表示相邻两帧的长度差，
-   C(i)表示网络信道容量，
-   m(i)表示网络排队延迟，
-   v(i)表示网络抖动或其他延迟噪声。
+由该算法管理的流和在瓶颈处相互竞争的流可能具有不同的差分服务代码点 (DSCP) [RFC5865] 标记，具体取决于流量类型，或者可能受基于流的 QoS 的约束。
 
-   C(i) 是我们想预测的带宽，m(i)即是我们要求得的网络排队延迟, 可由 Kalman Filter 求得
+该算法应该将反向信道信息的意外缺失感知为信道过度使用问题的可能指示，并相应地做出反应以避免导致拥塞崩溃的突发事件。
 
-T(i)是第i个数据包组中第一个数据包的发送时间，t(i)是第i个数据包组中最后一个数据包的到达时间
+当面对主动队列管理 (AQM) 算法时，该算法应该是稳定的并保持低延迟。另请注意，这些算法可能适用于瓶颈中的多个队列或单个队列。
 
 
-2. 过载检查器 over-use detector
+标准化状况和存在的问题
+========================================================================================
+参见由 [#]_ “Luca De Cicco, Gaetano Carlucci, and Saverio Mascolo” 所撰写的文章
 
-3. 速率控制器 rate controller
-
-
-测试与验证
-======================
-
-
-参考代码
-======================
-* https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/
-  - congestion_controller/
-  - remote_bitrate_estimator/
-
-
-参考资料
-=========================
-* `REMB`_ : RTCP message for Receiver Estimated Maximum Bitrate
-
-* `A Google Congestion Control Algorithm for Real-Time Communication`_
-
-* `Analysis and Design of the Google Congestion Control for WebRTC <https://c3lab.poliba.it/images/6/65/Gcc-analysis.pdf>`_
-
-* `GCC Introduction`_
-
-* `RFC8825`_: Overview: Real-Time Protocols for Browser-Based Applications
-* `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
-* `RFC8083`_: Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions
-
-* `RMCAT documents`_: RTP Media Congestion Avoidance Techniques documents
-
-.. _RMCAT documents: https://datatracker.ietf.org/wg/rmcat/documents/
-
-.. _A Google Congestion Control Algorithm for Real-Time Communication: https://datatracker.ietf.org/doc/html/draft-alvestrand-rmcat-congestion-03
-.. _GCC Introduction: https://www.cnblogs.com/wangyiyunxin/p/11122003.html
-
-.. _RFC8083: https://www.rfcreader.com/#rfc8083
-
-
-Congestion Control for WebRTC: Standardization Status and Open Issues
--------------------------------------------------------------------------
-
-.. sidebar:: Congestion Control for WebRTC: Standardization Status and Open Issues
-   :subtitle: Author: Luca De Cicco, Gaetano Carlucci, and Saverio Mascolo
-
-
+.. epigraph:: 
+   
    The suggested approach is to multiplex all the RTP packet streams in a single RTP session sent over one transport layer flow to reduce the number of flows to be handled by NATs. 
    
    Following this approach, the Media Congestion Control algorithm computes the total sending rate A for the aggregated RTP session based on a set of metrics measured at the receiver and sent back
@@ -209,14 +159,14 @@ Congestion Control for WebRTC: Standardization Status and Open Issues
 
 
 Goal
-~~~~~~~~~~
+------------------
 the goal of the congestion control algorithm is to produce a sending rate as close as possible to the available end-to-end bandwidth while maintaining the queue occupancy as low as possible.
 
 Additionally, media flows generated by WebRTC applications should fairly share network bandwidth with other concurrent flows. 
 
 
 Design
-~~~~~~~~~~
+------------------
 
 The design of an algorithm meeting these requirements is faced with several choices
 with respect to
@@ -247,12 +197,194 @@ An important issue to be taken into account is to prevent delay-based flows from
 competing with loss-based flows in the best-effort Internet [7]. 
 Congestion control algorithms may complement end-to-end measurements with explicit congestion signals sent from network elements to end-points through, for instance, the use of the explicit congestion notification (ECN) mechanism.
 
+.. raw:: html
 
-Concerning the actuation mechanism, the congestion control algorithm can either compute a congestion window (window-based approach) or explicitly compute a sending rate(rate-based approach). 
+    <style> .red {color:#aa0060; font-weight:bold; font-size:16px} </style>
+
+.. role:: red
+
+Concerning the actuation mechanism, the congestion control algorithm can either compute a :red:`congestion window` (window-based approach) or explicitly compute a :red:`sending rate` (rate-based approach). 
 
 **The use of rate-based mechanisms makes it possible to directly use the rate computed by the congestion control algorithm to drive the media encoders, whereas in the case of window-based algorithms, a proper conversion from a window to a rate should be performed.**
 
+关键指标
+------------------
+* 来往时间 Round-Trip Time
+* 单向延迟 One-Way Delay
+
+.. sidebar:: Late comer effect
+   :subtitle: this technique might be affected by the so-called “late comer effect
+  
+   when two flows share the same bottleneck, the flow that arrives later typically
+   starves the first one. 
+   
+   This is due to the fact that the last flow arriving at the bottleneck measures a minimum one-way delay that also accounts for the queuing delay of the existing flow. 
+   
+   At the same time, the first flow measures an increasing one-way delay due to the presence of the arriving flow. At this point, the first flow yields bandwidth resources to the second flow, which eventually starves the first flow. 
+
+* 单向延迟变化 One-Way Delay Variation (OWDV)
+
+.. figure:: ../_static/rtp_packet_skew.png
+   :scale: 50 %
+   :alt: packet transmission delay
+   :align: center
+
+   packet transmission delay
+
+.. code-block::
+
+   # 发送间隔与到达时间之间的延时
+   d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 
 
-.. image:: ../_static/rtp_packet_skew.png
-   :alt: Two consecutive RTP packets are sent at time Ti–1 and Ti and received at time ti–1 and ti
+这就要求在 RTP 包里带上发送的时间， RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方的时钟偏移可以不予考虑，因为计算的两个包之间在双方间隔之差，偏移时间可相互抵消。
+
+有三种情况:
+
+1. OWDV > 0: 排队延迟在增长
+2. OWDV < 0: 排队延迟在减小
+3. OWDV = 0: 排队延迟保持在一个恒定的值:
+   
+  - 拥塞队列是空的：发送速率小于传输能力，不需要排队
+  - 拥塞队列是满的：发送速率大于传输能力，排队堵住了
+  - 拥塞队列是空的：发送速率等于传输能力，排队有序通过
+
+第 3 种情况下，队列保持不变，OWDV 介于零和其最大值之间。 这是一种称为站立队列的不良情况，它会不断延迟传入流量。 
+因此，为了在充分利用可用带宽的同时保证较小的队列占用，算法必须通过增加其发送速率来持续探测可用带宽，直到检测到正排队延迟变化。 此时，发送速率应迅速降低。 总而言之，需要引入一些排队延迟来运行基于延迟变化的拥塞控制算法。
+
+
+已有三种算法提出来
+
+1. Google Congestion Control (GCC) by Google
+2. Network Assisted Dynamic Adaptation(NADA) by Cisco
+3. Self-Clocked Rate Adaptation for Multimedia(SCReAM) by Ericsson
+
+
+.. csv-table:: WEBRTC media flow requirements
+   :header: "Feature", "GCC"， "NADA"， "NADA"
+   :widths: 25, 25, 25, 25
+
+   Metrics, "One-way delay variation,loss ratio", "One-way delay, loss ratio", "One-way delay, loss ratio"
+   Architecture, Sender-side or hybrid, Sender-side, Sender-side
+   Actuation mechanism, Rate-based, Rate-based, Window-based
+   Network support, None, "ECN, PCN", ECN
+   Implementation status: Google Chrome, Ns-2 and Ns-3 simulators, OpenWebRTC and simulator
+   Codec interaction, VP8 and VP9, Simulated encoder, OpenH264 and VP9
+
+Google Congestion Control
+============================================
+
+GCC [#]_ 拥塞控制算法根据估计的拥塞状态调节发送速率。 为了估计状态，GCC 采用了一种有限状态机，该状态机由通过比较测得的单向延迟变化与动态阈值而获得的信号驱动。
+
+简而言之，当瓶颈被估计为“未充分利用 underused”时，发送速率就会增加； 当估计为“过度使用 overused”时，发送速率会降低。 当 GCC 流与 TCP 流共享瓶颈时，使用动态阈值来估计拥塞状态已成为解决饥饿问题的关键设计要求。
+
+主要有两个算法：
+* 接收方控制器计算接收的比特率 :math:`A_r`, 并将它发回给发送方
+* ç控制器计算出不超过的:math:`A_r` 的目标发送比特率
+
+1. 发送方拥塞控制
+-------------------------------------------
+
+发送端控制器是一种基于丢失的拥塞控制算法，它在每次 tk 第 k 个 RTCP 报告消息到达发送方或每次 tr 携带 Ar 的第 r 个 REMB 消息到达发送方时起作用。 RTCP 报告的发送频率是可变的，它取决于反向路径的可用带宽； 反向路径可用带宽越高，RTCP 报告频率越高。 REMB 格式是 RTCP 协议 [20] 的扩展，RMCAT WG 正在讨论该协议（另见第 III-B 节）。 RTCP 报告包括如 [20] 中所述计算的丢失数据包比例 fl(tk)。 发送方使用 fl(tk) 计算发送速率 As(tk)，以 kbps 为单位，根据以下等式：
+
+.. math::
+
+   A_{s}(t_{k})=\cases{\max\{X(t_{k}), A_{s}(t_{k-1})(1-0.5f_{l}(t_{k}))\} & $f_{l}(t_{k})>0.1$\cr 1.05\ (\ A_{s}(t_{k-1})+\ 1{\rm kbps}) & $f_{l}(t_{k})<0.02$\cr A_{s}(t_{k-1}) & ${\rm otherwise}$}\eqno\hbox{(1)}
+
+
+2. The receiver-side controller
+-------------------------------------
+The receiver-side controller is a delay-based congestion control algorithm which computes Ar according to the following equation:
+
+接收端控制器是一种基于延迟的拥塞控制算法，通过下面的公式来计算 :math:`A_r`
+
+.. math::
+
+   A_{r}(t_{i})=\cases{\eta A_{r}(t_{i-1}) & ${\rm Increase}$\cr \alpha R(t_{i}) & ${\rm Decrease}$\cr A(t_{i-1}) & ${\rm Hold}$}\eqno\hbox{(3)}
+
+
+1. 到达时间滤波器 arrival time filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+两个包发送的间隔 T(i) – T(i-1) 和接收的间隔 t(i) – t(i-1) 在理想情况下是相同的，实际上会有不同.
+也就是说包的到达时间并未保持稳定的速度。 在计算的时候可以用以帧分组，对两个组的到达时间进行计算。
+
+.. math::
+
+   d(t_{i})={\triangle L(t_{i})\over C(t_{i})}+m(t_{i})+n(t_{i})\eqno\hbox{(4)}
+
+.. code-block::
+
+   # 发送间隔与到达时间之间的延时
+   d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
+
+   # 两组包之间的大小之差
+   dL(i) = L(i) - l(i-1)
+
+   # C(i) 表示带宽
+   d(i) = dL(i)/C(i) + m(i) + v(i)   
+
+   其中dL(i)表示相邻两帧的长度差，
+   C(i)表示网络信道容量，
+   m(i)表示网络排队延迟，
+   v(i)表示网络抖动或其他延迟噪声。
+
+   C(i) 是我们想预测的带宽，m(i)即是我们要求得的网络排队延迟, 可由 Kalman Filter 求得
+
+T(i)是第i个数据包组中第一个数据包的发送时间，t(i)是第i个数据包组中最后一个数据包的到达时间
+
+
+2) The over-use detector
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Every time ti a video frame is received, the over-use detector produces a signal s that drives the state σ of the FSM (3) based on m(ti) and a threshold γ, The Algorithm 1 shows in details how s is generated: when m(ti)>γ, the algorithm tracks the time spent in this condition by increasing the variable tOU of the frame inter-departure time △T. When tOU reaches t¯OU=100ms and m(ti)> m(ti−1), the overuse signal is generated. On the other hand, if m(ti) decreases below γ, the underuse signal is generated, whereas the normal signal is triggered when −γ≤m(ti)≤γ.
+
+3) The remote state region
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This block computes the threshold γ as follows: by default γ=γ¯¯¯ with γ¯¯¯=25/60ms, however, when the system is considered to be close to the congestion, the threshold is halved, i.e. γ=γ¯¯¯/2. In particular, γ is halved when σ= decrease or when Ar is considerably lower that the incoming bitrate R(t).
+
+
+4) Remote rate controller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This block computes Ar according to (3) by using the signal s produced by the overuse detector, which drives the finite state machine shown in Figure 3.
+
+5) REMB Processing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This block notifies the sender with the computed rate Ar through REMB messages. The REMB messages are sent either every 1s, or immediately, if Ar(ti)< 0.97Ar(ti−1), i.e. when Ar has decreased more than 3%.
+
+
+测试与验证
+======================
+
+
+参考代码
+======================
+* https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/modules/
+  - congestion_controller/
+  - remote_bitrate_estimator/
+
+
+参考资料
+=========================
+* `REMB`_ : RTCP message for Receiver Estimated Maximum Bitrate
+
+
+
+* `Analysis and Design of the Google Congestion Control for WebRTC <https://c3lab.poliba.it/images/6/65/Gcc-analysis.pdf>`_
+
+* `GCC Introduction`_
+
+* `RFC8825`_: Overview: Real-Time Protocols for Browser-Based Applications
+* `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
+* `RFC8083`_: Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions
+
+* `RMCAT documents`_: RTP Media Congestion Avoidance Techniques documents
+
+.. _RMCAT documents: https://datatracker.ietf.org/wg/rmcat/documents/
+
+.. _A Google Congestion Control Algorithm for Real-Time Communication: https://datatracker.ietf.org/doc/html/draft-alvestrand-rmcat-congestion-03
+.. _GCC Introduction: https://www.cnblogs.com/wangyiyunxin/p/11122003.html
+
+
+.. [#] `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
+.. [#] `Congestion Control for WebRTC: Standardization Status and Open Issues <https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7992924>`_
+.. [#] `A Google Congestion Control Algorithm for Real-Time Communication`_
+.. [#] `Understanding the Dynamic Behaviour of the Google Congestion Control for RTCWeb <https://ieeexplore.ieee.org/document/6691458>`_
