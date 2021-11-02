@@ -68,7 +68,7 @@ WebRTC RTP Congestion Control
 
 * TCC: Transport-wide Congestion Control 传输带宽控制
 
-* REMB: Receiver Estimated Maximum Bitrate 接收端估计最大比特率
+* `REMB <webrtc_remb.html>`_: Receiver Estimated Maximum Bitrate 接收端估计最大比特率
 
 * Starvation: 饥饿，如果某个传输通道由于其他传输通道抢占了带宽而没有得到流量，称为饥饿
 
@@ -218,7 +218,7 @@ Concerning the actuation mechanism, the congestion control algorithm can either 
    d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 
 
-这就要求在 RTP 包里带上发送的时间， RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方的时钟偏移可以不予考虑，因为计算的两个包之间在双方间隔之差，偏移时间可相互抵消。
+RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方的时钟偏移可以不予考虑，因为计算的两个包之间在双方间隔之差，偏移时间可相互抵消。
 
 有三种情况:
 
@@ -271,13 +271,35 @@ Concerning the actuation mechanism, the congestion control algorithm can either 
 
 * `RMCAT documents`_: RTP Media Congestion Avoidance Techniques documents
 
-.. _RMCAT documents: https://datatracker.ietf.org/wg/rmcat/documents/
+* H. Alvestrand, “RTCP Message for Receiver Estimated Maximum Bitrate,” Internet-Draft draft-alvestrand-rmcat-remb-03 (work in progress), Oct. 2013.
 
+* B. Briscoe et al., “Reducing Internet Latency: A Survey of Techniques and Their Merits,” IEEE Commun. Surveys Tutori- als, vol. 18, no. 3, 2016, pp. 2149–96.
 
+* G. Carlucci et al., “Analysis and Design of the Google Congestion Control for Web Real-time Communication (WebRTC),” Proc. ACM Multimedia Systems Conf., Klagen- furt, Austria, May 2016.
 
+* I. Johansson, “Self-clocked Rate Adaptation for Conversa- tional Video in LTE,” Proc. 2014 ACM SIGCOMM Wksp. Capacity Sharing Workshop, Chicago, USA, Aug. 2014, pp. 51–56.
+
+* S. Loreto and S. P. Romano, “Real-Time Communications in the Web: Issues, Achievements, and Ongoing Standardiza- tion Efforts,” IEEE Internet Computing, vol. 16, no. 5, Sept. 2012, pp. 68–73.
+
+* C. Perkins and V. Singh, “Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions,” RFC 8083, RFC Editor, Mar. 2017.
+
+* J Randell and Z. Sarker, “Congestion Control Requirements for RMCAT,” Internet-Draft draft-ietf-rmcat-cc-require- ments-09 (work in progress), Dec. 2014.
+
+* Z. Sarkeret al., “RTP Control Protocol (RTCP) Feedback for Congestion Control,” Internet-Draft draft-dt-rmcat-feedback- message-01 (work in progress), Oct. 2016.
+
+* Z. Sarker et al., “Test Cases for Evaluating RMCAT Propos- als,” Internet-Draft draft-ietf-rmcat-eval-test-04 (work in prog- ress), Oct. 2016.
+
+* D. Singer and H. Desineni, “Transmission Time Offsets in RTP Streams,” RFC 5450, RFC Editor, Mar. 2009.
+
+* M. Welzl, S. Islam, and S. Gjessing, “Coupled Congestion Control for RTP Media,” Internet-Draft draft-ietf-rmcat-cou- pled-cc-06 (work in progress), Mar. 2017.
+
+* X. Zhu et al., “NADA: A Unified Congestion Control Scheme for Real-Time Media,” Internet-Draft draft-ietf-rmcat- nada-04 (work in progress), Mar. 2017.
 
 .. [#] `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
 .. [#] `Congestion Control for WebRTC: Standardization Status and Open Issues <https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7992924>`_
 
 
 .. [#] `RFC5865`_ A Differentiated Services Code Point (DSCP) for Capacity-Admitted Traffic
+
+
+.. _RMCAT documents: https://datatracker.ietf.org/wg/rmcat/documents/
