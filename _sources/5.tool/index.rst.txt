@@ -11,6 +11,7 @@
    sox
    ffmpeg
 
+   tc
    tcpdump
    apprtc
 
