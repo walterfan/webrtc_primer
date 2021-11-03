@@ -38,6 +38,8 @@ GCC [#]_ 拥塞控制算法根据估计的拥塞状态调节发送速率。 为�
 除了 RFC草案 `A Google Congestion Control Algorithm for Real-Time Communication`_ 有详细阐述，在 IEEE 发布的文章 “Understanding the Dynamic Behaviour of the Google Congestion Control for RTCWeb” [#]_ 亦有所探讨。
 
 
+基于丢包的算法
+
 
 数学符号约定
 ----------------------------------------
@@ -70,7 +72,7 @@ GCC [#]_ 拥塞控制算法根据估计的拥塞状态调节发送速率。 为�
 ========================================
 
 * 接收端：使用基于延迟的控制器， 可采用 RTP 扩展头 “abs_send_time”
-* 发送端：使用基于丢包的控制器， 可采用 `REMB <webrtc_remb.html>`_ 反馈估算的最大带宽和 RTCP Receiver Report 来反馈丢包及用来计算 RTT
+* 发送端：使用基于丢包的控制器， 可采用 `Google REMB <webrtc_remb.html>`_ 反馈估算的最大带宽和 RTCP Receiver Report 来反馈丢包及用来计算 RTT
    
 
 4. 发送引擎
@@ -104,24 +106,27 @@ GCC [#]_ 拥塞控制算法根据估计的拥塞状态调节发送速率。 为�
 
 .. code-block::
 
-   # 发送间隔与到达时间之间的延时
+   # 这是发送时间间隔与到达时间间隔之间的延时的观测公式，称为单向延迟变化
    d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 
-   # 两组包之间的大小之差
-   dL(i) = L(i) - l(i-1)
+   # 延时与包的大小有关，dL(i) 是两组包之间的大小之差
+   dL(i) = L(i) - L(i-1)
 
-   # C(i) 表示带宽
+   # 这是对单向延迟变化的状态方程
    d(i) = dL(i)/C(i) + m(i) + v(i)   
 
-其中dL(i)表示相邻两帧的长度差，
-
+* d(i) 表示 OBDV(One-Way Delay Variation) 单向延迟变化
+* dL(i)表示相邻两帧或者两组包之间的长度差
 * T(i)是第i个数据包组中第一个数据包的发送时间，
 * t(i)是第i个数据包组中最后一个数据包的到达时间
 * C(i)表示网络信道容量，
 * m(i)表示网络排队延迟，
-* v(i)表示网络抖动或其他延迟噪声。
+* v(i)表示网络抖动或其他延迟
 
    C(i) 是我们想预测的带宽，m(i)即是我们要求得的网络排队延迟, 可由 Kalman Filter 求得
+
+
+单向延迟变化
 
 5.2.  Pre-filtering 预先过滤
 -----------------------------------------------------
@@ -194,7 +199,37 @@ The pre-filtering merges together groups of packets that arrive in a burst.  Pac
 5.3 到达时间滤波器 arrival time filter
 -----------------------------------------------------
 
-估计
+根据到达时间模型，我们可以通过 Kalman Filter 或者 Trendline Filter 来求得网络排队延迟 `m(i)`
+
+.. math::
+
+    m(i+1) = m(i) + u(i)
+
+    q(i) = E{u(i)^2}
+
+    d(i) = m(i) + v(i)
+
+其中 
+* u(i) 是我们将其建模为具有零均值和方差的高斯统计量的平稳过程的状态噪声
+* v(i) 是具有方差 var_v = E{v(i)^2} 的零均值高斯白测量噪声
+
+注：
+* 中心化（又叫零均值化）：是指变量減去它的均值。其实就是一个平移的过程，平移后所有数据的中心是（0，0）。
+* 标准化（又叫归一化）： 是指數值減去均值，再除以标准差。
+
+卡尔曼滤波器递归地更新这个估计值 m_hat(i)
+
+.. math::
+
+     z(i) = d(i) - m_hat(i-1)
+
+     m_hat(i) = m_hat(i-1) + z(i) * k(i)
+
+                        e(i-1) + q(i)
+     k(i) = ----------------------------------------
+                var_v_hat(i) + (e(i-1) + q(i))
+
+     e(i) = (1 - k(i)) * (e(i-1) + q(i))
 
 
 
@@ -228,17 +263,67 @@ The pre-filtering merges together groups of packets that arrive in a burst.  Pac
 
 
 
-1) Rate controller
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This block computes Ar according to (3) by using the signal s produced by the overuse detector, which drives the finite state machine shown in Figure 3.
+5.5 Rate controller
+-----------------------------------------------------
+ The rate control is split in two parts, 
+ 
+1) controlling the bandwidth estimate based on delay 
+2) controlling the bandwidth estimate based on loss
 
-5) REMB Processing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This block notifies the sender with the computed rate Ar through REMB messages. The REMB messages are sent either every 1s, or immediately, if Ar(ti)< 0.97Ar(ti−1), i.e. when Ar has decreased more than 3%.
 
 
-4. 发送端控制器
-======================
+* The state transitions (with blank fields meaning "remain in state")
+
+.. code-block::
+
+   +----+--------+-----------+------------+--------+
+   |     \ State |   Hold    |  Increase  |Decrease|
+   |      \      |           |            |        |
+   | Signal\     |           |            |        |
+   +--------+----+-----------+------------+--------+
+   |  Over-use   | Decrease  |  Decrease  |        |
+   +-------------+-----------+------------+--------+
+   |  Normal     | Increase  |            |  Hold  |
+   +-------------+-----------+------------+--------+
+   |  Under-use  |           |   Hold     |  Hold  |
+   +-------------+-----------+------------+--------+
+
+
+5.6 Parameters settings
+-----------------------------------------------------
+
+
+.. code-block::
+
+   +-----------------+-----------------------------------+-------------+
+   | Parameter       | Description                       | RECOMMENDED |
+   |                 |                                   | Value       |
+   +-----------------+-----------------------------------+-------------+
+   | burst_time      | Time limit in milliseconds        | 5 ms        |
+   |                 | between packet bursts which       |             |
+   |                 | identifies a group                |             |
+   | q               | State noise covariance matrix     | q = 10^-3   |
+   | e(0)            | Initial value of the  system      | e(0) = 0.1  |
+   |                 | error covariance                  |             |
+   | chi             | Coefficient used  for the         | [0.1,       |
+   |                 | measured noise variance           | 0.001]      |
+   | del_var_th(0)   | Initial value for the adaptive    | 12.5 ms     |
+   |                 | threshold                         |             |
+   | overuse_time_th | Time required to trigger an       | 10 ms       |
+   |                 | overuse signal                    |             |
+   | K_u             | Coefficient for the adaptive      | 0.01        |
+   |                 | threshold                         |             |
+   | K_d             | Coefficient for the adaptive      | 0.00018     |
+   |                 | threshold                         |             |
+   | T               | Time window for measuring the     | [0.5, 1] s  |
+   |                 | received bitrate                  |             |
+   | beta            | Decrease rate factor              | 0.85        |
+   +-----------------+-----------------------------------+-------------+
+
+          Table 1: RECOMMENDED values for delay based controller
+
+6. 基于丢包的控制器 Loss-based control
+===================================================
 
 发送端控制器是一种基于丢失的拥塞控制算法，它在每次 tk 第 k 个 RTCP 报告消息到达发送方或每次 tr 携带 Ar 的第 r 个 REMB 消息到达发送方时起作用。 RTCP 报告的发送频率是可变的，它取决于反向路径的可用带宽； 反向路径可用带宽越高，RTCP 报告频率越高。 REMB 格式是 RTCP 协议 [20] 的扩展，RMCAT WG 正在讨论该协议（另见第 III-B 节）。 RTCP 报告包括如 [20] 中所述计算的丢失数据包比例 fl(tk)。 发送方使用 fl(tk) 计算发送速率 As(tk)，以 kbps 为单位，根据以下等式：
 
@@ -247,7 +332,16 @@ This block notifies the sender with the computed rate Ar through REMB messages. 
    A_{s}(t_{k})=\cases{\max\{X(t_{k}), A_{s}(t_{k-1})(1-0.5f_{l}(t_{k}))\} & $f_{l}(t_{k})>0.1$\cr 1.05\ (\ A_{s}(t_{k-1})+\ 1{\rm kbps}) & $f_{l}(t_{k})<0.02$\cr A_{s}(t_{k-1}) & ${\rm otherwise}$}
 
 
+1）当丢包率 < 2% 时，这个时候会将码率（base bitrate）增长 5%
 
+这个码率(base bitrate)并不是当前及时码率，而是单位时间窗周期内出现的最小码率,WebRTC将这个时间窗周期设置在1000毫秒内。因为loss fraction是从接收端反馈过来的，中间会有时间差，这样做的目的是防止网络间歇性统计造成的网络码率增长过快而网络反复波动。
+
+2）当丢包率在 [2%, 10%] 之间,维持当前的码率值
+
+3）当 丢包率 > 10%, 按丢包率进行当前码率递减，等到新的码率值
+
+
+丢包率决策出来的码率（base bitrate）只是一个参考值，WebRTC实际采用的带宽是base bitrate、remb bitrate和 bwe bitrate中的最小值，这个最小值作为estimator最终评估出来的码率
 
 参考代码
 ======================
@@ -261,6 +355,11 @@ This block notifies the sender with the computed rate Ar through REMB messages. 
 
 * `GCC Introduction`_
 
+* `WebRTC的拥塞控制和带宽策略 <https://mp.weixin.qq.com/s/Ej63-FTe5-2pkxyXoXBUTw>`_
+* `WebRTC视频接收缓冲区基于KalmanFilter的延迟模型 <http://www.jianshu.com/p/bb34995c549a>`_
+* `WebRTC基于GCC的拥塞控制(上) - 算法分析 <https://www.jianshu.com/p/0f7ee0e0b3be>`_
+* `WebRTC基于GCC的拥塞控制(下) - 实现分析 <https://www.jianshu.com/p/5259a8659112>`_
+* `WebRTC的拥塞控制和带宽策略 <https://mp.weixin.qq.com/s/Ej63-FTe5-2pkxyXoXBUTw>`_
 
 .. [#] `A Google Congestion Control Algorithm for Real-Time Communication`_ （draft-ietf-rmcat-gcc-02）
 
@@ -268,5 +367,6 @@ This block notifies the sender with the computed rate Ar through REMB messages. 
 
 .. _A Google Congestion Control Algorithm for Real-Time Communication: https://datatracker.ietf.org/doc/html/draft-ietf-rmcat-gcc-02
 .. _GCC Introduction: https://www.cnblogs.com/wangyiyunxin/p/11122003.html
+
 
 

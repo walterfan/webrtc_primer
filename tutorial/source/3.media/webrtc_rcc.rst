@@ -50,9 +50,9 @@ WebRTC RTP Congestion Control
   
 * Queuing Delay 排队延迟
 
-* 延迟梯度
+* Delay gradient 延迟梯度
 
-* 卡尔曼滤波
+* Kalman filter 卡尔曼滤波
 
 * inter-depature delta time
 
@@ -68,7 +68,7 @@ WebRTC RTP Congestion Control
 
 * TCC: Transport-wide Congestion Control 传输带宽控制
 
-* `REMB <webrtc_remb.html>`_: Receiver Estimated Maximum Bitrate 接收端估计最大比特率
+* REMB: Receiver Estimated Maximum Bitrate 接收端估计最大比特率
 
 * Starvation: 饥饿，如果某个传输通道由于其他传输通道抢占了带宽而没有得到流量，称为饥饿
 
@@ -236,8 +236,14 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 
 已有三种算法提出来
 
-1. Google Congestion Control (GCC) by Google: 详见 `GCC 算法详解 <webrtc_gcc.html>`_
+1. Google Congestion Control (GCC) by Google
+   它被应用于 Chrome 浏览器，是相对比较成熟的算法，详见 
+   * `GCC 算法详解 <webrtc_gcc.html>`_
+   * `REMB 简介 <webrtc_remb.html>`_ 
+   * `TCC 算法详解 <webrtc_tcc.html>`_
+
 2. Network Assisted Dynamic Adaptation(NADA) by Cisco
+
 3. Self-Clocked Rate Adaptation for Multimedia(SCReAM) by Ericsson
 
 
@@ -259,9 +265,6 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 
 参考资料
 =========================
-* `REMB`_ : RTCP message for Receiver Estimated Maximum Bitrate
-
-
 
 * `Analysis and Design of the Google Congestion Control for WebRTC <https://c3lab.poliba.it/images/6/65/Gcc-analysis.pdf>`_
 
@@ -297,7 +300,6 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 
 .. [#] `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
 .. [#] `Congestion Control for WebRTC: Standardization Status and Open Issues <https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7992924>`_
-
 
 .. [#] `RFC5865`_ A Differentiated Services Code Point (DSCP) for Capacity-Admitted Traffic
 
