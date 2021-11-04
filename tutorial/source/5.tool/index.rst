@@ -12,6 +12,7 @@
    ffmpeg
 
    tc
+   perf
    tcpdump
    apprtc
 

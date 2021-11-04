@@ -92,6 +92,14 @@ Modules
 * video_processing
 
 
+Treasure in code
+========================
+
+EncodeUsageResource
+----------------------------
+* `overuse_frame_detector`_
+
+
 RtpSender
 ==============
 * rtp_sender_interface.h
@@ -105,3 +113,7 @@ Reference
 .. _ninja-tool: https://ninja-build.org/
 .. _webrtc-prerequisite-sw: https://webrtc.googlesource.com/src/+/main/docs/native-code/development/prerequisite-sw/index.md
 .. _webrtc-depot-tools: https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html#_setting_up
+* `Webrtc video framerate/resolution 自适应 <https://xie.infoq.cn/article/50b7931b8a023f8ca7f25d4e9>`_
+
+
+.. _overuse_frame_detector: https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/overuse_frame_detector.h
