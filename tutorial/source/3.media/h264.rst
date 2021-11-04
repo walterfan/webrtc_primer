@@ -122,6 +122,27 @@ note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允
 * VCL:        Video Coding Layer
 * VUI:        Video Usability Information
 
+
+H264 encoder
+========================================
+
+.. image:: ../_static/H264-encoder.png
+   :local: h.264 encoder
+
+H264 decoder
+========================================
+
+* 熵解码
+* 残差像素的逆量化和变换
+* 运动补偿或帧内预测
+* 重建
+* 重建像素上的环路去块滤波器
+
+
+
+
+
+
 RTP Payload Format for H.264 Video
 ========================================
 
@@ -132,7 +153,7 @@ H.264 media stream
 
 H264 over RTP 大体上分为三种：
 
-1. Single NAL unit packet 一个包就是一个视频帧, NALU type : 1 ~ 23
+1. Single NAL unit packet 一个包就是一个视频帧, NALU type : 1 ~ 23
    
 2. Aggregation packet 一个包中含有多個H264帧
    - NALU type 24: Single-Time Aggregation Packet type A (STAP-A)

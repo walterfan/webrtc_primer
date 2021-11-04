@@ -259,8 +259,76 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
    Codec interaction, VP8 and VP9, Simulated encoder, OpenH264 and VP9
 
 
+验证方法
+==========================
+基于 RFC5033 Specify New Congestion Control Algorithms 和 RFC5166 Metrics for the Evaluation of Congestion Control algorithms, 在 RFC8868 中提出了对于拥塞控制算法的验证方法.
+
+RFC8867 提出了基本的测试用例在, RFC8869 也提高了无线网络测试场景中的测试用例.
+
+度量指标
+-------------------------
+
+#. Sending rate, receiver rate, goodput (measured at 200ms intervals)
+#. Packets sent, packets received
+#. Bytes sent, bytes received
+#. Packet delay
+#. Packets lost, packets discarded (from the playout or de-jitter buffer)
+#. If using retransmission or FEC: post-repair loss
+#. Self-fairness and fairness with respect to cross traffic:
+
+#. Convergence time: The time taken to reach a stable rate at startup, after the available link capacity changes, or when new flows get added to the bottleneck link.
+
+#. Instability or oscillation in the sending rate: The frequency or number of instances when the sending rate oscillates between an high watermark level and a low watermark level, or vice-versa in a defined time window. For example, the watermarks can be set at 4x interval: 500 Kbps, 2 Mbps, and a time window of 500 ms.
+
+#. Bandwidth utilization, defined as the ratio of the instantaneous sending rate to the instantaneous bottleneck capacity: This metric is useful only when a congestion-controlled RTP flow is by itself or is competing with similar cross-traffic.
 
 
+
+From the logs, the statistical measures (min, max, mean, standard deviation, and variance) for the whole duration or any specific part of the session can be calculated. Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time; the measurements in the plot are at one-second intervals. Additionally, from the logs, it is possible to plot the histogram or cumulative distribution function (CDF) of packet delay
+
+
+
+RTP Log Format 日志格式
+-----------------------------
+Having a common log format simplifies running analyses across different measurement setups and comparing their results.
+
+.. code-block::
+
+   Send or receive timestamp (Unix): <int>.<int>  -- sec.usec decimal
+   RTP payload type                  <int>        -- decimal
+   SSRC                              <int>        -- hexadecimal
+   RTP sequence no                   <int>        -- decimal
+   RTP timestamp                     <int>        -- decimal
+   marker bit                        0|1          -- character
+   Payload size                      <int>        -- # bytes, decimal
+
+
+网络参数
+----------------------------
+
+1. One-Way Propagation Delay
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2. End-to-End Loss
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+3. Drop-Tail Route Queue Length
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+4. Loss Generation module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+5. Jitter modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+6. Traffic Models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 参考资料
