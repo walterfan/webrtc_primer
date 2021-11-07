@@ -9,6 +9,7 @@
 
    signal
    dsp
-
+   kalman
    multimedia
    mathematics
+   python_scientific_calculation

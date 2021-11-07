@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>卡尔曼滤波笔记 &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="多媒体技术" href="multimedia.html" />
+    <link rel="prev" title="数字信号处理" href="dsp.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. WebRTC 关联技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">卡尔曼滤波笔记</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">概率论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">最小二乘估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">状态和协方差</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">术语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">离散卡尔曼滤波</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_scientific_calculation.html">Python 科学计算</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">6. WebRTC 关联技术</a> &raquo;</li>
+        
+      <li>卡尔曼滤波笔记</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/6.misc/kalman.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>卡尔曼滤波笔记<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>卡尔曼滤波笔记</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-11-07</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id9">简介</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">预备知识</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id11">概率论</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">最小二乘估计</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id13">状态和协方差</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id14">术语</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id15">离散卡尔曼滤波</a></p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">简介</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>卡尔曼滤波（Kalman filtering）是一种利用线性系统状态方程，通过系统输入输出观测数据，对系统状态进行最优估计的算法。由于观测数据中包括系统中的噪声和干扰的影响，所以最优估计也可看作是滤波过程。</p>
+<p>数据滤波是去除噪声还原真实数据的一种数据处理技术，Kalman滤波在测量方差已知的情况下能够从一系列存在测量噪声的数据中，估计动态系统的状态。由于它便于计算机编程实现，并能够对现场采集的数据进行实时的更新和处理，Kalman滤波是目前应用最为广泛的滤波方法，在通信，导航，制导与控制等多领域得到了较好的应用。</p>
+<p>卡尔曼滤波是一种以最小二乘法为基础，在时域内设计的递归线性最小方差估计算法。</p>
+<p>状态估计值 = 状态预测值 + 卡尔曼增益 * innovation</p>
+<p>innovation 表示由当前测量值引入的新的信息</p>
+<p>系统是不确定的</p>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">预备知识</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>微积分</p></li>
+<li><p>线性代数
+- 向量，矩阵，矩阵运算</p></li>
+<li><p>线性系统</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X = Ax + Bu
+y = Cx\]</div>
+<ul class="simple">
+<li><p>非线性系统</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X = f(x, u, 2)
+y = h(x, v)\]</div>
+<p>w 表示过程噪声
+v 表示测量噪声</p>
+<ul class="simple">
+<li><p>离散化</p></li>
+<li><p>仿真</p></li>
+<li><p>稳定性</p></li>
+<li><p>能控性和能观性</p></li>
+</ul>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">概率论</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>概率
+- 贝叶斯公式
+- 概率分布函数 PDF(Probability Distribution Function)
+- 概率密度函数 PDF(Probability Density Function), 即上述函数的微分</p></li>
+<li><p>随机变量
+- 期望也就是随机变量的平均值 <span class="math notranslate nohighlight">\(E(X) = \frac{1}{n} \displaystyle \sum_{n-1}^{m} A_i n_i\)</span>
+- 方差，偏度
+- 分布，正态分布</p></li>
+<li><p>随机变量的函数变换</p></li>
+<li><p>随机过程</p></li>
+<li><p>白噪声和有色噪声</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">最小二乘估计</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>常量估计</p></li>
+<li><p>加权及递推最小二乘估计</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id13">状态和协方差</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>离散时间系统</p></li>
+<li><p>抽样数据系统</p></li>
+<li><p>连接时间系统</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id14">术语</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>随机变量是一个定义在样本空间上的实值函数，把样本点映射成一个实数。每个样本点都有不同的概率出现，意味着随机变量的取值也是随机的，并且服从某个分布(distribution)。</p></li>
+<li><p>一个随机变量 [公式] 的distribution是由 累积分布函数(cumulative distribution function,CDF)，或者简称distribution function来刻画的，是以一个实数为自变量的函数</p></li>
+<li><p>对于连续取值的随机变量，distribution function可以由概率密度函数(probability density functioin,PDF) 来表示</p></li>
+<li><p>数学期望(expected value)</p></li>
+<li><p>方差(variance):
+- The variance is the average of the squared deviations from the mean
+- i.e., var = mean(x), where x = abs(a - a.mean())**2.</p></li>
+<li><p>均方误差：它是”误差”的平方的期望值（误差就是每个估计值与真实值的差），也就是多个样本的时候，均方误差等于每个样本的误差平方再乘以该样本出现的概率的和。</p></li>
+<li><p>方差：方差是描述随机变量的离散程度，是变量离期望值的距离。</p></li>
+<li><p>协方差</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numpy</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fweights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">aweights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">Estimate</span> <span class="n">a</span> <span class="n">covariance</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">given</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">weights</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id15">离散卡尔曼滤波</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>状态方程</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[x_k = A x_{k-1} + Bu_k + w_k\]</div>
+<ul class="simple">
+<li><p>观测方程</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[y_k = Cx_k + v_k\]</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="multimedia.html" class="btn btn-neutral float-right" title="多媒体技术" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dsp.html" class="btn btn-neutral float-left" title="数字信号处理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

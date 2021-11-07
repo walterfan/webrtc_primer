@@ -181,7 +181,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-03</p></td>
+<td><p>2021-11-07</p></td>
 </tr>
 </tbody>
 </table>
@@ -267,31 +267,16 @@
 <p>两个包发送的间隔 T(i) – T(i-1) 和接收的间隔 t(i) – t(i-1) 在理想情况下是相同的，实际上会有不同.
 也就是说包的到达时间并未保持稳定的速度。 在计算的时候可以用以帧分组，对两个组的到达时间进行计算。</p>
 <div class="math notranslate nohighlight">
-\[d(t_{i})={\triangle L(t_{i})\over C(t_{i})}+m(t_{i})+n(t_{i})\]</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 这是发送时间间隔与到达时间间隔之间的延时的观测公式，称为单向延迟变化
-d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
-
-# 延时与包的大小有关，dL(i) 是两组包之间的大小之差
-dL(i) = L(i) - L(i-1)
-
-# 这是对单向延迟变化的状态方程
-d(i) = dL(i)/C(i) + m(i) + v(i)
-</pre></div>
-</div>
-<ul>
-<li><p>d(i) 表示 OBDV(One-Way Delay Variation) 单向延迟变化</p></li>
-<li><p>dL(i)表示相邻两帧或者两组包之间的长度差</p></li>
-<li><p>T(i)是第i个数据包组中第一个数据包的发送时间，</p></li>
-<li><p>t(i)是第i个数据包组中最后一个数据包的到达时间</p></li>
-<li><p>C(i)表示网络信道容量，</p></li>
-<li><p>m(i)表示网络排队延迟，</p></li>
-<li><p>v(i)表示网络抖动或其他延迟</p>
-<blockquote>
-<div><p>C(i) 是我们想预测的带宽，m(i)即是我们要求得的网络排队延迟, 可由 Kalman Filter 求得</p>
-</div></blockquote>
-</li>
-</ul>
-<p>单向延迟变化</p>
+\[# 这是发送时间间隔与到达时间间隔之间的延时的观测公式，称为单向延迟变化
+d(i) = t(i) – t(i-1) – (T(i) – T(i-1))\]</div>
+<p>还可将数据包组之间的延迟变化建模为</p>
+<div class="math notranslate nohighlight">
+\[d(i) = w(i)\]</div>
+<p>这里的 w(i) 是一个随机过程 W 的采样，它是一个连接容量，当前交叉流量和当前比特率的函数，我们将 W 建模为一个白高斯过程。如果我们过度使用了传输通道，则 w(i) 的平均值就会增大，如果网络路径中的拥塞队列已经清空了，这个 w(i) 的平均值就会减小，否则 w(i) 的平均值为零。</p>
+<p>由此，我们可以将w(i) 分解为它的平均值加上一个偏差</p>
+<div class="math notranslate nohighlight">
+\[d(i) = m(i) + v(i)\]</div>
+<p>v(i) 表示网络抖动和其他没有被这个模型捕捉到的延迟</p>
 </div>
 <div class="section" id="pre-filtering">
 <h3><a class="toc-backref" href="#id26">5.2.  Pre-filtering 预先过滤</a><a class="headerlink" href="#pre-filtering" title="Permalink to this headline">¶</a></h3>
@@ -353,10 +338,12 @@ d(i) = dL(i)/C(i) + m(i) + v(i)
 <h3><a class="toc-backref" href="#id27">5.3 到达时间滤波器 arrival time filter</a><a class="headerlink" href="#arrival-time-filter" title="Permalink to this headline">¶</a></h3>
 <p>根据到达时间模型，我们可以通过 Kalman Filter 或者 Trendline Filter 来求得网络排队延迟 <cite>m(i)</cite></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}m(i+1) = m(i) + u(i)\\q(i) = E{u(i)^2}\\d(i) = m(i) + v(i)\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}m(i+1) = m(i) + u(i)
+# q(i) 为状态噪声 u(i) 方差的期望，推荐值是 10^-3
+q(i) = E{u(i)^2}\\d(i) = m(i) + v(i)\end{aligned}\end{align} \]</div>
 <p>其中
-* u(i) 是我们将其建模为具有零均值和方差的高斯统计量的平稳过程的状态噪声
-* v(i) 是具有方差 var_v = E{v(i)^2} 的零均值高斯白测量噪声</p>
+* u(i) 是指状态噪声, 把它建模为具有零均值和方差的高斯统计模拟的平稳过程
+* v(i) 是指测量噪声，它是具有方差 <cite>var_v = E{v(i)^2}</cite> 的零均值高斯白测量噪声</p>
 <p>注：
 * 中心化（又叫零均值化）：是指变量減去它的均值。其实就是一个平移的过程，平移后所有数据的中心是（0，0）。
 * 标准化（又叫归一化）： 是指數值減去均值，再除以标准差。</p>
@@ -364,7 +351,7 @@ d(i) = dL(i)/C(i) + m(i) + v(i)
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}z(i) = d(i) - m_hat(i-1)\\m_hat(i) = m_hat(i-1) + z(i) * k(i)\\                   e(i-1) + q(i)
 k(i) = ----------------------------------------
-           var_v_hat(i) + (e(i-1) + q(i))\\e(i) = (1 - k(i)) * (e(i-1) + q(i))\end{aligned}\end{align} \]</div>
+           var_v_hat(i) + (e(i-1) + q(i))\\e(i) = (1 - k(i)) * (e(i-1) + q(i))\\var_v_hat(i) = max(alpha * var_v_hat(i-1) + (1-alpha) * z(i)^2, 1)\\alpha = (1-chi)^(30/(1000 * f_max))\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="the-over-use-detector">
 <h3><a class="toc-backref" href="#id28">5.4 过度使用检测器 The over-use detector</a><a class="headerlink" href="#the-over-use-detector" title="Permalink to this headline">¶</a></h3>

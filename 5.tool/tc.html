@@ -42,7 +42,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="tcpdump" href="tcpdump.html" />
+    <link rel="next" title="Linux Performance tools" href="perf.html" />
     <link rel="prev" title="FFmpeg" href="ffmpeg.html" /> 
 </head>
 
@@ -101,9 +101,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ffmpeg.html">FFmpeg</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Linux Traffic Control</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">参考资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">常用命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">参考资料</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="perf.html">Linux Performance tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tcpdump.html">tcpdump</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apprtc.html">AppRTC</a></li>
 </ul>
@@ -196,21 +198,45 @@
 <td><p>v1</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-03</p></td>
+<td><p>2021-11-07</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id3">简介</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id4">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id4">简介</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id5">常用命令</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id6">参考资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id3">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id4">参考资料</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">常用命令</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>延迟 100 ms:    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">add</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">delay</span> <span class="pre">100ms</span></code></p></li>
+<li><p>延迟 100ms ± 10ms (90 ~ 110 ms ):    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">add</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">delay</span> <span class="pre">100ms</span> <span class="pre">10ms</span></code></p></li>
+<li><p>随机丢包 1%:    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">add</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">loss</span> <span class="pre">1%`</span></code></p></li>
+<li><p>模拟包重复:    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">add</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">duplicate</span> <span class="pre">1%`</span></code></p></li>
+<li><p>模拟数据包损坏:    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">add</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">corrupt</span> <span class="pre">0.2%`</span></code></p></li>
+<li><p>模拟数据包乱序：    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">change</span> <span class="pre">dev</span> <span class="pre">eth0</span> <span class="pre">root</span> <span class="pre">netem</span> <span class="pre">delay</span> <span class="pre">10ms</span> <span class="pre">reorder</span> <span class="pre">25%</span> <span class="pre">50%`</span></code></p></li>
+<li><p>查看已经配置的网络条件：   <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">show</span> <span class="pre">dev</span> <span class="pre">eth0</span></code></p></li>
+<li><p>删除网卡上面的相关配置:    <code class="code docutils literal notranslate"><span class="pre">tc</span> <span class="pre">qdisc</span> <span class="pre">del</span> <span class="pre">dev</span> <span class="pre">enp0s3</span> <span class="pre">root</span></code></p></li>
+<li><p>对指定 ip 做限制:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tc</span> <span class="n">qdisc</span> <span class="k">del</span> <span class="n">dev</span> <span class="n">enp0s3</span> <span class="n">root</span>
+
+<span class="n">tc</span> <span class="n">qdisc</span> <span class="n">add</span> <span class="n">dev</span> <span class="n">enp0s3</span>  <span class="n">root</span> <span class="n">handle</span> <span class="mi">1</span><span class="p">:</span> <span class="n">prio</span>
+
+<span class="n">tc</span> <span class="nb">filter</span> <span class="n">add</span> <span class="n">dev</span> <span class="n">enp0s3</span> <span class="n">parent</span> <span class="mi">1</span><span class="p">:</span><span class="mi">0</span> <span class="n">protocol</span> <span class="n">ip</span> <span class="n">prio</span> <span class="mi">1</span> <span class="n">u32</span> <span class="n">match</span> <span class="n">ip</span> <span class="n">dst</span> <span class="mf">172.27</span><span class="o">.</span><span class="mf">25.3</span> <span class="n">flowid</span> <span class="mi">2</span><span class="p">:</span><span class="mi">1</span>
+
+<span class="n">tc</span> <span class="n">qdisc</span> <span class="n">add</span> <span class="n">dev</span> <span class="n">enp0s3</span>  <span class="n">parent</span> <span class="mi">1</span><span class="p">:</span><span class="mi">1</span> <span class="n">handle</span> <span class="mi">2</span><span class="p">:</span> <span class="n">netem</span> <span class="n">delay</span> <span class="mi">1500</span><span class="n">ms</span>  <span class="n">loss</span> <span class="mi">1</span><span class="o">%</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id6">参考资料</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://netbeez.net/blog/how-to-use-the-linux-traffic-control/">https://netbeez.net/blog/how-to-use-the-linux-traffic-control/</a></p></li>
 <li><p><a class="reference external" href="https://man7.org/linux/man-pages/man8/tc.8.html">https://man7.org/linux/man-pages/man8/tc.8.html</a></p></li>
@@ -224,7 +250,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tcpdump.html" class="btn btn-neutral float-right" title="tcpdump" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="perf.html" class="btn btn-neutral float-right" title="Linux Performance tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="ffmpeg.html" class="btn btn-neutral float-left" title="FFmpeg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
