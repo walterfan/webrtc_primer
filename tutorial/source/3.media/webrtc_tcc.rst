@@ -110,9 +110,7 @@ Transport-wide RTCP Feedback Message
 * packet status count:  16 bits The number of packets this feedback  contains status for, starting with the packet identified by the base sequence number.
   - 该 fb packet 包含 rtp 包个数。
 
-* reference time:  24 bits Signed integer indicating an absolute reference time in some (unknown) time base chosen by the sender of the feedback packets.  The value is to be  interpreted in multiples of 64ms.  The first recv delta
-    in this packet is relative to the reference time.  The reference time makes it possible to calculate the delta
-    between feedbacks even if some feedback packets are lost,  since it always uses the same time base.
+* reference time:  24 bits Signed integer indicating an absolute reference time in some (unknown) time base chosen by the sender of the feedback packets.  The value is to be  interpreted in multiples of 64ms.  The first recv delta in this packet is relative to the reference time.  The reference time makes it possible to calculate the delta between feedbacks even if some feedback packets are lost,  since it always uses the same time base.
   - 参考时间，fb 包首个 rtp 的到达时间/64
   
 * feedback packet count:  8 bits A counter incremented by one for each feedback packet sent.  Used to detect feedback packet losses.

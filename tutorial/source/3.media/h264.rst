@@ -127,7 +127,7 @@ H264 encoder
 ========================================
 
 .. image:: ../_static/H264-encoder.png
-   :local: h.264 encoder
+   :alt: h.264 encoder
 
 H264 decoder
 ========================================
