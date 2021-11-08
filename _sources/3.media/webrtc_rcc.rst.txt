@@ -163,16 +163,6 @@ WebRTC RTP Congestion Control
 
 拥塞检测可以是隐式的（基于在端点执行的端到端测量），也可以是显式的（通过监视路由器的缓冲区长度，在网络元素中直接测量拥塞）。
 
-Delay-based algorithms are preferred to loss-based algorithms due to two reasons: 
-
-* first, delay-based schemes can detect congestion before packets are lost due to buffer overflows; 
-* second, loss based algorithms cannot control queuing delays since they continuously probe for the network available bandwidth by filling and draining Internet buffers, generating significant delay variations. 
-
-Notice that explicitly controlling queuing delays is necessary, since excessively large buffers may
-lead to latencies of the order of seconds [2]. 
-An important issue to be taken into account is to prevent delay-based flows from being starved when
-competing with loss-based flows in the best-effort Internet [7]. 
-Congestion control algorithms may complement end-to-end measurements with explicit congestion signals sent from network elements to end-points through, for instance, the use of the explicit congestion notification (ECN) mechanism.
 
 一般来说，基于延迟的算法优于基于损失的算法，有如下两个原因：
 
