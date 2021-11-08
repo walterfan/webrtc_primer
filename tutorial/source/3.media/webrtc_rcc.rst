@@ -27,10 +27,7 @@ WebRTC RTP Congestion Control
 * 基于延迟的控制器 delay-based controller
 * 基于丢包的控制器 loss-based controller
 
-例如 Google 所提出的 
-
-* `GCC REMB <webrtc_remb.html>`_
-* `GCC Transport CC <webrtcc_tcc.html>`_
+例如 Google 所提出的 `GCC 算法 <webrtc_gcc.html>`_, `REMB 扩展 <webrtc_remb.html>`_， `TCC 算法 <webrtc_tcc.html>`_
 
 基本架构
 =========================
@@ -236,8 +233,7 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 1. Google Congestion Control (GCC) by Google
    它被应用于 Chrome 浏览器，是相对比较成熟的算法，详见
 
-   - `GCC 算法详解 <webrtc_gcc.html>`_
-   - `REMB 简介 <webrtc_remb.html>`_ 
+   - `GCC 算法详解 <webrtc_gcc.html>`_, `REMB 简介 <webrtc_remb.html>`_ 
    - `TCC 算法详解 <webrtc_tcc.html>`_
 
 2. Network Assisted Dynamic Adaptation(NADA) by Cisco
@@ -253,7 +249,7 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
    Architecture, Sender-side or hybrid, Sender-side, Sender-side
    Actuation mechanism, Rate-based, Rate-based, Window-based
    Network support, None, "ECN, PCN", ECN
-   Implementation status: Google Chrome, Ns-2 and Ns-3 simulators, OpenWebRTC and simulator
+   Implementation status, Google Chrome, Ns-2 and Ns-3 simulators, OpenWebRTC and simulator
    Codec interaction, VP8 and VP9, Simulated encoder, OpenH264 and VP9
 
 
