@@ -104,12 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">数理基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">数学</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">数学</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">信号处理技术</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">图像平滑与降噪</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">傅立叶转换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">概率统计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">傅立叶转换</a></li>
 </ul>
 </li>
 </ul>
@@ -190,8 +186,6 @@
 <h1>数理基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>数学<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>数学<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>极限</p></li>
 <li><p>微分中值定理</p></li>
@@ -204,15 +198,32 @@
 <li><p>正交变换与图像压缩</p></li>
 <li><p>高斯分布</p></li>
 </ul>
-</div>
+<div class="section" id="id3">
+<h3>概率统计<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>期望: 数学期望实际上是随机变量取值的加权平均（其权是取该值的概率），所以数学期望也称为均值。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[E\xi = \sum_k x_k p_k\]</div>
+<ul class="simple">
+<li><p>方差: 方差是随机变量相对于它的平均值的距离平方的加权均值</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[D\xi = \sum_k(x_k - E\xi)^2 p_k\]</div>
+<ul class="simple">
+<li><p>协方差</p></li>
+</ul>
+<blockquote>
+<div><p>对于两个随机变量 <span class="math notranslate nohighlight">\(\xi\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span>, 它们的协方差为</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[cov(\xi, \eta) = E(\xi - E\xi)(\eta - E\eta) = E\xi\eta - E\xi E\eta\]</div>
+<p>和相关系数</p>
+<div class="math notranslate nohighlight">
+\[\rho(\xi, \eta) = \frac{cov(\xi, \eta)}{\sqrt{D\xi}\sqrt{D\eta}}\]</div>
 </div>
 <div class="section" id="id4">
-<h2>信号处理技术<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>图像平滑与降噪<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="id6">
-<h3>傅立叶转换<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>傅立叶转换<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight" id="fourier-transform">
 <span id="equation-fourier-transform"></span><span class="eqno">(1)<a class="headerlink" href="#fourier-transform" title="Permalink to this equation">¶</a></span>\[(\mathcal{F}f)(y)
  = \frac{1}{\sqrt{2\pi}^{\ n}}
