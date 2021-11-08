@@ -345,10 +345,21 @@
 * 中心化（又叫零均值化）：是指变量減去它的均值。其实就是一个平移的过程，平移后所有数据的中心是（0，0）。
 * 标准化（又叫归一化）： 是指數值減去均值，再除以标准差。</p>
 <p>卡尔曼滤波器递归地更新这个估计值 m_hat(i)</p>
-<div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}z(i) = d(i) - m_hat(i-1)\\m_hat(i) = m_hat(i-1) + z(i) * k(i)\\                   e(i-1) + q(i)
-k(i) = ----------------------------------------
-           var_v_hat(i) + (e(i-1) + q(i))\\e(i) = (1 - k(i)) * (e(i-1) + q(i))\\var_v_hat(i) = max(alpha * var_v_hat(i-1) + (1-alpha) * z(i)^2, 1)\\alpha = (1-chi)^(30/(1000 * f_max))\end{aligned}\end{align} \]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">d</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">m_hat</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">m_hat</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">m_hat</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+                   <span class="n">e</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">k</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">----------------------------------------</span>
+           <span class="n">var_v_hat</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">e</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="n">e</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">k</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">e</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="n">var_v_hat</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">var_v_hat</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">chi</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">30</span><span class="o">/</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">f_max</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="the-over-use-detector">
 <h3><a class="toc-backref" href="#id28">5.4 过度使用检测器 The over-use detector</a><a class="headerlink" href="#the-over-use-detector" title="Permalink to this headline">¶</a></h3>
