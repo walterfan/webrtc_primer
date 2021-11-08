@@ -100,9 +100,10 @@ GCC [#]_ 拥塞控制算法根据估计的拥塞状态调节发送速率。 为�
 两个包发送的间隔 T(i) – T(i-1) 和接收的间隔 t(i) – t(i-1) 在理想情况下是相同的，实际上会有不同.
 也就是说包的到达时间并未保持稳定的速度。 在计算的时候可以用以帧分组，对两个组的到达时间进行计算。
 
-.. math::
-   
-   # 这是发送时间间隔与到达时间间隔之间的延时的观测公式，称为单向延迟变化
+* 发送时间间隔与到达时间间隔之间的延时的观测公式，称为单向延迟变化
+
+.. math::   
+
    d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 
 
@@ -124,16 +125,8 @@ v(i) 表示网络抖动和其他没有被这个模型捕捉到的延迟
 
 
 
-
 5.2.  Pre-filtering 预先过滤
 -----------------------------------------------------
-The pre-filtering aims at handling delay transients caused by channel outages.  During an outage, packets being queued in network buffers, for reasons unrelated to congestion, are delivered in a burst when the outage ends.
-
-The pre-filtering merges together groups of packets that arrive in a burst.  Packets are merged in the same group if one of these two conditions holds:
-
-* A sequence of packets which are sent within a burst_time interval constitute a group.
-
-* A Packet which has an inter-arrival time less than burst_time and an inter-group delay variation d(i) less than 0 is considered being part of the current group of packets.
 
 预滤波旨在处理由信道中断引起的延迟瞬变。 在中断期间，由于与拥塞无关的原因，在网络缓冲区中排队的数据包会在中断结束时突发传送。
 
@@ -219,6 +212,7 @@ The pre-filtering merges together groups of packets that arrive in a burst.  Pac
 
 .. math::
 
+     # 初始噪声
      z(i) = d(i) - m_hat(i-1)
 
      m_hat(i) = m_hat(i-1) + z(i) * k(i)
