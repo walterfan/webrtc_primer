@@ -334,19 +334,19 @@
 <h3><a class="toc-backref" href="#id27">5.3 到达时间滤波器 arrival time filter</a><a class="headerlink" href="#arrival-time-filter" title="Permalink to this headline">¶</a></h3>
 <p>根据到达时间模型，我们可以通过 Kalman Filter 或者 Trendline Filter 来求得网络排队延迟 <cite>m(i)</cite></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}m(i+1) = m(i) + u(i)
-# q(i) 为状态噪声 u(i) 方差的期望，推荐值是 10^-3
-q(i) = E{u(i)^2}\\d(i) = m(i) + v(i)\end{aligned}\end{align} \]</div>
-<p>其中
-* u(i) 是指状态噪声, 把它建模为具有零均值和方差的高斯统计模拟的平稳过程
-* v(i) 是指测量噪声，它是具有方差 <cite>var_v = E{v(i)^2}</cite> 的零均值高斯白测量噪声</p>
+\[ \begin{align}\begin{aligned}m(i+1) = m(i) + u(i)\\q(i) = E{u(i)^2}\\d(i) = m(i) + v(i)\end{aligned}\end{align} \]</div>
+<p>其中</p>
+<ul class="simple">
+<li><p>q(i) 为状态噪声 u(i) 方差的期望，推荐值是 10^-3</p></li>
+<li><p>u(i) 是指状态噪声, 把它建模为具有零均值和方差的高斯统计模拟的平稳过程</p></li>
+<li><p>v(i) 是指测量噪声，它是具有方差 <cite>var_v = E{v(i)^2}</cite> 的零均值高斯白测量噪声</p></li>
+</ul>
 <p>注：
 * 中心化（又叫零均值化）：是指变量減去它的均值。其实就是一个平移的过程，平移后所有数据的中心是（0，0）。
 * 标准化（又叫归一化）： 是指數值減去均值，再除以标准差。</p>
 <p>卡尔曼滤波器递归地更新这个估计值 m_hat(i)</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}# 初始噪声
-z(i) = d(i) - m_hat(i-1)\\m_hat(i) = m_hat(i-1) + z(i) * k(i)\\                   e(i-1) + q(i)
+\[ \begin{align}\begin{aligned}z(i) = d(i) - m_hat(i-1)\\m_hat(i) = m_hat(i-1) + z(i) * k(i)\\                   e(i-1) + q(i)
 k(i) = ----------------------------------------
            var_v_hat(i) + (e(i-1) + q(i))\\e(i) = (1 - k(i)) * (e(i-1) + q(i))\\var_v_hat(i) = max(alpha * var_v_hat(i-1) + (1-alpha) * z(i)^2, 1)\\alpha = (1-chi)^(30/(1000 * f_max))\end{aligned}\end{align} \]</div>
 </div>
