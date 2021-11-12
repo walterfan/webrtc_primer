@@ -8,13 +8,13 @@ Collect WebRTC related learning materials , write some notes and samples here.
 
 My WebRTC example Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book):
 
-https://www.fanyamin.com/webrtc/examples/index.html
+* [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
 
 
 
 # WebRTC Tutorial
 
-* [WebRTC 新手指南](https://walterfan.github.io/webrtc_primer/)
+* [WebRTC Notes 笔记](https://walterfan.github.io/webrtc_primer/)
 
 
 # Materials and Tools
