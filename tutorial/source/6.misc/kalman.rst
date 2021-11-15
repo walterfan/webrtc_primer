@@ -22,21 +22,90 @@
 简介
 =====================
 
-卡尔曼滤波（Kalman filtering）是一种利用线性系统状态方程，通过系统输入输出观测数据，对系统状态进行最优估计的算法。由于观测数据中包括系统中的噪声和干扰的影响，所以最优估计也可看作是滤波过程。
+卡尔曼滤波（Kalman filtering）是一种算法，用于在不确定的观测数据中估算出最优结果的算法。它利用线性系统状态方程，通过系统输入输出观测数据，对系统状态进行最优估计。由于观测数据中包括系统中的噪声和干扰的影响，所以最优估计也可看作是滤波过程。
 
 数据滤波是去除噪声还原真实数据的一种数据处理技术，Kalman滤波在测量方差已知的情况下能够从一系列存在测量噪声的数据中，估计动态系统的状态。由于它便于计算机编程实现，并能够对现场采集的数据进行实时的更新和处理，Kalman滤波是目前应用最为广泛的滤波方法，在通信，导航，制导与控制等多领域得到了较好的应用。
 
 
-卡尔曼滤波是一种以最小二乘法为基础，在时域内设计的递归线性最小方差估计算法。
+.. math::
 
-状态估计值 = 状态预测值 + 卡尔曼增益 * innovation
+  最优结果 = 估算值 + \frac{估计误差}{估计误差 + 测量误差} \times (测量值 - 估算值)
 
-innovation 表示由当前测量值引入的新的信息
+  最优结果_n = 最优估计值_{n-1} + \frac{1}{n} \times (测量值_n - 最优结果_{n-1})
+  
+  
+.. math::
+
+  最优估计值_n = 最优估计值_{n-1} + K_n \times (测量值_n = 最优估计值_{n-1})
+
+如果测量得非常准，:math:`K_n = 1， 最优估计值_n = 测量值_n`
+
+如果估计得非常准，:math:`K_n = 0， 最优估计值_n = 最优估计值值_{n-1}`
 
 
-系统是不确定的
+K_n 称为卡尔曼增益
+
+.. math::
+
+  K_n = \frac{最优估计值误差_{n_1}}{最优估计值误差_{n_1} + 测量值误差_n}
+
+.. math::
+
+  最优估计值_n = 最优估计值_{n-1} + K_n \times (测量值_n - 最优估计值_{n-1})
+
+.. math::
+
+  最优估计值误差_{n-1} = (1 - K_{n-1}) \times 最优估计值误差_{n-2}
 
 
+写一个 Python 程序来根据测量值，测量误差，体重估计来得到一个最优估计值
+总共测量了半个月的体重，体重秤误差为 3kg, 最终估计 79.74，接近真实体重 80kg
+
+.. code-block::
+
+  %matplotlib inline
+  import matplotlib.pyplot as plt
+  plt.style.use('seaborn-whitegrid')
+  import numpy as np
+  from tabulate import tabulate
+  measure_count = 15
+  measure_values = [81,83,79,78,81,79,80,78,81,79,80,78,81,79,82]
+  measure_error = [3] * 15
+  pre_estimate_value = 75
+  pre_estimate_error = 5
+  estimate_values = np.zeros(measure_count)
+  estimate_errors = np.zeros(measure_count)
+  K_values = np.zeros(measure_count)
+
+  for i in range(measure_count):
+      # K_n = \frac{最优估计值误差_{n_1}}{最优估计值误差_{n_1} + 测量值误差_n}
+      K_values[i] = pre_estimate_error/(pre_estimate_error + measure_error[i])
+      # 最优估计值_n = 最优估计值_{n-1} + K_n \times (测量值_n - 最优估计值_{n-1})
+      estimate_values[i] = pre_estimate_value + K_values[i] * (measure_values[i] - pre_estimate_value)
+      # 最优估计值误差_{n-1} = (1 - K_{n-1}) \times 最优估计值误差_{n-2}
+      estimate_errors[i] = (1 - K_values[i]) * pre_estimate_error
+
+      pre_estimate_value = estimate_values[i]
+      pre_estimate_error = estimate_errors[i]
+      
+  #print("K_values=",K_values)
+  #print("estimate_values=", estimate_values)
+  #print("estimate_errors=", estimate_errors)
+
+  table = [['#', 'measure_values', 'estimate_values', "K_values"]]
+  for i in range(measure_count):
+      table.append([i, measure_values[i], estimate_values[i], K_values[i]])
+  print(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
+
+  fig = plt.figure(figsize=[9,5])
+  ax = plt.axes()
+
+  x = np.linspace(1, 15, 15)
+  _ = ax.plot(x, measure_values, label="measure_values", color='red')
+  _ = ax.plot(x, estimate_values, label="estimate_values", color='green')
+
+  _=plt.legend(loc='upper right')
+  plt.show()
 
 预备知识
 ====================
