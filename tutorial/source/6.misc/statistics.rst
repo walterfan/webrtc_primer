@@ -59,7 +59,18 @@ Overview
 
     \mu =\frac{1}{N}\sum_{0}^{M-1}i H_i
 
+
+* 累积分布函数 CDF（Cumulative Distribution Function），又叫分布函数，是概率密度函数的积分，能完整描述一个实随机变量X的概率分布。
+
+对于随机变量 X, 如下定义的函数 F(x) 称为累积分布函数，简称分布函数，它等于该随机变量小于等于 x 的概率
+
+.. math::
+    
+    F(x) = P \{ X \le x \} , - \infty < x < + \infty
+
 * 概率质量函数 PMF（probability mass function）
+
+对于一个离散型随机变量 X , 定义它在各个特定取值上的概率为概率质量函数 PMF
 
 .. math::
 
@@ -67,8 +78,19 @@ Overview
 
 * 概率密度函数 PDF(probability density function） 也称概率分布函数
 
+对于一个连续型随机变量 X 的累积分布函数 F(x), 如果存在一个定义在实轴上的非负函数 f(x), 使得对于任意实数 x, 有下式成立，则称其为概率密度函数 PDF(probability density function）
+
 .. math::
 
-    P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+    F(x) = \int_{-\infty }^{x} f(t)dt
 
-* 累积分布函数 CDF（Cumulative Distribution Function），又叫分布函数，是概率密度函数的积分，能完整描述一个实随机变量X的概率分布。
+
+
+协方差
+--------------------
+
+设随机变量 X, Y 的期望值分别为 :math:`\mu \nu`, 此时 X 和 Y 的协方差 convariance 定义如下
+
+.. math::
+
+    Cov [ X, Y ]  \equiv  E [(X - \mu) (Y - \nu)]
