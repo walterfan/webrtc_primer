@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>数理基础 &mdash; webrtc_tutorial 1 documentation</title>
+  <title>概率与统计 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -43,8 +43,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="概率与统计" href="statistics.html" />
-    <link rel="prev" title="多媒体技术" href="multimedia.html" /> 
+    <link rel="next" title="科学计算" href="scientific_calculation.html" />
+    <link rel="prev" title="数理基础" href="mathematics.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,15 +103,14 @@
 <li class="toctree-l2"><a class="reference internal" href="kalman.html">卡尔曼滤波笔记</a></li>
 <li class="toctree-l2"><a class="reference internal" href="matlab.html">Matlab 科学计算</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">数理基础</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">数学</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">概率统计</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">傅立叶转换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">概率与统计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">协方差</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="statistics.html">概率与统计</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scientific_calculation.html">科学计算</a></li>
 </ul>
 </li>
@@ -165,13 +164,13 @@
         
           <li><a href="index.html">6. WebRTC 关联技术</a> &raquo;</li>
         
-      <li>数理基础</li>
+      <li>概率与统计</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/6.misc/mathematics.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/6.misc/statistics.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -185,52 +184,89 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>数理基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id2">
-<h2>数学<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h1>概率与统计<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
+<td><p>概率与统计</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<td><p>Walter Fan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<td><p>WIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-11-18</p></td>
+</tr>
+</tbody>
+</table>
+<div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p>极限</p></li>
-<li><p>微分中值定理</p></li>
-<li><p>向量代数与场论</p></li>
-<li><p>傅立叶级数及展开</p></li>
-<li><p>泛函分析及变分法</p></li>
-<li><p>概率论</p></li>
-<li><p>统计推断</p></li>
-<li><p>子带编码与小波变换</p></li>
-<li><p>正交变换与图像压缩</p></li>
-<li><p>高斯分布</p></li>
+<li><p><a class="reference internal" href="#overview" id="id3">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id4">协方差</a></p></li>
 </ul>
-<div class="section" id="id3">
-<h3>概率统计<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>期望: 数学期望实际上是随机变量取值的加权平均（其权是取该值的概率），所以数学期望也称为均值。</p></li>
+</li>
 </ul>
-<div class="math notranslate nohighlight">
-\[E\xi = \sum_k x_k p_k\]</div>
-<ul class="simple">
-<li><p>方差: 方差是随机变量相对于它的平均值的距离平方的加权均值</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[D\xi = \sum_k(x_k - E\xi)^2 p_k\]</div>
-<ul class="simple">
-<li><p>协方差</p></li>
-</ul>
-<blockquote>
-<div><p>对于两个随机变量 <span class="math notranslate nohighlight">\(\xi\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span>, 它们的协方差为</p>
-</div></blockquote>
-<div class="math notranslate nohighlight">
-\[cov(\xi, \eta) = E(\xi - E\xi)(\eta - E\eta) = E\xi\eta - E\xi E\eta\]</div>
-<p>和相关系数</p>
-<div class="math notranslate nohighlight">
-\[\rho(\xi, \eta) = \frac{cov(\xi, \eta)}{\sqrt{D\xi}\sqrt{D\eta}}\]</div>
 </div>
-<div class="section" id="id4">
-<h3>傅立叶转换<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="math notranslate nohighlight" id="fourier-transform">
-<span id="equation-fourier-transform"></span><span class="eqno">(1)<a class="headerlink" href="#fourier-transform" title="Permalink to this equation">¶</a></span>\[(\mathcal{F}f)(y)
- = \frac{1}{\sqrt{2\pi}^{\ n}}
-   \int_{\mathbb{R}^n} f(x)\,
-   e^{-\mathrm{i} y \cdot x} \,\mathrm{d} x.\]</div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id3">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>平均值</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mu =\frac{1}{N}\sum_{0}^{n-1}x_i\]</div>
+<ul class="simple">
+<li><p>标准差和方差</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sigma ^ 2 = \frac{1}{N-1} \sum_{i=0}^{N-1}(x_i - \mu)^2\]</div>
+<p>标准差衡量的是信号离平均值有多远，方差衡量的是这种偏离的功率。
+对于连续统计，方差可由如下公式计算：</p>
+<div class="math notranslate nohighlight">
+\[\sigma ^ 2 = \frac{1}{N-1} \left [ \sum_{i=0}^{N-1} x_i^2 - \frac{1}{N}\left ( \sum_{i=0}^{N-1}  \right ) ^2   \right ]\]</div>
+<ul>
+<li><p>信噪比 SNR <span class="math notranslate nohighlight">\(=\frac{\mu}{\sigma}\)</span></p></li>
+<li><p>直方图 Histgram,</p>
+<p>假设 M 是每个采样点可能取值的数目，可用 <span class="math notranslate nohighlight">\(H_i\)</span> 来表示直方图， i 在 0 到 M - 1 之间，<span class="math notranslate nohighlight">\(H_{50}\)</span> 表示采样值是50的采样点的个数，采样点越多，图像就越平滑，直方图的统计噪声与所用采样点数的平方根成反比</p>
+</li>
+</ul>
+<p>直方图中所有值的总和等于信号的采样点总数：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[N = \sum_{i=0}^{M-1}H_i\]</div>
+</div></blockquote>
+<p>利用直方图来计算平均值和标准差的公式如下</p>
+<div class="math notranslate nohighlight">
+\[\mu =\frac{1}{N}\sum_{0}^{M-1}i H_i\]</div>
+<ul class="simple">
+<li><p>累积分布函数 CDF（Cumulative Distribution Function），又叫分布函数，是概率密度函数的积分，能完整描述一个实随机变量X的概率分布。</p></li>
+</ul>
+<p>对于随机变量 X, 如下定义的函数 F(x) 称为累积分布函数，简称分布函数，它等于该随机变量小于等于 x 的概率</p>
+<div class="math notranslate nohighlight">
+\[F(x) = P \{ X \le x \} , - \infty &lt; x &lt; + \infty\]</div>
+<ul class="simple">
+<li><p>概率质量函数 PMF（probability mass function）</p></li>
+</ul>
+<p>对于一个离散型随机变量 X , 定义它在各个特定取值上的概率为概率质量函数 PMF</p>
+<div class="math notranslate nohighlight">
+\[f(x) = P(X = x)\]</div>
+<ul class="simple">
+<li><p>概率密度函数 PDF(probability density function） 也称概率分布函数</p></li>
+</ul>
+<p>对于一个连续型随机变量 X 的累积分布函数 F(x), 如果存在一个定义在实轴上的非负函数 f(x), 使得对于任意实数 x, 有下式成立，则称其为概率密度函数 PDF(probability density function）</p>
+<div class="math notranslate nohighlight">
+\[F(x) = \int_{-\infty }^{x} f(t)dt\]</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id4">协方差</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>设随机变量 X, Y 的期望值分别为 <span class="math notranslate nohighlight">\(\mu \nu\)</span>, 此时 X 和 Y 的协方差 convariance 定义如下</p>
+<div class="math notranslate nohighlight">
+\[Cov [ X, Y ]  \equiv  E [(X - \mu) (Y - \nu)]\]</div>
 </div>
 </div>
 </div>
@@ -241,8 +277,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="statistics.html" class="btn btn-neutral float-right" title="概率与统计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="multimedia.html" class="btn btn-neutral float-left" title="多媒体技术" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scientific_calculation.html" class="btn btn-neutral float-right" title="科学计算" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mathematics.html" class="btn btn-neutral float-left" title="数理基础" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

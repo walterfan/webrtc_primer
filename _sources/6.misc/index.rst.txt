@@ -10,6 +10,8 @@
    signal
    dsp
    kalman
+   matlab
    multimedia
    mathematics
-   python_scientific_calculation
+   statistics
+   scientific_calculation

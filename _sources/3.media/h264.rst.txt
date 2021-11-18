@@ -63,20 +63,17 @@ H.264/AVC 应用的主要技术
 3. 变换： 基于 4*4像素块的整数 DCT 变换
    
 4. 量化： 多对一的映射来降低码率
-量化参数QP是量化步长Qstep的序号, QP取最小值0 时，表示量化最精细；相反，QP取最大值51时，表示量化是最粗糙的。
-对于亮度（Luma）编码而言，量化步长Qstep共有52个值，QP取值0~51
+   
+量化参数 QP 是量化步长 Qstep 的序号, QP 取最小值 0 时，表示量化最精细；相反，QP 取最大值 51 时，表示量化是最粗糙的。
+对于亮度（Luma）编码而言，量化步长 Qstep 共有 52 个值，QP取值 0~51
 对于色度（Chroma）编码，Q的取值0~39
 
-5. 环路滤波：De-blocking Filter, Reconstruction Filter
+1. 环路滤波：De-blocking Filter, Reconstruction Filter
    
-6. 熵编码： 通用可变长编码（UVLC）和基于文本的自适应二进制算术编码（CABAC）
+2. 熵编码： 通用可变长编码（UVLC）和基于文本的自适应二进制算术编码（CABAC）
 https://www.youtube.com/watch?v=PmoEsPWEdOA&t=265s 
 
-
-
-https://en.wikipedia.org/wiki/Advanced_Video_Coding
-
-Advanced Video Coding (AVC), also referred to as H.264 or MPEG-4 Part 10, Advanced Video Coding (MPEG-4 AVC), is a video compression standard based on block-oriented, motion-compensated integer-DCT coding.
+参见 https://en.wikipedia.org/wiki/Advanced_Video_Coding
 
 
 H264标准各主要部分有
@@ -88,10 +85,6 @@ H264标准各主要部分有
 * Instantaneous Decoding Refresh（IDR，即时解码刷新）、
 * Hypothetical Reference Decoder（HRD，假想参考解码）、
 * Hypothetical Stream Scheduler（HSS，假想码流调度器）
-
-
-
-note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允许, ig = 忽略)
 
 术语和缩写
 ========================================
@@ -125,6 +118,8 @@ note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允
 
 H264 encoder
 ========================================
+H.264 采用混合编码技术，即把画面间运动预测和画面内空间预测组合，并对残差进行变换编码
+
 
 .. image:: ../_static/H264-encoder.png
    :alt: h.264 encoder

@@ -40,13 +40,57 @@ JavaScript 早已今非昔比，浏览器的功能越来越丰富，几乎成为
 
 
 类与模块的完善
-==============
+==========================
 
 异步功能
-=============
+==========================
+
+
+使用回调 callback
+--------------------------
+
+.. code-block:: JavaScript
+
+   setTimeout(aJobFunction, aJobIntervalMs);
+
+   let jobId = setInterval(aJobFunction, aJobIntervalMs);
+
+   function stopJob() {
+      clearInterval(jobId);
+   }
+
+使用期约 Promise
+--------------------------
+
+.. code-block:: JavaScript
+
+   new Promise(function (resolve, reject) {
+      var a = 0;
+      var b = 1;
+      if (b == 0) reject("Divide zero");
+      else resolve(a / b);
+   }).then(function (value) {
+      console.log("a / b = " + value);
+   }).catch(function (err) {
+      console.log(err);
+   }).finally(function () {
+      console.log("End");
+   });
+
+async and await
+--------------------------
+
+.. code-block:: JavaScript
+
+   async function asyncFunc() {
+      await print(1000, "First");
+      await print(4000, "Second");
+      await print(3000, "Third");
+   }
+   asyncFunc();
 
 多线程
-=============
+==========================
 
 
 参考资料

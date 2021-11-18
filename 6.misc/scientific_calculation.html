@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Web Transport &mdash; webrtc_tutorial 1 documentation</title>
+  <title>科学计算 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -42,8 +42,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4. WebRTC 实践" href="../4.practice/index.html" />
-    <link rel="prev" title="Web Codecs" href="web_codec.html" /> 
+    <link rel="prev" title="概率与统计" href="statistics.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,25 +92,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_rcc.html">WebRTC RTP Congestion Control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
-<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Web Transport</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. WebRTC 关联技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kalman.html">卡尔曼滤波笔记</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html">Matlab 科学计算</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimedia.html">多媒体技术</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistics.html">概率与统计</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">科学计算</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#numpy">numpy</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -160,15 +157,15 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+          <li><a href="index.html">6. WebRTC 关联技术</a> &raquo;</li>
         
-      <li>Web Transport</li>
+      <li>科学计算</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/3.media/web_transport.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/6.misc/scientific_calculation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -181,8 +178,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="web-transport">
-<h1>Web Transport<a class="headerlink" href="#web-transport" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="id1">
+<h1>科学计算<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -190,7 +187,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
-<td><p>Web Transport</p></td>
+<td><p>卡尔曼滤波笔记</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Authors</strong></p></td>
 <td><p>Walter Fan</p></td>
@@ -205,17 +202,55 @@
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p></li>
+<li><p><a class="reference internal" href="#numpy" id="id3">numpy</a></p></li>
 </ul>
 </div>
-<div class="section" id="overview">
-<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Bandwidth estimation</p></li>
-<li><p>Send control</p></li>
-<li><p>Loas concealment</p></li>
-<li><p>AV sync</p></li>
-</ul>
+<div class="section" id="numpy">
+<h2><a class="toc-backref" href="#id3">numpy</a><a class="headerlink" href="#numpy" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">numpy function</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>函数</p></th>
+<th class="head"><p>功能</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>rand</p></td>
+<td><p>0到1之间的随机数</p></td>
+</tr>
+<tr class="row-odd"><td><p>randint</p></td>
+<td><p>指定范围内的随机整数</p></td>
+</tr>
+<tr class="row-even"><td><p>randn</p></td>
+<td><p>标准正态分布的随机数</p></td>
+</tr>
+<tr class="row-odd"><td><p>normal</p></td>
+<td><p>正态分布</p></td>
+</tr>
+<tr class="row-even"><td><p>sum</p></td>
+<td><p>求和</p></td>
+</tr>
+<tr class="row-odd"><td><p>average</p></td>
+<td><p>加权平均数</p></td>
+</tr>
+<tr class="row-even"><td><p>var</p></td>
+<td><p>方差</p></td>
+</tr>
+<tr class="row-odd"><td><p>mean</p></td>
+<td><p>期望</p></td>
+</tr>
+<tr class="row-even"><td><p>std</p></td>
+<td><p>标准差</p></td>
+</tr>
+<tr class="row-odd"><td><p>product</p></td>
+<td><p>连乘积</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -225,8 +260,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../4.practice/index.html" class="btn btn-neutral float-right" title="4. WebRTC 实践" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="web_codec.html" class="btn btn-neutral float-left" title="Web Codecs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="statistics.html" class="btn btn-neutral float-left" title="概率与统计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
