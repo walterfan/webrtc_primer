@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -225,23 +225,27 @@
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id2">概述</a></p></li>
-<li><p><a class="reference internal" href="#standard" id="id3">Standard</a></p>
+<li><p><a class="reference internal" href="#id1" id="id3">概述</a></p></li>
+<li><p><a class="reference internal" href="#standard" id="id4">Standard</a></p>
 <ul>
-<li><p><a class="reference internal" href="#polqa" id="id4">POLQA</a></p></li>
-<li><p><a class="reference internal" href="#bandwidth-limiting" id="id5">Bandwidth Limiting</a></p></li>
-<li><p><a class="reference internal" href="#packet-loss" id="id6">Packet Loss</a></p></li>
-<li><p><a class="reference internal" href="#packet-jitter" id="id7">Packet Jitter</a></p></li>
-<li><p><a class="reference internal" href="#packet-delay" id="id8">Packet Delay</a></p></li>
+<li><p><a class="reference internal" href="#polqa" id="id5">POLQA</a></p></li>
+<li><p><a class="reference internal" href="#bandwidth-limiting" id="id6">Bandwidth Limiting</a></p></li>
+<li><p><a class="reference internal" href="#packet-loss" id="id7">Packet Loss</a></p></li>
+<li><p><a class="reference internal" href="#packet-jitter" id="id8">Packet Jitter</a></p></li>
+<li><p><a class="reference internal" href="#packet-delay" id="id9">Packet Delay</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#mos" id="id9">MOS</a></p></li>
-<li><p><a class="reference internal" href="#tools" id="id10">Tools</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id11">Reference</a></p></li>
+<li><p><a class="reference internal" href="#mos" id="id10">MOS</a></p></li>
+<li><p><a class="reference internal" href="#tools" id="id11">Tools</a></p>
+<ul>
+<li><p><a class="reference internal" href="#visqol" id="id12">visqol</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id13">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id2">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>There are four types of impairments that a QoS tester should focus on:</p>
 <ul class="simple">
 <li><p>Bandwidth Limiting</p></li>
@@ -251,7 +255,7 @@
 </ul>
 </div>
 <div class="section" id="standard">
-<h2><a class="toc-backref" href="#id3">Standard</a><a class="headerlink" href="#standard" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Standard</a><a class="headerlink" href="#standard" title="Permalink to this headline">¶</a></h2>
 <p>There are Six Major International Standards:</p>
 <ul class="simple">
 <li><p>PSQM (1996)</p></li>
@@ -262,7 +266,7 @@
 <li><p>POLQA (2010)</p></li>
 </ul>
 <div class="section" id="polqa">
-<h3><a class="toc-backref" href="#id4">POLQA</a><a class="headerlink" href="#polqa" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">POLQA</a><a class="headerlink" href="#polqa" title="Permalink to this headline">¶</a></h3>
 <p>POLQA is the next-generation mobile voice quality testing standard P.863 ” the successor of PESQ</p>
 <ul class="simple">
 <li><p>POLQA stands for ‚Perceptual Objective Listening Quality Assessment‚</p></li>
@@ -282,24 +286,24 @@
 </ul>
 </div>
 <div class="section" id="bandwidth-limiting">
-<h3><a class="toc-backref" href="#id5">Bandwidth Limiting</a><a class="headerlink" href="#bandwidth-limiting" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">Bandwidth Limiting</a><a class="headerlink" href="#bandwidth-limiting" title="Permalink to this headline">¶</a></h3>
 <p>Bandwidth Limiting sets the maximum amount of network packets that can be sent through the network.  The bandwidth limiting sets the theoretical maximum bandwidth for the connection.  Therefore, the actual amount of data that can be sent through the channel will be less than the limit because of network overhead.  It is adjusted in kilobits per second (Kbps).  Ex. 1000 Kbps = 1 megabit.</p>
 </div>
 <div class="section" id="packet-loss">
-<h3><a class="toc-backref" href="#id6">Packet Loss</a><a class="headerlink" href="#packet-loss" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Packet Loss</a><a class="headerlink" href="#packet-loss" title="Permalink to this headline">¶</a></h3>
 <p>Packet loss sets the percentage of total packets that will be lost in transit from the sender to receiver.  It is adjusted in percentage of total packets from 0 - 100%.</p>
 </div>
 <div class="section" id="packet-jitter">
-<h3><a class="toc-backref" href="#id7">Packet Jitter</a><a class="headerlink" href="#packet-jitter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Packet Jitter</a><a class="headerlink" href="#packet-jitter" title="Permalink to this headline">¶</a></h3>
 <p>Packet jitter is the time between when each packet is received.  The time is adjusted in milliseconds, and the impairment tool adds a random amount of time between the packets between 0 and the number entered, so that the time interval between two packets is random.</p>
 </div>
 <div class="section" id="packet-delay">
-<h3><a class="toc-backref" href="#id8">Packet Delay</a><a class="headerlink" href="#packet-delay" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Packet Delay</a><a class="headerlink" href="#packet-delay" title="Permalink to this headline">¶</a></h3>
 <p>Packet delay is the amount of time it takes for each packet to arrive to the sender.  The time is adjusted in milliseconds.</p>
 </div>
 </div>
 <div class="section" id="mos">
-<h2><a class="toc-backref" href="#id9">MOS</a><a class="headerlink" href="#mos" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">MOS</a><a class="headerlink" href="#mos" title="Permalink to this headline">¶</a></h2>
 <p>A Mean Opinion Score (MOS) is a numerical measure of the human-judged overall quality of an event or experience.  In telecommunications, a Mean Opinion Score is a ranking of the quality of voice and video sessions.</p>
 <p>Most often judged on a scale of 1 (bad) to 5 (excellent), Mean Opinion Scores are the average of a number of other human-scored individual parameters.  Although originally Mean Opinion Scores were derived from surveys of expert observers, today a MOS is often produced by an Objective Measurement Method approximating a human ranking.</p>
 <p>ITU-T’s P.800.1 discusses objective and subjective scoring of telephone transmission quality, while recommendations such as P.863 and J.247 cover speech and video quality, respectively.</p>
@@ -313,13 +317,16 @@
 </ul>
 </div>
 <div class="section" id="tools">
-<h2><a class="toc-backref" href="#id10">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/google/visqol">visqol</a></p></li>
-</ul>
+<h2><a class="toc-backref" href="#id11">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="visqol">
+<h3><a class="reference external" href="https://github.com/google/visqol">visqol</a><a class="headerlink" href="#visqol" title="Permalink to this headline">¶</a></h3>
+<p>ViSQOL(Virtual Speech Quality Objective Listener)虚拟语音质量目标监听器是感知音频质量的客观、完整的参考指标。</p>
+<p>它使用参考和测试语音信号之间相似性的空间-时间(spectro-temporal)度量来产生 MOS-LQO（平均意见分数 - 听力质量目标）分数。</p>
+<p>MOS-LQO 分数范围从 1（最差）到 5（最好）。</p>
+</div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id11">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="#mos">MOS</a></p></li>
 </ul>

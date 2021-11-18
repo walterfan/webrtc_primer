@@ -91,8 +91,7 @@ YUV
 
 
 Y 指亮度信号, U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度的白色之间的差别
-Y 明亮度， U 色度， V 浓度
-  - 参见 `YUV`_ 格式
+Y 明亮度， U 色度， V 浓度, 参见 `YUV`_ 格式
 
 .. _YUV: yuv.html
 
@@ -138,10 +137,6 @@ YUV 采样格式的分类
 * YUV411    6 bytes per 4 pixels
 * YUV420p   6 bytes per 4 pixels, reordered
 
-
-.. image:: ../_static/1600px-Yuv420-frame.png
-
-.. image:: ../_static/1600px-Yuv420-stream.png
 
 .. math::
 
@@ -388,6 +383,7 @@ H.264 and MPEG-4 Video Compression: Video Coding for Next-generation Multimedia
 视频是由一系列图像形成的动作序列，并且该系列中的每个图像在要显示的动作序列的时间线中与前一个图像相继。 这些静止图像称为视频帧。 每个视频帧之间的时间差越小，刷新率越高，在视频中表现出的的移动越自然。 这是因为每秒生成的视频帧数量更多，作为动作序列的一部分显示，因此帧之间图像的变化更小，移动看起来更平滑。
 
 * IDR
+  
 An encoder sends an IDR (Instantaneous Decoder Refresh) coded picture (made up of I- or SI-slices) to clear the contents of the reference picture buffer. On receiving an IDR coded picture, the decoder marks all pictures in the reference buffer as ‘unused for reference’. All subsequent transmitted slices can be decoded without reference to any frame decoded prior to the IDR picture. The first picture in a coded video sequence is always an IDR picture.
 
 * 视频帧 Video Frame
