@@ -36,6 +36,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -101,8 +102,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">颜色</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">颜色模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">数字图像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">数字图像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">视频编码的问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">视频压缩</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#video-frame">视频帧 Video Frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#video-compress">视频压缩 Video compress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#h-264">H.264</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tools">Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="video_codec.html">视频编码</a></li>
@@ -219,34 +226,58 @@
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id8">概述</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id9">颜色</a></p>
+<li><p><a class="reference internal" href="#id1" id="id14">概述</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id15">颜色</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id10">光的三基色</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id11">色彩三要素</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id16">光的三基色</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id17">色彩三要素</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id12">颜色模型</a></p>
+<li><p><a class="reference internal" href="#id5" id="id18">颜色模型</a></p>
 <ul>
-<li><p><a class="reference internal" href="#rgb" id="id13">RGB</a></p></li>
-<li><p><a class="reference internal" href="#yuv" id="id14">YUV</a></p></li>
+<li><p><a class="reference internal" href="#rgb" id="id19">RGB</a></p></li>
+<li><p><a class="reference internal" href="#yuv" id="id20">YUV</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id15">数字图像</a></p>
+<li><p><a class="reference internal" href="#id7" id="id21">数字图像</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id7" id="id16">显示分辨率</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">显示分辨率</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#tools" id="id17">Tools</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id23">视频编码的问题</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id24">图像格式</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id25">有哪些分辩率?</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id26">高宽比</a></p></li>
+<li><p><a class="reference internal" href="#framedepth-bits" id="id27">FrameDepth Bits</a></p></li>
+<li><p><a class="reference internal" href="#frame-rate" id="id28">Frame Rate 帧率</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id29">视频压缩</a></p>
+<ul>
+<li><p><a class="reference internal" href="#mpeg-2" id="id30">MPEG-2 编码</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#video-frame" id="id31">视频帧 Video Frame</a></p>
+<ul>
+<li><p><a class="reference internal" href="#i-frame" id="id32">I-frame 信息帧</a></p></li>
+<li><p><a class="reference internal" href="#p-frame" id="id33">P-frame</a></p></li>
+<li><p><a class="reference internal" href="#b-frame" id="id34">B-frame</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#video-compress" id="id35">视频压缩 Video compress</a></p></li>
+<li><p><a class="reference internal" href="#h-264" id="id36">H.264</a></p></li>
+<li><p><a class="reference internal" href="#tools" id="id37">Tools</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id38">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id8">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id9">颜色</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">颜色</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id10">光的三基色</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">光的三基色</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Red, Green, Blue 红绿蓝称为三基色，它们按不同比例合成可以产生其他颜色</p>
 <p>..code-block:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">+</span> <span class="n">G</span> <span class="o">=</span> <span class="n">Yellow</span> <span class="n">黄色</span>
@@ -260,7 +291,7 @@
 </div>
 </div>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id11">色彩三要素</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">色彩三要素</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>色相：也称色调，由光波波长的长短决定的视觉我，是区别不同颜色的标准</p></li>
 <li><p>亮度：lightness, brightness, 反映颜色的明暗程度</p></li>
@@ -269,9 +300,24 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id12">颜色模型</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">颜色模型</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="rgb">
-<h3><a class="toc-backref" href="#id13">RGB</a><a class="headerlink" href="#rgb" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">RGB</a><a class="headerlink" href="#rgb" title="Permalink to this headline">¶</a></h3>
+<p>首先就是rgba系列的格式，RGBA色彩主要用于色彩的显示和描述。</p>
+<p>常见的有RGBA/ARGB/BGRA/ABGR/RGB/BGR。这些格式都比较好理解了。</p>
+<p>R、G、B、A分别表示红绿蓝及透明通道。
+以RGBA为例，就是4个字节表示一个颜色值，排列方式就是RGBARGBARGBA这样排列。</p>
+<p>而RGB，就是三个字节表示一个颜色值，没有透明通道，排列方式就是RGBRGBRGB。</p>
+<p>在通常的视频中，也是没有透明通道的（也有例外，比如MOV格式，是可以包含透明通道的）。</p>
+<p>所以当RGBA编码为视频色彩时，A是会被丢掉的。
+当然，上面说的，是将每个色彩都用一个字节来表示的情况。</p>
+<p>RGBA也有RGBA_8888，RGBA_4444,RGB565等等众多格式，也就是并不是每个颜色都用一个字节来表示。</p>
+<ul class="simple">
+<li><p>RGB24： B-&gt;G-&gt;R, 每个分量用 8bit 来表示</p></li>
+<li><p>RGB32：对每个像素增加 8bit 用来表示 alpha 通道（透明度）</p></li>
+<li><p>RGB565：用两个字节来表示RGB三个色彩，R占5位，G占6位，B占5位。</p></li>
+</ul>
+<p>RGB565与RGB24相比，色彩上稍有损失，一般情况下，不细致对比，不容易发现这个损失，但是内存上会节约1/3的大小。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
 <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;../../material/xjl.png&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
@@ -279,9 +325,93 @@
 </div>
 </div>
 <div class="section" id="yuv">
-<h3><a class="toc-backref" href="#id14">YUV</a><a class="headerlink" href="#yuv" title="Permalink to this headline">¶</a></h3>
-<p>Y 指亮度信号
-U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度的白色之间的差别</p>
+<h3><a class="toc-backref" href="#id20">YUV</a><a class="headerlink" href="#yuv" title="Permalink to this headline">¶</a></h3>
+<p>Y 指亮度信号, U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度的白色之间的差别
+Y 明亮度， U 色度， V 浓度</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>参见 <a class="reference external" href="yuv.html">YUV</a> 格式</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#input is a RGB numpy array with shape (height,width,3), can be uint,int, float or double, values expected in the range 0..255</span>
+<span class="c1">#output is a double YUV numpy array with shape (height,width,3), values in the range 0..255</span>
+<span class="k">def</span> <span class="nf">RGB2YUV</span><span class="p">(</span> <span class="n">rgb</span> <span class="p">):</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.29900</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.16874</span><span class="p">,</span>  <span class="mf">0.50000</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mf">0.58700</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.33126</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.41869</span><span class="p">],</span>
+                 <span class="p">[</span> <span class="mf">0.11400</span><span class="p">,</span> <span class="mf">0.50000</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.08131</span><span class="p">]])</span>
+
+    <span class="n">yuv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">yuv</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">:]</span><span class="o">+=</span><span class="mf">128.0</span>
+    <span class="k">return</span> <span class="n">yuv</span>
+
+<span class="c1">#input is an YUV numpy array with shape (height,width,3) can be uint,int, float or double,  values expected in the range 0..255</span>
+<span class="c1">#output is a double RGB numpy array with shape (height,width,3), values in the range 0..255</span>
+<span class="k">def</span> <span class="nf">YUV2RGB</span><span class="p">(</span> <span class="n">yuv</span> <span class="p">):</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+                 <span class="p">[</span><span class="o">-</span><span class="mf">0.000007154783816076815</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3441331386566162</span><span class="p">,</span> <span class="mf">1.7720025777816772</span><span class="p">],</span>
+                 <span class="p">[</span> <span class="mf">1.4019975662231445</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7141380310058594</span> <span class="p">,</span> <span class="mf">0.00001542569043522235</span><span class="p">]</span> <span class="p">])</span>
+
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">yuv</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">rgb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">-=</span><span class="mf">179.45477266423404</span>
+    <span class="n">rgb</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mf">135.45870971679688</span>
+    <span class="n">rgb</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">-=</span><span class="mf">226.8183044444304</span>
+    <span class="k">return</span> <span class="n">rgb</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>从 RGBA 转换为 YUV: <a class="reference external" href="https://docs.opencv.org/3.4/de/d25/imgproc_color_conversions.html">opencv doc</a></p></li>
+</ul>
+<p>YUV 采样格式的分类</p>
+<ul class="simple">
+<li><p>YUV444    3 bytes per pixel     (12 bytes per 4 pixels)</p></li>
+<li><p>YUV422    4 bytes per 2 pixels   (8 bytes per 4 pixels)</p></li>
+<li><p>YUV411    6 bytes per 4 pixels</p></li>
+<li><p>YUV420p   6 bytes per 4 pixels, reordered</p></li>
+</ul>
+<img alt="_static/1600px-Yuv420-frame.png" src="_static/1600px-Yuv420-frame.png" />
+<img alt="_static/1600px-Yuv420-stream.png" src="_static/1600px-Yuv420-stream.png" />
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}Y = k_rR + k_gG + k_bB\\U = \frac{B - Y}{2(1-k_b)}\\V = \frac{R - Y}{2(1-k_r)}\end{aligned}\end{align} \]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+
+
+<span class="k">def</span> <span class="nf">bgr2yuv</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="n">yuv_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YUV</span><span class="p">)</span>
+    <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">yuv_img</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span>
+
+
+<span class="k">def</span> <span class="nf">yuv2bgr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">yuv_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">])</span>
+    <span class="n">bgr_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">yuv_img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_YUV2BGR</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">bgr_img</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">orig_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;test.png&#39;</span><span class="p">)</span>
+
+    <span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">bgr2yuv</span><span class="p">(</span><span class="n">orig_img</span><span class="p">)</span>
+
+    <span class="n">bgr_img</span> <span class="o">=</span> <span class="n">yuv2bgr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;orig_img&#39;</span><span class="p">,</span> <span class="n">orig_img</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Y channel&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;U channel&#39;</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;V channel&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;bgr_img&#39;</span><span class="p">,</span> <span class="n">bgr_img</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>  <span class="kt">void</span> <span class="nf">YUVfromRGB</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">Y</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">V</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">R</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">G</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">B</span><span class="p">)</span>
 <span class="linenos"> 2</span>  <span class="p">{</span>
 <span class="linenos"> 3</span>    <span class="n">Y</span> <span class="o">=</span>  <span class="mf">0.257</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="mf">0.504</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span>  <span class="mi">16</span><span class="p">;</span>
@@ -302,15 +432,15 @@ U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度�
 </div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id15">数字图像</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id21">数字图像</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>黑白图像</p></li>
 <li><p>灰度图像</p></li>
 <li><p>彩色图像</p></li>
 </ul>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id16">显示分辨率</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id22">显示分辨率</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>现代显示模式</p></li>
 </ul>
@@ -415,8 +545,144 @@ U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度�
 </table>
 </div>
 </div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id23">视频编码的问题</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id24">图像格式</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>JPG</p></li>
+<li><p>WEBP</p></li>
+<li><p>PNG</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id25">有哪些分辩率?</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>90p</p></li>
+<li><p>180p</p></li>
+<li><p>320p</p></li>
+<li><p>VGA 640 * 480</p></li>
+<li><p>SVGA 800 * 600</p></li>
+<li><p>XGA</p></li>
+<li><p>720P</p></li>
+<li><p>1080P</p></li>
+<li><p>QHD</p></li>
+<li><p>4K: 3840 * 2160</p></li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id26">高宽比</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>4:3</p></li>
+<li><p>16:9</p></li>
+<li><p>16:10</p></li>
+</ul>
+</div>
+<div class="section" id="framedepth-bits">
+<h3><a class="toc-backref" href="#id27">FrameDepth Bits</a><a class="headerlink" href="#framedepth-bits" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>8 bit</p></li>
+<li><p>10 bit</p></li>
+<li><p>12 bit</p></li>
+<li><p>29 bit</p></li>
+</ul>
+</div>
+<div class="section" id="frame-rate">
+<h3><a class="toc-backref" href="#id28">Frame Rate 帧率</a><a class="headerlink" href="#frame-rate" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>24</p></li>
+<li><p>25</p></li>
+<li><p>30</p></li>
+<li><p>60</p></li>
+<li><p>120</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id29">视频压缩</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>视频压缩方法主要包括去除空间上，时间上，统计上以及感知上的冗余信息</p>
+<p>GOP: Group of Picture 代表一组连续的图像帧，通常其第一帧为 I 帧（关键帧），其后跟着 B 帧和 P 帧</p>
+<p>DTS: Decode Timestamp
+PTS: Presentation Timestamp</p>
+<p>IDR 帧：从 IDR 帧开始，所有后面的帧都不会参考 IDR 帧之前的帧</p>
+<div class="section" id="mpeg-2">
+<h3><a class="toc-backref" href="#id30">MPEG-2 编码</a><a class="headerlink" href="#mpeg-2" title="Permalink to this headline">¶</a></h3>
+<p>MPEG-2 编码即 H.262 使用了 DCT（Discrete Cosine Transform 离散余弦变换），运动补偿和霍夫曼编码，对数据从大到小定义了
+sequence, GOP, Picture, Slice, MacroBlock (宏块)， Block 等多个层次</p>
+<p>MPEG-2 中的宏块定义了4:2:0, 4:2:2, 4:4:4 不同的结构， Block 则代表了 8*8 个采样值。</p>
+</div>
+</div>
+<div class="section" id="video-frame">
+<h2><a class="toc-backref" href="#id31">视频帧 Video Frame</a><a class="headerlink" href="#video-frame" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">A video is an action sequence formed by a series of images, and each image in the series succeeds the previous one in the timeline of the action sequence to displayed . These still images are called video frames.</div>
+</div>
+<p>视频是由一系列图像组成的动作序列，并且该序列中的每个图像都将在要显示的动作序列的时间轴中接替前一个图像。 这些静止图像称为视频帧。</p>
+<div class="line-block">
+<div class="line">the smaller the time difference is between each video frame, the higher the refresh rate is and the more naturally movement is represented in the video.</div>
+</div>
+<p>每个视频帧之间的时间差越小，刷新率就越高，并且视频中的运动表现得越自然。</p>
+<div class="line-block">
+<div class="line">this is because there are more video frames generated per second to be displayed as part of the action sequence, therefore changes in the images between frames are slighter and movement appears smoother.</div>
+</div>
+<p>这是因为每秒有更多的视频帧要显示为动作序列的一部分，因此帧之间图像的变化较小，并且运动看起来更平滑。</p>
+<div class="section" id="i-frame">
+<h3><a class="toc-backref" href="#id32">I-frame 信息帧</a><a class="headerlink" href="#i-frame" title="Permalink to this headline">¶</a></h3>
+<p>信息帧用帧内压缩，用作关键帧</p>
+</div>
+<div class="section" id="p-frame">
+<h3><a class="toc-backref" href="#id33">P-frame</a><a class="headerlink" href="#p-frame" title="Permalink to this headline">¶</a></h3>
+<p>预测帧 Predictive Frame 用帧间压缩，反映之前的 I-frame 的变化</p>
+</div>
+<div class="section" id="b-frame">
+<h3><a class="toc-backref" href="#id34">B-frame</a><a class="headerlink" href="#b-frame" title="Permalink to this headline">¶</a></h3>
+<p>双向预测帧 Bidirectional Predictive Frames 使得总体压缩更高， 它参考了之前的 I-frame 和之后的 P-frame</p>
+</div>
+</div>
+<div class="section" id="video-compress">
+<h2><a class="toc-backref" href="#id35">视频压缩 Video compress</a><a class="headerlink" href="#video-compress" title="Permalink to this headline">¶</a></h2>
+<p>由于视频是由图像的时间序列组成，视频压缩可以看作具有时间分量的图像压缩。</p>
+<p>大多数视频压缩方案都利用了时间相关性来消除冗余。</p>
+<p>预测帧与当前帧之间的差异称为预测误差或残差</p>
+<p>Intra-Frame 帧内压缩</p>
+<p>Inter-Frame 帧间压缩</p>
+</div>
+<div class="section" id="h-264">
+<h2><a class="toc-backref" href="#id36">H.264</a><a class="headerlink" href="#h-264" title="Permalink to this headline">¶</a></h2>
+<p>H.264 and MPEG-4 Video Compression: Video Coding for Next-generation Multimedia</p>
+<p>视频是由一系列图像形成的动作序列，并且该系列中的每个图像在要显示的动作序列的时间线中与前一个图像相继。 这些静止图像称为视频帧。 每个视频帧之间的时间差越小，刷新率越高，在视频中表现出的的移动越自然。 这是因为每秒生成的视频帧数量更多，作为动作序列的一部分显示，因此帧之间图像的变化更小，移动看起来更平滑。</p>
+<ul class="simple">
+<li><p>IDR</p></li>
+</ul>
+<p>An encoder sends an IDR (Instantaneous Decoder Refresh) coded picture (made up of I- or SI-slices) to clear the contents of the reference picture buffer. On receiving an IDR coded picture, the decoder marks all pictures in the reference buffer as ‘unused for reference’. All subsequent transmitted slices can be decoded without reference to any frame decoded prior to the IDR picture. The first picture in a coded video sequence is always an IDR picture.</p>
+<ul class="simple">
+<li><p>视频帧 Video Frame</p></li>
+</ul>
+<p>视频是由一系列图像组成的动作序列，并且该序列中的每个图像都将在要显示的动作序列的时间轴中接替前一个图像。 这些静止图像称为视频帧。</p>
+<p>每个视频帧之间的时间差越小，刷新率就越高，并且视频中的运动表现得越自然。</p>
+<p>这是因为每秒有更多的视频帧要显示为动作序列的一部分，因此帧之间图像的变化较小，并且运动看起来更平滑。</p>
+<p>Compression and media resilliency feature</p>
+<ul class="simple">
+<li><p>Error feedback mechanism</p></li>
+<li><p>Enhanced motion estimation</p></li>
+<li><p>Improved entropy coding</p></li>
+<li><p>Intra-prediction coding for I-frame</p></li>
+<li><p>4*4 Display Channel Table (DCT)</p></li>
+<li><p>Network Abstraction Layer</p></li>
+<li><p>Gradual Decoder Refresh(GDR) frame</p></li>
+<li><p>Long-Term Reference Picture (LTRP) frame</p></li>
+<li><p>错误反馈机制</p></li>
+<li><p>增强的运动估计</p></li>
+<li><p>改进的熵编码</p></li>
+<li><p>I帧的帧内预测编码</p></li>
+<li><p>4 * 4 显示频道表（DCT）</p></li>
+<li><p>网络抽象层</p></li>
+<li><p>渐进式解码器刷新（GDR）帧</p></li>
+<li><p>长期参考图片（LTRP）帧</p></li>
+</ul>
+</div>
 <div class="section" id="tools">
-<h2><a class="toc-backref" href="#id17">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id37">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>sips</p></li>
 </ul>
@@ -426,6 +692,12 @@ Its functionality can also be used through the “Image Events” AppleScript su
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sips</span> <span class="o">-</span><span class="n">s</span> <span class="nb">format</span> <span class="n">bmp</span> <span class="nb">input</span><span class="o">.</span><span class="n">jpg</span> <span class="o">--</span><span class="n">out</span> <span class="n">output</span><span class="o">.</span><span class="n">bmp</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id38">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-image.org/">scikit-image</a></p></li>
+</ul>
 </div>
 </div>
 

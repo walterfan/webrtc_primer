@@ -42,7 +42,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Web Audio API" href="audio_api.html" />
+    <link rel="next" title="Automatic Gain Control" href="audio_agc.html" />
     <link rel="prev" title="Audio QoS" href="audio_qos.html" /> 
 </head>
 
@@ -98,13 +98,15 @@
 <li class="toctree-l2 current"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_level.html">Audio Level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Acoustic Echo Canceller</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_agc.html">Automatic Gain Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_ans.html">Automatic Noise Suppression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
@@ -237,6 +239,8 @@
 </div>
 <div class="section" id="id1">
 <h2><a class="toc-backref" href="#id7">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>回声抵消（AEC）指的是在二线传输的两个方向上同时间、同频谱地占用线路，在线路上两个方向传输的信号完全混在一起，本端发信号的回声即成为本端收信号的干扰信号，利用自适应滤波器可抵消回声以达到较好的接收信号质量。也就是消除回声。</p>
+<p>回声消除的原理就是利用接收到的音频与本地采集的音频做对比，添加反相的人造回声，将远端的声音消除。</p>
 <div class="section" id="id2">
 <h3><a class="toc-backref" href="#id8">何为回声？</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>In audio signal processing and acoustics, an echo is a reflection of sound that arrives at the listener with a delay after the direct sound. The delay is directly proportional to the distance of the reflecting surface from the source and the listener. Typical examples are the echo produced by the bottom of a well, by a building, or by the walls of an enclosed room and an empty room. A true echo is a single reflection of the sound source.[citation needed]</p>
@@ -297,7 +301,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="audio_api.html" class="btn btn-neutral float-right" title="Web Audio API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="audio_agc.html" class="btn btn-neutral float-right" title="Automatic Gain Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="audio_qos.html" class="btn btn-neutral float-left" title="Audio QoS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

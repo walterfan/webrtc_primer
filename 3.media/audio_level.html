@@ -43,7 +43,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Audio QoS" href="audio_qos.html" />
+    <link rel="next" title="Web Audio API" href="audio_api.html" />
     <link rel="prev" title="Audio Basic" href="audio_basic.html" /> 
 </head>
 
@@ -104,12 +104,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#id6">Audio Level</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#metrics">Metrics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id7">示例代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#faq">FAQ</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
-<li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_agc.html">Automatic Gain Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_ans.html">Automatic Noise Suppression</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
@@ -247,7 +250,12 @@
 </ul>
 </li>
 <li><p><a class="reference internal" href="#id7" id="id20">示例代码</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id21">Reference</a></p></li>
+<li><p><a class="reference internal" href="#faq" id="id21">FAQ</a></p>
+<ul>
+<li><p><a class="reference internal" href="#gain-volume" id="id22">Gain 和 Volume 的区别</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reference" id="id23">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
@@ -456,8 +464,19 @@ An RMS sound pressure of one pascal corresponds to a level of 94 dB SPL.</p>
 </div>
 </div>
 </div>
+<div class="section" id="faq">
+<h2><a class="toc-backref" href="#id21">FAQ</a><a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gain-volume">
+<h3><a class="toc-backref" href="#id22">Gain 和 Volume 的区别</a><a class="headerlink" href="#gain-volume" title="Permalink to this headline">¶</a></h3>
+<p>Gain是指针对输入的声音信号的增益调节放大倍数，Volume是指针对输出的音量大小。</p>
+<ul class="simple">
+<li><p>Gain指增益：增益就是用来增强输入进音箱电路的信号的。增益的作用就是放大信号。将输入的信号放大一定的倍数，而单位通常是我们熟悉的分贝</p></li>
+<li><p>Volume指音量：就是声音的响度，指音量的大小，也就是最终输出的声音大小。</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id21">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id23">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6464">RFC6464</a>: A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication</p></li>
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc6465">RFC6465</a>: A Real-time Transport Protocol (RTP) Header Extension for Mixer-to-Client Audio Level Indication</p></li>
@@ -471,7 +490,7 @@ An RMS sound pressure of one pascal corresponds to a level of 94 dB SPL.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="audio_qos.html" class="btn btn-neutral float-right" title="Audio QoS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="audio_api.html" class="btn btn-neutral float-right" title="Web Audio API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="audio_basic.html" class="btn btn-neutral float-left" title="Audio Basic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

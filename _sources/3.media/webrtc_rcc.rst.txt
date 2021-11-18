@@ -231,19 +231,9 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 第 3 种情况下，队列保持不变，OWDV 介于零和其最大值之间。 这是一种称为站立队列的不良情况，它会不断延迟传入流量。 
 因此，为了在充分利用可用带宽的同时保证较小的队列占用，算法必须通过增加其发送速率来持续探测可用带宽，直到检测到正排队延迟变化。 此时，发送速率应迅速降低。 总而言之，需要引入一些排队延迟来运行基于延迟变化的拥塞控制算法。
 
-
-已有三种算法提出来
-
-1. Google Congestion Control (GCC) by Google
-   它被应用于 Chrome 浏览器，是相对比较成熟的算法，详见
-
-   - `GCC 算法详解 <webrtc_gcc.html>`_, `REMB 简介 <webrtc_remb.html>`_ 
-   - `TCC 算法详解 <webrtc_tcc.html>`_
-
-2. Network Assisted Dynamic Adaptation(NADA) by Cisco
-
-3. Self-Clocked Rate Adaptation for Multimedia(SCReAM) by Ericsson
-
+拥塞控制算法
+=======================
+已有三种算法提出来， 详见下表
 
 .. csv-table:: WEBRTC media flow requirements
    :header: "Feature", "GCC", "NADA", "SCReAM"
@@ -255,6 +245,24 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
    Network support, None, "ECN, PCN", ECN
    Implementation status, Google Chrome, Ns-2 and Ns-3 simulators, OpenWebRTC and simulator
    Codec interaction, VP8 and VP9, Simulated encoder, OpenH264 and VP9
+
+
+1. GCC by Google
+-------------------------------------------------
+Google Congestion Control (GCC) 被应用于 Chrome 浏览器，是相对比较成熟的算法，详见
+
+* `GCC 算法详解 <webrtc_gcc.html>`_, `REMB 简介 <webrtc_remb.html>`_ 
+* `TCC 算法详解 <webrtc_tcc.html>`_
+
+2. NADA by Cisco
+-----------------------------------------------------------------------------------
+Network Assisted Dynamic Adaptation(NADA) 由思科提出，还未应用于实际产品中，有相关的模拟器实现
+
+3. SCReAM by Ericsson
+-----------------------------------------------------------------------------------
+Self-Clocked Rate Adaptation for Multimedia(SCReAM) 由爱立信提出，应用于 OpenWebRTC，有相关的模拟器实现 
+
+
 
 
 验证方法
