@@ -73,6 +73,10 @@ WebRTC RTP Congestion Control
 
 * Starvation: 饥饿，如果某个传输通道由于其他传输通道抢占了带宽而没有得到流量，称为饥饿
 
+* TMMBR: Temporary Maximum Media Stream Bit Rate Request 临时最大媒体流带宽请求
+
+* TMMBN: Temporary Maximum Media Stream Bit Rate Notification 临时最大媒体流带宽通知， 表示 TMMBR 收到
+
 交互式实时媒体的拥塞控制的需求
 ============================================
 

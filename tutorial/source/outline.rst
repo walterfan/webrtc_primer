@@ -58,6 +58,8 @@
 五. 工具篇
 ========================
 * SoX
+* netcat
+* scapy
 * TC
 * tcpdump
 * Wireshark

@@ -217,7 +217,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-08</p></td>
+<td><p>2021-11-18</p></td>
 </tr>
 </tbody>
 </table>
@@ -306,18 +306,17 @@
 </ul>
 <ol class="arabic simple" start="3">
 <li><p>变换： 基于 4*4像素块的整数 DCT 变换</p></li>
+<li><p>量化： 多对一的映射来降低码率</p></li>
 </ol>
-<p>4. 量化： 多对一的映射来降低码率
-量化参数QP是量化步长Qstep的序号, QP取最小值0 时，表示量化最精细；相反，QP取最大值51时，表示量化是最粗糙的。
-对于亮度（Luma）编码而言，量化步长Qstep共有52个值，QP取值0~51
+<p>量化参数 QP 是量化步长 Qstep 的序号, QP 取最小值 0 时，表示量化最精细；相反，QP 取最大值 51 时，表示量化是最粗糙的。
+对于亮度（Luma）编码而言，量化步长 Qstep 共有 52 个值，QP取值 0~51
 对于色度（Chroma）编码，Q的取值0~39</p>
-<ol class="arabic simple" start="5">
+<ol class="arabic simple">
 <li><p>环路滤波：De-blocking Filter, Reconstruction Filter</p></li>
 </ol>
-<p>6. 熵编码： 通用可变长编码（UVLC）和基于文本的自适应二进制算术编码（CABAC）
+<p>2. 熵编码： 通用可变长编码（UVLC）和基于文本的自适应二进制算术编码（CABAC）
 <a class="reference external" href="https://www.youtube.com/watch?v=PmoEsPWEdOA&amp;t=265s">https://www.youtube.com/watch?v=PmoEsPWEdOA&amp;t=265s</a></p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">https://en.wikipedia.org/wiki/Advanced_Video_Coding</a></p>
-<p>Advanced Video Coding (AVC), also referred to as H.264 or MPEG-4 Part 10, Advanced Video Coding (MPEG-4 AVC), is a video compression standard based on block-oriented, motion-compensated integer-DCT coding.</p>
+<p>参见 <a class="reference external" href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">https://en.wikipedia.org/wiki/Advanced_Video_Coding</a></p>
 <p>H264标准各主要部分有</p>
 <ul class="simple">
 <li><p>Access Unit delimiter（访问单元分割符），</p></li>
@@ -328,7 +327,6 @@
 <li><p>Hypothetical Reference Decoder（HRD，假想参考解码）、</p></li>
 <li><p>Hypothetical Stream Scheduler（HSS，假想码流调度器）</p></li>
 </ul>
-<p>note: 每个打包方式允许的NAL单元类型总结(yes = 允许, no = 不允许, ig = 忽略)</p>
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id7">术语和缩写</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
@@ -364,6 +362,7 @@
 </div>
 <div class="section" id="h264-encoder">
 <h2><a class="toc-backref" href="#id8">H264 encoder</a><a class="headerlink" href="#h264-encoder" title="Permalink to this headline">¶</a></h2>
+<p>H.264 采用混合编码技术，即把画面间运动预测和画面内空间预测组合，并对残差进行变换编码</p>
 <img alt="h.264 encoder" src="../_images/H264-encoder.png" />
 </div>
 <div class="section" id="h264-decoder">

@@ -91,11 +91,12 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">目录</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">第一周 基础篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">第二周 传输篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">第三周 媒体篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">第四周 实践篇</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">第五周 工具篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">一. 基础篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">二. 传输篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">三. 媒体篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">四. 实践篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">五. 工具篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">六. 关联技术篇</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="1.basic/index.html">1. WebRTC 基础</a></li>
@@ -174,8 +175,8 @@
   <div class="section" id="id1">
 <h1>目录<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2>第一周 基础篇<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
+<h2>一. 基础篇<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li><p>WebRTC 简介</p></li>
 <li><p>采集视频并拍照</p></li>
 <li><p>捕获和分享屏幕</p></li>
@@ -183,23 +184,22 @@
 <li><p>设备与连接管理</p></li>
 <li><p>本地与远程视频呼叫流程</p></li>
 <li><p>WebRTC 核心组件和 API</p></li>
-</ol>
+</ul>
 </div>
 <div class="section" id="id3">
-<h2>第二周 传输篇<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>1 . WebRTC 信令通道</p>
-<ol class="arabic simple" start="2">
+<h2>二. 传输篇<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>WebRTC 信令通道</p></li>
 <li><p>SDP 协商及其交换流程</p></li>
 <li><p>穿墙有术：STUN，TURN，和 ICE</p></li>
 <li><p>RTP 与 RTCP</p></li>
 <li><p>DTLS 和 SRTP</p></li>
 <li><p>Data Channel</p></li>
-<li><p>Ffmpeg 和 Wireshark</p></li>
-</ol>
+</ul>
 </div>
 <div class="section" id="id4">
-<h2>第三周 媒体篇<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
+<h2>三. 媒体篇<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li><p>Audio 基础 和 libopus</p></li>
 <li><p>Video 基础 和 openh264</p></li>
 <li><p>Qos: NetEQ 和 Jitter Buffer</p></li>
@@ -207,26 +207,44 @@
 <li><p>Qos: 纠错和冗余</p></li>
 <li><p>Qos: 带宽检测和速递调整</p></li>
 <li><p>媒体质量度量 Metrics</p></li>
-</ol>
+</ul>
 </div>
 <div class="section" id="id5">
-<h2>第四周 实践篇<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
+<h2>四. 实践篇<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
 <li><p>客户端的设计与实现</p></li>
 <li><p>Web的革命Wasm</p></li>
 <li><p>信令服务器的设计与实现</p></li>
 <li><p>媒体服务器的设计与实现</p></li>
-</ol>
-</div>
-<div class="section" id="id6">
-<h2>第五周 工具篇<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li><p>SoX</p></li>
-<li><p>Ffmpeg</p></li>
 <li><p>AppRTC</p></li>
 <li><p>Janus gateway</p></li>
 <li><p>Tiny RTC Server</p></li>
-</ol>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>五. 工具篇<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>SoX</p></li>
+<li><p>netcat</p></li>
+<li><p>scapy</p></li>
+<li><p>TC</p></li>
+<li><p>tcpdump</p></li>
+<li><p>Wireshark</p></li>
+<li><p>devtools</p></li>
+<li><p>perf</p></li>
+<li><p>Ffmpeg</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>六. 关联技术篇<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>数字信号处理</p></li>
+<li><p>概率统计</p></li>
+<li><p>高等数学</p></li>
+<li><p>多媒体技术</p></li>
+<li><p>Python 科学计算</p></li>
+<li><p>Matlab 科学计算</p></li>
+</ul>
 </div>
 </div>
 

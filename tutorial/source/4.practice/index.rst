@@ -14,5 +14,6 @@
    webrtc_source
    webrtc_test
 
+   apprtc
    janus
    mediasoup
