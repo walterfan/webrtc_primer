@@ -27,7 +27,7 @@ This dumps everything from eth0 into a file with details useful with wireshark.
 
 .. code-block::
 
-    tcpdump -i eth0 -Xvnp -s0 -w /tmp/tcpdump.pcap
+    tcpdump -i ens192 -Xvnp -s0 -w /tmp/tcpdump1116.pcap
 
                      
 

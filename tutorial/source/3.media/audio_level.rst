@@ -272,7 +272,15 @@ If multiple audio channels are used, the audio energy of a sample refers to the 
         }
 
 
+FAQ
+===================
 
+Gain 和 Volume 的区别
+-----------------------
+Gain是指针对输入的声音信号的增益调节放大倍数，Volume是指针对输出的音量大小。
+
+* Gain指增益：增益就是用来增强输入进音箱电路的信号的。增益的作用就是放大信号。将输入的信号放大一定的倍数，而单位通常是我们熟悉的分贝
+* Volume指音量：就是声音的响度，指音量的大小，也就是最终输出的声音大小。
 
 Reference
 ===================

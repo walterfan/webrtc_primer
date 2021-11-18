@@ -21,12 +21,12 @@ WebRTC test suite
 Overview
 =============
 
-`WebRTC test suite`_
-WebRTC 
+
 
 参考资料
 ==============
-https://github.com/web-platform-tests/wpt
+* `WebRTC test suite`_
+* `The web-platform-tests Project`_ 
 
-
+.. _The web-platform-tests Project: https://github.com/web-platform-tests/wpt
 .. _WebRTC test suite: https://github.com/web-platform-tests/wpt/tree/master/webrtc/
