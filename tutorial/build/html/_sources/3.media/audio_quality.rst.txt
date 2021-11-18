@@ -103,8 +103,14 @@ The most commonly used rating scale is the Absolute Category Ranking (ACR) scale
 Tools
 ==============
 
-* `visqol`_
+`visqol`_
+---------------------
 
+ViSQOL(Virtual Speech Quality Objective Listener)虚拟语音质量目标监听器是感知音频质量的客观、完整的参考指标。
+
+它使用参考和测试语音信号之间相似性的空间-时间(spectro-temporal)度量来产生 MOS-LQO（平均意见分数 - 听力质量目标）分数。 
+
+MOS-LQO 分数范围从 1（最差）到 5（最好）。
 
 
 Reference

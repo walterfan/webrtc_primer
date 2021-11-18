@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -327,12 +327,7 @@
 <div class="section" id="yuv">
 <h3><a class="toc-backref" href="#id20">YUV</a><a class="headerlink" href="#yuv" title="Permalink to this headline">¶</a></h3>
 <p>Y 指亮度信号, U 和 V 指色度信号（色相加纯度）: 它指某种颜色与同一亮度的白色之间的差别
-Y 明亮度， U 色度， V 浓度</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>参见 <a class="reference external" href="yuv.html">YUV</a> 格式</p></li>
-</ul>
-</div></blockquote>
+Y 明亮度， U 色度， V 浓度, 参见 <a class="reference external" href="yuv.html">YUV</a> 格式</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1">#input is a RGB numpy array with shape (height,width,3), can be uint,int, float or double, values expected in the range 0..255</span>
@@ -372,8 +367,6 @@ Y 明亮度， U 色度， V 浓度</p>
 <li><p>YUV411    6 bytes per 4 pixels</p></li>
 <li><p>YUV420p   6 bytes per 4 pixels, reordered</p></li>
 </ul>
-<img alt="_static/1600px-Yuv420-frame.png" src="_static/1600px-Yuv420-frame.png" />
-<img alt="_static/1600px-Yuv420-stream.png" src="_static/1600px-Yuv420-stream.png" />
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}Y = k_rR + k_gG + k_bB\\U = \frac{B - Y}{2(1-k_b)}\\V = \frac{R - Y}{2(1-k_r)}\end{aligned}\end{align} \]</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>

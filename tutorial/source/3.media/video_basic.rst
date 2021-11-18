@@ -138,10 +138,6 @@ YUV 采样格式的分类
 * YUV420p   6 bytes per 4 pixels, reordered
 
 
-.. image:: ../_static/1600px-Yuv420-frame.png
-
-.. image:: ../_static/1600px-Yuv420-stream.png
-
 .. math::
 
     Y = k_rR + k_gG + k_bB
