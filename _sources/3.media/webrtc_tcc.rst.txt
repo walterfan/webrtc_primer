@@ -292,6 +292,26 @@ Sender Bandwidth Estimation
   - AIMDRateController
 * Trendline
 
+Trendline filter
+-----------------------------------------
+
+第 i 个包组的单向延迟变化 One-Way Delay Variation 计算如下
+
+.. math::
+
+  d_i = (G_i.complete\_time - G_{i-1}.complete\_time)
+
+
+Overuse detector
+-----------------------------------------
+
+
+AIMD controller
+-----------------------------------------
+
+
+Bandwidth estimator
+-----------------------------------------
 
 
 参考资料

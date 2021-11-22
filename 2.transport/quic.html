@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Interactive Connectivity Establishment &mdash; webrtc_tutorial 1 documentation</title>
+  <title>QUIC 协议 &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -42,8 +42,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. WebRTC 媒体" href="../3.media/index.html" />
-    <link rel="prev" title="WebRTC RTP" href="webrtc_rtp.html" /> 
+    <link rel="next" title="WebRTC 传输的多路复用" href="webrtc_multiplex.html" />
+    <link rel="prev" title="WebSocket" href="websocket.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,15 +95,16 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">2. WebRTC 传输</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 传输概论</a></li>
 <li class="toctree-l2"><a class="reference internal" href="websocket.html">WebSocket</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quic.html">QUIC 协议</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_multiplex.html">WebRTC 传输的多路复用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_transmission.html">WebRTC Transport</a></li>
-<li class="toctree-l2"><a class="reference internal" href="webrtc_rtp.html">WebRTC RTP</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Interactive Connectivity Establishment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ovewview">Ovewview</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">QUIC 协议</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">协议文档结构</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_multiplex.html">WebRTC 传输的多路复用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_transmission.html">WebRTC Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rtp.html">WebRTC RTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ice.html">Interactive Connectivity Establishment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
@@ -160,13 +161,13 @@
         
           <li><a href="index.html">2. WebRTC 传输</a> &raquo;</li>
         
-      <li>Interactive Connectivity Establishment</li>
+      <li>QUIC 协议</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/2.transport/ice.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/2.transport/quic.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,16 +180,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="interactive-connectivity-establishment">
-<h1>Interactive Connectivity Establishment<a class="headerlink" href="#interactive-connectivity-establishment" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="quic">
+<h1>QUIC 协议<a class="headerlink" href="#quic" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
+<col style="width: 32%" />
+<col style="width: 68%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
-<td><p>Interactive Connectivity Establishment</p></td>
+<td><p>QUIC protocol</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Authors</strong></p></td>
 <td><p>Walter Fan</p></td>
@@ -203,19 +204,58 @@
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#ovewview" id="id1">Ovewview</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id2">Reference</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id3">简介</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id4">协议文档结构</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id5">Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="ovewview">
-<h2><a class="toc-backref" href="#id1">Ovewview</a><a class="headerlink" href="#ovewview" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://www.rfcreader.com/#rfc8445">RFC8445</a> Interactive Connectivity Establishment (ICE) 交互式连接建立是一个网络地址转换 NAT 穿透的协议</p>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id3">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>QUIC provides applications with flow-controlled streams for structured communication, low-latency connection establishment, and network path migration.</p>
+<p>QUIC includes security measures that ensure  confidentiality, integrity, and availability in a range of deployment circumstances.</p>
+<p>Accompanying documents describe the integration of TLS for key negotiation, loss detection, and an exemplary congestion control algorithm.</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id4">协议文档结构</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Streams are the basic service abstraction that QUIC provides.</p>
+<ul class="simple">
+<li><p>Section 2 describes core concepts related to streams,</p></li>
+<li><p>Section 3 provides a reference model for stream states, and</p></li>
+<li><p>Section 4 outlines the operation of flow control.</p></li>
+</ul>
+<p>Connections are the context in which QUIC endpoints communicate.</p>
+<ul class="simple">
+<li><p>Section 5 describes core concepts related to connections,</p></li>
+<li><p>Section 6 describes version negotiation,</p></li>
+<li><p>Section 7 details the process for establishing connections,</p></li>
+<li><p>Section 8 describes address validation and critical denial-of-service mitigations,</p></li>
+<li><p>Section 9 describes how endpoints migrate a connection to a new network path,</p></li>
+<li><p>Section 10 lists the options for terminating an open connection, and</p></li>
+<li><p>Section 11 provides guidance for stream and connection error handling.</p></li>
+</ul>
+<p>Packets and frames are the basic unit used by QUIC to communicate.</p>
+<ul class="simple">
+<li><p>Section 12 describes concepts related to packets and frames,</p></li>
+<li><p>Section 13 defines models for the transmission, retransmission, and acknowledgment of data, and</p></li>
+<li><p>Section 14 specifies rules for managing the size of datagrams carrying QUIC packets.</p></li>
+</ul>
+<p>Finally, encoding details of QUIC protocol elements are described in:</p>
+<ul class="simple">
+<li><p>Section 15 (versions),</p></li>
+<li><p>Section 16 (integer encoding),</p></li>
+<li><p>Section 17 (packet headers),</p></li>
+<li><p>Section 18 (transport parameters),</p></li>
+<li><p>Section 19 (frames), and</p></li>
+<li><p>Section 20 (errors).</p></li>
+</ul>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id2">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.rfcreader.com/#rfc8445">RFC8445</a>: Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal</p></li>
-<li><p>_RFC8445: <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8445">https://datatracker.ietf.org/doc/html/rfc8445</a></p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc9000">https://datatracker.ietf.org/doc/html/rfc9000</a></p></li>
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc9000.html">RFC 9000 QUIC: A UDP-Based Multiplexed and Secure Transport</a></p></li>
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc9001.html">RFC 9001 Using TLS to Secure QUIC</a></p></li>
+<li><p><cite>RFC 9002 QUIC Loss Detection and Congestion Control  &lt;https://www.rfc-editor.org/rfc/rfc9002.html&gt;</cite></p></li>
 </ul>
 </div>
 </div>
@@ -226,8 +266,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../3.media/index.html" class="btn btn-neutral float-right" title="3. WebRTC 媒体" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="webrtc_rtp.html" class="btn btn-neutral float-left" title="WebRTC RTP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="webrtc_multiplex.html" class="btn btn-neutral float-right" title="WebRTC 传输的多路复用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="websocket.html" class="btn btn-neutral float-left" title="WebSocket" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

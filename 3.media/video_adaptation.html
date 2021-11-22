@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>多媒体技术 &mdash; webrtc_tutorial 1 documentation</title>
+  <title>video adaptation &mdash; webrtc_tutorial 1 documentation</title>
   
 
   
@@ -42,8 +42,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="数理基础" href="mathematics.html" />
-    <link rel="prev" title="Matlab 科学计算" href="matlab.html" /> 
+    <link rel="next" title="YUV 图像格式" href="yuv.html" />
+    <link rel="prev" title="视频编码" href="video_codec.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,23 +93,35 @@
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../3.media/index.html">3. WebRTC 媒体</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="video_codec.html">视频编码</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">video adaptation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="yuv.html">YUV 图像格式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="h264.html">H.264 编码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_video.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_video.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rcc.html">WebRTC 拥塞控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">6. WebRTC 关联技术</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kalman.html">卡尔曼滤波笔记</a></li>
-<li class="toctree-l2"><a class="reference internal" href="matlab.html">Matlab 科学计算</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">多媒体技术</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">主要内容</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="mathematics.html">数理基础</a></li>
-<li class="toctree-l2"><a class="reference internal" href="statistics.html">概率与统计</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scientific_calculation.html">科学计算</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
 </ul>
 
             
@@ -158,15 +170,17 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">6. WebRTC 关联技术</a> &raquo;</li>
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
         
-      <li>多媒体技术</li>
+          <li><a href="webrtc_video.html">WebRTC 视频</a> &raquo;</li>
+        
+      <li>video adaptation</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/6.misc/multimedia.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/3.media/video_adaptation.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,8 +193,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>多媒体技术<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="video-adaptation">
+<h1>video adaptation<a class="headerlink" href="#video-adaptation" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -188,7 +202,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
-<td><p>多媒体技术</p></td>
+<td><p>Video Adaptation</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Authors</strong></p></td>
 <td><p>Walter Fan</p></td>
@@ -203,15 +217,19 @@
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id6">主要内容</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id2">概述</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id3">Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id6">主要内容</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id2">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>用于 WebRTC 应用的设备往往参差不齐，有高大上的 macbook pro, 也有老掉牙的老笔记本或台式机，或者轻便小巧的平板。多媒体特别是视频的编解码是很耗费资源的, 这时候，需要根据设备的资源消耗情况，实时调整编码质量，如分辨率，帧率等，避免对系统资源主要是 CPU 的使用宜占用过多。</p>
+</div>
+<div class="section" id="reference">
+<h2><a class="toc-backref" href="#id3">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="multimedia_audio.html">数字图像处理</a></p></li>
-<li><p><a class="reference external" href="multimedia_audio.html">数字音频处理</a></p></li>
-<li><p><a class="reference external" href="multimedia_video.html">数字视频处理</a></p></li>
+<li><p><a class="reference external" href="https://xie.infoq.cn/article/50b7931b8a023f8ca7f25d4e9">Webrtc video framerate/resolution 自适应</a></p></li>
+<li><p><a class="reference external" href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/overuse_frame_detector.h">overuse_frame_detector</a></p></li>
 </ul>
 </div>
 </div>
@@ -222,8 +240,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="mathematics.html" class="btn btn-neutral float-right" title="数理基础" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="matlab.html" class="btn btn-neutral float-left" title="Matlab 科学计算" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yuv.html" class="btn btn-neutral float-right" title="YUV 图像格式" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="video_codec.html" class="btn btn-neutral float-left" title="视频编码" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

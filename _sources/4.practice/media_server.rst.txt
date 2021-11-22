@@ -1,9 +1,30 @@
 ###################
-SFU Server
+Media Server
 ###################
 
+.. include:: ../links.ref
+.. include:: ../tags.ref
+.. include:: ../abbrs.ref
+
+============ ==========================
+**Abstract** Media Server
+**Authors**  Walter Fan
+**Status**   WIP
+**Updated**  |date|
+============ ==========================
+
+.. |date| date::
+
+.. contents:: Contents
+   :local:
 
 Overview
+==============
+
+
+
+
+SFU
 ====================
 
 选择性转发单元 SFU（Selective Forwarding Unit）在各个端点之间交换音频和视频流。 每个接收器方可以选择它所要接收的流和层（空间/时间上）。 与 MCU（多点控制单元）相比，这种设计可以带来更好的性能、更高的吞吐量和更少的延迟。 鉴于它不做转码或合成媒体，所以它具有高度可扩展性，并且需要的资源少得多。
