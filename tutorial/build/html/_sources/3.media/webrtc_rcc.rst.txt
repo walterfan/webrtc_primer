@@ -1,5 +1,5 @@
 ################################
-WebRTC RTP Congestion Control
+WebRTC 拥塞控制
 ################################
 
 
@@ -22,7 +22,23 @@ WebRTC RTP Congestion Control
 
 简介
 =========================
-视频会议需要低延迟和高带宽
+视频会议需要低延迟和高带宽，可是实际情况中，高带宽是难以保证的，一旦网络出现拥塞，原本就不宽阔的“马路” 堵得更窄，延迟更大。这时候，就需要做拥塞控制
+
+在网络会议中，如果延迟太大，对在线交流就会产生影响。据研究，大致的关系如下
+
+=============== ============================
+0 ~ 400 毫秒     在交流过程中感觉不到延迟
+400 ~ 800 毫秒   能感觉到延迟，但不影响沟通和交流
+800 毫秒及以上    能感觉到延迟，并且影响沟通和交流
+=============== ============================
+
+以一个每秒 24 帧 640*480 分辨率，以 H.264 编码的视频流，视频的比特率和用户感觉的关系如下
+
+=============== =====================================================
+> 800kbps       用户对视频的清晰度感到满意，感知不到视频图像信息的丢失
+480 ~ 800kbps   用户对视频的清晰度基本满意，有些人能感知到视频图像信息的丢失
+< 480kbps       用户对视频的清晰度很不满意，大多数时候难以分辨出图像的细节
+=============== =====================================================
 
 * 基于延迟的控制器 delay-based controller
 * 基于丢包的控制器 loss-based controller
@@ -378,5 +394,5 @@ Having a common log format simplifies running analyses across different measurem
 
 .. [#] `RFC5865`_ A Differentiated Services Code Point (DSCP) for Capacity-Admitted Traffic
 
-
+.. _Congestion Control and Bandwidth Strategy of WebRTC: https://mp.weixin.qq.com/s?__biz=MzU1NTEzOTM5Mw==&mid=2247485966&idx=1&sn=113920ae7c4f908f4576fbcc1484781a&chksm=fbd9a220ccae2b36aa8796f02f37da4e19748a42635a5f8ad72554dd05ab97fe094e28227905&mpshare=1&scene=1&srcid=05292tFBxW7U2DRJaaSvqwG2#rd
 .. _RMCAT documents: https://datatracker.ietf.org/wg/rmcat/documents/

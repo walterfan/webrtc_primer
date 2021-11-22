@@ -9,6 +9,7 @@
 
    overview
    websocket
+   quic
    
    webrtc_multiplex
    webrtc_transmission

@@ -9,7 +9,9 @@
 
    overview
    wasm
-   sfu
+   
+   signal_server
+   media_server
 
    webrtc_source
    webrtc_test
