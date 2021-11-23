@@ -7,6 +7,17 @@ WebRTC 拥塞控制
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Sections
+
+   
+   webrtc_gcc
+   webrtc_remb
+   webrtc_tcc
+   webrtc_cc_evaluation
+
 ============ ==========================
 **Abstract** WebRTC RTP 拥塞控制
 **Authors**  Walter Fan
@@ -16,7 +27,7 @@ WebRTC 拥塞控制
 
 .. |date| date::
 
-.. contents::
+.. contents:: Contents
    :local:
 
 
@@ -87,11 +98,17 @@ WebRTC 拥塞控制
 
 * REMB: Receiver Estimated Maximum Bitrate 接收端估计最大比特率
 
+* ECN: Explicit Congestion Notification (ECN) 显式的拥塞通知
+
 * Starvation: 饥饿，如果某个传输通道由于其他传输通道抢占了带宽而没有得到流量，称为饥饿
 
 * TMMBR: Temporary Maximum Media Stream Bit Rate Request 临时最大媒体流带宽请求
 
 * TMMBN: Temporary Maximum Media Stream Bit Rate Notification 临时最大媒体流带宽通知， 表示 TMMBR 收到
+
+* QP: Quantization Parameter, that ranges from 0 to 51. 量化参数 QP 越小，细节保留得越多，质量就更好， 反之质量越差，压缩率更高
+  
+QP is an index used to derive a scaling matrix. It is possible to calculate the equivalent quantizer step size (Qstep) for each value of QP.
 
 交互式实时媒体的拥塞控制的需求
 ============================================
@@ -121,6 +138,62 @@ WebRTC 拥塞控制
 10. 该算法应该将反向信道(backchannel)信息的意外缺失, 感知为信道过度使用问题的可能指示，并相应地做出反应, 以避免导致拥塞崩溃的突发事件。
 
 11. 当应用主动队列管理 (AQM: Active Queue Management) 算法时，该算法应该是稳定的并保持低延迟。另请注意，这些算法可能适用于瓶颈中的多个队列或单个队列。
+
+标准化组织及其发布的文档
+=========================================
+
+RMCAT (RTP Media Congestion Avoidance Techniques Work group) 即 RTP 媒体拥塞避免技术工作组是是负责制定拥塞相关的协议和标准。
+截止 2021 年 11 月，已经发布了如下的文档
+
+* `draft-ietf-rmcat-rtp-cc-feedback-07 <https://datatracker.ietf.org/doc/html/draft-ietf-rmcat-rtp-cc-feedback-07>`_
+  
+Sending RTP Control Protocol (RTCP) Feedback for Congestion Control in Interactive Multimedia Conferences
+在交互式多媒体会议中发送 RTCP 反馈用以拥塞控制
+
+* `RFC 8298 <https://www.rfc-editor.org/rfc/rfc8298.html>`_ (was draft-ietf-rmcat-scream-cc)
+
+Self-Clocked Rate Adaptation for Multimedia
+用以多媒体的自同步速率适配
+
+* `RFC 8382 <https://www.rfc-editor.org/rfc/rfc8382.html>`_ (was draft-ietf-rmcat-sbd)
+
+Shared Bottleneck Detection for Coupled Congestion Control for RTP Media
+用于 RTP 媒体的耦合的拥塞控制的共享瓶颈检测
+
+* `RFC 8593 <https://www.rfc-editor.org/rfc/rfc8593.html>`_ (was draft-ietf-rmcat-video-traffic-model)
+
+Video Traffic Models for RTP Congestion Control Evaluations
+用于 RTP 拥塞控制评估的视频流量模型
+
+* `RFC 8698 <https://www.rfc-editor.org/rfc/rfc8698.html>`_ (was draft-ietf-rmcat-nada)
+
+Network-Assisted Dynamic Adaptation (NADA): A Unified Congestion Control Scheme for Real-Time Media
+网络辅助动态适应（NADA）：对实时媒体的一种统一的拥塞控制模式
+
+* `RFC 8699 <https://www.rfc-editor.org/rfc/rfc8699.html>`_ (was draft-ietf-rmcat-coupled-cc)
+
+Coupled Congestion Control for RTP Media
+用于 RTP 媒体的耦合的拥塞控制
+
+* `RFC 8836  <https://www.rfc-editor.org/rfc/rfc8836.html>`_ (was draft-ietf-rmcat-cc-requirements)
+
+Congestion Control Requirements for Interactive Real-Time Media
+对交互式实时媒体的拥塞控制需求
+
+* `RFC 8867 <https://www.rfc-editor.org/rfc/rfc8867.html>`_ (was draft-ietf-rmcat-eval-test)
+
+Test Cases for Evaluating Congestion Control for Interactive Real-Time Media
+对交互式实时媒体拥塞控制的评估
+
+* `RFC 8868 <https://www.rfc-editor.org/rfc/rfc8868.html>`_ (was draft-ietf-rmcat-eval-criteria)
+
+Evaluating Congestion Control for Interactive Real-Time Media
+对交互式实时媒体拥塞控制的评估
+
+* `RFC 8869  <https://www.rfc-editor.org/rfc/rfc8869.html>`_ (was draft-ietf-rmcat-wireless-tests)
+
+Evaluation Test Cases for Interactive Real-Time Media over Wireless Networks
+对通过无线网络的交互式实时媒体的评估测试用例
 
 
 标准化状况和存在的问题
@@ -247,6 +320,12 @@ RTP 头里带的 timestamp 是根据采样所算的步进, 接收方和发送方
 第 3 种情况下，队列保持不变，OWDV 介于零和其最大值之间。 这是一种称为站立队列的不良情况，它会不断延迟传入流量。 
 因此，为了在充分利用可用带宽的同时保证较小的队列占用，算法必须通过增加其发送速率来持续探测可用带宽，直到检测到正排队延迟变化。 此时，发送速率应迅速降低。 总而言之，需要引入一些排队延迟来运行基于延迟变化的拥塞控制算法。
 
+常用方法
+=======================
+* 调整速率：例如调整帧率 FrameRate， VBR（Variable BitRate)的编码方法中调整码率 等
+* 调整质量：例如调整分辨率 FrameWidth * FrameHeight，量化参数 Quantization Parameter 等
+
+
 拥塞控制算法
 =======================
 已有三种算法提出来， 详见下表
@@ -281,11 +360,31 @@ Self-Clocked Rate Adaptation for Multimedia(SCReAM) 由爱立信提出，应用�
 
 
 
-验证方法
-==========================
+对于拥塞控制算法的评估和验证
+=============================
 基于 RFC5033 Specify New Congestion Control Algorithms 和 RFC5166 Metrics for the Evaluation of Congestion Control algorithms, 在 RFC8868 中提出了对于拥塞控制算法的验证方法.
 
-RFC8867 提出了基本的测试用例在, RFC8869 也提高了无线网络测试场景中的测试用例.
+`RFC8867`_ 提出了基本的测试用例,在RFC8869 也提高了无线网络测试场景中的测试用例.
+
+基本的测试环境如下
+
+.. code-block::
+
+      +---+                                                        +---+
+      |S1 |====== \               Forward -->             / =======|R1 |
+      +---+       \\                                     //        +---+
+                   \\                                   //
+      +---+       +-----+                            +-----+       +---+
+      |S2 |=======|  A  |--------------------------->|  B  |=======|R2 |
+      +---+       |     |<---------------------------|     |       +---+
+                  +-----+                            +-----+
+      (...)         //                                  \\         (...)
+                   //          <-- Backward              \\
+      +---+       //                                      \\       +---+
+      |Sn |====== /                                        \ ======|Rn |
+      +---+                                                        +---+
+
+                   Figure 1: Example of a Testbed Topology
 
 度量指标
 -------------------------
@@ -362,8 +461,12 @@ Having a common log format simplifies running analyses across different measurem
 * `RFC8825`_: Overview: Real-Time Protocols for Browser-Based Applications
 * `RFC8836`_: Congestion Control Requirements for Interactive Real-Time Media
 * `RFC8083`_: Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions
-
+* `RMCAT work group <https://datatracker.ietf.org/wg/rmcat/about/>`_ 
 * `RMCAT documents`_: RTP Media Congestion Avoidance Techniques documents
+* `RFC8698 Network-Assisted Dynamic Adaptation (NADA): A Unified Congestion Control Scheme for Real-Time Media <ttps://datatracker.ietf.org/doc/html/rfc8698>`_
+* `RFC8888 RTP Control Protocol (RTCP) Feedback for Congestion Control <https://datatracker.ietf.org/doc/html/rfc8888>`_
+* `RFC3168 The Addition of Explicit Congestion Notification (ECN) to IP <https://datatracker.ietf.org/doc/html/rfc3168>`_
+
 
 * H. Alvestrand, “RTCP Message for Receiver Estimated Maximum Bitrate,” Internet-Draft draft-alvestrand-rmcat-remb-03 (work in progress), Oct. 2013.
 

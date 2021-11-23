@@ -27,7 +27,7 @@ An Offer/Answer Model with the SDP
 * 然后，应用程序使用该 Offer 通过 setLocalDescription() API来设置其本地配置。offer 最终通过其首选的信令机制（例如WebSockets）发送到远程端；收到该 offer 后，远程方将使用 setRemoteDescription()API进行安置。
 * 为了完成 Offer/Answer 交换，远程方使用 createAnswer() API生成适当的 answer，使用 setLocalDescription()`API应用该`answer，并将 answer 通过信令通道发送回发起方。启动器获得该`answer`后，它将使用 setRemoteDescription() API进行安装，并且初始设置已完成。可以重复此过程以进行其他 Offer/Answer 交换。
   
-参见  `RFC3264 <https://tools.ietf.org/html/rfc3264>`_
+参见  `RFC3264`_
 
 
 

@@ -44,7 +44,7 @@ Code
         // 移除 `ssrc` 所标识的流的所有数据
         virtual void RemoveStream(uint32_t ssrc) = 0;
 
-        // Returns true if a valid estimate exists and sets `bitrate_bps` to the
+        // 返回 true if a valid estimate exists and sets `bitrate_bps` to the
         // estimated payload bitrate in bits per second. `ssrcs` is the list of ssrcs
         // currently being received and of which the bitrate estimate is based upon.
         virtual bool LatestEstimate(std::vector<uint32_t>* ssrcs,

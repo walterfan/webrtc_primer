@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -101,15 +101,15 @@
 <li class="toctree-l2"><a class="reference internal" href="signal.html">信号处理基础</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dsp.html">数字信号处理</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">卡尔曼滤波笔记</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">简介</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">预备知识</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id4">概率论</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">最小二乘估计</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">状态和协方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">预备知识</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">概率论</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">最小二乘估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">状态和协方差</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">术语</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">离散卡尔曼滤波</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">术语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">离散卡尔曼滤波</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="matlab.html">Matlab 科学计算</a></li>
@@ -206,26 +206,26 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id9">简介</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id10">预备知识</a></p>
+<li><p><a class="reference internal" href="#id3" id="id10">简介</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">预备知识</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id11">概率论</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id12">最小二乘估计</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id13">状态和协方差</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">概率论</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id13">最小二乘估计</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id14">状态和协方差</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id7" id="id14">术语</a></p></li>
-<li><p><a class="reference internal" href="#id8" id="id15">离散卡尔曼滤波</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id15">术语</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id16">离散卡尔曼滤波</a></p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id9">简介</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">简介</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>卡尔曼滤波（Kalman filtering）是一种算法，用于在不确定的观测数据中估算出最优结果的算法。它利用线性系统状态方程，通过系统输入输出观测数据，对系统状态进行最优估计。由于观测数据中包括系统中的噪声和干扰的影响，所以最优估计也可看作是滤波过程。</p>
 <p>数据滤波是去除噪声还原真实数据的一种数据处理技术，Kalman滤波在测量方差已知的情况下能够从一系列存在测量噪声的数据中，估计动态系统的状态。由于它便于计算机编程实现，并能够对现场采集的数据进行实时的更新和处理，Kalman滤波是目前应用最为广泛的滤波方法，在通信，导航，制导与控制等多领域得到了较好的应用。</p>
 <div class="math notranslate nohighlight">
@@ -289,8 +289,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id10">预备知识</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id11">预备知识</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>微积分</p></li>
 <li><p>线性代数
@@ -314,8 +314,8 @@ v 表示测量噪声</p>
 <li><p>稳定性</p></li>
 <li><p>能控性和能观性</p></li>
 </ul>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id11">概率论</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id12">概率论</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>概率
 - 贝叶斯公式
@@ -330,15 +330,15 @@ v 表示测量噪声</p>
 <li><p>白噪声和有色噪声</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id12">最小二乘估计</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id13">最小二乘估计</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>常量估计</p></li>
 <li><p>加权及递推最小二乘估计</p></li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id13">状态和协方差</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id14">状态和协方差</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>离散时间系统</p></li>
 <li><p>抽样数据系统</p></li>
@@ -346,8 +346,8 @@ v 表示测量噪声</p>
 </ul>
 </div>
 </div>
-<div class="section" id="id7">
-<h2><a class="toc-backref" href="#id14">术语</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id15">术语</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>随机变量是一个定义在样本空间上的实值函数，把样本点映射成一个实数。每个样本点都有不同的概率出现，意味着随机变量的取值也是随机的，并且服从某个分布(distribution)。</p></li>
 <li><p>一个随机变量 [公式] 的distribution是由 累积分布函数(cumulative distribution function,CDF)，或者简称distribution function来刻画的，是以一个实数为自变量的函数</p></li>
@@ -366,8 +366,8 @@ v 表示测量噪声</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id15">离散卡尔曼滤波</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id16">离散卡尔曼滤波</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>状态方程</p></li>
 </ul>

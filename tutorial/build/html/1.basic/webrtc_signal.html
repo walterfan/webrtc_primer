@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
@@ -106,15 +106,15 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_extension.html">WebRTC extension</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 的信令</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">WebIDL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">SDP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">SDP 扩展</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">WebIDL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">SDP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">SDP 扩展</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#source-specific-media-attributes-in-sdp">Source-Specific Media Attributes in SDP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#the-session-description-protocol-sdp-grouping-framework">The Session Description Protocol (SDP) Grouping Framework</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">Source-Specific Media Attributes in SDP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Source-Specific Media Attributes in SDP</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">参考资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_sdp.html">WebRTC SDP</a></li>
@@ -200,34 +200,34 @@
 <h1>WebRTC 的信令<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id6">overview</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id7">WebIDL</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id8">SDP</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id9">SDP 扩展</a></p>
+<li><p><a class="reference internal" href="#overview" id="id7">overview</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id8">WebIDL</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id9">SDP</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id10">SDP 扩展</a></p>
 <ul>
-<li><p><a class="reference internal" href="#source-specific-media-attributes-in-sdp" id="id10">Source-Specific Media Attributes in SDP</a></p></li>
-<li><p><a class="reference internal" href="#the-session-description-protocol-sdp-grouping-framework" id="id11">The Session Description Protocol (SDP) Grouping Framework</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id12">Source-Specific Media Attributes in SDP</a></p></li>
+<li><p><a class="reference internal" href="#source-specific-media-attributes-in-sdp" id="id11">Source-Specific Media Attributes in SDP</a></p></li>
+<li><p><a class="reference internal" href="#the-session-description-protocol-sdp-grouping-framework" id="id12">The Session Description Protocol (SDP) Grouping Framework</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id13">Source-Specific Media Attributes in SDP</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id5" id="id13">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id14">参考资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id6">overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>signal 在英语中有两个不同的意思，一是信令，一是信号，这里我们主要讲信令。</p>
 <p>信令的意思是呼叫流程的控制，包括媒体通道的搭建，媒体参数的协商，媒体流的控制。</p>
 <p>在 WebRTC 中，信令控制主要的协议是 4 个</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://www.w3.org/TR/webrtc">WebRTC 1.0</a>: Real-Time Communication Between Browsers， 即浏览器之间的实时通信标准</p></li>
-<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8829">JSEP</a> (Javascript Session Establishment Protocol) ， 即 Javascript 会话建立协议。</p></li>
-<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc4566">SDP</a> (Session Decscription Protocol), 即会话描述协议</p></li>
-<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc8445">ICE</a> (Interactive Connectivity Establishment)， 即交互式连接建立协议</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8829">JSEP</a> (Javascript Session Establishment Protocol) ， 即 Javascript 会话建立协议。</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc4566">SDP</a> (Session Decscription Protocol), 即会话描述协议</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8445">ICE</a> (Interactive Connectivity Establishment)， 即交互式连接建立协议</p></li>
 </ol>
 <p>前两者主要是描述了如何通过浏览器提供的 API 实现实时的音视频通讯，主要的接口，实体和方法是通过 <a class="reference external" href="https://webidl.spec.whatwg.org/">WebIDL</a> 来定义的</p>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id7">WebIDL</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">WebIDL</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>WebIDL 是一种接口定义语言，用来定义由浏览器实现的接口。<a class="reference external" href="https://webidl.spec.whatwg.org/">WebIDL</a> 是一个 IDL 变体，具有许多特性，允许更容易地指定 Web 平台中常见脚本对象的行为。</p>
 <p>其中的 IDL Fragment 接口定义语言片段有如下类型的定义：</p>
 <ul class="simple">
@@ -246,8 +246,8 @@
 </ul>
 <p>每个定义（匹配 Definition）前面都可以有一个扩展属性列表（匹配 ExtendedAttributeList），它可以控制如何在语言绑定中处理定义</p>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id8">SDP</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id9">SDP</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>媒体参数协商要通过 SDP (会话描述协议)， 它包括</p>
 <ul class="simple">
 <li><p>会话名称和目的Session name and purpose</p></li>
@@ -261,10 +261,10 @@
 * 收到该 offer 后，远程方将使用 setRemoteDescription()API进行安置。
 * 为了完成 Offer/Answer 交换，接收方会使用 createAnswer() API生成适当的 answer，使用 setLocalDescription() API应用该 answer，并将 answer 通过信令通道发送回发起方。
 * 发起方获得该`answer`后，它将使用 setRemoteDescription() API进行设置，并且初始设置已完成。可以重复此过程以进行其他 Offer/Answer 交换。</p>
-<p>参见 <a class="reference external" href="https://tools.ietf.org/html/rfc3264">RFC3264</a> : An Offer/Answer Model with the Session Description Protocol (SDP)</p>
+<p>参见 <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3264">RFC3264</a> : An Offer/Answer Model with the Session Description Protocol (SDP)</p>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id9">SDP 扩展</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id10">SDP 扩展</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>DTLS fingerprint for SRTP (a=fingerprint)</p></li>
 <li><p>RTP/RTCP Multiplexing (a=rtcp-mux)</p></li>
@@ -276,7 +276,7 @@
 </ul>
 <p>SDP 相关的扩展协议很多，不能一一列举，在 WebRTC 中有几个比较重要的</p>
 <div class="section" id="source-specific-media-attributes-in-sdp">
-<h3><a class="toc-backref" href="#id10">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#source-specific-media-attributes-in-sdp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#source-specific-media-attributes-in-sdp" title="Permalink to this headline">¶</a></h3>
 <p>参见 <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5576">https://datatracker.ietf.org/doc/html/rfc5576</a></p>
 <p>Defines a mechanism to describe RTP sources, identified by their synchronization source (SSRC) identifier, in SDP, to associate attributes with these sources, and to express relationships among individual sources.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="o">&lt;</span><span class="n">ssrc</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">attribute</span><span class="o">&gt;</span>
@@ -286,7 +286,7 @@
 </div>
 </div>
 <div class="section" id="the-session-description-protocol-sdp-grouping-framework">
-<h3><a class="toc-backref" href="#id11">The Session Description Protocol (SDP) Grouping Framework</a><a class="headerlink" href="#the-session-description-protocol-sdp-grouping-framework" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">The Session Description Protocol (SDP) Grouping Framework</a><a class="headerlink" href="#the-session-description-protocol-sdp-grouping-framework" title="Permalink to this headline">¶</a></h3>
 <p>参见  <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5888">https://datatracker.ietf.org/doc/html/rfc5888</a></p>
 <ul class="simple">
 <li><p>Use of “group” and “mid”</p></li>
@@ -298,8 +298,8 @@
 </li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id12">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id13">Source-Specific Media Attributes in SDP</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>参见 <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5576">https://datatracker.ietf.org/doc/html/rfc5576</a></p>
 <p>Defines a mechanism to describe RTP sources, identified by their synchronization source (SSRC) identifier, in SDP, to associate attributes with these sources, and to express relationships among individual sources.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="p">:</span><span class="o">&lt;</span><span class="n">ssrc</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">attribute</span><span class="o">&gt;</span>
@@ -307,16 +307,16 @@
 <span class="n">a</span><span class="o">=</span><span class="n">ssrc</span><span class="o">-</span><span class="n">group</span><span class="p">:</span><span class="o">&lt;</span><span class="n">semantics</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">ssrc</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span> <span class="o">...</span>
 </pre></div>
 </div>
-<p>更多的 SDP 实例说明请参见 <a class="reference external" href="https://tools.ietf.org/html/draft-nandakumar-rtcweb-sdp-08">SDP for the WebRTC</a></p>
+<p>更多的 SDP 实例说明请参见 <a class="reference external" href="https://datatracker.ietf.org/doc/html/draft-nandakumar-rtcweb-sdp-08">SDP for the WebRTC</a></p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id13">参考资料</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id14">参考资料</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling">Signaling and video calling</a></p></li>
 <li><p><a class="reference external" href="https://w3c.github.io/webidl2.js/checker/">WebIDL Checker</a></p></li>
-<li><p><a class="reference external" href="https://tools.ietf.org/html/rfc3264">RFC3264</a>: An Offer/Answer Model with the Session Description Protocol (SDP)</p></li>
-<li><p><a class="reference external" href="https://tools.ietf.org/html/draft-nandakumar-rtcweb-sdp-08">SDP for the WebRTC</a></p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3264">RFC3264</a>: An Offer/Answer Model with the Session Description Protocol (SDP)</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/draft-nandakumar-rtcweb-sdp-08">SDP for the WebRTC</a></p></li>
 </ul>
 </div>
 </div>

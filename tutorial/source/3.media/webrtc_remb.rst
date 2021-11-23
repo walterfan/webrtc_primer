@@ -1,7 +1,5 @@
-:orphan:
-
 ################################
-REMB
+Google REMB
 ################################
 
 
@@ -10,7 +8,7 @@ REMB
 .. include:: ../abbrs.ref
 
 ============ ==========================
-**Abstract** WebRTC REMB
+**Abstract** Google REMB
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|

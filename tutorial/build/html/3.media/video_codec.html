@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -99,7 +99,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="video_basic.html">Video Basic</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">视频编码</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#video-frame">视频帧 Video Frame</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#video-compress">视频压缩 Video compress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#h-264">H.264</a></li>
@@ -214,33 +214,33 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id2" id="id4">概述</a></p>
+<li><p><a class="reference internal" href="#id3" id="id5">概述</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id5">视频压缩</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id6">视频压缩</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#video-frame" id="id6">视频帧 Video Frame</a></p>
+<li><p><a class="reference internal" href="#video-frame" id="id7">视频帧 Video Frame</a></p>
 <ul>
-<li><p><a class="reference internal" href="#i-frame" id="id7">I-frame 信息帧</a></p></li>
-<li><p><a class="reference internal" href="#p-frame" id="id8">P-frame</a></p></li>
-<li><p><a class="reference internal" href="#b-frame" id="id9">B-frame</a></p></li>
+<li><p><a class="reference internal" href="#i-frame" id="id8">I-frame 信息帧</a></p></li>
+<li><p><a class="reference internal" href="#p-frame" id="id9">P-frame</a></p></li>
+<li><p><a class="reference internal" href="#b-frame" id="id10">B-frame</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#video-compress" id="id10">视频压缩 Video compress</a></p></li>
-<li><p><a class="reference internal" href="#h-264" id="id11">H.264</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id12">Reference</a></p></li>
+<li><p><a class="reference internal" href="#video-compress" id="id11">视频压缩 Video compress</a></p></li>
+<li><p><a class="reference internal" href="#h-264" id="id12">H.264</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id13">Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id4">概述</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
-<h3><a class="toc-backref" href="#id5">视频压缩</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id5">概述</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id6">视频压缩</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>RGB24 -&gt; YUV420</p>
 <ul class="simple">
 <li><p>帧内压缩</p></li>
@@ -249,7 +249,7 @@
 </div>
 </div>
 <div class="section" id="video-frame">
-<h2><a class="toc-backref" href="#id6">视频帧 Video Frame</a><a class="headerlink" href="#video-frame" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">视频帧 Video Frame</a><a class="headerlink" href="#video-frame" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">A video is an action sequence formed by a series of images, and each image in the series succeeds the previous one in the timeline of the action sequence to displayed . These still images are called video frames.</div>
 </div>
@@ -263,20 +263,20 @@
 </div>
 <p>这是因为每秒有更多的视频帧要显示为动作序列的一部分，因此帧之间图像的变化较小，并且运动看起来更平滑。</p>
 <div class="section" id="i-frame">
-<h3><a class="toc-backref" href="#id7">I-frame 信息帧</a><a class="headerlink" href="#i-frame" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">I-frame 信息帧</a><a class="headerlink" href="#i-frame" title="Permalink to this headline">¶</a></h3>
 <p>信息帧用帧内压缩，用作关键帧</p>
 </div>
 <div class="section" id="p-frame">
-<h3><a class="toc-backref" href="#id8">P-frame</a><a class="headerlink" href="#p-frame" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">P-frame</a><a class="headerlink" href="#p-frame" title="Permalink to this headline">¶</a></h3>
 <p>预测帧 Predictive Frame 用帧间压缩，反映之前的 I-frame 的变化</p>
 </div>
 <div class="section" id="b-frame">
-<h3><a class="toc-backref" href="#id9">B-frame</a><a class="headerlink" href="#b-frame" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">B-frame</a><a class="headerlink" href="#b-frame" title="Permalink to this headline">¶</a></h3>
 <p>双向预测帧 Bidirectional Predictive Frames 使得总体压缩更高， 它参考了之前的 I-frame 和之后的 P-frame</p>
 </div>
 </div>
 <div class="section" id="video-compress">
-<h2><a class="toc-backref" href="#id10">视频压缩 Video compress</a><a class="headerlink" href="#video-compress" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">视频压缩 Video compress</a><a class="headerlink" href="#video-compress" title="Permalink to this headline">¶</a></h2>
 <p>由于视频是由图像的时间序列组成，视频压缩可以看作具有时间分量的图像压缩。</p>
 <p>大多数视频压缩方案都利用了时间相关性来消除冗余。</p>
 <p>预测帧与当前帧之间的差异称为预测误差或残差</p>
@@ -284,7 +284,7 @@
 <p>Inter-Frame 帧间压缩</p>
 </div>
 <div class="section" id="h-264">
-<h2><a class="toc-backref" href="#id11">H.264</a><a class="headerlink" href="#h-264" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">H.264</a><a class="headerlink" href="#h-264" title="Permalink to this headline">¶</a></h2>
 <p>Compression and media resilliency feature</p>
 <ul class="simple">
 <li><p>Error feedback mechanism</p></li>
@@ -306,7 +306,7 @@
 </ul>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id12">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codec">Web video codec guide</a></p></li>
 </ul>

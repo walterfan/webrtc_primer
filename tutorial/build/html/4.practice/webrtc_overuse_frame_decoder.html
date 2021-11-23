@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -211,34 +211,34 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id1">Overview</a></p>
+<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p>
 <ul>
-<li><p><a class="reference internal" href="#overuse-frame-detector" id="id2">overuse frame detector</a></p></li>
+<li><p><a class="reference internal" href="#overuse-frame-detector" id="id3">overuse frame detector</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id3">Reference</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id4">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>用户使用的设备千差万别，</p>
 <p>视频的分辨率，帧率过高可能会耗费大量的 CPU 资源，如果用户的设备性能不高，可能会造成应用程序</p>
 <p>过载检测器，分别对 cpu，qp，分辨率进行状态检测，通过与设定阈值比较，高于就认为过载，低于就认为欠载。</p>
 <div class="section" id="overuse-frame-detector">
-<h3><a class="toc-backref" href="#id2">overuse frame detector</a><a class="headerlink" href="#overuse-frame-detector" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id3">overuse frame detector</a><a class="headerlink" href="#overuse-frame-detector" title="Permalink to this headline">¶</a></h3>
 <p>cpu 检测器”，通过编码器占用率与设定的阀值进行比较，编码器占用率计算公式：</p>
 <p>编码器占用率 = 编码时长/采集间隔，具体的实现在 SendProcessingUsage1 类中，编码时长与采集间隔</p>
 <p>都用了指数加权移动平均法（EWMA）。</p>
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id3">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/encode_usage_resource.h">https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/encode_usage_resource.h</a></p></li>
 <li><p><a class="reference external" href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/overuse_frame_detector.h">https://source.chromium.org/chromium/chromium/src/+/main:third_party/webrtc/video/adaptation/overuse_frame_detector.h</a></p></li>

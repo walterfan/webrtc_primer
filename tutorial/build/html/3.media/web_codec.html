@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -212,35 +212,35 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
-<li><p><a class="reference internal" href="#interface" id="id3">Interface</a></p>
+<li><p><a class="reference internal" href="#overview" id="id3">Overview</a></p></li>
+<li><p><a class="reference internal" href="#interface" id="id4">Interface</a></p>
 <ul>
-<li><p><a class="reference internal" href="#audiodecoder-interface" id="id4">AudioDecoder Interface</a></p></li>
-<li><p><a class="reference internal" href="#videodecoder-interface" id="id5">VideoDecoder Interface</a></p></li>
-<li><p><a class="reference internal" href="#audioencoder-interface" id="id6">AudioEncoder Interface</a></p></li>
-<li><p><a class="reference internal" href="#videoencoder-interface" id="id7">VideoEncoder Interface</a></p></li>
-<li><p><a class="reference internal" href="#audiodecoderconfig" id="id8">AudioDecoderConfig</a></p></li>
-<li><p><a class="reference internal" href="#videodecoderconfig" id="id9">VideoDecoderConfig</a></p></li>
-<li><p><a class="reference internal" href="#audioencoderconfig" id="id10">AudioEncoderConfig</a></p></li>
-<li><p><a class="reference internal" href="#videoencoderconfig" id="id11">VideoEncoderConfig</a></p></li>
+<li><p><a class="reference internal" href="#audiodecoder-interface" id="id5">AudioDecoder Interface</a></p></li>
+<li><p><a class="reference internal" href="#videodecoder-interface" id="id6">VideoDecoder Interface</a></p></li>
+<li><p><a class="reference internal" href="#audioencoder-interface" id="id7">AudioEncoder Interface</a></p></li>
+<li><p><a class="reference internal" href="#videoencoder-interface" id="id8">VideoEncoder Interface</a></p></li>
+<li><p><a class="reference internal" href="#audiodecoderconfig" id="id9">AudioDecoderConfig</a></p></li>
+<li><p><a class="reference internal" href="#videodecoderconfig" id="id10">VideoDecoderConfig</a></p></li>
+<li><p><a class="reference internal" href="#audioencoderconfig" id="id11">AudioEncoderConfig</a></p></li>
+<li><p><a class="reference internal" href="#videoencoderconfig" id="id12">VideoEncoderConfig</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#example" id="id12">Example</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id13">Reference</a></p></li>
+<li><p><a class="reference internal" href="#example" id="id13">Example</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id14">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>在WebRTC中，音频使用 opus codec 来做音频的编解码，视频使用 vp8 或 h.264 等库来做视频的编解码。</p>
 <p>以下两篇规范对于 WebRTC 所需要的 codec 有详细要求</p>
-<p><a class="reference external" href="https://www.rfcreader.com/#rfc7874">RFC7874</a> “WebRTC Audio Codec and Processing Requirements”
-<a class="reference external" href="https://www.rfcreader.com/#rfc7742">RFC7742</a> “WebRTC Video Processing and Codec Requirements”</p>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc7874">RFC7874</a> “WebRTC Audio Codec and Processing Requirements”
+<a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc7742">RFC7742</a> “WebRTC Video Processing and Codec Requirements”</p>
 <p>浏览器用户在以前是没有办法来触及底层的编解码过程的， 直到 Web codec 和</p>
 <p>it defines interfaces to codecs for encoding and decoding of audio, video, and images.</p>
 <p>Spec: <a class="reference external" href="https://w3c.github.io/webcodecs/">https://w3c.github.io/webcodecs/</a></p>
@@ -248,7 +248,7 @@
 <p>It is useful for web applications that require full control over the way media is processed. For example, video or audio editors, and video conferencing.</p>
 </div>
 <div class="section" id="interface">
-<h2><a class="toc-backref" href="#id3">Interface</a><a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Interface</a><a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>AudioDecoder</p></li>
 </ul>
@@ -298,7 +298,7 @@
 </ul>
 <p>Represents an individual image track.</p>
 <div class="section" id="audiodecoder-interface">
-<h3><a class="toc-backref" href="#id4">AudioDecoder Interface</a><a class="headerlink" href="#audiodecoder-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">AudioDecoder Interface</a><a class="headerlink" href="#audiodecoder-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="p">(</span><span class="nx">Window</span><span class="p">,</span><span class="nx">DedicatedWorker</span><span class="p">),</span> <span class="nx">SecureContext</span><span class="p">]</span>
 <span class="kr">interface</span> <span class="nx">AudioDecoder</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">AudioDecoderInit</span> <span class="nx">init</span><span class="p">);</span>
@@ -312,7 +312,7 @@
     <span class="kc">undefined</span> <span class="nx">reset</span><span class="p">();</span>
     <span class="kc">undefined</span> <span class="nx">close</span><span class="p">();</span>
 
-    <span class="kr">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AudioDecoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">AudioDecoderConfig</span> <span class="nx">config</span><span class="p">);</span>
+    <span class="k">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AudioDecoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">AudioDecoderConfig</span> <span class="nx">config</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">dictionary</span> <span class="nx">AudioDecoderInit</span> <span class="p">{</span>
@@ -325,7 +325,7 @@
 </div>
 </div>
 <div class="section" id="videodecoder-interface">
-<h3><a class="toc-backref" href="#id5">VideoDecoder Interface</a><a class="headerlink" href="#videodecoder-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id6">VideoDecoder Interface</a><a class="headerlink" href="#videodecoder-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="p">(</span><span class="nx">Window</span><span class="p">,</span><span class="nx">DedicatedWorker</span><span class="p">),</span> <span class="nx">SecureContext</span><span class="p">]</span>
 <span class="kr">interface</span> <span class="nx">VideoDecoder</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">VideoDecoderInit</span> <span class="nx">init</span><span class="p">);</span>
@@ -339,7 +339,7 @@
     <span class="kc">undefined</span> <span class="nx">reset</span><span class="p">();</span>
     <span class="kc">undefined</span> <span class="nx">close</span><span class="p">();</span>
 
-    <span class="kr">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">VideoDecoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">VideoDecoderConfig</span> <span class="nx">config</span><span class="p">);</span>
+    <span class="k">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">VideoDecoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">VideoDecoderConfig</span> <span class="nx">config</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">dictionary</span> <span class="nx">VideoDecoderInit</span> <span class="p">{</span>
@@ -352,7 +352,7 @@
 </div>
 </div>
 <div class="section" id="audioencoder-interface">
-<h3><a class="toc-backref" href="#id6">AudioEncoder Interface</a><a class="headerlink" href="#audioencoder-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">AudioEncoder Interface</a><a class="headerlink" href="#audioencoder-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="p">(</span><span class="nx">Window</span><span class="p">,</span><span class="nx">DedicatedWorker</span><span class="p">),</span> <span class="nx">SecureContext</span><span class="p">]</span>
 <span class="kr">interface</span> <span class="nx">AudioEncoder</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">AudioEncoderInit</span> <span class="nx">init</span><span class="p">);</span>
@@ -366,7 +366,7 @@
     <span class="kc">undefined</span> <span class="nx">reset</span><span class="p">();</span>
     <span class="kc">undefined</span> <span class="nx">close</span><span class="p">();</span>
 
-    <span class="kr">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AudioEncoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">AudioEncoderConfig</span> <span class="nx">config</span><span class="p">);</span>
+    <span class="k">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">AudioEncoderSupport</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">AudioEncoderConfig</span> <span class="nx">config</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">dictionary</span> <span class="nx">AudioEncoderInit</span> <span class="p">{</span>
@@ -381,7 +381,7 @@
 </div>
 </div>
 <div class="section" id="videoencoder-interface">
-<h3><a class="toc-backref" href="#id7">VideoEncoder Interface</a><a class="headerlink" href="#videoencoder-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">VideoEncoder Interface</a><a class="headerlink" href="#videoencoder-interface" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nx">Exposed</span><span class="o">=</span><span class="p">(</span><span class="nx">Window</span><span class="p">,</span><span class="nx">DedicatedWorker</span><span class="p">),</span> <span class="nx">SecureContext</span><span class="p">]</span>
 <span class="kr">interface</span> <span class="nx">VideoEncoder</span> <span class="p">{</span>
     <span class="nx">constructor</span><span class="p">(</span><span class="nx">VideoEncoderInit</span> <span class="nx">init</span><span class="p">);</span>
@@ -395,7 +395,7 @@
     <span class="kc">undefined</span> <span class="nx">reset</span><span class="p">();</span>
     <span class="kc">undefined</span> <span class="nx">close</span><span class="p">();</span>
 
-    <span class="kr">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">VideoEncoderConfig</span> <span class="nx">config</span><span class="p">);</span>
+    <span class="k">static</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="kr">boolean</span><span class="o">&gt;</span> <span class="nx">isConfigSupported</span><span class="p">(</span><span class="nx">VideoEncoderConfig</span> <span class="nx">config</span><span class="p">);</span>
 <span class="p">};</span>
 
 <span class="nx">dictionary</span> <span class="nx">VideoEncoderInit</span> <span class="p">{</span>
@@ -410,7 +410,7 @@
 </div>
 </div>
 <div class="section" id="audiodecoderconfig">
-<h3><a class="toc-backref" href="#id8">AudioDecoderConfig</a><a class="headerlink" href="#audiodecoderconfig" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">AudioDecoderConfig</a><a class="headerlink" href="#audiodecoderconfig" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">dictionary</span> <span class="nx">AudioDecoderConfig</span> <span class="p">{</span>
     <span class="nx">required</span> <span class="nx">DOMString</span> <span class="nx">codec</span><span class="p">;</span>
     <span class="p">[</span><span class="nx">EnforceRange</span><span class="p">]</span> <span class="nx">required</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">sampleRate</span><span class="p">;</span>
@@ -421,7 +421,7 @@
 </div>
 </div>
 <div class="section" id="videodecoderconfig">
-<h3><a class="toc-backref" href="#id9">VideoDecoderConfig</a><a class="headerlink" href="#videodecoderconfig" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">VideoDecoderConfig</a><a class="headerlink" href="#videodecoderconfig" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">dictionary</span> <span class="nx">VideoDecoderConfig</span> <span class="p">{</span>
     <span class="nx">required</span> <span class="nx">DOMString</span> <span class="nx">codec</span><span class="p">;</span>
     <span class="nx">BufferSource</span> <span class="nx">description</span><span class="p">;</span>
@@ -437,7 +437,7 @@
 </div>
 </div>
 <div class="section" id="audioencoderconfig">
-<h3><a class="toc-backref" href="#id10">AudioEncoderConfig</a><a class="headerlink" href="#audioencoderconfig" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">AudioEncoderConfig</a><a class="headerlink" href="#audioencoderconfig" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">dictionary</span> <span class="nx">AudioEncoderConfig</span> <span class="p">{</span>
     <span class="nx">required</span> <span class="nx">DOMString</span> <span class="nx">codec</span><span class="p">;</span>
     <span class="p">[</span><span class="nx">EnforceRange</span><span class="p">]</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">sampleRate</span><span class="p">;</span>
@@ -448,7 +448,7 @@
 </div>
 </div>
 <div class="section" id="videoencoderconfig">
-<h3><a class="toc-backref" href="#id11">VideoEncoderConfig</a><a class="headerlink" href="#videoencoderconfig" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">VideoEncoderConfig</a><a class="headerlink" href="#videoencoderconfig" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="nx">dictionary</span> <span class="nx">VideoEncoderConfig</span> <span class="p">{</span>
     <span class="nx">required</span> <span class="nx">DOMString</span> <span class="nx">codec</span><span class="p">;</span>
     <span class="p">[</span><span class="nx">EnforceRange</span><span class="p">]</span> <span class="nx">required</span> <span class="nx">unsigned</span> <span class="kr">long</span> <span class="nx">width</span><span class="p">;</span>
@@ -468,11 +468,11 @@
 </div>
 </div>
 <div class="section" id="example">
-<h2><a class="toc-backref" href="#id12">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://w3c.github.io/webcodecs/samples/">https://w3c.github.io/webcodecs/samples/</a></p>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id13">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://web.dev/webcodecs/">https://web.dev/webcodecs/</a></p>
 </div>
 </div>
