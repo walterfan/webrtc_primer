@@ -43,7 +43,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Insertable Stream" href="insertable_stream.html" />
+    <link rel="next" title="Google Congestion Control" href="webrtc_gcc.html" />
     <link rel="prev" title="WebRTC RTX" href="webrtc_rtx.html" /> 
 </head>
 
@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -102,29 +102,35 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC 拥塞控制</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">基本架构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">术语</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">交互式实时媒体的拥塞控制的需求</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">标准化状况和存在的问题</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id11">目标</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">设计</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id13">关键指标</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_gcc.html">Google Congestion Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_remb.html">Google REMB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_tcc.html">Transport-wide Congestion Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_cc_evaluation.html">Congeston Control Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">基本架构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">术语</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">交互式实时媒体的拥塞控制的需求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">标准化组织及其发布的文档</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">标准化状况和存在的问题</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">目标</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">设计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">关键指标</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">拥塞控制算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">常用方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">拥塞控制算法</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gcc-by-google">1. GCC by Google</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nada-by-cisco">2. NADA by Cisco</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#scream-by-ericsson">3. SCReAM by Ericsson</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id18">验证方法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id19">度量指标</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">对于拥塞控制算法的评估和验证</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id22">度量指标</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rtp-log-format">RTP Log Format 日志格式</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id20">网络参数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">网络参数</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">参考资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
@@ -206,6 +212,15 @@
             
   <div class="section" id="webrtc">
 <h1>WebRTC 拥塞控制<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Sections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="webrtc_gcc.html">Google Congestion Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webrtc_remb.html">Google REMB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webrtc_tcc.html">Transport-wide Congestion Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webrtc_cc_evaluation.html">Congeston Control Evaluation</a></li>
+</ul>
+</div>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 32%" />
@@ -222,51 +237,54 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
+<p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id29">简介</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id30">基本架构</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id31">术语</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id32">交互式实时媒体的拥塞控制的需求</a></p></li>
-<li><p><a class="reference internal" href="#id9" id="id33">标准化状况和存在的问题</a></p>
+<li><p><a class="reference internal" href="#id2" id="id32">简介</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id33">基本架构</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id34">术语</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id35">交互式实时媒体的拥塞控制的需求</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id36">标准化组织及其发布的文档</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id37">标准化状况和存在的问题</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id11" id="id34">目标</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id35">设计</a></p></li>
-<li><p><a class="reference internal" href="#id13" id="id36">关键指标</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id38">目标</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id39">设计</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id40">关键指标</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id14" id="id37">拥塞控制算法</a></p>
+<li><p><a class="reference internal" href="#id16" id="id41">常用方法</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id42">拥塞控制算法</a></p>
 <ul>
-<li><p><a class="reference internal" href="#gcc-by-google" id="id38">1. GCC by Google</a></p></li>
-<li><p><a class="reference internal" href="#nada-by-cisco" id="id39">2. NADA by Cisco</a></p></li>
-<li><p><a class="reference internal" href="#scream-by-ericsson" id="id40">3. SCReAM by Ericsson</a></p></li>
+<li><p><a class="reference internal" href="#gcc-by-google" id="id43">1. GCC by Google</a></p></li>
+<li><p><a class="reference internal" href="#nada-by-cisco" id="id44">2. NADA by Cisco</a></p></li>
+<li><p><a class="reference internal" href="#scream-by-ericsson" id="id45">3. SCReAM by Ericsson</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id18" id="id41">验证方法</a></p>
+<li><p><a class="reference internal" href="#id21" id="id46">对于拥塞控制算法的评估和验证</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id19" id="id42">度量指标</a></p></li>
-<li><p><a class="reference internal" href="#rtp-log-format" id="id43">RTP Log Format 日志格式</a></p></li>
-<li><p><a class="reference internal" href="#id20" id="id44">网络参数</a></p>
+<li><p><a class="reference internal" href="#id22" id="id47">度量指标</a></p></li>
+<li><p><a class="reference internal" href="#rtp-log-format" id="id48">RTP Log Format 日志格式</a></p></li>
+<li><p><a class="reference internal" href="#id23" id="id49">网络参数</a></p>
 <ul>
-<li><p><a class="reference internal" href="#one-way-propagation-delay" id="id45">1. One-Way Propagation Delay</a></p></li>
-<li><p><a class="reference internal" href="#end-to-end-loss" id="id46">2. End-to-End Loss</a></p></li>
-<li><p><a class="reference internal" href="#drop-tail-route-queue-length" id="id47">3. Drop-Tail Route Queue Length</a></p></li>
-<li><p><a class="reference internal" href="#loss-generation-module" id="id48">4. Loss Generation module</a></p></li>
-<li><p><a class="reference internal" href="#jitter-modules" id="id49">5. Jitter modules</a></p></li>
-<li><p><a class="reference internal" href="#traffic-models" id="id50">6. Traffic Models</a></p></li>
+<li><p><a class="reference internal" href="#one-way-propagation-delay" id="id50">1. One-Way Propagation Delay</a></p></li>
+<li><p><a class="reference internal" href="#end-to-end-loss" id="id51">2. End-to-End Loss</a></p></li>
+<li><p><a class="reference internal" href="#drop-tail-route-queue-length" id="id52">3. Drop-Tail Route Queue Length</a></p></li>
+<li><p><a class="reference internal" href="#loss-generation-module" id="id53">4. Loss Generation module</a></p></li>
+<li><p><a class="reference internal" href="#jitter-modules" id="id54">5. Jitter modules</a></p></li>
+<li><p><a class="reference internal" href="#traffic-models" id="id55">6. Traffic Models</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id21" id="id51">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id56">参考资料</a></p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id29">简介</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id32">简介</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>视频会议需要低延迟和高带宽，可是实际情况中，高带宽是难以保证的，一旦网络出现拥塞，原本就不宽阔的“马路” 堵得更窄，延迟更大。这时候，就需要做拥塞控制</p>
 <p>在网络会议中，如果延迟太大，对在线交流就会产生影响。据研究，大致的关系如下</p>
 <table class="docutils align-default">
@@ -310,17 +328,17 @@
 </ul>
 <p>例如 Google 所提出的 <a class="reference external" href="webrtc_gcc.html">GCC 算法</a>, <a class="reference external" href="webrtc_remb.html">REMB 扩展</a>， <a class="reference external" href="webrtc_tcc.html">TCC 算法</a></p>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id30">基本架构</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id33">基本架构</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>在发送方，根据 RTCP Receiver Report 中的 faction lost 得知丢包率，可以调整发送的码率</p>
 <p>在接收方，根据 RTP 包到达的时间延迟，通过 arrival time filter, 估算出网络延迟 m(ti), 经过 over-user detector 来判断当前网络的拥塞情况， 再由 Remote rate controller 根据规则计算出最大码率 Ar, 通过 RTCP REMB 消息将 Ar 发回给发送方。 发送方再由 A_s, A_r 和配置，计算出目标的码率 A, 应用到 Encoder 和 Packed Sender 来控制发送方的码率。</p>
-<div class="figure align-center" id="id25">
+<div class="figure align-center" id="id28">
 <a class="reference internal image-reference" href="../_images/gcc-architecture.png"><img alt="gcc-architecture" src="../_images/gcc-architecture.png" style="width: 1107.9px; height: 392.40000000000003px;" /></a>
-<p class="caption"><span class="caption-text">GCC Architecture</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">GCC Architecture</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id31">术语</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2><a class="toc-backref" href="#id34">术语</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>RMCAT: RTP Media Congestion Avoidance Techniques 即 RTP 媒体拥塞避免技术</p></li>
 <li><p>Queuing Delay 排队延迟</p></li>
@@ -334,15 +352,18 @@
 <li><p>PCC: Performance-oriented Congestion Control 基于性能的拥塞控制</p></li>
 <li><p>TCC: Transport-wide Congestion Control 传输带宽控制</p></li>
 <li><p>REMB: Receiver Estimated Maximum Bitrate 接收端估计最大比特率</p></li>
+<li><p>ECN: Explicit Congestion Notification (ECN) 显式的拥塞通知</p></li>
 <li><p>Starvation: 饥饿，如果某个传输通道由于其他传输通道抢占了带宽而没有得到流量，称为饥饿</p></li>
 <li><p>TMMBR: Temporary Maximum Media Stream Bit Rate Request 临时最大媒体流带宽请求</p></li>
 <li><p>TMMBN: Temporary Maximum Media Stream Bit Rate Notification 临时最大媒体流带宽通知， 表示 TMMBR 收到</p></li>
+<li><p>QP: Quantization Parameter, that ranges from 0 to 51. 量化参数 QP 越小，细节保留得越多，质量就更好， 反之质量越差，压缩率更高</p></li>
 </ul>
+<p>QP is an index used to derive a scaling matrix. It is possible to calculate the equivalent quantizer step size (Qstep) for each value of QP.</p>
 </div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id32">交互式实时媒体的拥塞控制的需求</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id35">交互式实时媒体的拥塞控制的需求</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>基本要求：在最多几百毫秒之内，接收方能够连贯流畅地听到或看到发送方的声音，图像或视频。</p>
-<p>具体要求, 参见 <a class="footnote-reference brackets" href="#id22" id="id7">1</a> <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8836">RFC8836</a></p>
+<p>具体要求, 参见 <a class="footnote-reference brackets" href="#id25" id="id8">1</a> <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8836">RFC8836</a></p>
 <ol class="arabic simple">
 <li><p>拥塞控制算法必须尝试为交互式实时流量提供尽可能低的延迟传输，同时仍然提供有用的带宽量。</p></li>
 <li><p>该算法必须对其他流公平，包括实时流（例如自身的其他实例）和 TCP 流，包括长期存在的流和突发流量，例如典型的 Web 浏览会话生成的流量。</p></li>
@@ -352,14 +373,69 @@
 <li><p>在可能的情况下，当 RTP 流共享一个公用的瓶颈时，算法应该综合考虑在两个端点之间发送的多个 RTP 流之间的信息，无论这些流是否复用相同的端口。</p></li>
 <li><p>该算法不应该需要来自网络元素的任何特殊支持才能传达与拥塞相关的信息。</p></li>
 <li><p>由于这里假设是一组 RTP 流，反向通道通常应该通过 RTP 控制协议 (RTCP) 完成</p></li>
-<li><p>由该算法管理的流和在瓶颈处相互竞争的流可能具有不同的差分服务代码点 (DSCP) <a class="footnote-reference brackets" href="#id23" id="id8">2</a> [RFC5865] 标记，具体取决于流量类型，或者可能受基于流的 QoS 的约束。</p></li>
+<li><p>由该算法管理的流和在瓶颈处相互竞争的流可能具有不同的差分服务代码点 (DSCP) <a class="footnote-reference brackets" href="#id26" id="id9">2</a> [RFC5865] 标记，具体取决于流量类型，或者可能受基于流的 QoS 的约束。</p></li>
 <li><p>该算法应该将反向信道(backchannel)信息的意外缺失, 感知为信道过度使用问题的可能指示，并相应地做出反应, 以避免导致拥塞崩溃的突发事件。</p></li>
 <li><p>当应用主动队列管理 (AQM: Active Queue Management) 算法时，该算法应该是稳定的并保持低延迟。另请注意，这些算法可能适用于瓶颈中的多个队列或单个队列。</p></li>
 </ol>
 </div>
-<div class="section" id="id9">
-<h2><a class="toc-backref" href="#id33">标准化状况和存在的问题</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>参见由 <a class="footnote-reference brackets" href="#id24" id="id10">3</a> “Luca De Cicco, Gaetano Carlucci, and Saverio Mascolo” 所撰写的文章</p>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id36">标准化组织及其发布的文档</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>RMCAT (RTP Media Congestion Avoidance Techniques Work group) 即 RTP 媒体拥塞避免技术工作组是是负责制定拥塞相关的协议和标准。
+截止 2021 年 11 月，已经发布了如下的文档</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/draft-ietf-rmcat-rtp-cc-feedback-07">draft-ietf-rmcat-rtp-cc-feedback-07</a></p></li>
+</ul>
+<p>Sending RTP Control Protocol (RTCP) Feedback for Congestion Control in Interactive Multimedia Conferences
+在交互式多媒体会议中发送 RTCP 反馈用以拥塞控制</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8298.html">RFC 8298</a> (was draft-ietf-rmcat-scream-cc)</p></li>
+</ul>
+<p>Self-Clocked Rate Adaptation for Multimedia
+用以多媒体的自同步速率适配</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8382.html">RFC 8382</a> (was draft-ietf-rmcat-sbd)</p></li>
+</ul>
+<p>Shared Bottleneck Detection for Coupled Congestion Control for RTP Media
+用于 RTP 媒体的耦合的拥塞控制的共享瓶颈检测</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8593.html">RFC 8593</a> (was draft-ietf-rmcat-video-traffic-model)</p></li>
+</ul>
+<p>Video Traffic Models for RTP Congestion Control Evaluations
+用于 RTP 拥塞控制评估的视频流量模型</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8698.html">RFC 8698</a> (was draft-ietf-rmcat-nada)</p></li>
+</ul>
+<p>Network-Assisted Dynamic Adaptation (NADA): A Unified Congestion Control Scheme for Real-Time Media
+网络辅助动态适应（NADA）：对实时媒体的一种统一的拥塞控制模式</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8699.html">RFC 8699</a> (was draft-ietf-rmcat-coupled-cc)</p></li>
+</ul>
+<p>Coupled Congestion Control for RTP Media
+用于 RTP 媒体的耦合的拥塞控制</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8836.html">RFC 8836</a> (was draft-ietf-rmcat-cc-requirements)</p></li>
+</ul>
+<p>Congestion Control Requirements for Interactive Real-Time Media
+对交互式实时媒体的拥塞控制需求</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8867.html">RFC 8867</a> (was draft-ietf-rmcat-eval-test)</p></li>
+</ul>
+<p>Test Cases for Evaluating Congestion Control for Interactive Real-Time Media
+对交互式实时媒体拥塞控制的评估</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8868.html">RFC 8868</a> (was draft-ietf-rmcat-eval-criteria)</p></li>
+</ul>
+<p>Evaluating Congestion Control for Interactive Real-Time Media
+对交互式实时媒体拥塞控制的评估</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.rfc-editor.org/rfc/rfc8869.html">RFC 8869</a> (was draft-ietf-rmcat-wireless-tests)</p></li>
+</ul>
+<p>Evaluation Test Cases for Interactive Real-Time Media over Wireless Networks
+对通过无线网络的交互式实时媒体的评估测试用例</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id37">标准化状况和存在的问题</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>参见由 <a class="footnote-reference brackets" href="#id27" id="id12">3</a> “Luca De Cicco, Gaetano Carlucci, and Saverio Mascolo” 所撰写的文章</p>
 <p>建议的方法是在通过一个传输层流发送的单个 RTP 会话中复用所有 RTP 数据包流，以减少 NAT 处理的流数。</p>
 <p>遵循这种方法，媒体拥塞控制算法根据在接收器处测量并通过 RTCP 数据包发回的一组指标计算聚合 RTP 会话的总发送速率 A。</p>
 <p>速率分配模块将总比特率 A 的一部分 <span class="math notranslate nohighlight">\(A_i\)</span> 分配给每个媒体流。特别是，每个媒体流都以目标编码速率 <span class="math notranslate nohighlight">\(A_i\)</span> 压缩，使得所有这些速率的总和等于计算出的发送速率 A。</p>
@@ -367,8 +443,8 @@
 <p>值得注意的是，拥塞控制算法的位置没有指定，可以是发送方、接收方或分布在发送方和接收方。</p>
 <p>作为示例，下图显示了拥塞控制算法仅放置在发送方的情况。接收器需要实现一个模块，该模块测量要通过 RTCP 数据包反馈给拥塞控制算法的指标。</p>
 <img alt="WebRTC media application architecture" src="../_images/webrtc-media-architecture.png" />
-<table class="colwidths-given docutils align-default" id="id26">
-<caption><span class="caption-text">WEBRTC media flow requirements</span><a class="headerlink" href="#id26" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id29">
+<caption><span class="caption-text">WEBRTC media flow requirements</span><a class="headerlink" href="#id29" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -402,13 +478,13 @@
 </tr>
 </tbody>
 </table>
-<div class="section" id="id11">
-<h3><a class="toc-backref" href="#id34">目标</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id38">目标</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>拥塞控制算法的目标是产生尽可能接近可用的端到端带宽的发送速率，同时保持队列占用尽可能低。</p>
 <p>此外，WebRTC 应用程序生成的媒体流应该与其他并发流公平地共享网络带宽。</p>
 </div>
-<div class="section" id="id12">
-<h3><a class="toc-backref" href="#id35">设计</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id39">设计</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>满足这些要求的算法设计面临着几个选择</p>
 <ol class="arabic simple">
 <li><p>The transport protocol 传输协议</p></li>
@@ -435,8 +511,8 @@
 <style> .red {color:#aa0060; font-weight:bold; font-size:16px} </style><p>关于驱动机制, 拥塞控制算法或者计算一个  <span class="red">congestion window</span> (window-based approach) ，或者显式计算一个  <span class="red">sending rate</span> (rate-based approach).</p>
 <p><strong>基于速率的机制的使用使得可以直接使用拥塞控制算法计算的速率来驱动媒体编码器，而在基于窗口的算法的情况下，应该执行从窗口到速率的适当转换。</strong></p>
 </div>
-<div class="section" id="id13">
-<h3><a class="toc-backref" href="#id36">关键指标</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id40">关键指标</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>来往时间 Round-Trip Time</p></li>
 <li><p>单向延迟 One-Way Delay</p></li>
@@ -452,9 +528,9 @@ starves the first one.</p>
 <ul class="simple">
 <li><p>单向延迟变化 One-Way Delay Variation (OWDV)</p></li>
 </ul>
-<div class="figure align-center" id="id27">
+<div class="figure align-center" id="id30">
 <a class="reference internal image-reference" href="../_images/rtp_packet_skew.png"><img alt="packet transmission delay" src="../_images/rtp_packet_skew.png" style="width: 538.0px; height: 598.0px;" /></a>
-<p class="caption"><span class="caption-text">packet transmission delay</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">packet transmission delay</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 发送间隔与到达时间之间的延时
 d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
@@ -478,11 +554,18 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 因此，为了在充分利用可用带宽的同时保证较小的队列占用，算法必须通过增加其发送速率来持续探测可用带宽，直到检测到正排队延迟变化。 此时，发送速率应迅速降低。 总而言之，需要引入一些排队延迟来运行基于延迟变化的拥塞控制算法。</p>
 </div>
 </div>
-<div class="section" id="id14">
-<h2><a class="toc-backref" href="#id37">拥塞控制算法</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h2><a class="toc-backref" href="#id41">常用方法</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>调整速率：例如调整帧率 FrameRate， VBR（Variable BitRate)的编码方法中调整码率 等</p></li>
+<li><p>调整质量：例如调整分辨率 FrameWidth * FrameHeight，量化参数 Quantization Parameter 等</p></li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h2><a class="toc-backref" href="#id42">拥塞控制算法</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <p>已有三种算法提出来， 详见下表</p>
-<table class="colwidths-given docutils align-default" id="id28">
-<caption><span class="caption-text">WEBRTC media flow requirements</span><a class="headerlink" href="#id28" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id31">
+<caption><span class="caption-text">WEBRTC media flow requirements</span><a class="headerlink" href="#id31" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -530,7 +613,7 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 </tbody>
 </table>
 <div class="section" id="gcc-by-google">
-<h3><a class="toc-backref" href="#id38">1. GCC by Google</a><a class="headerlink" href="#gcc-by-google" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id43">1. GCC by Google</a><a class="headerlink" href="#gcc-by-google" title="Permalink to this headline">¶</a></h3>
 <p>Google Congestion Control (GCC) 被应用于 Chrome 浏览器，是相对比较成熟的算法，详见</p>
 <ul class="simple">
 <li><p><a class="reference external" href="webrtc_gcc.html">GCC 算法详解</a>, <a class="reference external" href="webrtc_remb.html">REMB 简介</a></p></li>
@@ -538,20 +621,38 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 </ul>
 </div>
 <div class="section" id="nada-by-cisco">
-<h3><a class="toc-backref" href="#id39">2. NADA by Cisco</a><a class="headerlink" href="#nada-by-cisco" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id44">2. NADA by Cisco</a><a class="headerlink" href="#nada-by-cisco" title="Permalink to this headline">¶</a></h3>
 <p>Network Assisted Dynamic Adaptation(NADA) 由思科提出，还未应用于实际产品中，有相关的模拟器实现</p>
 </div>
 <div class="section" id="scream-by-ericsson">
-<h3><a class="toc-backref" href="#id40">3. SCReAM by Ericsson</a><a class="headerlink" href="#scream-by-ericsson" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id45">3. SCReAM by Ericsson</a><a class="headerlink" href="#scream-by-ericsson" title="Permalink to this headline">¶</a></h3>
 <p>Self-Clocked Rate Adaptation for Multimedia(SCReAM) 由爱立信提出，应用于 OpenWebRTC，有相关的模拟器实现</p>
 </div>
 </div>
-<div class="section" id="id18">
-<h2><a class="toc-backref" href="#id41">验证方法</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id21">
+<h2><a class="toc-backref" href="#id46">对于拥塞控制算法的评估和验证</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
 <p>基于 RFC5033 Specify New Congestion Control Algorithms 和 RFC5166 Metrics for the Evaluation of Congestion Control algorithms, 在 RFC8868 中提出了对于拥塞控制算法的验证方法.</p>
-<p>RFC8867 提出了基本的测试用例在, RFC8869 也提高了无线网络测试场景中的测试用例.</p>
-<div class="section" id="id19">
-<h3><a class="toc-backref" href="#id42">度量指标</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8867">RFC8867</a> 提出了基本的测试用例,在RFC8869 也提高了无线网络测试场景中的测试用例.</p>
+<p>基本的测试环境如下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---+</span>                                                        <span class="o">+---+</span>
+<span class="o">|</span><span class="n">S1</span> <span class="o">|======</span> \               <span class="n">Forward</span> <span class="o">--&gt;</span>             <span class="o">/</span> <span class="o">=======|</span><span class="n">R1</span> <span class="o">|</span>
+<span class="o">+---+</span>       \\                                     <span class="o">//</span>        <span class="o">+---+</span>
+             \\                                   <span class="o">//</span>
+<span class="o">+---+</span>       <span class="o">+-----+</span>                            <span class="o">+-----+</span>       <span class="o">+---+</span>
+<span class="o">|</span><span class="n">S2</span> <span class="o">|=======|</span>  <span class="n">A</span>  <span class="o">|---------------------------&gt;|</span>  <span class="n">B</span>  <span class="o">|=======|</span><span class="n">R2</span> <span class="o">|</span>
+<span class="o">+---+</span>       <span class="o">|</span>     <span class="o">|&lt;---------------------------|</span>     <span class="o">|</span>       <span class="o">+---+</span>
+            <span class="o">+-----+</span>                            <span class="o">+-----+</span>
+<span class="p">(</span><span class="o">...</span><span class="p">)</span>         <span class="o">//</span>                                  \\         <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+             <span class="o">//</span>          <span class="o">&lt;--</span> <span class="n">Backward</span>              \\
+<span class="o">+---+</span>       <span class="o">//</span>                                      \\       <span class="o">+---+</span>
+<span class="o">|</span><span class="n">Sn</span> <span class="o">|======</span> <span class="o">/</span>                                        \ <span class="o">======|</span><span class="n">Rn</span> <span class="o">|</span>
+<span class="o">+---+</span>                                                        <span class="o">+---+</span>
+
+             <span class="n">Figure</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Example</span> <span class="n">of</span> <span class="n">a</span> <span class="n">Testbed</span> <span class="n">Topology</span>
+</pre></div>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id47">度量指标</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Sending rate, receiver rate, goodput (measured at 200ms intervals)</p></li>
 <li><p>Packets sent, packets received</p></li>
@@ -569,7 +670,7 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 此外，从日志中，可以绘制数据包延迟的直方图或累积分布函数 (CDF)</p>
 </div>
 <div class="section" id="rtp-log-format">
-<h3><a class="toc-backref" href="#id43">RTP Log Format 日志格式</a><a class="headerlink" href="#rtp-log-format" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id48">RTP Log Format 日志格式</a><a class="headerlink" href="#rtp-log-format" title="Permalink to this headline">¶</a></h3>
 <p>Having a common log format simplifies running analyses across different measurement setups and comparing their results.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Send</span> <span class="ow">or</span> <span class="n">receive</span> <span class="n">timestamp</span> <span class="p">(</span><span class="n">Unix</span><span class="p">):</span> <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;.&lt;</span><span class="nb">int</span><span class="o">&gt;</span>  <span class="o">--</span> <span class="n">sec</span><span class="o">.</span><span class="n">usec</span> <span class="n">decimal</span>
 <span class="n">RTP</span> <span class="n">payload</span> <span class="nb">type</span>                  <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span>        <span class="o">--</span> <span class="n">decimal</span>
@@ -581,36 +682,40 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 </pre></div>
 </div>
 </div>
-<div class="section" id="id20">
-<h3><a class="toc-backref" href="#id44">网络参数</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id49">网络参数</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="one-way-propagation-delay">
-<h4><a class="toc-backref" href="#id45">1. One-Way Propagation Delay</a><a class="headerlink" href="#one-way-propagation-delay" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id50">1. One-Way Propagation Delay</a><a class="headerlink" href="#one-way-propagation-delay" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="end-to-end-loss">
-<h4><a class="toc-backref" href="#id46">2. End-to-End Loss</a><a class="headerlink" href="#end-to-end-loss" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id51">2. End-to-End Loss</a><a class="headerlink" href="#end-to-end-loss" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="drop-tail-route-queue-length">
-<h4><a class="toc-backref" href="#id47">3. Drop-Tail Route Queue Length</a><a class="headerlink" href="#drop-tail-route-queue-length" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id52">3. Drop-Tail Route Queue Length</a><a class="headerlink" href="#drop-tail-route-queue-length" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="loss-generation-module">
-<h4><a class="toc-backref" href="#id48">4. Loss Generation module</a><a class="headerlink" href="#loss-generation-module" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id53">4. Loss Generation module</a><a class="headerlink" href="#loss-generation-module" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="jitter-modules">
-<h4><a class="toc-backref" href="#id49">5. Jitter modules</a><a class="headerlink" href="#jitter-modules" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id54">5. Jitter modules</a><a class="headerlink" href="#jitter-modules" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="traffic-models">
-<h4><a class="toc-backref" href="#id50">6. Traffic Models</a><a class="headerlink" href="#traffic-models" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id55">6. Traffic Models</a><a class="headerlink" href="#traffic-models" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 </div>
-<div class="section" id="id21">
-<h2><a class="toc-backref" href="#id51">参考资料</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h2><a class="toc-backref" href="#id56">参考资料</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://c3lab.poliba.it/images/6/65/Gcc-analysis.pdf">Analysis and Design of the Google Congestion Control for WebRTC</a></p></li>
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8825">RFC8825</a>: Overview: Real-Time Protocols for Browser-Based Applications</p></li>
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8836">RFC8836</a>: Congestion Control Requirements for Interactive Real-Time Media</p></li>
-<li><p><a class="reference external" href="https://www.rfcreader.com/#rfc8083">RFC8083</a>: Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8083">RFC8083</a>: Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions</p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/wg/rmcat/about/">RMCAT work group</a></p></li>
 <li><p><a class="reference external" href="https://datatracker.ietf.org/wg/rmcat/documents/">RMCAT documents</a>: RTP Media Congestion Avoidance Techniques documents</p></li>
+<li><p><a class="reference external" href="ttps://datatracker.ietf.org/doc/html/rfc8698">RFC8698 Network-Assisted Dynamic Adaptation (NADA): A Unified Congestion Control Scheme for Real-Time Media</a></p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8888">RFC8888 RTP Control Protocol (RTCP) Feedback for Congestion Control</a></p></li>
+<li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc3168">RFC3168 The Addition of Explicit Congestion Notification (ECN) to IP</a></p></li>
 <li><ol class="upperalpha simple" start="8">
 <li><p>Alvestrand, “RTCP Message for Receiver Estimated Maximum Bitrate,” Internet-Draft draft-alvestrand-rmcat-remb-03 (work in progress), Oct. 2013.</p></li>
 </ol>
@@ -658,13 +763,13 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
 </li>
 </ul>
 <dl class="footnote brackets">
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id7">1</a></span></dt>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id8">1</a></span></dt>
 <dd><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8836">RFC8836</a>: Congestion Control Requirements for Interactive Real-Time Media</p>
 </dd>
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id8">2</a></span></dt>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id9">2</a></span></dt>
 <dd><p><a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=7992924">Congestion Control for WebRTC: Standardization Status and Open Issues</a></p>
 </dd>
-<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id10">3</a></span></dt>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id12">3</a></span></dt>
 <dd><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc5865">RFC5865</a> A Differentiated Services Code Point (DSCP) for Capacity-Admitted Traffic</p>
 </dd>
 </dl>
@@ -677,7 +782,7 @@ d(i) = t(i) – t(i-1) – (T(i) – T(i-1))
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="insertable_stream.html" class="btn btn-neutral float-right" title="Insertable Stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="webrtc_gcc.html" class="btn btn-neutral float-right" title="Google Congestion Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="webrtc_rtx.html" class="btn btn-neutral float-left" title="WebRTC RTX" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

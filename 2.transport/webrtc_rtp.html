@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -100,15 +100,15 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_transmission.html">WebRTC Transport</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WebRTC RTP</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#rtp">RTP 解决的问题</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">1. RTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1. RTP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rtcp">2. RTCP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">3. RTP 协议的度量要点</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3. RTP 协议的度量要点</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#rtt">1) 往返延时RTT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#jitter">2) 抖动Jitter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#packet-loss">3) 丢包 Packet loss</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">4. 实例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4. 实例</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ice.html">Interactive Connectivity Establishment</a></li>
@@ -205,23 +205,23 @@
 <td><p>WIP as draft</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#rtp" id="id18">RTP 解决的问题</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id19">1. RTP</a></p></li>
-<li><p><a class="reference internal" href="#rtcp" id="id20">2. RTCP</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id21">3. RTP 协议的度量要点</a></p>
+<li><p><a class="reference internal" href="#rtp" id="id19">RTP 解决的问题</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id20">1. RTP</a></p></li>
+<li><p><a class="reference internal" href="#rtcp" id="id21">2. RTCP</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id22">3. RTP 协议的度量要点</a></p>
 <ul>
-<li><p><a class="reference internal" href="#rtt" id="id22">1) 往返延时RTT</a></p></li>
-<li><p><a class="reference internal" href="#jitter" id="id23">2) 抖动Jitter</a></p></li>
-<li><p><a class="reference internal" href="#packet-loss" id="id24">3) 丢包 Packet loss</a></p></li>
+<li><p><a class="reference internal" href="#rtt" id="id23">1) 往返延时RTT</a></p></li>
+<li><p><a class="reference internal" href="#jitter" id="id24">2) 抖动Jitter</a></p></li>
+<li><p><a class="reference internal" href="#packet-loss" id="id25">3) 丢包 Packet loss</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id3" id="id25">4. 实例</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id26">4. 实例</a></p></li>
 </ul>
 </div>
 <ul class="simple">
@@ -242,7 +242,7 @@ Transport Protocol for Real-Time Applications
 即为实时应用程序所定义的传输协议,
 它为交互式音频和视频聊天和会议应用提供端到端的传输服务.</p>
 <div class="section" id="rtp">
-<h2><a class="toc-backref" href="#id18">RTP 解决的问题</a><a class="headerlink" href="#rtp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id19">RTP 解决的问题</a><a class="headerlink" href="#rtp" title="Permalink to this headline">¶</a></h2>
 <p>让我们先想想实时传输需要解决哪些问题:</p>
 <ol class="arabic simple">
 <li><p>顺序 Sequence 多媒体数据包需要保序, 否则就会前言不搭后语,
@@ -282,18 +282,18 @@ timestamp 是必需的, 通过它我们可以用来 * 回放 * 计算网络抖�
 在进行的会话中监视服务质量并传输会话参与者信息的实时传输控制协议RTCP。</p>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-7810459af208969b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-7810459af208969b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id19">1. RTP</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id20">1. RTP</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>RTP 通常基于 UDP 传输, 因为多媒体数据可以忍受少量丢包,
 却不能忍受数据包延时过大, 如图所示:</p>
-<div class="figure align-default" id="id12">
+<div class="figure align-default" id="id13">
 <img alt="RTP协议栈" src="https://upload-images.jianshu.io/upload_images/1598924-75b9eae3bf48385a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTP协议栈</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTP协议栈</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 <p>它的数据包格式如下:</p>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id14">
 <img alt="RTP 数据包格式g" src="https://upload-images.jianshu.io/upload_images/1598924-c2c1dbb22ea20b2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTP 数据包格式g</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTP 数据包格式g</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 <p>包头详细解释如下: * V(version) 版本号, 2 个比特位, 当前版本为2 *
 P(pad) 填充位, 1个比特位,
@@ -326,9 +326,9 @@ CSRC(Contribution Source) 贡献源列表, 是n 个32比特位, n 是前面的 C
 这个数据包中包含了这三路语音混合在一起的音频数据,
 这个贡献源列表就有三个, 包含代表每个人的麦克风的同步源。</p>
 <p>RTP 标准头之后就是载荷了, 如图所示：</p>
-<div class="figure align-default" id="id14">
+<div class="figure align-default" id="id15">
 <img alt="RTP 数据包负载g" src="https://upload-images.jianshu.io/upload_images/1598924-175b9b70ec9c2525.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTP 数据包负载g</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTP 数据包负载g</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
 <p>SDP 描述如下：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">=</span><span class="mi">0</span>
@@ -367,7 +367,7 @@ CSRC(Contribution Source) 贡献源列表, 是n 个32比特位, n 是前面的 C
 </ul>
 </div>
 <div class="section" id="rtcp">
-<h2><a class="toc-backref" href="#id20">2. RTCP</a><a class="headerlink" href="#rtcp" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id21">2. RTCP</a><a class="headerlink" href="#rtcp" title="Permalink to this headline">¶</a></h2>
 <p>RTCP 实时传输控制协议, 它的主要目的就是基于度量来控制 RTP
 的传输来改善实时传输的性能和质量, 它主要有5种类型的RTCP包： 1.
 RR接收者报告Receiver Report 2. SR发送者报告 Sender Report 3.
@@ -377,19 +377,19 @@ SDES数据源描述报告 Source DEScription 4. BYE 告别报告 Goodbye 5. APP
 在报告中包含一些统计信息, 比如 RTP包 发送的数量, RTP包丢失的数量,
 数据包到达的抖动, 通过这些报告, 应用程序就可以修改发送速率,
 也可做一些其他调整以及诊断。</p>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id16">
 <img alt="RTCP 数据包类型" src="https://upload-images.jianshu.io/upload_images/1598924-6e85bc96a93ff2b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTCP 数据包类型</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTCP 数据包类型</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
 <p>它也是基于 UDP 包进行传输：</p>
-<div class="figure align-default" id="id16">
+<div class="figure align-default" id="id17">
 <img alt="RTCP 数据包栈" src="https://upload-images.jianshu.io/upload_images/1598924-550f96c9a5f86db7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTCP 数据包栈</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTCP 数据包栈</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 <p>RTCP 的数据包格式如下：</p>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id18">
 <img alt="RTCP packet" src="https://upload-images.jianshu.io/upload_images/1598924-dba3efba09f9bb14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RTCP packet</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RTCP packet</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 <ul class="simple">
 <li><p>版本（V）：同RTP包头域。</p></li>
@@ -426,12 +426,12 @@ ROC*2^16, ROC 指 Sequence Number
 1/65536 s</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id21">3. RTP 协议的度量要点</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id22">3. RTP 协议的度量要点</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>通过RTP 数据包头和 RTCP 报告, 我们能够度量 RTP 传输的三个主要度量指标
 往返延迟RTT, 丢包Packet Loss 和 抖动Jitter</p>
 <div class="section" id="rtt">
-<h3><a class="toc-backref" href="#id22">1) 往返延时RTT</a><a class="headerlink" href="#rtt" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">1) 往返延时RTT</a><a class="headerlink" href="#rtt" title="Permalink to this headline">¶</a></h3>
 <p>往返延时RTT 很好理解,
 也就是数据包在发送和接收双方走一个来回所花费的时间.
 当延时在150ms以下时，通话双方几乎不能感觉到延时的存在，而当延时在400ms以下时，也是用户能够接受的，当延时进一步增大后，达到800ms以上，正常的通话就无法进行.
@@ -475,7 +475,7 @@ received) 上一次发送者报告接收的延迟</p>
 <p>结果为 A - DLSR -LSR = 46864.500 - 5.250 - 46853.125 = 6.125 s</p>
 </div>
 <div class="section" id="jitter">
-<h3><a class="toc-backref" href="#id23">2) 抖动Jitter</a><a class="headerlink" href="#jitter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id24">2) 抖动Jitter</a><a class="headerlink" href="#jitter" title="Permalink to this headline">¶</a></h3>
 <p>在理想情况下, RTP数据包到达的间隔是固定的,
 比如IP电话中最常用的编码g.711, 每个包的荷载长度为20毫秒,
 每秒应该有50个数据包, 但是实际上网络并不总能稳定传输的,
@@ -498,7 +498,7 @@ Buffer 来解决抖动的问题, 数据包接收之后并不马上解码, 而是
 之内的抖动自然没有任何影响.</p>
 </div>
 <div class="section" id="packet-loss">
-<h3><a class="toc-backref" href="#id24">3) 丢包 Packet loss</a><a class="headerlink" href="#packet-loss" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">3) 丢包 Packet loss</a><a class="headerlink" href="#packet-loss" title="Permalink to this headline">¶</a></h3>
 <p>如果一个UDP
 包在网络上由于拥塞或超时而丢失了，或者一个TCP数据包的延时过大,
 超过了最大的抖动缓冲深度, 应用程序也就不会再等待, 直接丢弃,
@@ -515,8 +515,8 @@ sequence number</p></li>
 长度，编码参数, 分辨率, 或者发送速率等, 为用户提供流畅的体验.</p>
 </div>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id25">4. 实例</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id26">4. 实例</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>这里写一个小程序来打印 RTP 包头，使用 ffmpeg 来推送一个 RTP 流到 8880
 端口，然后写一个简单的 UDP 服务器从这个端口上接收RTP 数据并打印包头。</p>
 <p>主要代码很短</p>

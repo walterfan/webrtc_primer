@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -101,7 +101,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Media Server</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sfu">SFU</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">SFU 所需要的相关库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">SFU 所需要的相关库</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#janus">Janus</a></li>
@@ -206,37 +206,37 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id2">Overview</a></p></li>
-<li><p><a class="reference internal" href="#sfu" id="id3">SFU</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id4">SFU 所需要的相关库</a></p></li>
-<li><p><a class="reference internal" href="#features" id="id5">Features</a></p></li>
-<li><p><a class="reference internal" href="#example" id="id6">Example</a></p>
+<li><p><a class="reference internal" href="#overview" id="id3">Overview</a></p></li>
+<li><p><a class="reference internal" href="#sfu" id="id4">SFU</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id5">SFU 所需要的相关库</a></p></li>
+<li><p><a class="reference internal" href="#features" id="id6">Features</a></p></li>
+<li><p><a class="reference internal" href="#example" id="id7">Example</a></p>
 <ul>
-<li><p><a class="reference internal" href="#janus" id="id7">Janus</a></p></li>
+<li><p><a class="reference internal" href="#janus" id="id8">Janus</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id8">Reference</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id9">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="sfu">
-<h2><a class="toc-backref" href="#id3">SFU</a><a class="headerlink" href="#sfu" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">SFU</a><a class="headerlink" href="#sfu" title="Permalink to this headline">¶</a></h2>
 <p>选择性转发单元 SFU（Selective Forwarding Unit）在各个端点之间交换音频和视频流。 每个接收器方可以选择它所要接收的流和层（空间/时间上）。 与 MCU（多点控制单元）相比，这种设计可以带来更好的性能、更高的吞吐量和更少的延迟。 鉴于它不做转码或合成媒体，所以它具有高度可扩展性，并且需要的资源少得多。</p>
 <p>由于各个端点分别获取其他端点的媒体，因此它们可以具有个性化的布局，并选择自己所要呈现的媒体流，以及决定如何显示它们。</p>
 <p>SFU 可以看作一个多媒体流的路由器，实践中可以应用发布订阅模式（ publish/subscribe pattern）</p>
 <img alt="../_images/webrtc_sfu.webp" src="../_images/webrtc_sfu.webp" />
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id4">SFU 所需要的相关库</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id5">SFU 所需要的相关库</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>libevent:</p>
 <ul>
@@ -251,16 +251,16 @@
 </ul>
 </div>
 <div class="section" id="features">
-<h2><a class="toc-backref" href="#id5">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>create , destroy , edit , exists, list, allowed, kick and listparticipants are synchronous requests,</p></li>
 <li><p>join , joinandconfigure , configure , publish , unpublish , start , pause , switch and leave requests instead are all asynchronous</p></li>
 </ul>
 </div>
 <div class="section" id="example">
-<h2><a class="toc-backref" href="#id6">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="janus">
-<h3><a class="toc-backref" href="#id7">Janus</a><a class="headerlink" href="#janus" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Janus</a><a class="headerlink" href="#janus" title="Permalink to this headline">¶</a></h3>
 <p>refer to <a class="reference external" href="https://janus.conf.meetecho.com/docs/videoroom.html">https://janus.conf.meetecho.com/docs/videoroom.html</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">room</span><span class="o">-&lt;</span><span class="n">unique</span> <span class="n">room</span> <span class="n">ID</span><span class="o">&gt;</span><span class="p">:</span> <span class="p">{</span>
         <span class="n">description</span> <span class="o">=</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">my</span> <span class="n">awesome</span> <span class="n">room</span>
@@ -310,7 +310,7 @@
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id8">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>MediaSoup rtp-parameters-and-capabilities
 - <a class="reference external" href="https://mediasoup.org/documentation/v3/mediasoup/rtp-parameters-and-capabilities">https://mediasoup.org/documentation/v3/mediasoup/rtp-parameters-and-capabilities</a></p></li>

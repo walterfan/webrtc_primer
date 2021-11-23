@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -102,11 +102,11 @@
 <li class="toctree-l3"><a class="reference internal" href="video_codec.html">视频编码</a></li>
 <li class="toctree-l3"><a class="reference internal" href="video_adaptation.html">video adaptation</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">YUV 图像格式</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">图像格式</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">YUV 图像的存储格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">图像格式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">YUV 图像的存储格式</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#rgb-yuv">RGB 与 YUV 格式的转换</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">代码示例</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">参考资料</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">代码示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="h264.html">H.264 编码</a></li>
@@ -215,38 +215,38 @@
 <td><p>v1</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id9">图像格式</a></p>
+<li><p><a class="reference internal" href="#id2" id="id10">图像格式</a></p>
 <ul>
-<li><p><a class="reference internal" href="#yuv-4-4-4" id="id10">YUV 4:4:4</a></p></li>
-<li><p><a class="reference internal" href="#yuv-4-2-2" id="id11">YUV 4:2:2</a></p></li>
-<li><p><a class="reference internal" href="#yuv-4-2-0" id="id12">YUV 4:2:0</a></p></li>
+<li><p><a class="reference internal" href="#yuv-4-4-4" id="id11">YUV 4:4:4</a></p></li>
+<li><p><a class="reference internal" href="#yuv-4-2-2" id="id12">YUV 4:2:2</a></p></li>
+<li><p><a class="reference internal" href="#yuv-4-2-0" id="id13">YUV 4:2:0</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id2" id="id13">YUV 图像的存储格式</a></p></li>
-<li><p><a class="reference internal" href="#rgb-yuv" id="id14">RGB 与 YUV 格式的转换</a></p>
+<li><p><a class="reference internal" href="#id3" id="id14">YUV 图像的存储格式</a></p></li>
+<li><p><a class="reference internal" href="#rgb-yuv" id="id15">RGB 与 YUV 格式的转换</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id15">模拟电视</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id16">标清视频</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id17">高清视频</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">模拟电视</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">标清视频</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id18">高清视频</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id18">代码示例</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id19">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id19">代码示例</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id20">参考资料</a></p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id9">图像格式</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id10">图像格式</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>最简单的图像格式是 RGB24, 每个像素用24bits 来表示，三原色的每个颜色用 8
 bits 来表示，如果还要表示像素的透明度，就再加 8 bits ，即 RGB32 格式</p>
-<div class="figure align-default" id="id8">
+<div class="figure align-default" id="id9">
 <img alt="RGB" src="https://upload-images.jianshu.io/upload_images/1598924-7d5f228e1258459f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
-<p class="caption"><span class="caption-text">RGB</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RGB</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <p>这样一个 RGB24
 图片可以用一个三维数组来表示，前两个维度表示图像的空间位置，最后一个维度表示颜色</p>
@@ -268,7 +268,7 @@ RGB 转换成 YUV 格式</p>
 <p><img alt="image1" src="https://upload-images.jianshu.io/upload_images/1598924-46d2bce7bb45abd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 <p>下面详细说说</p>
 <div class="section" id="yuv-4-4-4">
-<h3><a class="toc-backref" href="#id10">YUV 4:4:4</a><a class="headerlink" href="#yuv-4-4-4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">YUV 4:4:4</a><a class="headerlink" href="#yuv-4-4-4" title="Permalink to this headline">¶</a></h3>
 <p>YUV 4:4:4 表示 Y、U、V
 三分量采样率相同，即每个像素的三分量信息完整，都是 8bit，每个像素占用 3
 个字节。</p>
@@ -279,7 +279,7 @@ RGB 转换成 YUV 格式</p>
 </ul>
 </div>
 <div class="section" id="yuv-4-2-2">
-<h3><a class="toc-backref" href="#id11">YUV 4:2:2</a><a class="headerlink" href="#yuv-4-2-2" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">YUV 4:2:2</a><a class="headerlink" href="#yuv-4-2-2" title="Permalink to this headline">¶</a></h3>
 <p>YUV 4:2:2 表示 UV 分量的采样率是 Y 分量的一半</p>
 <ul class="simple">
 <li><p>四个像素为： [Y0 U0 V0] [Y1 U1 V1] [Y2 U2 V2] [Y3 U3 V3]</p></li>
@@ -288,7 +288,7 @@ RGB 转换成 YUV 格式</p>
 </ul>
 </div>
 <div class="section" id="yuv-4-2-0">
-<h3><a class="toc-backref" href="#id12">YUV 4:2:0</a><a class="headerlink" href="#yuv-4-2-0" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">YUV 4:2:0</a><a class="headerlink" href="#yuv-4-2-0" title="Permalink to this headline">¶</a></h3>
 <p>YUV4:2:0并不是说只有U,
 V一定为0，而是指U：V互相援引，时见时隐，也就是说对于每一个行，只有一个U或者V分量，如果一行是4:2:0的话，下一行就是4:0:2，再下一行是4:2:0…以此类推。</p>
 <ul class="simple">
@@ -315,8 +315,8 @@ V一定为0，而是指U：V互相援引，时见时隐，也就是说对于每�
 <p>即 Y0, Y1, Y4, Y5 共用 U0, V4 而 Y2, Y3, Y6, Y7 共用 U2, V6</p>
 </div>
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id13">YUV 图像的存储格式</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id14">YUV 图像的存储格式</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>YUV 的存储格式有以下三种</p>
 <ol class="arabic simple">
 <li><p>紧缩格式 Packed (or 交织格式)</p></li>
@@ -353,7 +353,7 @@ U1V1…UnVn 或者 Y1…Yn V1U1…VnUn。</p></li>
 </ul>
 </div>
 <div class="section" id="rgb-yuv">
-<h2><a class="toc-backref" href="#id14">RGB 与 YUV 格式的转换</a><a class="headerlink" href="#rgb-yuv" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">RGB 与 YUV 格式的转换</a><a class="headerlink" href="#rgb-yuv" title="Permalink to this headline">¶</a></h2>
 <p>计算公式如下</p>
 <p><span class="math notranslate nohighlight">\(Y = k_rR + k_gG + k_bB\)</span></p>
 <p><span class="math notranslate nohighlight">\(U = \frac{B - Y}{2(1-k_b)}\)</span></p>
@@ -365,14 +365,14 @@ U1V1…UnVn 或者 Y1…Yn V1U1…VnUn。</p></li>
 <p>以矩阵计算的方式表示 RGB 转为 YUV 的公式如下</p>
 <p><span class="math notranslate nohighlight">\(\left [ \begin{matrix} Y \\ U \\ V \\ \end{matrix} \right ] = \left [ \begin{matrix} 0 \\ 128 \\ 128 \\ \end{matrix} \right ] + \left [ \begin{matrix} 0.299 &amp;&amp; 0.5870 &amp;&amp; 0.1140 \\ -0.1687 &amp;&amp; -0.3313 &amp;&amp; -0.5000 \\ 0.5000 &amp;&amp; -0.4187 &amp;&amp; -0.0813 \\ \end{matrix} \right ] * \left [ \begin{matrix} R \\ G \\ B \\ \end{matrix} \right ]\)</span></p>
 <p>在实际应用中，针对不同的场景和清晰度要求，上述公式会有细微调整</p>
-<div class="section" id="id3">
-<h3><a class="toc-backref" href="#id15">模拟电视</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id16">模拟电视</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>传统上说的 YUV 是用于模拟电视的色彩表示，它与 RGB 之间的转换公式如下</p>
 <p><img alt="image3" src="https://upload-images.jianshu.io/upload_images/1598924-48c460a4d0f8c9aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 <p><img alt="image4" src="https://upload-images.jianshu.io/upload_images/1598924-41d1325a0488c34a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 </div>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id16">标清视频</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id17">标清视频</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>对于数字视频，使用颜色格式 YCbCr。 对于标清电视应用
 (SDTV)，以下等式描述了从 RGB 到 YCbCr 的颜色转换（根据 ITU-R BT.601）：</p>
 <p><img alt="image5" src="https://upload-images.jianshu.io/upload_images/1598924-d8df4c6fd063149c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
@@ -385,15 +385,15 @@ U1V1…UnVn 或者 Y1…Yn V1U1…VnUn。</p></li>
 <p><img alt="image7" src="https://upload-images.jianshu.io/upload_images/1598924-0152b7893f53cefc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 <p><img alt="image8" src="https://upload-images.jianshu.io/upload_images/1598924-da39dd2a01223cbf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 </div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id17">高清视频</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id18">高清视频</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>对于高清电视应用 (HDTV)，转换系数以有所不同：</p>
 <p><img alt="image9" src="https://upload-images.jianshu.io/upload_images/1598924-b4344c2934683b07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 <p><img alt="image10" src="https://upload-images.jianshu.io/upload_images/1598924-09d3978175cc27ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
 </div>
 </div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id18">代码示例</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id19">代码示例</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">rgb2yuv</span><span class="p">(</span><span class="n">double</span><span class="o">&amp;</span> <span class="n">Y</span><span class="p">,</span> <span class="n">double</span><span class="o">&amp;</span> <span class="n">U</span><span class="p">,</span> <span class="n">double</span><span class="o">&amp;</span> <span class="n">V</span><span class="p">,</span> <span class="n">const</span> <span class="n">double</span> <span class="n">R</span><span class="p">,</span> <span class="n">const</span> <span class="n">double</span> <span class="n">G</span><span class="p">,</span> <span class="n">const</span> <span class="n">double</span> <span class="n">B</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">Y</span> <span class="o">=</span>  <span class="mf">0.257</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="mf">0.504</span> <span class="o">*</span> <span class="n">G</span> <span class="o">+</span> <span class="mf">0.098</span> <span class="o">*</span> <span class="n">B</span> <span class="o">+</span>  <span class="mi">16</span><span class="p">;</span>
@@ -422,8 +422,8 @@ U1V1…UnVn 或者 Y1…Yn V1U1…VnUn。</p></li>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h2><a class="toc-backref" href="#id19">参考资料</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id20">参考资料</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/17892346/how-to-convert-rgb-yuv-rgb-both-ways">how to convert rgb yuv rgb both ways</a></p></li>
 <li><p><a class="reference external" href="https://web.archive.org/web/20180423091842/http://www.equasys.de/colorconversion.html">Color Conversion from equasys</a></p></li>

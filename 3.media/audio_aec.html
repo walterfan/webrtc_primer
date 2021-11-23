@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -101,7 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="audio_api.html">Web Audio API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_qos.html">Audio QoS</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Acoustic Echo Canceller</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">概述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
@@ -216,45 +216,45 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id7">概述</a></p>
+<li><p><a class="reference internal" href="#id2" id="id8">概述</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id8">何为回声？</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id9">回声产生的原因</a></p>
+<li><p><a class="reference internal" href="#id3" id="id9">何为回声？</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id10">回声产生的原因</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id4" id="id10">线路回声</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id11">声学回声</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id11">线路回声</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id12">声学回声</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#id6" id="id12">回声消除的方法</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id13">回声消除的方法</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id13">Reference</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id14">Reference</a></p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id7">概述</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">概述</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>回声抵消（AEC）指的是在二线传输的两个方向上同时间、同频谱地占用线路，在线路上两个方向传输的信号完全混在一起，本端发信号的回声即成为本端收信号的干扰信号，利用自适应滤波器可抵消回声以达到较好的接收信号质量。也就是消除回声。</p>
 <p>回声消除的原理就是利用接收到的音频与本地采集的音频做对比，添加反相的人造回声，将远端的声音消除。</p>
-<div class="section" id="id2">
-<h3><a class="toc-backref" href="#id8">何为回声？</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id9">何为回声？</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>In audio signal processing and acoustics, an echo is a reflection of sound that arrives at the listener with a delay after the direct sound. The delay is directly proportional to the distance of the reflecting surface from the source and the listener. Typical examples are the echo produced by the bottom of a well, by a building, or by the walls of an enclosed room and an empty room. A true echo is a single reflection of the sound source.[citation needed]</p>
 </div>
-<div class="section" id="id3">
-<h3><a class="toc-backref" href="#id9">回声产生的原因</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id10">回声产生的原因</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>从通讯回音产生的原因看，可以分为声学回音（Acoustic Echo）和线路回音（Line Echo），相应的回声消除技术就叫声学回声消除（Acoustic Echo Cancelation，AEC）和线路回声消除（Line Echo Canceltion，LEC）。</p>
 <p>一方面，IP电话系统与PSTN互联时，涉及到混合线圈的2/4线转换电路，因而会产生线路回声 (Line Echo）。另一方面，IP电话的语音数据在传输过程中还存在“声学回声(Acoustic Echo）”。</p>
-<div class="section" id="id4">
-<h4><a class="toc-backref" href="#id10">线路回声</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4><a class="toc-backref" href="#id11">线路回声</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <p>线路回声通常产生于有线通话中，为了降低电话中心局与电话用户之间电话线的价格，用户间线的连接采用两线制；而电话中心局之间连接采用四线制（上面两条线路用于发送给用户端信号，下面两条线路用于接收用户端信号）。问题就出来了，造成电路回声的根本原因是转换混合器的二线-四线阻抗不能完全匹配（使用的不同型号的电线或者负载线圈没有被使用的原因），导致混合器 接收线路 上的语音信号流失到了 发送线路 ，产生了回声信号，使得另一端的用户在接收信号的同时听到了自己的声音</p>
 </div>
-<div class="section" id="id5">
-<h4><a class="toc-backref" href="#id11">声学回声</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id12">声学回声</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p>声学回声是指扬声器播放出来的声音被麦克风拾取后发回远端，使远端谈话者能听到自己的声音。</p>
 <p>声学回声又分为直接回声和间接回声。</p>
 <ul class="simple">
@@ -264,8 +264,8 @@
 <p>当回声返回时间超过 10 ms时，人耳就可听到明显的回声了，会干扰正常通话。对于时延相对较大的IP网络环境，时延很容易就达到50 ms，因此必须清除回声。</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id12">回声消除的方法</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id13">回声消除的方法</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>回声消除是非常复杂的技术，但我们可以简单的描述两种处理方法：</p>
 <ol class="arabic simple">
 <li><p>回声路径消除</p></li>
@@ -291,7 +291,7 @@
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id13">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

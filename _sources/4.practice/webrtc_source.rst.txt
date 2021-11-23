@@ -6,6 +6,15 @@ WebRTC 源码分析
 .. include:: ../tags.ref
 .. include:: ../abbrs.ref
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Sections
+
+   
+   webrtc_congestion_control
+   webrtc_overuse_frame_decoder
+   remote_bitrate_estimator
+
 ============ ==========================
 **Abstract** WebRTC Source
 **Authors**  Walter Fan
@@ -14,17 +23,6 @@ WebRTC 源码分析
 ============ ==========================
 
 .. |date| date::
-
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Modules
-
-   
-   webrtc_congestion_control
-   webrtc_overuse_frame_decoder
-   remote_bitrate_estimator
-
 
 .. contents:: Contents
    :local:

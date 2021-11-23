@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">1. WebRTC 基础</a><ul class="current">
@@ -111,7 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#transport-layer">传输层 transport layer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#payload-layer">荷载层 payload layer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">重要的是搞清楚状况</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">重要的是搞清楚状况</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#audio-inbound-rtp-audio-rtp">1) Audio Inbound-rtp 接收的 Audio RTP 数据度量</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#audio-outbound-rtp-audio-rtp">2) Audio outbound-rtp 发送的 Audio RTP 数据度量</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#video-inbound-rtp-video-rtp">3) Video Inbound-rtp 接收的 Video RTP 数据度量</a></li>
@@ -119,9 +119,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#webrtc-statistics-api">WebRTC statistics API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">全部的度量指标</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">度量驱动改进</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">参考资料</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">全部的度量指标</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">度量驱动改进</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">参考资料</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="video_chat.html">视频聊天实例</a></li>
@@ -219,31 +219,31 @@
 <td><p>WIP as draft</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-22</p></td>
+<td><p>2021-11-23</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#overview" id="id5">Overview</a></p></li>
-<li><p><a class="reference internal" href="#transport-layer" id="id6">传输层 transport layer</a></p></li>
-<li><p><a class="reference internal" href="#payload-layer" id="id7">荷载层 payload layer</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id8">重要的是搞清楚状况</a></p>
+<li><p><a class="reference internal" href="#overview" id="id6">Overview</a></p></li>
+<li><p><a class="reference internal" href="#transport-layer" id="id7">传输层 transport layer</a></p></li>
+<li><p><a class="reference internal" href="#payload-layer" id="id8">荷载层 payload layer</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id9">重要的是搞清楚状况</a></p>
 <ul>
-<li><p><a class="reference internal" href="#audio-inbound-rtp-audio-rtp" id="id9">1) Audio Inbound-rtp 接收的 Audio RTP 数据度量</a></p></li>
-<li><p><a class="reference internal" href="#audio-outbound-rtp-audio-rtp" id="id10">2) Audio outbound-rtp 发送的 Audio RTP 数据度量</a></p></li>
-<li><p><a class="reference internal" href="#video-inbound-rtp-video-rtp" id="id11">3) Video Inbound-rtp 接收的 Video RTP 数据度量</a></p></li>
-<li><p><a class="reference internal" href="#video-outbound-rtp-video-rtp" id="id12">4) Video outbound-rtp 发送的 Video RTP 数据度量</a></p></li>
+<li><p><a class="reference internal" href="#audio-inbound-rtp-audio-rtp" id="id10">1) Audio Inbound-rtp 接收的 Audio RTP 数据度量</a></p></li>
+<li><p><a class="reference internal" href="#audio-outbound-rtp-audio-rtp" id="id11">2) Audio outbound-rtp 发送的 Audio RTP 数据度量</a></p></li>
+<li><p><a class="reference internal" href="#video-inbound-rtp-video-rtp" id="id12">3) Video Inbound-rtp 接收的 Video RTP 数据度量</a></p></li>
+<li><p><a class="reference internal" href="#video-outbound-rtp-video-rtp" id="id13">4) Video outbound-rtp 发送的 Video RTP 数据度量</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#webrtc-statistics-api" id="id13">WebRTC statistics API</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id14">全部的度量指标</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id15">度量驱动改进</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id16">参考资料</a></p></li>
+<li><p><a class="reference internal" href="#webrtc-statistics-api" id="id14">WebRTC statistics API</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">全部的度量指标</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id16">度量驱动改进</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id17">参考资料</a></p></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id5">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>In WebRTC, the above metrics are wrapped as a stats object RTCStatsReport, which is an interface provides a statistics report obtained by calling one of the</p>
 <ul class="simple">
 <li><p>RTCPeerConnection.getStats()</p></li>
@@ -265,7 +265,7 @@ refer to <a class="reference external" href="https://developer.mozilla.org/en-US
 <img alt="../_images/webrtc_stats_class.png" src="../_images/webrtc_stats_class.png" />
 </div>
 <div class="section" id="transport-layer">
-<h2><a class="toc-backref" href="#id6">传输层 transport layer</a><a class="headerlink" href="#transport-layer" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">传输层 transport layer</a><a class="headerlink" href="#transport-layer" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>latency</p></li>
 <li><p>jitter</p></li>
@@ -275,14 +275,14 @@ refer to <a class="reference external" href="https://developer.mozilla.org/en-US
 </ul>
 </div>
 <div class="section" id="payload-layer">
-<h2><a class="toc-backref" href="#id7">荷载层 payload layer</a><a class="headerlink" href="#payload-layer" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">荷载层 payload layer</a><a class="headerlink" href="#payload-layer" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Key frames</p></li>
 <li><p>Concealment frames</p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id8">重要的是搞清楚状况</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">重要的是搞清楚状况</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>由于新冠疫情，我们待在家中，在网上工作，开会，看电影的时间越来越多了。网络嘛，大家都知道，时常不稳定，网上开会时声音听不清楚，图像模糊，视频有马赛克（不是人为打的）的情况时有发生，这时候，问题出在哪里呢？
 也许是网络的问题，也许不是，即使网络出现问题，只要不是不可忍受的，我们依然需要进行调整，保证基本的功能：</p>
 <ol class="arabic simple">
@@ -298,7 +298,7 @@ metrics, 做好度量就能见微知著，透过现象看本质，为上述问�
 <p>就是建立一个本地端到端的连接，将收集到的统计数据打印出来</p>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-61df76ebeb2dd752.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-61df76ebeb2dd752.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 <div class="section" id="audio-inbound-rtp-audio-rtp">
-<h3><a class="toc-backref" href="#id9">1) Audio Inbound-rtp 接收的 Audio RTP 数据度量</a><a class="headerlink" href="#audio-inbound-rtp-audio-rtp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">1) Audio Inbound-rtp 接收的 Audio RTP 数据度量</a><a class="headerlink" href="#audio-inbound-rtp-audio-rtp" title="Permalink to this headline">¶</a></h3>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-33252b250bd2bf2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-33252b250bd2bf2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 <p>注： * concealedSamples： 类型为 unsigned long long，
 它只存在于音频中，指隐藏的(concealed)
@@ -355,11 +355,11 @@ RMS 计算获得的值相同。</p>
 <p>如果使用多个音频通道，则样本的音频能量是指任一通道的最高能量。</p>
 </div>
 <div class="section" id="audio-outbound-rtp-audio-rtp">
-<h3><a class="toc-backref" href="#id10">2) Audio outbound-rtp 发送的 Audio RTP 数据度量</a><a class="headerlink" href="#audio-outbound-rtp-audio-rtp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">2) Audio outbound-rtp 发送的 Audio RTP 数据度量</a><a class="headerlink" href="#audio-outbound-rtp-audio-rtp" title="Permalink to this headline">¶</a></h3>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-53ca64d7d7435d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-53ca64d7d7435d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
 <div class="section" id="video-inbound-rtp-video-rtp">
-<h3><a class="toc-backref" href="#id11">3) Video Inbound-rtp 接收的 Video RTP 数据度量</a><a class="headerlink" href="#video-inbound-rtp-video-rtp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">3) Video Inbound-rtp 接收的 Video RTP 数据度量</a><a class="headerlink" href="#video-inbound-rtp-video-rtp" title="Permalink to this headline">¶</a></h3>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-fe0dc54aab574f58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-fe0dc54aab574f58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 <p>注： * totalDecodeTime:
 花费在解码上的总时间(以秒为单位)，所解码的帧数可由 framesDecoded 得到 *
@@ -374,12 +374,12 @@ totalInterFrameDelay^2/framesDecoded)/framesDecoded，从totalInterFrameDelay、
 </ul>
 </div>
 <div class="section" id="video-outbound-rtp-video-rtp">
-<h3><a class="toc-backref" href="#id12">4) Video outbound-rtp 发送的 Video RTP 数据度量</a><a class="headerlink" href="#video-outbound-rtp-video-rtp" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">4) Video outbound-rtp 发送的 Video RTP 数据度量</a><a class="headerlink" href="#video-outbound-rtp-video-rtp" title="Permalink to this headline">¶</a></h3>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-bef8d2bdf0fda02c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-bef8d2bdf0fda02c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
 </div>
 <div class="section" id="webrtc-statistics-api">
-<h2><a class="toc-backref" href="#id13">WebRTC statistics API</a><a class="headerlink" href="#webrtc-statistics-api" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">WebRTC statistics API</a><a class="headerlink" href="#webrtc-statistics-api" title="Permalink to this headline">¶</a></h2>
 <p>详细的 API 和数据结构定义参见
 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/getStats">https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/getStats</a></p>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-bee7d7d33e4c0f14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-bee7d7d33e4c0f14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
@@ -392,12 +392,12 @@ totalInterFrameDelay^2/framesDecoded)/framesDecoded，从totalInterFrameDelay、
 </ul>
 <img alt="https://upload-images.jianshu.io/upload_images/1598924-85a9cf2eb95afab3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://upload-images.jianshu.io/upload_images/1598924-85a9cf2eb95afab3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" />
 </div>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id14">全部的度量指标</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id15">全部的度量指标</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>参见 <a class="reference external" href="https://www.w3.org/TR/webrtc-stats/#summary">https://www.w3.org/TR/webrtc-stats/#summary</a></p>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id15">度量驱动改进</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id16">度量驱动改进</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>我们可以用各种工具来更改网络条件，例如延迟，丢包，抖动等，观察度量指标的变化.</p>
 <p>以我常用的 macos 为例，可以安装 <a class="reference external" href="https://nshipster.com/network-link-conditioner/#installation">Network Link Cponditioner</a>
 对本地发送接收的网络条件进行调整，再观察应用的度量指标。</p>
@@ -418,8 +418,8 @@ totalInterFrameDelay^2/framesDecoded)/framesDecoded，从totalInterFrameDelay、
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id16">参考资料</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id17">参考资料</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.w3.org/TR/webrtc-stats">https://www.w3.org/TR/webrtc-stats</a></p></li>
 <li><p><a class="reference external" href="https://nshipster.com/network-link-conditioner/#installation">https://nshipster.com/network-link-conditioner/#installation</a></p></li>
