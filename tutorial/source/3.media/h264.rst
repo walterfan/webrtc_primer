@@ -150,7 +150,7 @@ H264 over RTP 大体上分为三种：
 
 1. Single NAL unit packet 一个包就是一个视频帧, NALU type : 1 ~ 23
    
-2. Aggregation packet 一个包中含有多個H264帧
+2. Aggregation packet 一个包中含有多個H264帧
    - NALU type 24: Single-Time Aggregation Packet type A (STAP-A)
    - NALU type 25: Single-Time Aggregation Packet type B (STAP-B)
    - NALU type 26: Multi-Time Aggregation Packet (MTAP) with 16-bit offset (MTAP16)
@@ -188,8 +188,13 @@ RTP header
 
 Set for the very last packet of the access unit indicated by the RTP timestamp, in line with the normal use of the M bit in video formats, to allow an efficient playout buffer handling.
 
-若為IS_ACCESS_UNIT，若只要NAL type為0-5就會設定marker為1define IS_ACCESS_UNIT(x) (((x) > 0x00) && ((x) < 0x06))
-在FU-A中的marker設定如下只有最後一包才會設定marker=1，其它則為0
+若為IS_ACCESS_UNIT，若只要NAL type為0-5就會設定marker為1
+
+.. code-block:: c++
+
+   define IS_ACCESS_UNIT(x) (((x) > 0x00) && ((x) < 0x06))
+
+在 FU-A 中 的 marker 設定只有最后一个包才会设定 marker=1，其它则为 0
 
 * Sequence number (SN): 16 bits
 
@@ -854,6 +859,9 @@ SDP example
    a=rtcp-fb:126 nack pli
    a=rtpmap:126 H264/90000
    a=sendonly
+
+
+
 
 
 RTP Payload Format for H.264 Reduced-Complexity Decoding Operation (RCDO) Video
