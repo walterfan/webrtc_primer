@@ -24,6 +24,7 @@ WebRTC 视频
    video_basic
    video_codec
    video_adaptation
+   video_quality
    yuv
    h264
 

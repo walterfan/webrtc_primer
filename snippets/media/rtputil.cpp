@@ -116,3 +116,7 @@ string dump_rtcp_packet(uint8_t* packet, uint32_t packet_len)
     written_len = snprintf(writing_ptr, remain_len, "packet: %s", octet_string_hex_string(packet, packet_len));
     return string(log_msg);
 }
+
+int dump_rtp_to_file(uint8_t* packet, uint32_t packet_len) {
+    return 0;
+}

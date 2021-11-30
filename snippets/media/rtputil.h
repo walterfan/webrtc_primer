@@ -95,4 +95,6 @@ std::string dump_rtp_packet(uint8_t* packet, uint32_t packet_len);
 
 std::string dump_rtcp_packet(uint8_t* packet, uint32_t packet_len);
 
+int dump_rtp_to_file(uint8_t* packet, uint32_t packet_len);
+
 #endif

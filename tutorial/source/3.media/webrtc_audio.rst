@@ -37,6 +37,16 @@ WebRTC 音频
 Overview
 ===================
 
+.. figure:: ../_static/audio_pipeline.png
+   :alt: Audio Pipeline
+
+
+* Audio Capture by OS framework
+* Audio data processing: AEC, ANR, AGC, etc.
+* Audio data transimission
+
+
+
 
 Reference
 ===================
