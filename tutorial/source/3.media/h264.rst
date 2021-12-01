@@ -134,8 +134,28 @@ H264 decoder
 * 重建像素上的环路去块滤波器
 
 
+File Format for H.264 Video
+========================================
+
+annexb format
+--------------------
+
+.. code-block::
+
+   ([start code] NALU) | ( [start code] NALU) |
 
 
+In annexb, [start code] may be 0x000001 or 0x00000001.
+
+avcc format
+--------------------
+.. code-block::
+
+   ([extradata]) | ([length] NALU) | ([length] NALU) |
+
+
+In avcc, the bytes of [length] depends on NALULengthSizeMinusOne in avcc extradata, 
+the value of [length] depends on the size of following NALU 
 
 
 RTP Payload Format for H.264 Video

@@ -2,7 +2,7 @@
  * h264demo.cpp
  *
  *  Created on: 2021-3-12
- *      Author: fanya
+ *      Author: Walter Fan
  */
 
 #include "h264demo.h"
@@ -16,6 +16,8 @@
 
 using namespace std;
 using namespace boost::program_options;
+
+const uint32_t BUF_SIZE = 10 * 1024 * 1024;
 
 h264demo::h264demo(const std::string& fileName):m_fileName(fileName) {
 	// TODO Auto-generated constructor stub
@@ -54,7 +56,7 @@ int h264_demo(const variables_map& vm) {
 
 	NALU_t *n;
 
-	int buffersize=100000;
+	uint8_t* buf = (uint8_t*)malloc( BUF_SIZE );
 
 	if (!vm.count("input")) {
 		BOOST_LOG_TRIVIAL(trace) << "error: please specify input_file";
@@ -73,8 +75,22 @@ int h264_demo(const variables_map& vm) {
 		return -1;
 	}
 
+    size_t rsz = 0;
+    size_t sz = 0;
+    int64_t off = 0;
+    uint8_t* p = buf;
 	while(!feof(fpInput)) {
-		//TODO
+		rsz = fread(buf + sz, 1, BUF_SIZE - sz, fpInput);
+        if (rsz == 0)
+        {
+            if (ferror(fpInput)) { 
+				fprintf( stderr, "!! Error: read failed: %s \n", strerror(errno)); 
+				break; 
+			}
+     
+        }
+
+        sz += rsz;
 		break;
 	}
 

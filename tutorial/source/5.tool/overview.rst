@@ -35,5 +35,6 @@ split
 tee
 tr
 uniq
+* vim: 输入 `:%! xxd` 用来编辑二进制文件 
 
 
