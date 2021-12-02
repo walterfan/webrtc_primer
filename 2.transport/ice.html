@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rtp.html">WebRTC RTP</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Interactive Connectivity Establishment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ovewview">Ovewview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nat">NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
@@ -197,22 +198,35 @@
 <td><p>WIP as draft</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-23</p></td>
+<td><p>2021-12-02</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#ovewview" id="id2">Ovewview</a></p></li>
-<li><p><a class="reference internal" href="#reference" id="id3">Reference</a></p></li>
+<li><p><a class="reference internal" href="#nat" id="id3">NAT</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id4">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="ovewview">
 <h2><a class="toc-backref" href="#id2">Ovewview</a><a class="headerlink" href="#ovewview" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8445">RFC8445</a> Interactive Connectivity Establishment (ICE) 交互式连接建立是一个网络地址转换 NAT 穿透的协议</p>
 </div>
+<div class="section" id="nat">
+<h2><a class="toc-backref" href="#id3">NAT</a><a class="headerlink" href="#nat" title="Permalink to this headline">¶</a></h2>
+<p>NAT 是指路由器把本地私有子网IP地址转换称公网 IP 地址的过程。
+ICE/STUN/TURN 主要是解决如何在各自内网中的客户端之间如何连接</p>
+<p>根据最少限制性到最多限制性来排序可以分为：</p>
+<ul class="simple">
+<li><p>Full cone（全锥型）</p></li>
+<li><p>Address-restricted cone （地址限制型锥形）</p></li>
+<li><p>Port-restricted cone（端口限制型锥型）</p></li>
+<li><p>Symmetric（对称型）</p></li>
+</ul>
+</div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id3">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8445">RFC8445</a>: Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal</p></li>
 <li><p>_RFC8445: <a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc8445">https://datatracker.ietf.org/doc/html/rfc8445</a></p></li>
