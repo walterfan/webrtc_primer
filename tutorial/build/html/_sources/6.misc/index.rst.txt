@@ -10,6 +10,7 @@
    signal
    dsp
    kalman
+   security
    matlab
    multimedia
    mathematics

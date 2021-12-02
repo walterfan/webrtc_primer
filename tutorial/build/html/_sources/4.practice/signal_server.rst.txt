@@ -41,5 +41,11 @@ Signal Server 即我们通常所说的信令服务器，在 WebRTC 应用中它�
 nginx + flask + mysql
 
 
+nginx
+--------------
+
+* install nginx on ubuntu
+
+
 Reference
 ==============

@@ -15,6 +15,7 @@
 
    webrtc_source
    webrtc_test
+   webrtc_issues
 
    apprtc
    janus

@@ -17,6 +17,7 @@
    webrtc_rtx
    webrtc_rcc
 
+   jitter_buffer
    insertable_stream
    web_codec
    web_transport

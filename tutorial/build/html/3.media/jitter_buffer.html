@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Jitter Buffer &mdash; webrtc_tutorial 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Insertable Stream" href="insertable_stream.html" />
+    <link rel="prev" title="Congeston Control Evaluation" href="webrtc_cc_evaluation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> webrtc_tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.transport/index.html">2. WebRTC 传输</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. WebRTC 媒体</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">WebRTC 媒体概论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_audio.html">WebRTC 音频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_video.html">WebRTC 视频</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_qos.html">WebRTC QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webrtc_rcc.html">WebRTC 拥塞控制</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Jitter Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#jitter">Jitter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#audio-quality">Audio Quality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Jitter 分类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#jitter-buffer-overview">Jitter buffer Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-long-jb-is-better">How long JB is better?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#jitter-buffer-purpose">Jitter Buffer Purpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jitter-buffer-types">Jitter Buffer types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fixed-jitter-buffer">Fixed Jitter Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adaptive-jitter-buffer">Adaptive Jitter Buffer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.practice/index.html">4. WebRTC 实践</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.tool/index.html">5. WebRTC 工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.misc/index.html">6. WebRTC 关联技术</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">webrtc_tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">3. WebRTC 媒体</a> &raquo;</li>
+        
+      <li>Jitter Buffer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/3.media/jitter_buffer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jitter-buffer">
+<h1>Jitter Buffer<a class="headerlink" href="#jitter-buffer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="jitter">
+<h2>Jitter<a class="headerlink" href="#jitter" title="Permalink to this headline">¶</a></h2>
+<p>抖动是由网络路径上的排队、争用和序列化效应引起的数据包传输延迟的变化。</p>
+<p>一般而言，在慢速或严重拥塞的链路上更可能发生更高级别的抖动。</p>
+</div>
+<div class="section" id="audio-quality">
+<h2>Audio Quality<a class="headerlink" href="#audio-quality" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>语音的连续性</p></li>
+</ul>
+<p>声音是连续变化的信号，若突然遇到一小段 mute，听起来会是一下爆音或者杂音</p>
+<p>For packet loss, artificial voice will be generated by receiver.
+For example: mute, repeat last packet</p>
+<ul class="simple">
+<li><p>Latency in conversation</p></li>
+</ul>
+<p>A one-way latency of up to 200 ms is considered acceptable</p>
+<p>Voice overlap becomes a concern when the one-way latency is more than 200 ms</p>
+<div class="section" id="id1">
+<h3>Jitter 分类<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ol class="lowerroman simple">
+<li><p>Type A – constant jitter. This is a roughly constant level of packet to packet delay variation.</p></li>
+<li><p>Type B – transient jitter. This is characterized by a substantial incremental delay that may be incurred by a single packet.</p></li>
+<li><p>Type C – short term delay variation. This is characterized by an increase in delay that persists for some number of packets, and may be accompanied by an increase in packet to packet delay variation. Type C jitter is commonly associated with congestion and route changes.</p></li>
+</ol>
+<ol class="arabic simple">
+<li><p>A 类 – 恒定抖动。</p></li>
+</ol>
+<p>这是数据包到数据包通过网络传输延迟变化的大致恒定水平。</p>
+<ol class="arabic simple" start="2">
+<li><p>B 类——瞬态抖动。</p></li>
+</ol>
+<p>以单个数据包可能引起的大量的增量延迟为特征。</p>
+<ol class="arabic simple" start="3">
+<li><p>C 类——短期延迟变化。</p></li>
+</ol>
+<p>特点是延迟的增加持续了一定数量的数据包，并且可能伴随着数据包到数据包延迟变化的增加。</p>
+<p>C 类抖动通常与拥塞和路由变化有关。</p>
+</div>
+</div>
+<div class="section" id="jitter-buffer-overview">
+<h2>Jitter buffer Overview<a class="headerlink" href="#jitter-buffer-overview" title="Permalink to this headline">¶</a></h2>
+<p>The network delivers RTP packets asynchronously, with variable delays.</p>
+<p>To be able to play the audio stream with reasonable quality, the receiving endpoint needs to turn the variable delays into constant delays.</p>
+<p>This can be done by using a jitter buffer.</p>
+<p>对于接收方来说，提高 voice quality 的首要工作是减少 packet loss 情况发生，最大限度保证 playout voice 是连续的并且是按照原顺序的</p>
+<p>Jitter is defined as a variation in the delay of received packets.</p>
+<p>Jitter buffer induces a small delay to collect a certain number of packets for rearranging them in the proper order as well as inducing equal spacing between them before sending them for decompression.</p>
+<p>The (fixed) jitter buffer implementation is quite simple.</p>
+<p>For example:</p>
+<ul class="simple">
+<li><p>create a buffer to hold 100ms of audio (jitter buffer max size = 100ms)</p></li>
+<li><p>place incoming audio frames to the buffer</p></li>
+<li><p>start the playout when the buffer has at least 40ms data (delay = 40ms)</p></li>
+</ul>
+<div class="section" id="how-long-jb-is-better">
+<h3>How long JB is better?<a class="headerlink" href="#how-long-jb-is-better" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Latency/delay 设置得比较小，声音虽然及时了，但就有更大几率会出现 packet loss，导致音质不好</p></li>
+<li><p>Latency/delay 设置得比较大，packet loss 机会变小，但过大的延迟会造成对话障碍</p></li>
+</ul>
+<p>At the sending side, packets are sent in a continuous stream with the packets spaced evenly apart. Due to network congestion, improper queuing, or configuration errors, this steady stream can become lumpy, or the delay between each packet can vary instead of remaining constant.</p>
+<p>When a router receives a Real-Time Protocol (RTP) audio stream for Voice over IP (VoIP), it must compensate for the jitter that is encountered. The mechanism that handles this function is the playout delay buffer. The playout delay buffer must buffer these packets and then play them out in a steady stream to the digital signal processors (DSPs) to be converted back to an analog audio stream. The playout delay buffer is  referred to as the Jitter Buffer.</p>
+<p>If the jitter is so large that it causes packets to be received out of the range of this buffer, the out-of-range packets are discarded and dropouts are heard in the audio. For losses as small as one packet, the DSP interpolates what it thinks the audio should be and no problem is audible. When jitter exceeds what the DSP can do to make up for the missing packets, audio problems are heard.</p>
+</div>
+</div>
+<div class="section" id="jitter-buffer-purpose">
+<h2>Jitter Buffer Purpose<a class="headerlink" href="#jitter-buffer-purpose" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Absorb packet arrival variability to a decoder interface
+Buffers sets of data
+Compromises between buffering delay and concealment</p></li>
+<li><p>Enable stream synchronization
+Delays a stream to match the playout of another: lip sync is an example</p></li>
+<li><p>Delay the first packet decoding</p></li>
+<li><p>Re-order the arrived packets</p></li>
+<li><p>Determine packet loss</p></li>
+</ul>
+</div>
+<div class="section" id="jitter-buffer-types">
+<h2>Jitter Buffer types<a class="headerlink" href="#jitter-buffer-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fixed-jitter-buffer">
+<h3>Fixed Jitter Buffer<a class="headerlink" href="#fixed-jitter-buffer" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Latency is fixed</p></li>
+<li><p>Delta/Jitter statistics is not necessary since it is not referenced</p></li>
+<li><p>Easy to implement.</p></li>
+<li><p>Voice quality will be not good if jitter has large changes.</p></li>
+</ul>
+</div>
+<div class="section" id="adaptive-jitter-buffer">
+<h3>Adaptive Jitter Buffer<a class="headerlink" href="#adaptive-jitter-buffer" title="Permalink to this headline">¶</a></h3>
+<p>trait：</p>
+<ul class="simple">
+<li><p>Latency is dynamic according to jitter real-time changes</p></li>
+<li><p>Key point: time scaling (adjust playout time without affecting voice quality)</p>
+<ul>
+<li><p>Scaling on voice packets</p></li>
+<li><p>Scaling on non-voice packets</p></li>
+</ul>
+</li>
+<li><p>Not easy to implement.</p></li>
+<li><p>By using good time scaling algorithms, voice quality may not be impacted by large changes of jitter.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="insertable_stream.html" class="btn btn-neutral float-right" title="Insertable Stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="webrtc_cc_evaluation.html" class="btn btn-neutral float-left" title="Congeston Control Evaluation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, walter.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

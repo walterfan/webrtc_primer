@@ -315,5 +315,5 @@ Bandwidth estimator
 参考资料
 ==================================================
 * `RTP Extensions for Transport-wide Congestion Control (draft-holmer-rmcat-transport-wide-cc-extensions-01) <https://datatracker.ietf.org/doc/html/draft-holmer-rmcat-transport-wide-cc-extensions-01>`_
-* `Webrtc Rtp/rtcp （2） <https://xie.infoq.cn/article/8a8ad2f8170d0072941c2aa9e>`_
-* `webrtc 即时带宽评估器（BitrateEstimator）<https://xie.infoq.cn/article/2f944089023274ef0ac6eabd8>`
+* `Webrtc Rtp/rtcp  <https://xie.infoq.cn/article/8a8ad2f8170d0072941c2aa9e>`_
+* `webrtc 即时带宽评估器 BitrateEstimator <https://xie.infoq.cn/article/2f944089023274ef0ac6eabd8>`_

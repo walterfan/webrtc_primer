@@ -43,7 +43,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Audio Analysis" href="audio_analysis.html" />
-    <link rel="prev" title="Automatic Noise Suppression" href="audio_ans.html" /> 
+    <link rel="prev" title="Audio worklet" href="audio_worklet.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -103,10 +103,13 @@
 <li class="toctree-l3"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_agc.html">Automatic Gain Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_ans.html">Automatic Noise Suppression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_vad.html">Voice Activity Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_worklet.html">Audio worklet</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Audio Quality</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#standard">Standard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mos">MOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#audio-distortion">Audio distortion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tools">Tools</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
@@ -114,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
 <li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#plc">PLC</a></li>
 <li class="toctree-l3"><a class="reference internal" href="webrtc_audio.html#reference">Reference</a></li>
 </ul>
 </li>
@@ -122,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rcc.html">WebRTC 拥塞控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jitter_buffer.html">Jitter Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
@@ -219,7 +224,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-23</p></td>
+<td><p>2021-12-02</p></td>
 </tr>
 </tbody>
 </table>
@@ -236,12 +241,13 @@
 </ul>
 </li>
 <li><p><a class="reference internal" href="#mos" id="id11">MOS</a></p></li>
-<li><p><a class="reference internal" href="#tools" id="id12">Tools</a></p>
+<li><p><a class="reference internal" href="#audio-distortion" id="id12">Audio distortion</a></p></li>
+<li><p><a class="reference internal" href="#tools" id="id13">Tools</a></p>
 <ul>
-<li><p><a class="reference internal" href="#visqol" id="id13">visqol</a></p></li>
+<li><p><a class="reference internal" href="#visqol" id="id14">visqol</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#reference" id="id14">Reference</a></p></li>
+<li><p><a class="reference internal" href="#reference" id="id15">Reference</a></p></li>
 </ul>
 </div>
 <div class="section" id="id2">
@@ -316,8 +322,12 @@
 <li><p>1 Bad</p></li>
 </ul>
 </div>
+<div class="section" id="audio-distortion">
+<h2><a class="toc-backref" href="#id12">Audio distortion</a><a class="headerlink" href="#audio-distortion" title="Permalink to this headline">¶</a></h2>
+<p>refer to <a class="reference external" href="https://audiojudgement.com/measure-distortion-audio-systems/">https://audiojudgement.com/measure-distortion-audio-systems/</a></p>
+</div>
 <div class="section" id="tools">
-<h2><a class="toc-backref" href="#id12">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Tools</a><a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="visqol">
 <h3><a class="reference external" href="https://github.com/google/visqol">visqol</a><a class="headerlink" href="#visqol" title="Permalink to this headline">¶</a></h3>
 <p>ViSQOL(Virtual Speech Quality Objective Listener)虚拟语音质量目标监听器是感知音频质量的客观、完整的参考指标。</p>
@@ -326,7 +336,7 @@
 </div>
 </div>
 <div class="section" id="reference">
-<h2><a class="toc-backref" href="#id14">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Reference</a><a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="#mos">MOS</a></p></li>
 </ul>
@@ -340,7 +350,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="audio_analysis.html" class="btn btn-neutral float-right" title="Audio Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="audio_ans.html" class="btn btn-neutral float-left" title="Automatic Noise Suppression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="audio_worklet.html" class="btn btn-neutral float-left" title="Audio worklet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

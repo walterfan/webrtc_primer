@@ -44,4 +44,5 @@ Reference
 ===================
 * https://testing.googleblog.com/2015/10/audio-testing-automatic-gain-control.html
 * https://testing.googleblog.com/2013/11/webrtc-audio-quality-testing.html
-* `详解 WebRTC 高音质低延时的背后 — AGC（自动增益控制）<https://segmentfault.com/a/1190000040072259>`_
+  
+* 详解 WebRTC 高音质低延时的背后 — AGC（自动增益控制): https://segmentfault.com/a/1190000040072259

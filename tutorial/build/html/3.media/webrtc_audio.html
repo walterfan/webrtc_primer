@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -103,10 +103,17 @@
 <li class="toctree-l3"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_agc.html">Automatic Gain Control</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_ans.html">Automatic Noise Suppression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_vad.html">Voice Activity Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audio_worklet.html">Audio worklet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
 <li class="toctree-l3"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="opus.html">Opus Codec</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plc">PLC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">一般方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">处理算法</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
 </ul>
 </li>
@@ -115,6 +122,7 @@
 <li class="toctree-l2"><a class="reference internal" href="webrtc_fec.html">WebRTC FEC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rtx.html">WebRTC RTX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="webrtc_rcc.html">WebRTC 拥塞控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jitter_buffer.html">Jitter Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="insertable_stream.html">Insertable Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web_codec.html">Web Codecs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="web_transport.html">Web Transport</a></li>
@@ -195,7 +203,7 @@
   <div class="section" id="webrtc">
 <h1>WebRTC 音频<a class="headerlink" href="#webrtc" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">目录</span></p>
+<p class="caption" role="heading"><span class="caption-text">目录</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="audio_basic.html">Audio Basic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_level.html">Audio Level</a></li>
@@ -204,6 +212,8 @@
 <li class="toctree-l1"><a class="reference internal" href="audio_aec.html">Acoustic Echo Canceller</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_agc.html">Automatic Gain Control</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_ans.html">Automatic Noise Suppression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio_vad.html">Voice Activity Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audio_worklet.html">Audio worklet</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_quality.html">Audio Quality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_analysis.html">Audio Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="opus.html">Opus Codec</a></li>
@@ -225,17 +235,46 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-11-23</p></td>
+<td><p>2021-12-02</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default">
+<img alt="Audio Pipeline" src="../_images/audio_pipeline.png" />
+</div>
+<ul class="simple">
+<li><p>Audio Capture by OS framework</p></li>
+<li><p>Audio data processing: AEC, ANR, AGC, etc.</p></li>
+<li><p>Audio data transimission</p></li>
+</ul>
+</div>
+<div class="section" id="plc">
+<h2>PLC<a class="headerlink" href="#plc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>一般方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>PLC(Packet Loss concealment): 包丢失隐藏，是一种在VOIP通信中最小化语音数据包丢失带来的影响的技术。目录的PLC主要有三种技术：</p>
+<ul class="simple">
+<li><p>Zero insertion(插入零或者静音包)：丢失的语音帧使用0代替。这样虽然解决带来丢失的语音帧，但是带来的后果是通话的静音现象；</p></li>
+<li><p>Waveform subsititution(波形替换)：丢失的语音帧使用已经接收到的语音进行替换（因为语音在比较短的时间内是相对固定的）。最简单的是使用上一次接收到的语音帧进行替换；</p></li>
+<li><p>Model-based methods（基于模型的方法）：引入了一些算法，这些算法利用语音的内插和外插间隙的特性产生语音帧，取代丢失的语音帧；这种方法比较复杂。</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>处理算法<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>replace the packet by mute signal (not good)</p></li>
+<li><p>repeat last packet</p></li>
+<li><p>interpolate samples by last packet and next packet</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://datatracker.ietf.org/doc/html/rfc7874">RFC7874</a> “WebRTC Audio Codec and Processing Requirements”</p></li>
+<li><p><a class="reference external" href="http://en.wikipedia.org/wiki/Packet_loss_concealment">http://en.wikipedia.org/wiki/Packet_loss_concealment</a></p></li>
 </ul>
 </div>
 </div>
