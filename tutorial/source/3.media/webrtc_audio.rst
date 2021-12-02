@@ -14,7 +14,6 @@ WebRTC 音频
    audio_vad
    audio_agc
    audio_ans
-   audio_vad
    
    audio_worklet
    audio_quality
