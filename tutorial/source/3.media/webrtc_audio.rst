@@ -11,6 +11,7 @@ WebRTC 音频
    audio_api
    audio_qos
    audio_aec
+   audio_vad
    audio_agc
    audio_ans
    
@@ -43,8 +44,9 @@ Overview
 
 * Audio Capture by OS framework
 * Audio data processing: AEC, ANR, AGC, etc.
+* Active Speaker Arbitration, Selection and Notification based on Audio Level
 * Audio data transimission
-
+* Audio mixer
 
 
 
