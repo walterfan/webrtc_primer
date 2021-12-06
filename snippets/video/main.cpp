@@ -25,6 +25,7 @@ ExampleRunner::~ExampleRunner() {
 
 void ExampleRunner::init() {
     register_example("h264", h264_demo);
+    
 }
 
 void ExampleRunner::register_example(const string& name, const exam_func_t &exam)

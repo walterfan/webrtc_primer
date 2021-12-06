@@ -9,7 +9,7 @@
 #define SNIPPETS_VIDEO_ROOM_H264DEMO_H_
 
 #include <string>
-#include <stdint>
+#include <stdint.h>
 
 typedef enum {
 	NALU_TYPE_SLICE    = 1,

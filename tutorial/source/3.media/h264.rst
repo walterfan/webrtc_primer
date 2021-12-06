@@ -316,7 +316,29 @@ NAL Type   Definition
 24..31     Undefined
 =========  ===========
 
-先看看 Signal NAL Unit packet
+
+
+RFC6184 还定义了 聚合包 STAP 单一时间聚合包， MTAP 多时间聚合包, FU 片断单元包
+
+.. code-block::
+
+      Table 3.  Summary of allowed NAL unit types for each packetization
+                mode (yes = allowed, no = disallowed, ig = ignore)
+
+      Payload Packet    Single NAL    Non-Interleaved    Interleaved
+      Type    Type      Unit Mode           Mode             Mode
+      -------------------------------------------------------------
+      0      reserved      ig               ig               ig
+      1-23   NAL unit     yes              yes               no
+      24     STAP-A        no              yes               no
+      25     STAP-B        no               no              yes
+      26     MTAP16        no               no              yes
+      27     MTAP24        no               no              yes
+      28     FU-A          no              yes              yes
+      29     FU-B          no               no              yes
+      30-31  reserved      ig               ig               ig
+
+先看看 Signal NAL Unit packet 单个 NAL 单元数据包
 
 .. code-block::
 
@@ -335,9 +357,156 @@ NAL Type   Definition
        Figure 2.  RTP payload format for single NAL unit packet
 
 
+再看看聚合包
+
+.. code-block::
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |F|NRI|  Type   |                                               |
+    +-+-+-+-+-+-+-+-+                                               |
+    |                                                               |
+    |             one or more aggregation units                     |
+    |                                                               |
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               :...OPTIONAL RTP padding        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+    Figure 3.  RTP payload format for aggregation packets
 
 
-H.264 related SDP
+例如一个 STAP 包, "STAP-A NAL HDR" 随后跟随一个 "NALU SIZE", 它是一个 16bit 的无符号整数，
+表示随后的 NALU 的大小（除去自身的2个字节，但包含所指的 NALU 的头）
+
+.. code-block::
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                          RTP Header                           |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |STAP-A NAL HDR |         NALU 1 Size           | NALU 1 HDR    |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                         NALU 1 Data                           |
+    :                                                               :
+    +               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |               | NALU 2 Size                   | NALU 2 HDR    |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                         NALU 2 Data                           |
+    :                                                               :
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               :...OPTIONAL RTP padding        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+    Figure 7.  An example of an RTP packet including an STAP-A
+               containing two single-time aggregation units
+
+
+对于 FU, 其封包格式如下
+
+.. code-block::
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    | FU indicator  |   FU header   |                               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               |
+    |                                                               |
+    |                         FU payload                            |
+    |                                                               |
+    |                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |                               :...OPTIONAL RTP padding        |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+    Figure 14.  RTP payload format for FU-A
+
+
+The FU indicator octet has the following format:
+
+.. code-block::
+
+       +---------------+
+       |0|1|2|3|4|5|6|7|
+       +-+-+-+-+-+-+-+-+
+       |F|NRI|  Type   |
+       +---------------+
+
+
+The FU header has the following format:
+
+.. code-block::
+
+      +---------------+
+      |0|1|2|3|4|5|6|7|
+      +-+-+-+-+-+-+-+-+
+      |S|E|R|  Type   |
+      +---------------+
+
+* S:     1 bit 开始标志位
+  
+When set to one, the Start bit indicates the start of a fragmented NAL unit.  
+When the following FU payload is not the start of a fragmented NAL unit payload, the Start bit is set
+to zero.
+
+* E:     1 bit 结束标志位
+  
+When set to one, the End bit indicates the end of a fragmented NAL unit, 
+i.e., the last byte of the payload is also the last byte of the fragmented NAL unit.  
+
+When the following FU payload is not the last fragment of a fragmented NAL unit, the End bit is set to zero.
+
+* R:     1 bit 保留位
+
+The Reserved bit MUST be equal to 0 and MUST be ignored by the receiver.
+
+* Type:  5 bits 指 NAL unit 的类型
+  
+The NAL unit payload type as defined in Table 7-1 of [1].
+
+
+
+H.264 打包原则
+--------------------------
+
+All senders MUST enforce the following packetization rules,
+regardless of the packetization mode in use:
+
+o  Coded slice NAL units or coded slice data partition NAL units
+   belonging to the same coded picture (and thus sharing the same RTP
+   timestamp value) MAY be sent in any order; however, for delay-
+   critical systems, they SHOULD be sent in their original decoding
+   order to minimize the delay.  Note that the decoding order is the
+   order of the NAL units in the bitstream.
+
+o  Parameter sets are handled in accordance with the rules and
+   recommendations given in Section 8.4.
+
+o  MANEs MUST NOT duplicate any NAL unit except for sequence or
+   picture parameter set NAL units, as neither this memo nor the
+   H.264 specification provides means to identify duplicated NAL
+   units.  Sequence and picture parameter set NAL units MAY be
+   duplicated to make their correct reception more probable, but any
+   such duplication MUST NOT affect the contents of any active
+   sequence or picture parameter set.  Duplication SHOULD be
+   performed on the application layer and not by duplicating RTP
+   packets (with identical sequence numbers).
+
+Senders using the non-interleaved mode and the interleaved mode MUST
+enforce the following packetization rule:
+
+o  In an RTP translator, MANEs MAY convert single NAL unit packets
+   into one aggregation packet, convert an aggregation packet into
+   several single NAL unit packets, or mix both concepts.  The RTP
+   translator SHOULD take into account at least the following
+   parameters: path MTU size, unequal protection mechanisms (e.g.,
+   through packet-based FEC according to RFC 5109 [18], especially
+   for sequence and picture parameter set NAL units and coded slice
+   data partition A NAL units), bearable latency of the system, and
+   buffering capabilities of the receiver.
+
+
+H.264 相关的 SDP 属性
 ---------------------------
 
 

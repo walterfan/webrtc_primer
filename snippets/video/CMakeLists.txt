@@ -16,6 +16,7 @@ SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD ON)
 
 add_compile_definitions(BOOST_LOG_DYN_LIN)
+ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
 
 FIND_PACKAGE(Boost 1.74.0 REQUIRED COMPONENTS system thread regex log program_options)
 
