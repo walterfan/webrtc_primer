@@ -28,5 +28,6 @@ ENDIF(Boost_FOUND)
 message("boost lib: ${Boost_LIBRARIES}")
 message("boost inc:${Boost_INCLUDE_DIR}")
 
+ADD_EXECUTABLE(media_parser MediaParser.cpp MediaUtil.cpp)
 ADD_EXECUTABLE(video_demo h264demo.cpp main.cpp)
 TARGET_LINK_LIBRARIES( video_demo LINK_PUBLIC ${Boost_LIBRARIES} )
