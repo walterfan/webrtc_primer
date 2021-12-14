@@ -204,8 +204,7 @@ int MediaFileParser::handle_fu(uint8_t* pPacket, int len, rtp_info_t& rtpInfo) {
     //if(bStart) clear fu list
     
     if(bEnd) {//merge fu list 
-    
-
+        merge_fu();
     }
     return 0;
 }
