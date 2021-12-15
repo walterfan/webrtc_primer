@@ -41,10 +41,11 @@ typedef struct RtpInfo {
     }
 
     static void printTitles(std::ostream& os) {
-        os << "size, ssrc, m, sn, ts, nalType, subNalType, start, end " << endl;
+        os << "size, pt, ssrc, m, sn, ts, nalType, subNalType, start, end " << endl;
     }
     void printValues(std::ostream& os) {
-        os << get("size") << ", " 
+        os << get("size") << ", "
+        << get("pt") << ", " 
         << get("ssrc") << ", " 
         << get("m") << ", " 
         << get("sn") << ", " 

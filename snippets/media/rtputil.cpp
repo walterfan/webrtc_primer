@@ -1,6 +1,7 @@
 /*
 some utilities got from https://github.com/cisco/libsrtp
 */
+
 #include "rtputil.h"
 using namespace std;
 
@@ -117,6 +118,17 @@ string dump_rtcp_packet(uint8_t* packet, uint32_t packet_len)
     return string(log_msg);
 }
 
-int dump_rtp_to_file(uint8_t* packet, uint32_t packet_len) {
+int dump_rtp_to_file(uint8_t* packet, uint32_t packet_len, ofstream* pOfs) {
+  
+	if(!pOfs)	return -1;
+
+	pOfs->write("DUMP", 4);
+	pOfs->write((char*)&packet_len, sizeof(packet_len));
+
+	for(uint32_t i=0; i<packet_len; i++) {
+		uint8_t packetByte = *(packet + i);
+		pOfs->write((char*)&packetByte, 1);
+
+	}
     return 0;
 }

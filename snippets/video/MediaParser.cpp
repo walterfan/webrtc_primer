@@ -13,28 +13,6 @@
 
 using namespace std;
 
-
-typedef uint16_t sequence_number_t;   /* 16 bit sequence number  */
-typedef uint32_t rollover_counter_t;   /* 32 bit rollover counter */
-
-#define seq_num_median (1 << (8*sizeof(sequence_number_t) - 1))
-#define seq_num_max    (1 << (8*sizeof(sequence_number_t)))
-
-extern int show_bytes_test(int argc, char *argv[]);
-extern int protobuf_read(int argc, char *argv[]);
-extern int protobuf_write(int argc, char *argv[]);
-extern int rtp_util_test(int argc, char *argv[]);
-extern void show_bytes(uint8_t* start, int len);
-
-void list_file (string i) {  // function:
-  std::cout << i  << endl;
-}
-
-struct FileLister {           // function object type:
-  void operator() (string i) {std::cout << i << endl;}
-} myobject;
-
-
 int main(int argc, char *argv[])
 {
 	msg_trace("--- Walter test program ---");

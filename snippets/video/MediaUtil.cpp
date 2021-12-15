@@ -38,7 +38,7 @@ int MediaFileParser::parse_stream() {
     while(!feof(m_input_file)) {
         result = fread (pktBuf, 1, 8, m_input_file);
         if(result < 8) {
-            err_trace("dump header only read" << result);
+            err_trace("cannot read valid bytes count: " << result);
             break;
         }
 

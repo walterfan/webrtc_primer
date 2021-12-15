@@ -69,6 +69,19 @@ tcpdump -i en0 src host 192.168.1.27 and src port 10000 and dst host 192.168.1.2
 ffmpeg -re -i ../../material/sintel.ts -f rtp_mpegts udp://127.0.0.1:8880
 
 ```
+### How to push rtp stream from mp4 file
+
+```
+ffmpeg \
+    -re \
+    -i ../../obama_talk.mp4 \
+    -an \
+    -c:v copy \
+    -f rtp \
+    -sdp_file video.sdp \
+    "rtp://127.0.0.1:5004"
+```
+
 
 ### How to concat several wav files to one?
 
