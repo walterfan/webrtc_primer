@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "log4js": "^6.3.0",
-    "node-static": "^0.7.11",
-    "yargs": "^16.2.0"
-  }
-}
