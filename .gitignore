@@ -4,7 +4,7 @@ _build/
 .ipynb_checkpoints/
 # Log file
 *.log
-
+.Rhistory
 # BlueJ files
 *.ctxt
 
