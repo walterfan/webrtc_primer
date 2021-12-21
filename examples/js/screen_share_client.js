@@ -225,11 +225,15 @@ socket.on('message', function (message){
   } else if (message.type === 'answer' && isStarted) {
     pc.setRemoteDescription(new RTCSessionDescription(message));
   } else if (message.type === 'candidate' && isStarted) {
-    var candidate = new RTCIceCandidate({sdpMLineIndex:message.label,
-      candidate:message.candidate});
-    pc.addIceCandidate(candidate);
+    var candidate = new RTCIceCandidate({sdpMLineIndex:message.label, candidate:message.candidate});
+    try {
+      pc.addIceCandidate(candidate);
+    } catch(err) {
+      console.error("addIceCandidate error, candidate=", candidate, "err=", err);
+    }
+    
   } else if (message === 'bye' && isStarted) {
-    handleRemoteHangup();
+      handleRemoteHangup();
   }
 
   if( /offer|answer/i.test(message.type)) {
@@ -261,13 +265,20 @@ function startCall() {
     if(!pc)
       pc = createPeerConnection();
     if(localStream) {
-      pc.addStream(localStream);
+      //pc.addStream(localStream);
+      localStream.getTracks().forEach(track => {
+        var rtpSender = pc.addTrack(track, localStream);
+        rtpSender.replaceTrack(track);
+      });
     }
      
     isStarted = true;
     var state = pc.signalingState;
     weblog("state=", state);
     if(localStream && (!state || state == "stable")) {
+      var tr = pc.getTransceivers()[0];
+      tr.direction = "sendonly";
+
       pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
     } else if(state === "have-remote-offer" ||  state === "have-local-pranswer") {
       pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
@@ -408,11 +419,43 @@ function doAnswer() {
   pc.createAnswer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
 }
 
+
+function changeSdp(strSdp) {
+  
+  var tempArr = strSdp.split("\r\n");
+  var newArr = [];
+  for (let item of tempArr) {
+    if(!item.startsWith('a=extmap:')) newArr.push(item);
+  }
+
+  return newArr.join('\r\n');
+ }
+
 // Success handler for both createOffer()
 // and createAnswer()
 function setLocalAndSendMessage(sessionDescription) {
-  sessionDescription.sdp = sessionDescription.sdp.replace(/VP8/g, "H264");
-  pc.setLocalDescription(sessionDescription);
+  if (/H264/i.test(sessionDescription.sdp)) {
+    weblog("Support H264");
+  } else {
+    alert("not support H264");
+  }
+  try {
+    var newSdp = sessionDescription.sdp;//.replace(/VP8/g, "H264");
+    sessionDescription.sdp = changeSdp(newSdp);
+
+    var aPromise = pc.setLocalDescription(sessionDescription);
+    aPromise.then(function(value) {
+      console.log("setLocalDescription success: ", value); 
+  
+    }).catch(function(e) {
+      console.error("setLocalDescription error", e.message); 
+    });
+
+  } catch(err) {
+    weblog("setLocalDescription error", err);
+    console.log("setLocalDescription error, sessionDescription=", sessionDescription, "err=", err);
+  }
+  
   sendMessage(sessionDescription);
 }
 
