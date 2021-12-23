@@ -89,7 +89,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -208,21 +208,24 @@
 <h1>Google Congestion Control<a class="headerlink" href="#google-congestion-control" title="Permalink to this headline">¶</a></h1>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
+<col style="width: 31%" />
+<col style="width: 69%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Abstract</strong></p></td>
-<td><p>WebRTC RTP 拥塞控制</p></td>
+<td><p>WebRTC RTP 拥塞控制学习笔记</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Authors</strong></p></td>
+<tr class="row-even"><td><p><strong>Category</strong></p></td>
+<td><p>Learning notes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Authors</strong></p></td>
 <td><p>Walter Fan</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Status</strong></p></td>
+<tr class="row-even"><td><p><strong>Status</strong></p></td>
 <td><p>WIP</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-12-02</p></td>
+<tr class="row-odd"><td><p><strong>Updated</strong></p></td>
+<td><p>2021-12-22</p></td>
 </tr>
 </tbody>
 </table>
@@ -254,6 +257,12 @@
 </div>
 <div class="section" id="id2">
 <h2><a class="toc-backref" href="#id21">简介</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>拥塞控制对于所有共享网络资源的应用程序都是一个基本需求，对于实时媒体应用尤其是一个挑战，原因如下</p>
+<ul class="simple">
+<li><p>媒体通常都要以某种形式进行编码，无法快速更改以适应不同带宽，并且带宽要求通常只能以离散的、相当大的步长进行更改</p></li>
+<li><p>参与者可能对如何响应拥塞有某些特定的希望——这可能不会减少发现拥塞所在的媒体流所需的带宽</p></li>
+<li><p>编码通常对丢包敏感，而实时性要求排除了通过重传来修复丢包</p></li>
+</ul>
 <p>GCC <a class="footnote-reference brackets" href="#id16" id="id3">1</a> 拥塞控制算法根据估计的拥塞状态调节发送速率。 为了估计状态，GCC 采用了一种有限状态机，该状态机由通过比较测得的单向延迟变化与动态阈值而获得的信号来驱动。</p>
 <p>简而言之，当瓶颈被估计为“未充分利用 underused”时，发送速率就会增加； 当估计为“过度使用 overused”时，发送速率会降低。 当 GCC 流与 TCP 流共享瓶颈时，使用动态阈值来估计拥塞状态是解决饥饿问题的关键设计要求。</p>
 <p>主要有两种方法:</p>

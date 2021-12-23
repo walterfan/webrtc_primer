@@ -88,7 +88,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../outline.html">目录</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../1.basic/index.html">1. WebRTC 基础</a></li>
@@ -221,7 +221,7 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-12-02</p></td>
+<td><p>2021-12-22</p></td>
 </tr>
 </tbody>
 </table>
@@ -307,7 +307,7 @@
 <li><p>拉取源 Pull sources： 它要求您在连接后明确向它们请求数据，例如通过过 Fetch 或 XHR 调用进行的文件访问操作.</p></li>
 </ol>
 <p>ReadableStream 代码示例：</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReadableStream</span><span class="p">({</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReadableStream</span><span class="p">({</span>
         <span class="nx">start</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="p">},</span>
@@ -333,7 +333,7 @@
 <p>可写流是您可以写入数据的目的地，在 JavaScript 中由 WritableStream 对象表示。 它用作对于底层接收器之上的抽象，一个可写入原始数据的底层的 I/O sink。</p>
 <img alt="../_images/writable_streams.png" src="../_images/writable_streams.png" />
 <p>WritableStream 代码示例：</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WritableStream</span><span class="p">({</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WritableStream</span><span class="p">({</span>
         <span class="nx">start</span><span class="p">(</span><span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="p">},</span>
@@ -532,9 +532,9 @@
 </pre></div>
 </div>
 <p>代码示例：</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">sender</span> <span class="o">=</span> <span class="nx">pc1</span><span class="p">.</span><span class="nx">addTrack</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">getVideoTracks</span><span class="p">()[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">stream</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedVideoStreams</span><span class="p">()</span> <span class="o">:</span>
-<span class="kr">const</span> <span class="nx">senderTransformStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TransformStream</span><span class="p">({</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">sender</span> <span class="o">=</span> <span class="nx">pc1</span><span class="p">.</span><span class="nx">addTrack</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">getVideoTracks</span><span class="p">()[</span><span class="mf">0</span><span class="p">],</span> <span class="nx">stream</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedVideoStreams</span><span class="p">()</span> <span class="o">:</span>
+<span class="kd">const</span> <span class="nx">senderTransformStream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TransformStream</span><span class="p">({</span>
     <span class="nx">transform</span><span class="o">:</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="nx">controller</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">//这里可以做加密</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chunk</span><span class="p">,</span> <span class="nx">chunk</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">);</span>
@@ -551,11 +551,11 @@
 <li><p>完整代码参见 WebRTC example: <a class="reference external" href="https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/">https://webrtc.github.io/samples/src/content/insertable-streams/endtoend-encryption/</a></p></li>
 </ul>
 <p>转换流的实现是在一个 web worker 中实现的，主线程与 worker 线程通过消息来通信</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="s1">&#39;./js/worker.js&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;E2EE worker&#39;</span><span class="p">});</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="s1">&#39;./js/worker.js&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;E2EE worker&#39;</span><span class="p">});</span>
 <span class="kd">function</span> <span class="nx">setupSenderTransform</span><span class="p">(</span><span class="nx">sender</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">senderStreams</span> <span class="o">=</span> <span class="nx">sender</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
 
-    <span class="kr">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">senderStreams</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">senderStreams</span><span class="p">;</span>
     <span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span>
             <span class="nx">operation</span><span class="o">:</span> <span class="s1">&#39;encode&#39;</span><span class="p">,</span>
             <span class="nx">readable</span><span class="p">,</span>
@@ -564,8 +564,8 @@
     <span class="p">}</span>
 
     <span class="kd">function</span> <span class="nx">setupReceiverTransform</span><span class="p">(</span><span class="nx">receiver</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">receiverStreams</span> <span class="o">=</span> <span class="nx">receiver</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
-        <span class="kr">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">receiverStreams</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">receiverStreams</span> <span class="o">=</span> <span class="nx">receiver</span><span class="p">.</span><span class="nx">createEncodedStreams</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="p">{</span><span class="nx">readable</span><span class="p">,</span> <span class="nx">writable</span><span class="p">}</span> <span class="o">=</span> <span class="nx">receiverStreams</span><span class="p">;</span>
         <span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">({</span>
             <span class="nx">operation</span><span class="o">:</span> <span class="s1">&#39;decode&#39;</span><span class="p">,</span>
             <span class="nx">readable</span><span class="p">,</span>
@@ -620,18 +620,18 @@
         <span class="nx">dump</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">,</span> <span class="s1">&#39;send&#39;</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">currentCryptoKey</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kr">const</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
         <span class="c1">// Any length that is needed can be used for the new buffer.</span>
-        <span class="kr">const</span> <span class="nx">newData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span> <span class="o">+</span> <span class="mf">5</span><span class="p">);</span>
-        <span class="kr">const</span> <span class="nx">newView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">newData</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">newData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span> <span class="o">+</span> <span class="mf">5</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">newView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataView</span><span class="p">(</span><span class="nx">newData</span><span class="p">);</span>
 
-        <span class="kr">const</span> <span class="nx">cryptoOffset</span> <span class="o">=</span> <span class="nx">useCryptoOffset</span><span class="o">?</span> <span class="nx">frameTypeToCryptoOffset</span><span class="p">[</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span> <span class="o">:</span> <span class="mf">0</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">cryptoOffset</span> <span class="o">=</span> <span class="nx">useCryptoOffset</span><span class="o">?</span> <span class="nx">frameTypeToCryptoOffset</span><span class="p">[</span><span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span> <span class="o">:</span> <span class="mf">0</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">cryptoOffset</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
             <span class="nx">newView</span><span class="p">.</span><span class="nx">setInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">view</span><span class="p">.</span><span class="nx">getInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">));</span>
         <span class="p">}</span>
         <span class="c1">// This is a bitwise xor of the key with the payload. This is not strong encryption, just a demo.</span>
         <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">cryptoOffset</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">encodedFrame</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kr">const</span> <span class="nx">keyByte</span> <span class="o">=</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span> <span class="o">%</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+            <span class="kd">const</span> <span class="nx">keyByte</span> <span class="o">=</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span> <span class="o">%</span> <span class="nx">currentCryptoKey</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
             <span class="nx">newView</span><span class="p">.</span><span class="nx">setInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">view</span><span class="p">.</span><span class="nx">getInt8</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">^</span> <span class="nx">keyByte</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="c1">// Append keyIdentifier.</span>
