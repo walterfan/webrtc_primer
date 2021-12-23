@@ -265,19 +265,19 @@ function startCall() {
     if(!pc)
       pc = createPeerConnection();
     if(localStream) {
-      //pc.addStream(localStream);
-      localStream.getTracks().forEach(track => {
-        var rtpSender = pc.addTrack(track, localStream);
-        rtpSender.replaceTrack(track);
-      });
+      pc.addStream(localStream);
+      //localStream.getTracks().forEach(track => {
+      //  var rtpSender = pc.addTrack(track, localStream);
+        //rtpSender.replaceTrack(track);
+      //});
     }
      
     isStarted = true;
     var state = pc.signalingState;
     weblog("state=", state);
     if(localStream && (!state || state == "stable")) {
-      var tr = pc.getTransceivers()[0];
-      tr.direction = "sendonly";
+      //var tr = pc.getTransceivers()[0];
+      //tr.direction = "sendonly";
 
       pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
     } else if(state === "have-remote-offer" ||  state === "have-local-pranswer") {
@@ -298,11 +298,11 @@ function getStatsFromPC(pc) {
       if(/candidate-pair/.test(report.type) && report.nominated) {
         var localCandidate = stats.get(report.localCandidateId);
         var remoteCandidate = stats.get(report.remoteCandidateId);
-
-        statsOutput += ` localIp: ${localCandidate.ip}`;
-        statsOutput += ` localPort: ${localCandidate.port}`;
-        statsOutput += ` remoteIp: ${remoteCandidate.ip}`;
-        statsOutput += ` remotePort: ${remoteCandidate.port}<br>\n`;
+        console.log("localCandidate=", localCandidate, ", remoteCandidate=", remoteCandidate);
+        statsOutput += ` <b>local candidate</b>: ${localCandidate.protocol}://${localCandidate.ip}:${localCandidate.port}`;
+        statsOutput += ` , transportId=${localCandidate.transportId}`;
+        statsOutput += ` <b>remote candidate</b>: ${remoteCandidate.protocol}://${remoteCandidate.ip}:${remoteCandidate.port}`;
+        statsOutput += ` , transportId=${remoteCandidate.transportId}<br>\n`;
         return;
       }
 
@@ -441,7 +441,7 @@ function setLocalAndSendMessage(sessionDescription) {
   }
   try {
     var newSdp = sessionDescription.sdp;//.replace(/VP8/g, "H264");
-    sessionDescription.sdp = changeSdp(newSdp);
+    //sessionDescription.sdp = changeSdp(newSdp);
 
     var aPromise = pc.setLocalDescription(sessionDescription);
     aPromise.then(function(value) {
