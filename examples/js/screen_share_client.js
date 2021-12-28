@@ -276,8 +276,8 @@ function startCall() {
     var state = pc.signalingState;
     weblog("state=", state);
     if(localStream && (!state || state == "stable")) {
-      //var tr = pc.getTransceivers()[0];
-      //tr.direction = "sendonly";
+      var tr = pc.getTransceivers()[0];
+      tr.direction = "sendonly";
 
       pc.createOffer(setLocalAndSendMessage, onSignalingError, sdpConstraints);
     } else if(state === "have-remote-offer" ||  state === "have-local-pranswer") {
@@ -441,7 +441,7 @@ function setLocalAndSendMessage(sessionDescription) {
   }
   try {
     var newSdp = sessionDescription.sdp;//.replace(/VP8/g, "H264");
-    //sessionDescription.sdp = changeSdp(newSdp);
+    sessionDescription.sdp = changeSdp(newSdp);
 
     var aPromise = pc.setLocalDescription(sessionDescription);
     aPromise.then(function(value) {
