@@ -265,11 +265,11 @@ function startCall() {
     if(!pc)
       pc = createPeerConnection();
     if(localStream) {
-      pc.addStream(localStream);
-      //localStream.getTracks().forEach(track => {
-      //  var rtpSender = pc.addTrack(track, localStream);
-        //rtpSender.replaceTrack(track);
-      //});
+      //pc.addStream(localStream);
+      localStream.getTracks().forEach(track => {
+        var rtpSender = pc.addTrack(track, localStream);
+        rtpSender.replaceTrack(track);
+      });
     }
      
     isStarted = true;
