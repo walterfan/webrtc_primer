@@ -298,11 +298,11 @@ function getStatsFromPC(pc) {
       if(/candidate-pair/.test(report.type) && report.nominated) {
         var localCandidate = stats.get(report.localCandidateId);
         var remoteCandidate = stats.get(report.remoteCandidateId);
-        console.log("localCandidate=", localCandidate, ", remoteCandidate=", remoteCandidate);
-        statsOutput += ` <b>local candidate</b>: ${localCandidate.protocol}://${localCandidate.ip}:${localCandidate.port}`;
-        statsOutput += ` , transportId=${localCandidate.transportId}`;
-        statsOutput += ` <b>remote candidate</b>: ${remoteCandidate.protocol}://${remoteCandidate.ip}:${remoteCandidate.port}`;
-        statsOutput += ` , transportId=${remoteCandidate.transportId}<br>\n`;
+
+        statsOutput += "<br>\n<b>localCandidate:</b> " + JSON.stringify(localCandidate);
+        //statsOutput += ` localPort: ${localCandidate.port}`;
+        statsOutput += "<br>\n<b>remoteCandidate:</b> " + JSON.stringify(remoteCandidate);
+        //statsOutput += ` remotePort: ${remoteCandidate.port}<br>\n`;
         return;
       }
 
