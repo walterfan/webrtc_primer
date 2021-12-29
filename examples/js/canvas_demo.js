@@ -18,6 +18,20 @@ RtcApp.prototype.init = function() {
     this.canvasContext = this.canvasElement.getContext("2d");
     this.counter = 1500; //25*60 seconds
     this.countDownTimer = null;
+
+
+    var w = document.createElement("canvas").getContext("webgl");
+    var d = w.getExtension('WEBGL_debug_renderer_info');
+    var g = d && w.getParameter(d.UNMASKED_RENDERER_WEBGL) || "";
+    if (g.match(/Apple/) && !g.match(/Apple GPU/)) {
+        console.log("it is apple m1 using arm");
+    } else {
+        console.log("g=", g);
+    }
+
+    if (w.getSupportedExtensions().indexOf("WEBGL_compressed_texture_s3tc_srgb") == -1) {
+        console.log("it maybe m1 using arm");
+      }
 };
 
 RtcApp.prototype.drawClock = function(e) {

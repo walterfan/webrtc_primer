@@ -268,7 +268,7 @@ function startCall() {
       //pc.addStream(localStream);
       localStream.getTracks().forEach(track => {
         var rtpSender = pc.addTrack(track, localStream);
-        rtpSender.replaceTrack(track);
+        //rtpSender.replaceTrack(track);
       });
     }
      

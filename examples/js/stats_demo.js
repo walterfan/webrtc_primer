@@ -114,8 +114,24 @@ function startMedia() {
     var bAudio = enableAudio();
     var bVideo = enableVideo();
     var constraints = {
-        audio: bAudio, video: bVideo
+        audio: bAudio, 
+        video: bVideo
     }
+
+    if(bVideo) {
+        constraints.video = {
+            width: {
+                max: 1920
+            },
+            height: {
+                max: 1080
+            },
+            frameRate: {
+              max: 60
+            }
+        }
+    }
+
     log("start media: ", constraints);
     navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => (pc1.addStream(v1.srcObject = stream), pc1.createOffer()))

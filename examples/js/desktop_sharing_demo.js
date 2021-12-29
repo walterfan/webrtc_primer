@@ -31,11 +31,17 @@ const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
 const videoElement = document.getElementById('localVideo');
 
-startButton.addEventListener('click', () => {
-  const textOfOptions = document.getElementById('gdmOptions');
-  const textOfDelay = document.getElementById('gdmDelay');
 
-  var gdmOptions = JSON.parse(textOfOptions.value);
+function getGdmOptions() {
+  const textOfOptions = document.getElementById('gdmOptions');
+    return JSON.parse(textOfOptions.value);
+}
+
+startButton.addEventListener('click', () => {
+
+  var gdmOptions = getGdmOptions();
+
+  const textOfDelay = document.getElementById('gdmDelay');
   var delayMs = +textOfDelay.value;
   weblog("getDisplayMedia after ", delayMs);
   setTimeout(function () {
@@ -67,12 +73,28 @@ function handleSuccess(stream) {
   startButton.disabled = true;
  
   videoElement.srcObject = stream;
+  var gdmOptions = getGdmOptions();
+  var trackConstraints =  {
+    width: 1920,
+    height: 1080,
+    frameRate: 5
+  };
 
+  weblog("trackConstraints: ", JSON.stringify(trackConstraints));
 
   const videoTracks = stream.getVideoTracks();
   const audioTracks = stream.getAudioTracks();
   if (videoTracks.length > 0) {
     var videoTrack = videoTracks[0];
+    
+    videoTrack.applyConstraints(trackConstraints)
+    .then(() => {
+      weblog("applyConstraints success");
+    })
+    .catch(e => {
+      weblog("applyConstraints failed", e);
+    });
+
     var trackWidth = videoTrack.getSettings().width;
     var trackHeight = videoTrack.getSettings().height;
     weblog(`Got Video track: ${videoTracks[0].label}, width: ${trackWidth}, height: ${trackHeight}`);
