@@ -72,10 +72,10 @@ var sdpConstraints = adapter.browserDetails.browser === 'firefox' ?
 const gdmOptions = {
   video: {
     width: {
-      max: 1920
+      max: 1280
     },
     height: {
-      max: 1080
+      max: 720
     },
     frameRate: {
       max: 5
@@ -292,6 +292,7 @@ function getStatsFromPC(pc) {
   pc.getStats(null).then(stats => {
 
     let statsOutput = "";
+    var codecId = null;
 
     stats.forEach(report => {
 
@@ -307,8 +308,17 @@ function getStatsFromPC(pc) {
       }
 
       if(!/outbound-rtp|inbound-rtp/.test(report.type)) {
-        return;
+          return;
       }
+      if(/outbound-rtp/.test(report.type)) {
+          codecId = report.codecId;
+          var codecs = stats.get(report.codecId);
+          console.log("codec: ", codecs);
+          statsOutput += `<h2>Codec</h2>\n` + JSON.stringify(codecs)
+                     "<br>\n";
+      }
+      
+      
       statsOutput += `<h2>Report: ${report.type}</h2>\n<strong>ID:</strong> ${report.id}<br>\n` +
                      `<strong>Timestamp:</strong> ${report.timestamp}<br>\n`;
 
@@ -428,7 +438,12 @@ function changeSdp(strSdp) {
     if(!item.startsWith('a=extmap:')) newArr.push(item);
   }
 
-  return newArr.join('\r\n');
+  var newSdp = newArr.join('\r\n');
+  
+
+  newSdp = newSdp.replace(/VP8/g, "H264");
+  //newSdp = newSdp.replace(/profile-level-id=42e01f/g, "profile-level-id=640c1f")
+  return newSdp;
  }
 
 // Success handler for both createOffer()
@@ -440,8 +455,9 @@ function setLocalAndSendMessage(sessionDescription) {
     alert("not support H264");
   }
   try {
-    var newSdp = sessionDescription.sdp;//.replace(/VP8/g, "H264");
-    sessionDescription.sdp = changeSdp(newSdp);
+    console.log("old sessionDescription:", JSON.stringify(sessionDescription));
+    sessionDescription.sdp = changeSdp(sessionDescription.sdp);
+    console.log("new sessionDescription:", JSON.stringify(sessionDescription));
 
     var aPromise = pc.setLocalDescription(sessionDescription);
     aPromise.then(function(value) {
