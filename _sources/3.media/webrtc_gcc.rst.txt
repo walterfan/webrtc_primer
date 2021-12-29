@@ -11,7 +11,7 @@ Google Congestion Control
 
 ============ ==========================
 **Abstract** WebRTC RTP 拥塞控制学习笔记
-**Category** Learning notes
+**Category** Learning note
 **Authors**  Walter Fan
 **Status**   WIP
 **Updated**  |date|
