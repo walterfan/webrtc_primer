@@ -105,6 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="webrtc_remb.html">Google REMB</a></li>
 <li class="toctree-l3"><a class="reference internal" href="webrtc_tcc.html">Transport-wide Congestion Control</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Congeston Control Evaluation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">概述</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#evaluating-congestion-control-for-interactive-real-time-media">Evaluating Congestion Control for Interactive Real-Time Media</a></li>
 </ul>
 </li>
@@ -221,42 +222,46 @@
 <td><p>WIP</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Updated</strong></p></td>
-<td><p>2021-12-22</p></td>
+<td><p>2021-12-29</p></td>
 </tr>
 </tbody>
 </table>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#evaluating-congestion-control-for-interactive-real-time-media" id="id3">Evaluating Congestion Control for Interactive Real-Time Media</a></p>
+<li><p><a class="reference internal" href="#id2" id="id4">概述</a></p></li>
+<li><p><a class="reference internal" href="#evaluating-congestion-control-for-interactive-real-time-media" id="id5">Evaluating Congestion Control for Interactive Real-Time Media</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id2" id="id4">度量</a></p></li>
-<li><p><a class="reference internal" href="#list-of-network-parameters" id="id5">List of Network Parameters</a></p>
+<li><p><a class="reference internal" href="#id3" id="id6">度量</a></p></li>
+<li><p><a class="reference internal" href="#list-of-network-parameters" id="id7">List of Network Parameters</a></p>
 <ul>
-<li><p><a class="reference internal" href="#one-way-propagation-delay" id="id6">One-Way Propagation Delay</a></p></li>
-<li><p><a class="reference internal" href="#end-to-end-loss" id="id7">End-to-End Loss</a></p></li>
-<li><p><a class="reference internal" href="#drop-tail-router-queue-length" id="id8">Drop-Tail Router Queue Length</a></p></li>
-<li><p><a class="reference internal" href="#loss-generation-model" id="id9">Loss Generation Model</a></p></li>
-<li><p><a class="reference internal" href="#jitter-models" id="id10">Jitter Models</a></p></li>
-<li><p><a class="reference internal" href="#random-bounded-pdv-rbpdv" id="id11">Random Bounded PDV (RBPDV)</a></p></li>
-<li><p><a class="reference internal" href="#approximately-random-subject-to-no-reordering-bounded-pdv-nr-bpdv" id="id12">Approximately Random Subject to No-Reordering Bounded PDV (NR-BPDV)</a></p></li>
-<li><p><a class="reference internal" href="#recommended-distribution" id="id13">Recommended Distribution</a></p></li>
+<li><p><a class="reference internal" href="#one-way-propagation-delay" id="id8">One-Way Propagation Delay</a></p></li>
+<li><p><a class="reference internal" href="#end-to-end-loss" id="id9">End-to-End Loss</a></p></li>
+<li><p><a class="reference internal" href="#drop-tail-router-queue-length" id="id10">Drop-Tail Router Queue Length</a></p></li>
+<li><p><a class="reference internal" href="#loss-generation-model" id="id11">Loss Generation Model</a></p></li>
+<li><p><a class="reference internal" href="#jitter-models" id="id12">Jitter Models</a></p></li>
+<li><p><a class="reference internal" href="#random-bounded-pdv-rbpdv" id="id13">Random Bounded PDV (RBPDV)</a></p></li>
+<li><p><a class="reference internal" href="#approximately-random-subject-to-no-reordering-bounded-pdv-nr-bpdv" id="id14">Approximately Random Subject to No-Reordering Bounded PDV (NR-BPDV)</a></p></li>
+<li><p><a class="reference internal" href="#recommended-distribution" id="id15">Recommended Distribution</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#traffic-models" id="id14">Traffic Models</a></p>
+<li><p><a class="reference internal" href="#traffic-models" id="id16">Traffic Models</a></p>
 <ul>
-<li><p><a class="reference internal" href="#tcp-traffic-model" id="id15">TCP Traffic Model</a></p></li>
-<li><p><a class="reference internal" href="#rtp-video-model" id="id16">RTP Video Model</a></p></li>
-<li><p><a class="reference internal" href="#background-udp" id="id17">Background UDP</a></p></li>
+<li><p><a class="reference internal" href="#tcp-traffic-model" id="id17">TCP Traffic Model</a></p></li>
+<li><p><a class="reference internal" href="#rtp-video-model" id="id18">RTP Video Model</a></p></li>
+<li><p><a class="reference internal" href="#background-udp" id="id19">Background UDP</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="evaluating-congestion-control-for-interactive-real-time-media">
-<h2><a class="toc-backref" href="#id3">Evaluating Congestion Control for Interactive Real-Time Media</a><a class="headerlink" href="#evaluating-congestion-control-for-interactive-real-time-media" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
-<h3><a class="toc-backref" href="#id4">度量</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#id4">概述</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="evaluating-congestion-control-for-interactive-real-time-media">
+<h2><a class="toc-backref" href="#id5">Evaluating Congestion Control for Interactive Real-Time Media</a><a class="headerlink" href="#evaluating-congestion-control-for-interactive-real-time-media" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id6">度量</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>从数据包日志中可以计算出下列度量指标</p>
 <ol class="arabic simple">
 <li><p>Sending rate, receiver rate, goodput (measured at 200ms intervals) 发送速率，接收速率，和实际吞吐量（以 200ms 间隔来度量）</p></li>
@@ -308,9 +313,9 @@ intervals.  Additionally, from the logs, it is possible to plot the
 histogram or cumulative distribution function (CDF) of packet delay.</p>
 </div>
 <div class="section" id="list-of-network-parameters">
-<h3><a class="toc-backref" href="#id5">List of Network Parameters</a><a class="headerlink" href="#list-of-network-parameters" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">List of Network Parameters</a><a class="headerlink" href="#list-of-network-parameters" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="one-way-propagation-delay">
-<h4><a class="toc-backref" href="#id6">One-Way Propagation Delay</a><a class="headerlink" href="#one-way-propagation-delay" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id8">One-Way Propagation Delay</a><a class="headerlink" href="#one-way-propagation-delay" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>Very low latency: 0-1 ms</p></li>
 <li><p>Low latency: 50 ms</p></li>
@@ -319,7 +324,7 @@ histogram or cumulative distribution function (CDF) of packet delay.</p>
 </ol>
 </div>
 <div class="section" id="end-to-end-loss">
-<h4><a class="toc-backref" href="#id7">End-to-End Loss</a><a class="headerlink" href="#end-to-end-loss" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id9">End-to-End Loss</a><a class="headerlink" href="#end-to-end-loss" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic simple">
 <li><p>no loss: 0%</p></li>
 <li><p>1%</p></li>
@@ -329,34 +334,34 @@ histogram or cumulative distribution function (CDF) of packet delay.</p>
 </ol>
 </div>
 <div class="section" id="drop-tail-router-queue-length">
-<h4><a class="toc-backref" href="#id8">Drop-Tail Router Queue Length</a><a class="headerlink" href="#drop-tail-router-queue-length" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id10">Drop-Tail Router Queue Length</a><a class="headerlink" href="#drop-tail-router-queue-length" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="loss-generation-model">
-<h4><a class="toc-backref" href="#id9">Loss Generation Model</a><a class="headerlink" href="#loss-generation-model" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id11">Loss Generation Model</a><a class="headerlink" href="#loss-generation-model" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="jitter-models">
-<h4><a class="toc-backref" href="#id10">Jitter Models</a><a class="headerlink" href="#jitter-models" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id12">Jitter Models</a><a class="headerlink" href="#jitter-models" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="random-bounded-pdv-rbpdv">
-<h4><a class="toc-backref" href="#id11">Random Bounded PDV (RBPDV)</a><a class="headerlink" href="#random-bounded-pdv-rbpdv" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id13">Random Bounded PDV (RBPDV)</a><a class="headerlink" href="#random-bounded-pdv-rbpdv" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="approximately-random-subject-to-no-reordering-bounded-pdv-nr-bpdv">
-<h4><a class="toc-backref" href="#id12">Approximately Random Subject to No-Reordering Bounded PDV (NR-BPDV)</a><a class="headerlink" href="#approximately-random-subject-to-no-reordering-bounded-pdv-nr-bpdv" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id14">Approximately Random Subject to No-Reordering Bounded PDV (NR-BPDV)</a><a class="headerlink" href="#approximately-random-subject-to-no-reordering-bounded-pdv-nr-bpdv" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="recommended-distribution">
-<h4><a class="toc-backref" href="#id13">Recommended Distribution</a><a class="headerlink" href="#recommended-distribution" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id15">Recommended Distribution</a><a class="headerlink" href="#recommended-distribution" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 <div class="section" id="traffic-models">
-<h3><a class="toc-backref" href="#id14">Traffic Models</a><a class="headerlink" href="#traffic-models" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Traffic Models</a><a class="headerlink" href="#traffic-models" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="tcp-traffic-model">
-<h4><a class="toc-backref" href="#id15">TCP Traffic Model</a><a class="headerlink" href="#tcp-traffic-model" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id17">TCP Traffic Model</a><a class="headerlink" href="#tcp-traffic-model" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="rtp-video-model">
-<h4><a class="toc-backref" href="#id16">RTP Video Model</a><a class="headerlink" href="#rtp-video-model" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id18">RTP Video Model</a><a class="headerlink" href="#rtp-video-model" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="background-udp">
-<h4><a class="toc-backref" href="#id17">Background UDP</a><a class="headerlink" href="#background-udp" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id19">Background UDP</a><a class="headerlink" href="#background-udp" title="Permalink to this headline">¶</a></h4>
 </div>
 </div>
 </div>

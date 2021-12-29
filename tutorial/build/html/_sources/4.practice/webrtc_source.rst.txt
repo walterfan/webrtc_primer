@@ -66,12 +66,13 @@ Source code
 
 .. code-block:: bash
 
+   cd src
    # generate project files using the defaults (Debug build)
    $ gn gen out/Default
    # clean all build artifacts in a directory but leave the current GN configuration untouched
    $ gn clean out/Default
 
-1. 编译
+5. 编译
 
 .. code-block:: bash
 
