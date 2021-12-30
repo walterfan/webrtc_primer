@@ -307,15 +307,15 @@ function getStatsFromPC(pc) {
         return;
       }
 
-      if(!/outbound-rtp|inbound-rtp/.test(report.type)) {
-          return;
-      }
-      if(/outbound-rtp/.test(report.type)) {
+      
+      if(/outbound-rtp|inbound-rtp/i.test(report.type)) {
           codecId = report.codecId;
           var codecs = stats.get(report.codecId);
           console.log("codec: ", codecs);
-          statsOutput += `<h2>Codec</h2>\n` + JSON.stringify(codecs)
+          statsOutput += `<h2>Codec</h2> of ${report.type}\n` + JSON.stringify(codecs)
                      "<br>\n";
+      } else {
+        return;
       }
       
       
@@ -430,8 +430,18 @@ function doAnswer() {
 }
 
 
-function changeSdp(strSdp) {
+function changeSdp(sessionDescription) {
   
+  var strSdp = sessionDescription.sdp;
+  if(/offer/i.test(sessionDescription.type)) {
+    return strSdp;
+  }
+
+  if (/VP8/i.test(strSdp)) {
+    strSdp = strSdp.replace(/VP8/g, "H264");
+  }
+  //strSdp = strSdp.replace(/profile-level-id=42e01f/g, "profile-level-id=640c1f");
+  return strSdp;
   var tempArr = strSdp.split("\r\n");
   var newArr = [];
   for (let item of tempArr) {
@@ -439,10 +449,6 @@ function changeSdp(strSdp) {
   }
 
   var newSdp = newArr.join('\r\n');
-  
-
-  newSdp = newSdp.replace(/VP8/g, "H264");
-  //newSdp = newSdp.replace(/profile-level-id=42e01f/g, "profile-level-id=640c1f")
   return newSdp;
  }
 
@@ -454,10 +460,11 @@ function setLocalAndSendMessage(sessionDescription) {
   } else {
     alert("not support H264");
   }
+
+  console.log("old sessionDescription:", sessionDescription.type, sessionDescription.sdp);
+  sessionDescription.sdp = changeSdp(sessionDescription);
+  console.log("new sessionDescription:", sessionDescription.type, sessionDescription.sdp);
   try {
-    console.log("old sessionDescription:", JSON.stringify(sessionDescription));
-    sessionDescription.sdp = changeSdp(sessionDescription.sdp);
-    console.log("new sessionDescription:", JSON.stringify(sessionDescription));
 
     var aPromise = pc.setLocalDescription(sessionDescription);
     aPromise.then(function(value) {
@@ -471,7 +478,7 @@ function setLocalAndSendMessage(sessionDescription) {
     weblog("setLocalDescription error", err);
     console.log("setLocalDescription error, sessionDescription=", sessionDescription, "err=", err);
   }
-  
+ 
   sendMessage(sessionDescription);
 }
 
