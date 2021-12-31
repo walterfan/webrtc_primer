@@ -1,4 +1,2 @@
-# WebRTC Primer Tutorial
+move learning notes to https://github.com/walterfan/webrtc_note
 
-As a WebRTC primer, I read, learn, take notes and write program.
-This is the learning notes for other primer like me 
