@@ -196,3 +196,17 @@ parseSDP = function(sdp) {
     arrayOfLines = sdp.match(/[^\r\n]+/g);
     return arrayOfLines.join("<br/>");
 }
+
+
+function setPixel(imageData, x, y, r, g, b, a){
+
+    var index = (x + y * imageData.width);
+    imageData.data[index * 4 + 0] = r;
+    imageData.data[index * 4 + 1] = g;
+    imageData.data[index * 4 + 2] = b;
+    imageData.data[index * 4 + 3] = a;
+}
+
+function getRandomNum(min, max) {
+    return Math.random() * (max - min) + min;
+  }

@@ -44,6 +44,7 @@ RtcApp.prototype.drawClock = function(e) {
 RtcApp.prototype.drawChessboard=function(e) {
 
     console.log("--- drawChessboard ---");
+    this.countDownTimer  && clearInterval(this.countDownTimer );
 
     var imageData = this.canvasContext.createImageData(this.canvasWidth, this.canvasHeight);
     // or
@@ -72,7 +73,7 @@ RtcApp.prototype.drawChessboard=function(e) {
 }
 
 RtcApp.prototype.drawRandomImage=function(e) {
-
+    this.countDownTimer  && clearInterval(this.countDownTimer );
     console.log("--- drawRandomImage ---");
     if(this.countDownTimer) clearInterval(this.countDownTimer);
     this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
@@ -90,14 +91,7 @@ RtcApp.prototype.drawRandomImage=function(e) {
     this.canvasContext.putImageData(imageData, 0, 0);
 }
 
-function setPixel(imageData, x, y, r, g, b, a){
 
-    var index = (x + y * imageData.width);
-    imageData.data[index * 4 + 0] = r;
-    imageData.data[index * 4 + 1] = g;
-    imageData.data[index * 4 + 2] = b;
-    imageData.data[index * 4 + 3] = a;
-}
 
 function fillCounter(me) {
     var no = me.counter;
@@ -128,6 +122,3 @@ function fillCounter(me) {
     me.counter --;
 }
 
-function getRandomNum(min, max) {
-    return Math.random() * (max - min) + min;
-  }
