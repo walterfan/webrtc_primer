@@ -10,6 +10,7 @@ function RtcApp() {
     this.frameCounter = 0;
 
     this.timepoints = [];
+    this.encodedFrames = [];
 }
 
 RtcApp.prototype.init = function() {
@@ -22,15 +23,15 @@ RtcApp.prototype.init = function() {
 
 
     const init = {
-        output: this.handleChunk,
-        error: this.handleError
+        output: this.handleChunk.bind(this),
+        error: this.handleError.bind(this)
       };
       //https://developer.mozilla.org/en-US/docs/Web/API/VideoEncoder/configure
       //avc codec string: https://www.w3.org/TR/webcodecs-avc-codec-registration/
       let config = {
         codec: 'avc1.42E01F', //H264: 42e01f
-        width: 640,
-        height: 480,
+        width: this.canvasWidth,
+        height: this.canvasHeight,
         bitrate: 2_000_000, // 2 Mbps
         framerate: 30,
       };
@@ -47,16 +48,16 @@ RtcApp.prototype.test = function() {
 }
 
 
-RtcApp.prototype.createVideoFrame=function() {
+RtcApp.prototype.createVideoFrame=function(timestamp) {
     const pixelSize = 4;
-    const init = {timestamp: 0, codedWidth: 320, codedHeight: 200, format: 'RGBA'};
+    const init = {timestamp: timestamp, codedWidth: this.canvasWidth, codedHeight: this.canvasHeight, format: 'RGBA'};
     let data = new Uint8Array(init.codedWidth * init.codedHeight * pixelSize);
     for (let x = 0; x < init.codedWidth; x++) {
       for (let y = 0; y < init.codedHeight; y++) {
         let offset = (y * init.codedWidth + x) * pixelSize;
-        data[offset] = 0x7F;      // Red
-        data[offset + 1] = 0xFF;  // Green
-        data[offset + 2] = 0xD4;  // Blue
+        data[offset] =  getRandomNum(0,255);      // Red
+        data[offset + 1] =  getRandomNum(0,255);  // Green
+        data[offset + 2] =  getRandomNum(0,255);  // Blue
         data[offset + 3] = 0x0FF; // Alpha
       }
     }
@@ -66,13 +67,16 @@ RtcApp.prototype.createVideoFrame=function() {
 
 RtcApp.prototype.videoEncode=function(e) {
     console.log("--- videoEncode ---");
+    //new VideoFrame(this.canvasElement, { timestamp: 0 });
+    for(var i=0; i < 30; i++) {
+        let videoFrame = this.createVideoFrame(performance.now() * 1000);
 
-    let videoFrame = new VideoFrame(this.canvasElement, { timestamp: 0 });
-
-    this.frameCounter++;
-    const insert_keyframe = (this.frameCounter % 10) == 0;
-    this.videoEncoder.encode(videoFrame, { keyFrame: insert_keyframe });
-    videoFrame.close();
+        this.frameCounter++;
+        const insert_keyframe = (this.frameCounter % 10) == 0;
+        this.videoEncoder.encode(videoFrame, { keyFrame: insert_keyframe });
+        videoFrame.close();
+    }
+    
 }
 
 RtcApp.prototype.handleChunk=function(chunk, metadata) {
@@ -95,6 +99,11 @@ RtcApp.prototype.handleChunk=function(chunk, metadata) {
     this.timepoints.push(performance.now());
     let chunkData = new Uint8Array(chunk.byteLength);
     chunk.copyTo(chunkData);
+    this.encodedFrames.push(chunkData);
+
+    if(this.timepoints.length >= 30) {
+        this.checkPerformance();
+    }
 }
 RtcApp.prototype.handleError = function(e) {
     console.log("error: ", e);
@@ -102,6 +111,12 @@ RtcApp.prototype.handleError = function(e) {
 
 RtcApp.prototype.videoDecode=function(e) {
     console.log("--- videoDecode ---");
+}
+
+RtcApp.prototype.checkPerformance=function(e) {
+    console.log("--- checkPerformance ---", this.frameCounter);
+    console.log("timepoints: ",  this.timepoints);
+    weblog("Spent: ", this.timepoints[29] - this.timepoints[0], "ms for 30 video frames");
 }
 
 RtcApp.prototype.drawRandomImage=function(e) {
