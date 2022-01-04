@@ -5,9 +5,14 @@
  *  that can be found in the LICENSE file in the root of the source
  *  tree.
  */
- button {
+  button {
     margin: 0 20px 0 0;
     width: 136px;
+  }
+
+  .wideButton {
+    margin: 0 20px 0 0;
+    width: 200px;
   }
   
   button#hangupButton {

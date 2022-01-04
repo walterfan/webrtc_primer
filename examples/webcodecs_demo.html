@@ -51,16 +51,19 @@
 
              <div class="col-lg-6">
                 <div>
+                <!--
                 <button id="videoEncodeBtn" class="btn btn-success">Video Encoder</button>
                 <button id="videoDecodeBtn" class="btn btn-success">Video Decoder</button>
                 <button id="drawRandomImage" class="btn btn-success">Random Image</button>
+                -->
+                <button id="createVideoFrames" class="btn-large btn-success">Create VideoFrames</button>
+                <button id="encodeVideoFrames" class="btn-large btn-success">Encode VideoFrames</button>
+                <button id="decodeVideoFrames" class="btn-large btn-success">Decode VideoFrames</button>
                 </div>
-                <div>
-                    <h3>TBD...</h3>
+                <div><br/><br/>
+                    <p>DecodeVideoFrames will be done...</p>
                 </div>
-                <canvas id="myCanvas" width="320" height="180">
-                    Your browser not support canvas
-                </canvas>
+    
 
                 
              </div>
@@ -95,7 +98,9 @@
 		</div>
 	</div>
   <br/><br/><br/>
-
+  <canvas id="myCanvas" width="160" height="90">
+    Your browser not support canvas
+  </canvas>
   <hr>
 	<div class="footer">
 	</div>
@@ -107,15 +112,15 @@
     window.onload = function init() {
         var rtcApp = new RtcApp();
         rtcApp.init();
-        rtcApp.test();
-        var videoEncodeBtn = document.getElementById("videoEncodeBtn");
-        videoEncodeBtn.addEventListener("click", e => rtcApp.videoEncode(e));
+  
+        var createVideoFramesBtn = document.getElementById("createVideoFrames");
+        createVideoFramesBtn.addEventListener("click", e => rtcApp.createVideoFrames(e));
 
-        var videoDecodeBtn = document.getElementById("videoDecodeBtn");
-        videoDecodeBtn.addEventListener("click", e => rtcApp.videoDecode(e));
+        var encodeVideoFramesBtn = document.getElementById("encodeVideoFrames");
+        encodeVideoFramesBtn.addEventListener("click", e => rtcApp.encodeVideoFrames(e));
 
-        var drawRandomImageButton = document.getElementById("drawRandomImage");
-        drawRandomImageButton.addEventListener("click", e => rtcApp.drawRandomImage(e));
+        var decodeVideoFramesBtn = document.getElementById("decodeVideoFrames");
+        decodeVideoFramesBtn.addEventListener("click", e => rtcApp.decodeVideoFrames(e));
         
     }
 
