@@ -3,8 +3,8 @@ function RtcApp() {
     this.canvasContext = null;
 
    
-    this.canvasWidth  = 640;
-    this.canvasHeight = 480;
+    this.canvasWidth  = 1920;
+    this.canvasHeight = 1080;
 
     this.canvasElement = null;
     this.frameCounter = 0;
