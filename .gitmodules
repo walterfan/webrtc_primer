@@ -1,0 +1,6 @@
+[submodule "tutorial"]
+	path = tutorial
+	url = git@github.com:walterfan/webrtc_note.git
+[submodule "snippets"]
+	path = snippets
+	url = git@github.com:walterfan/webrtc_snippets.git
