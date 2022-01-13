@@ -36,13 +36,13 @@ RtcApp.prototype.createVideoFrames=function(e) {
 
 RtcApp.prototype.encodeVideoFrames=function(e) {
 
-    var command = { name: "encodeVideoFrames", data: { value: 5}};
+    var command = { name: "encodeVideoFrames", data: { value: 30}};
     this.codecsWorker.postMessage(command);
 }
 
 RtcApp.prototype.decodeVideoFrames=function(e) {
 
-    var command = { name: "decodeVideoFrames", data: { value: 5}};
+    var command = { name: "decodeVideoFrames", data: { value: 30}};
     this.codecsWorker.postMessage(command);
 }
 
