@@ -39,73 +39,104 @@ function errorMsg(msg, error) {
   }
 }
 
-async function openCamera(e) {
+function createMediaDevicesList(devices) {
+  const camSpanElement =  document.querySelector('#camListSpan');
+  const camSelectList = document.createElement("select");
+  camSelectList.id = "camList";
+  camSpanElement.appendChild(camSelectList);
 
-  weblog("-------- Available User Devices -----------")
-  listUserDevices();
+  const micSpanElement =  document.querySelector('#micListSpan');
+  const micSelectList = document.createElement("select");
+  micSelectList.id = "micList";
+  micSpanElement.appendChild(micSelectList);
+
+  var option0 = document.createElement("option");
+  option0.value = '';
+  option0.text =  "---- not select ----";
+  micSelectList.appendChild(option0);
+
+  //Create and append the options
+  for (var device of devices) {
+      console.log("append option of device: ", device);
+      var option = document.createElement("option");
+      option.value = device.deviceId;
+      option.text =  device.label;
+      weblog(device.kind, device.deviceId, device.label);
+      if(/audioinput/i.test(device.kind)) {
+        micSelectList.appendChild(option);
+      } else if(/videoinput/i.test(device.kind)) {
+        camSelectList.appendChild(option);
+      }
+
+     
+  }
+
+
+}
+
+async function openMedia(e) {
+
 
   const constraints = window.constraints = {
     audio: false,
-    video: true
+    video: {}
   };
 
+  const micSelect = document.querySelector('select#micList');
+  var selectedMicId = micSelect.value;
+  selectedMicId && (constraints.audio = {
+    echoCancellation: true,
+    autoGainControl: true,
+    noiseSuppression: true
+  }) && (constraints.audio.deviceId = selectedMicId);
+
+
+  
+  
   const resSelect = document.querySelector('select#resolution');
   var selectedRes = resSelect.value;
 
   console.log("selectedRes=", selectedRes);
+  
+  var frameWidth = 1024;
+  var frameHeight = 768;
+
   switch(selectedRes) {
     case "90p":
-      constraints.video = {
-        mandatory: {
-          maxWidth: 160,
-          maxHeight: 90
-        }
-      }  
+      frameWidth = 160;
+      frameHeight = 90;
       break;
     case "180p":
-      constraints.video = {
-          mandatory: {
-            maxWidth: 320,
-            maxHeight: 180
-          }
-        }    
+      frameWidth = frameWidth * 2;
+      frameHeight = frameHeight * 2
       break;
     case "360p":
-      constraints.video = {
-          mandatory: {
-            maxWidth: 640,
-            maxHeight: 360
-          }
-        }    
+      frameWidth = frameWidth * 4;
+      frameHeight = frameHeight * 4;
       break;
     
     case "720p":
-      constraints.video = {
-          mandatory: {
-            maxWidth: 1280,
-            maxHeight: 720
-          }
-        }    
+      frameWidth = frameWidth * 8;
+      frameHeight = frameHeight * 8;
       break;
     case "1080p":
-      constraints.video = {
-          mandatory: {
-            maxWidth: 1920,
-            maxHeight: 1080
-          }
-        }    
+      frameWidth = frameWidth * 12;
+      frameHeight = frameHeight * 12;  
       break;
     default:
-      constraints.video = {
-          mandatory: {
-            maxWidth: 1024,
-            maxHeight: 768
-          }
-        }  
-      
+      frameWidth = 1024;
+      frameHeight = 768;
       break;
-  }      
-  
+  } ;
+  constraints.video = {
+    width: {ideal: frameWidth},
+    height: {ideal: frameHeight},
+    frameRate: {min: 30}
+  }
+  const camSelect = document.querySelector('select#camList');
+  var selectedCamId = camSelect.value;
+  selectedCamId && (constraints.video.deviceId = selectedCamId);
+
   const filterSelect = document.querySelector('select#filter');
   filterSelect.onchange = function() {
     const video = document.querySelector('video');
@@ -113,7 +144,7 @@ async function openCamera(e) {
   };
 
   try {
-    console.log("to getUserMedia, constraints: ", constraints);
+    weblog("getUserMedia, constraints: ", JSON.stringify(constraints, null, 2));
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     
     handleSuccess(stream);
@@ -124,11 +155,12 @@ async function openCamera(e) {
   }
 }
 
-function closeCamera(e) {
+function closeMedia(e) {
     const videoElem = document.querySelector('video');
     const stream = videoElem.srcObject;
     const tracks = stream.getTracks();
     e.target.disabled = true;
+    if(!tracks) return;
     document.querySelector('#open').disabled = false;
     tracks.forEach(function(track) {
       track.stop();
