@@ -13,25 +13,14 @@ function weblog() {
     logContent.appendChild(elem);
 }
 
-function listUserDevices() {
+async function listUserDevices() {
    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
      weblog("enumerateDevices() not supported.");
      return;
    }
+   await navigator.mediaDevices.getUserMedia({audio: true, video: true});
+   return await navigator.mediaDevices.enumerateDevices();
 
-   // List cameras and microphones.
-   navigator.mediaDevices.enumerateDevices()
-       .then(function(devices) {
-            var i = 0;
-            devices.forEach(function(device) {
-               var msg  = (++i) + ". device kind=" + device.kind + ", label=" + device.label + ", id=" + device.deviceId;
-               weblog(msg);
-         });
-       })
-       .catch(function(err) {
-           var errMsg = err.name + ": " + err.message
-           weblog(errMsg);
-       });
 }
 
 function getSupportConstraints() {

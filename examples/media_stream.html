@@ -22,11 +22,14 @@
 		});
     $(".footer").load("footer.html");
     //-----------------------------------------------------------//
+    var rets = listUserDevices();
+    rets
+      .then(createMediaDevicesList)
+      .catch(weblog);
 
+    document.querySelector('#open').addEventListener('click', e => openMedia(e));
 
-    document.querySelector('#open').addEventListener('click', e => openCamera(e));
-
-    document.querySelector('#close').addEventListener('click', e => closeCamera(e));
+    document.querySelector('#close').addEventListener('click', e => closeMedia(e));
 
     document.querySelector('#snapshot').addEventListener('click', e => takeSnapshot(e));
     
@@ -59,19 +62,20 @@
                 <p>Click the button to open, close camera or take snapshot</p>
                 <div>
 
-                      <button class="btn btn-default" autocomplete="off" id="open">Open Camera</button>
+                      <button class="btn btn-default" autocomplete="off" id="open">Open Media</button>
+                      
                       <label for="resolution">resolution </label>
                       <select id="resolution">
                           <option value="90p">160 x 90</option>
                           <option value="180p">320 x 180</option>
                           <option value="360p">640 x 360</option>
-                          <option value="720p">1280 x 720</option>
+                          <option value="720p" selected>1280 x 720</option>
                           <option value="1080p">1920 x 1080</option>
                           <option value="2k">3840 × 2160</option>
                           <option value="4k">7680 × 4320</option>
                       </select>
 
-                      <button class="btn btn-default" autocomplete="off" id="close">Close Camera</button>
+                      <button class="btn btn-default" autocomplete="off" id="close">Close Media</button>
                       <button class="btn btn-default" autocomplete="off" id="snapshot">Take Snapshort</button>
                           
                       <label for="filter">Filter: </label>
@@ -84,11 +88,22 @@
                       </select>                   
 
                 </div>
+                <div> 
+                  <div>
+                    <span>video devices: </span>
+                    <span id="camListSpan"></span>
+                  </div>
+                <div>
+                  <span>audio input devices: </span>
+                  <span id="micListSpan"></span>
+                </div>
+           
+                </div>
                 <br/>
               </div>
               <div class="col-lg-12">
                
-                <div class="col-lg-6"><video id="localVideo" autoplay playsinline controls="true"></video></div>
+                <div class="col-lg-6"><video id="localVideo" autoplay playsinline></video></div>
                 <div class="col-lg-6"><canvas id="localCanvas"></canvas></div>
               </div>
           </div>
