@@ -13,7 +13,7 @@ function RtcApp() {
     this.encodedFrames = [];
 }
 
-RtcApp.prototype.init = function() {
+RtcApp.prototype.init = function(codecConfig) {
     console.log("--- init ---");
 
     this.canvasElement = document.getElementById("myCanvas");
@@ -22,7 +22,7 @@ RtcApp.prototype.init = function() {
     this.codecsWorker = new Worker("./js/webcodecs_worker.js");
     this.codecsWorker.onmessage = ({data}) => weblog(data);
 
-    var command = { name: "init", data: { value: 30}};
+    var command = { name: "init", data: { value: codecConfig}};
     this.codecsWorker.postMessage(command);
 }
 

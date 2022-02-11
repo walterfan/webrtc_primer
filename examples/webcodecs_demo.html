@@ -60,7 +60,18 @@
                 <button id="encodeVideoFrames" class="btn-large btn-success">2. Encode VideoFrames</button>
                 <button id="decodeVideoFrames" class="btn-large btn-success">3. Decode VideoFrames</button>
                 </div>
-                <div><br/><br/>
+                <div><br/>
+                    
+                <textarea id="codecConfigTxt">{
+    "codec": "avc1.42001E",
+    "width": 1280,
+    "height": 720,
+    "bitrate": 1000000,
+    "avc" : { "format": "annexb" },
+    "framerate": 30
+}</textarea>
+                    
+                    <br/>
                     <p>DecodeVideoFrames will be done...</p>
                 </div>
     
@@ -75,6 +86,9 @@
                      <li>
                         <a href="https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame/VideoFrame">
                             Video Frame on MDN</a>
+                     </li>
+                     <li>
+                         <a href="https://web.dev/webcodecs/">WebCodecs Article</a>
                      </li>
                  </ul>
                 
@@ -110,8 +124,11 @@
 
 
     window.onload = function init() {
+
+        var codecConfigTxt = document.getElementById("codecConfigTxt");
+        console.log("codecParameters=", codecConfigTxt.value);
         var rtcApp = new RtcApp();
-        rtcApp.init();
+        rtcApp.init(codecConfigTxt.value);
   
         var createVideoFramesBtn = document.getElementById("createVideoFrames");
         createVideoFramesBtn.addEventListener("click", e => rtcApp.createVideoFrames(e));
