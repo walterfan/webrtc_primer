@@ -30,6 +30,7 @@ function RtcWorker() {
  
     this.canvasWidth  = 1920;
     this.canvasHeight = 1080;
+    this.config = {};
     this.frameCount = 0;
     this.encodedCount = 0;
     this.decodedCount = 0;
@@ -43,9 +44,11 @@ function RtcWorker() {
 }
 
 
-RtcWorker.prototype.initialize = function(frameCount) {
-    console.log("--- initialize ---");
-    this.frameCount = frameCount;
+RtcWorker.prototype.initialize = function(configuration) {
+    this.config = JSON.parse(configuration);
+    console.log("--- initialize ---", this.config);
+    
+    this.frameCount = this.config.frameCount;
 
 
     const initOfEncoder = {
@@ -134,7 +137,7 @@ RtcWorker.prototype.handleChunk = function(chunk, metadata) {
         codedHeight: 480
         codedWidth: 640
         colorSpace: {fullRange: false, matrix: 'smpte170m', primaries: 'smpte170m', transfer: 'smpte170m'}
-        description:  ArrayBuffer(41)
+        description:  ArrayBuffer(41) //contain sps, pps, sei, etc .
         hardwareAcceleration: "no-preference"
     */
     this.encodeTimepoints.push(performance.now());
@@ -149,7 +152,12 @@ RtcWorker.prototype.handleChunk = function(chunk, metadata) {
         data: chunkData
       });
   
-    this.encodedFrames.push(chunkObj);
+    let frameData = {
+        chunkObj: chunkObj,
+        chunkConfig: metadata.decoderConfig
+    }
+      
+    this.encodedFrames.push(frameData);
 
     if(this.encodedCount >= 30) 
         this.checkPerformance("encode");
@@ -157,7 +165,7 @@ RtcWorker.prototype.handleChunk = function(chunk, metadata) {
 }
 
 RtcWorker.prototype.handleFrame = function(frame) {
-    console.log("--- handleFrame ---", this.decodedCount);
+    //console.log("--- handleFrame ---", this.decodedCount);
     this.decodedCount++;
     this.decodeTimepoints.push(performance.now());
     this.decodedFrames.push(frame);
@@ -174,9 +182,14 @@ RtcWorker.prototype.handleError = function(e) {
 RtcWorker.prototype.decodeVideoFrames = async function() {
     console.log("--- decodeVideoFrames ---");
     var keyFrameCount = 0;
-    for (var chunk of this.encodedFrames) {
-        console.log("chunk=", chunk);
-        if (chunk.type === "key") keyFrameCount++;
+    for (var frameData of this.encodedFrames) {
+        var chunk = frameData.chunkObj;
+        //console.log("chunk=", frameData);
+        if (chunk.type === "key") { 
+            keyFrameCount++;
+            this.videoDecoder.configure(frameData.chunkConfig);
+        }
+        
         if (keyFrameCount === 0) continue;
 
         this.videoDecoder.decode(chunk);
