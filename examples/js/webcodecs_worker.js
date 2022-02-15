@@ -17,10 +17,16 @@ self.onmessage = function(event) {
         self.postMessage(`Did ${command_name}: ${command_data.value} in ${performance.now() - start_time} ms`);
     } else  if (command_name.match(/encodeVideoFrames/i)) {
         self.rtcWorker.encodeVideoFrames(command_data.value);
-        self.postMessage(`Did ${command_name}: ${self.rtcWorker.encodedCount} in ${performance.now() - start_time} ms`);
+        self.postMessage(`Do ${command_name}: ${self.rtcWorker.encodedCount}`);
     } else  if (command_name.match(/decodeVideoFrames/i)) {
         self.rtcWorker.decodeVideoFrames(command_data.value);
-        self.postMessage(`Did ${command_name}: ${self.rtcWorker.decodedCount} in ${performance.now() - start_time} ms`);
+        self.postMessage(`Do ${command_name}: ${self.rtcWorker.decodedCount}`);
+    } else  if (command_name.match(/renderOriginalFrames/i)) {
+        self.rtcWorker.renderCanvas(command_name, command_data.value);
+        self.postMessage(`Do ${command_name}: ${self.rtcWorker.decodedCount}`);
+    } else  if (command_name.match(/renderDecodedFrames/i)) {
+        self.rtcWorker.renderCanvas(command_name, command_data.value);
+        self.postMessage(`Do ${command_name}: ${self.rtcWorker.decodedCount}`);
     }
 
     
@@ -70,7 +76,7 @@ RtcWorker.prototype.initialize = function(configuration) {
         width: this.canvasWidth,
         height: this.canvasHeight,
         bitrate: 12_000_000, // 2 Mbps
-        framerate: 60
+        framerate: this.frameRate
       };
 
       this.videoEncoder = new VideoEncoder(initOfEncoder);
@@ -214,6 +220,33 @@ RtcWorker.prototype.checkPerformance=function(category) {
     
 }
 
+//To render image to the canvas element
+RtcWorker.prototype.renderCanvas=function(command_name, canvasElement) {
+    console.log("renderCanvas for ",  command_name);
+    var underflow = false;
+    var theFrames = command_name === "renderOriginalFrames"? this.videoFrames: this.decodedFrames;
+    
+    var ready_frames = theFrames.map((x) => x);
+    if (ready_frames.length == 0) {
+        self.postMessage("No video frames to render");
+    }
 
+    renderFrame();
 
+    async function renderFrame() {
+        if (ready_frames.length == 0) {
+          underflow = true;
+          return;
+        }
+        let frame = ready_frames.shift();
+        underflow = false;
+
+        let ctx = canvasElement.getContext("2d");
+        ctx.drawImage(frame, 0, 0);        
+        //frame.close();      
+        
+        // Immediately schedule rendering of the next frame
+        setTimeout(renderFrame, 0);        
+      }
+}
 

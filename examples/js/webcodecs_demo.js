@@ -1,12 +1,15 @@
 function RtcApp() {
 
-    this.canvasContext = null;
-
+    
+    this.codecConfig = null;
    
     this.canvasWidth  = 1920;
     this.canvasHeight = 1080;
 
-    this.canvasElement = null;
+    this.srcCanvasElement = null;
+    this.destCanvasElement = null;
+
+    
     this.frameCounter = 0;
 
     this.timepoints = [];
@@ -15,9 +18,12 @@ function RtcApp() {
 
 RtcApp.prototype.init = function(codecConfig) {
     console.log("--- init ---");
+    this.codecConfig = codecConfig;
+    this.config = JSON.parse(codecConfig);
 
-    this.canvasElement = document.getElementById("myCanvas");
-    this.canvasContext = this.canvasElement.getContext("2d");
+    this.srcCanvasElement = document.getElementById("srcCanvas");
+    this.destCanvasElement = document.getElementById("destCanvas");
+ 
 
     this.codecsWorker = new Worker("./js/webcodecs_worker.js");
     this.codecsWorker.onmessage = ({data}) => weblog(data);
@@ -36,13 +42,24 @@ RtcApp.prototype.createVideoFrames=function(e) {
 
 RtcApp.prototype.encodeVideoFrames=function(e) {
 
-    var command = { name: "encodeVideoFrames", data: { value: 30}};
+    var command = { name: "encodeVideoFrames", data: { value: this.codecConfig}};
     this.codecsWorker.postMessage(command);
 }
 
 RtcApp.prototype.decodeVideoFrames=function(e) {
 
-    var command = { name: "decodeVideoFrames", data: { value: 30}};
+    var command = { name: "decodeVideoFrames", data: { value: this.codecConfig}};
     this.codecsWorker.postMessage(command);
 }
 
+RtcApp.prototype.renderOriginalFrames=function(e) {
+    const offscreen = this.srcCanvasElement.transferControlToOffscreen();
+    var command = { name: "renderOriginalFrames", data: { value: offscreen}};
+    this.codecsWorker.postMessage(command, [offscreen]);
+}
+
+RtcApp.prototype.renderDecodedFrames=function(e) {
+    const offscreen = this.destCanvasElement.transferControlToOffscreen();
+    var command = { name: "renderDecodedFrames", data: { value: offscreen}};
+    this.codecsWorker.postMessage(command, [offscreen]);
+}

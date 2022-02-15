@@ -70,7 +70,9 @@
     "frameRate": 60,
     "frameCount": 30
 }</textarea>
-                    
+    <br/>
+    <button id="renderOriginalFrames" class="btn-large ">Render Created Video Frames</button>
+    <button id="renderDecodedFrames" class="btn-large ">Render Decoded Video Frames</button>    
 
                 </div>
     
@@ -110,8 +112,12 @@
 	
 		</div>
 	</div>
-  <br/><br/><br/>
-  <canvas id="myCanvas" width="160" height="90">
+
+  <canvas id="srcCanvas" width="1280" height="720">
+    Your browser not support canvas
+  </canvas>
+  <br/>
+  <canvas id="destCanvas" width="1280" height="720">
     Your browser not support canvas
   </canvas>
   <hr>
@@ -137,6 +143,12 @@
 
         var decodeVideoFramesBtn = document.getElementById("decodeVideoFrames");
         decodeVideoFramesBtn.addEventListener("click", e => rtcApp.decodeVideoFrames(e));
+
+        var renderOriginalFrames = document.getElementById("renderOriginalFrames");
+        renderOriginalFrames.addEventListener("click", e => rtcApp.renderOriginalFrames(e));
+
+        var renderDecodedFrames = document.getElementById("renderDecodedFrames");
+        renderDecodedFrames.addEventListener("click", e => rtcApp.renderDecodedFrames(e));
         
     }
 
