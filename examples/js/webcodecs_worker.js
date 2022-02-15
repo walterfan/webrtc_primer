@@ -31,7 +31,8 @@ function RtcWorker() {
     this.canvasWidth  = 1920;
     this.canvasHeight = 1080;
     this.config = {};
-    this.frameCount = 0;
+    this.frameRate = 30;
+    this.frameCount = 30;
     this.encodedCount = 0;
     this.decodedCount = 0;
 
@@ -49,7 +50,9 @@ RtcWorker.prototype.initialize = function(configuration) {
     console.log("--- initialize ---", this.config);
     
     this.frameCount = this.config.frameCount;
-
+    this.frameRate = this.config.frameRate;
+    this.canvasWidth = this.config.width;
+    this.canvasHeight = this.config.height;
 
     const initOfEncoder = {
         output: this.handleChunk.bind(this),
