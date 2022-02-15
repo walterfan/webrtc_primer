@@ -9,7 +9,9 @@ function RtcApp() {
     this.srcCanvasElement = null;
     this.destCanvasElement = null;
 
-    
+    this.srcCanvasScreen = null;
+    this.destCanvasScreen = null;
+
     this.frameCounter = 0;
 
     this.timepoints = [];
@@ -53,13 +55,13 @@ RtcApp.prototype.decodeVideoFrames=function(e) {
 }
 
 RtcApp.prototype.renderOriginalFrames=function(e) {
-    const offscreen = this.srcCanvasElement.transferControlToOffscreen();
-    var command = { name: "renderOriginalFrames", data: { value: offscreen}};
-    this.codecsWorker.postMessage(command, [offscreen]);
+    if(!this.srcCanvasScreen) this.srcCanvasScreen = this.srcCanvasElement.transferControlToOffscreen();
+    var command = { name: "renderOriginalFrames", data: { value: this.srcCanvasScreen}};
+    this.codecsWorker.postMessage(command, [this.srcCanvasScreen]);
 }
 
 RtcApp.prototype.renderDecodedFrames=function(e) {
-    const offscreen = this.destCanvasElement.transferControlToOffscreen();
-    var command = { name: "renderDecodedFrames", data: { value: offscreen}};
-    this.codecsWorker.postMessage(command, [offscreen]);
+    if(!this.destCanvasScreen) this.destCanvasScreen = this.destCanvasElement.transferControlToOffscreen();
+    var command = { name: "renderDecodedFrames", data: { value: this.destCanvasScreen}};
+    this.codecsWorker.postMessage(command, [this.destCanvasScreen]);
 }
