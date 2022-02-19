@@ -60,17 +60,21 @@
                 <button id="encodeVideoFrames" class="btn-large btn-success">2. Encode VideoFrames</button>
                 <button id="decodeVideoFrames" class="btn-large btn-success">3. Decode VideoFrames</button>
                 </div>
-                <div><br/>
-                    
-                <textarea id="codecConfigTxt">{
+                <div>
+                    <label>Video Source: </label>
+                <select id="videoSource">
+                    <option value="random">random pixels</option>
+                    <option value="camera">capture camera</option>
+                    <option value="screen">capture screen</option>
+                </select>    
+<textarea id="codecConfigTxt">{
     "codec": "avc1.42001E",
     "width": 1280,
     "height": 720,
     "bitrate": 1000000,
-    "frameRate": 60,
-    "frameCount": 30
+    "frameRate": 30,
+    "frameCount": 60
 }</textarea>
-    <br/>
     <button id="renderOriginalFrames" class="btn-large ">Render Created Video Frames</button>
     <button id="renderDecodedFrames" class="btn-large ">Render Decoded Video Frames</button>    
 
@@ -92,7 +96,9 @@
                          <a href="https://web.dev/webcodecs/">WebCodecs Article</a>
                      </li>
                  </ul>
-                
+                 <video id="localVideo" autoplay playsinline></video>
+                 <button id="closeMedia" class="invisible">close</button>
+          
              </div>
 
    
@@ -149,6 +155,9 @@
 
         var renderDecodedFrames = document.getElementById("renderDecodedFrames");
         renderDecodedFrames.addEventListener("click", e => rtcApp.renderDecodedFrames(e));
+
+        var closeMediaButton = document.getElementById("closeMedia");
+        closeMediaButton.addEventListener("click", e => rtcApp.closeVideoStream(e));
         
     }
 

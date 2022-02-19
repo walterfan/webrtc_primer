@@ -13,7 +13,7 @@ self.onmessage = function(event) {
         self.rtcWorker.initialize(command_data.value);
         self.postMessage(`Did ${command_name}: ${command_data.value} in ${performance.now() - start_time} ms`);
     } else  if (command_name.match(/createVideoFrames/i)) {
-        self.rtcWorker.createVideoFrames(command_data.value);
+        self.rtcWorker.createVideoFrames(command_data);
         self.postMessage(`Did ${command_name}: ${command_data.value} in ${performance.now() - start_time} ms`);
     } else  if (command_name.match(/encodeVideoFrames/i)) {
         self.rtcWorker.encodeVideoFrames(command_data.value);
@@ -27,6 +27,11 @@ self.onmessage = function(event) {
     } else  if (command_name.match(/renderDecodedFrames/i)) {
         self.rtcWorker.renderCanvas(command_name, command_data.value);
         self.postMessage(`Do ${command_name}: ${self.rtcWorker.decodedCount}`);
+    } else  if (command_name.match(/saveVideoFrame/i)) {
+        self.rtcWorker.saveVideoFrame(command_data);
+        self.postMessage(`Did ${command_name}: ${command_data.value} in ${performance.now() - start_time} ms`);
+    } else {
+        self.postMessage(`Unknown ${command_name}`);
     }
 
     
@@ -36,6 +41,7 @@ function RtcWorker() {
  
     this.canvasWidth  = 1920;
     this.canvasHeight = 1080;
+
     this.config = {};
     this.frameRate = 30;
     this.frameCount = 30;
@@ -86,19 +92,15 @@ RtcWorker.prototype.initialize = function(configuration) {
       this.videoDecoder.configure(config);
 }
 
-RtcWorker.prototype.createVideoFrames = function() {
-    console.log("--- createVideoFrames ---");
+RtcWorker.prototype.createVideoFrames = function(command) {
+    console.log("--- createVideoFrames ---", command);
 
-    //new VideoFrame(this.canvasElement, { timestamp: 0 });
     for(var i=0; i < this.frameCount; i++) {
         let videoFrame = this.createVideoFrame(performance.now() * 1000);
         this.videoFrames.push(videoFrame);
     }
 
 };
-
-
-
 
 RtcWorker.prototype.createVideoFrame=function(timestamp) {
     const pixelSize = 4;
@@ -115,6 +117,14 @@ RtcWorker.prototype.createVideoFrame=function(timestamp) {
     }
     let frame = new VideoFrame(data, init);
     return frame;
+}
+
+RtcWorker.prototype.saveVideoFrame=function(imageData) {
+
+    const init = {timestamp: performance.now(), codedWidth: this.canvasWidth, codedHeight: this.canvasHeight, format: 'RGBA'};
+    //TODO: double check imageData's format
+    //let videoFrame = new VideoFrame(imageData.buffer, init);
+    //this.videoFrames.push(videoFrame);
 }
 
 RtcWorker.prototype.encodeVideoFrames = async function(e) {
@@ -168,7 +178,7 @@ RtcWorker.prototype.handleChunk = function(chunk, metadata) {
       
     this.encodedFrames.push(frameData);
 
-    if(this.encodedCount >= 30) 
+    if(this.encodedCount >= this.frameCount) 
         this.checkPerformance("encode");
     
 }
@@ -223,7 +233,7 @@ RtcWorker.prototype.checkPerformance=function(category) {
 //To render image to the canvas element
 RtcWorker.prototype.renderCanvas=function(command_name, canvasElement) {
     console.log("renderCanvas for ",  command_name);
-    var underflow = false;
+    
     var theFrames = command_name === "renderOriginalFrames"? this.videoFrames: this.decodedFrames;
     
     var ready_frames = theFrames.map((x) => x);
@@ -235,12 +245,10 @@ RtcWorker.prototype.renderCanvas=function(command_name, canvasElement) {
 
     async function renderFrame() {
         if (ready_frames.length == 0) {
-          underflow = true;
           return;
         }
         let frame = ready_frames.shift();
-        underflow = false;
-
+        
         let ctx = canvasElement.getContext("2d");
         ctx.drawImage(frame, 0, 0);        
         //frame.close();      

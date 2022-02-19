@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+venv/
+build/
 _build/
 .ipynb_checkpoints/
 # Log file
