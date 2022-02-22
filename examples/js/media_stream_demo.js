@@ -107,21 +107,29 @@ async function openMedia(e) {
       frameHeight = 90;
       break;
     case "180p":
-      frameWidth = frameWidth * 2;
-      frameHeight = frameHeight * 2
+      frameWidth = 320;
+      frameHeight = 180
       break;
     case "360p":
-      frameWidth = frameWidth * 4;
-      frameHeight = frameHeight * 4;
+      frameWidth = 640;
+      frameHeight = 360;
       break;
     
     case "720p":
-      frameWidth = frameWidth * 8;
-      frameHeight = frameHeight * 8;
+      frameWidth = 1280;
+      frameHeight = 720;
       break;
     case "1080p":
-      frameWidth = frameWidth * 12;
-      frameHeight = frameHeight * 12;  
+      frameWidth = 1920;
+      frameHeight = 1080;  
+      break;
+    case "2k":
+      frameWidth = 3840;
+      frameHeight = 2160;  
+      break;
+    case "4k":
+      frameWidth = 7680;
+      frameHeight = 4320;  
       break;
     default:
       frameWidth = 1024;
