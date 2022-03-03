@@ -14,9 +14,9 @@ function handleSuccess(stream) {
   const video = document.querySelector('video');
   const videoTracks = stream.getVideoTracks();
   console.log('Got stream with constraints:', constraints);
-  weblog(`Using video device: ${videoTracks[0].label}: capabilities: ` 
-    + JSON.stringify(videoTracks[0].getCapabilities()) 
-    + ", settings: " + JSON.stringify(videoTracks[0].getSettings())
+  weblog(`Using video device: ${videoTracks[0].label}: <br/>\n capabilities: ` 
+    + JSON.stringify(videoTracks[0].getCapabilities(), null, 2) 
+    + "<br/>\n settings: " + JSON.stringify(videoTracks[0].getSettings(), null, 2)
     );
   window.stream = stream; // make variable available to browser console
   video.srcObject = stream;
