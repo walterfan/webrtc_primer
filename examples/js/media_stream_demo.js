@@ -142,7 +142,7 @@ async function openMedia(e) {
   constraints.video = {
     width: {ideal: frameWidth},
     height: {ideal: frameHeight},
-    frameRate: {min: 30}
+    frameRate: {min: 5, max: 30}
   }
   const camSelect = document.querySelector('select#camList');
   var selectedCamId = camSelect.value;
