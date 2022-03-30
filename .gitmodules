@@ -4,3 +4,6 @@
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:walterfan/webrtc_snippets.git
+[submodule "refer"]
+	path = refer
+	url = git@github.com:walterfan/webrtc_refer.git
