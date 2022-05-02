@@ -1,42 +1,48 @@
-from fabric.api import *
-from fabric.context_managers import *
-from fabric.contrib.console import confirm
+import os
+import sys
+from fabric import task
+from fabric import Connection
+import time
+import json
+import logging
+
 from datetime import date
 from sys import platform
 import os, subprocess
 
+DEFAULT_HOSTS = ["localhost"]
 BASE_PATH = os.path.dirname(__file__)
 GUIDE_FOLDER = "tutorial"
 GUIDE_PATH = BASE_PATH + "/" + GUIDE_FOLDER 
 
-@task
-def usage():
+@task(hosts=DEFAULT_HOSTS)
+def usage(c):
     print("usage: fab make_doc|publish_doc")
 
 
-@task
-def md2rst(src, dest=None):
+@task(hosts=DEFAULT_HOSTS)
+def md2rst(c, src, dest=None):
     if not dest:
         dest = src[:-3] + ".rst";
     cmd = "pandoc --to RST --reference-links {} > {}".format(src, dest)
-    local(cmd)
+    c.local(cmd)
 
-@task
-def rst2md(src, dest=None):
+@task(hosts=DEFAULT_HOSTS)
+def rst2md(c, src, dest=None):
     if not dest:
         dest = src[:-4] + ".md";
     cmd = "pandoc {} -f rst -t markdown -o {}".format(src, dest)
-    local(cmd)
+    c.local(cmd)
 
-@task
-def make_guide():
-    with lcd(GUIDE_PATH):
+@task(hosts=DEFAULT_HOSTS)
+def make_guide(c):
+    with c.cd(GUIDE_PATH):
         build_cmd = 'make clean html'
-        local(build_cmd)
+        c.local(build_cmd)
 
-@task
-def publish_guide():
-    local("touch %s/build/html/.nojekyll" % GUIDE_PATH)
-    local("git add %s" % GUIDE_PATH)
-    local('git commit -m "update guilde"')
-    local("git subtree push --prefix %s/build/html origin gh-pages" % GUIDE_FOLDER)
+@task(hosts=DEFAULT_HOSTS)
+def publish_guide(c):
+    c.local("touch %s/build/html/.nojekyll" % GUIDE_PATH)
+    c.local("git add %s" % GUIDE_PATH)
+    c.local('git commit -m "update guilde"')
+    c.local("git subtree push --prefix %s/build/html origin gh-pages" % GUIDE_FOLDER)
