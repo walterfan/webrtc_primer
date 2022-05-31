@@ -12,14 +12,14 @@ git submodule update --init --recursive
 
 1. Read Book
 
-  * [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
-  * [WebRTC For The Curious](https://webrtcforthecurious.com/)
+   * [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
+   * [WebRTC For The Curious](https://webrtcforthecurious.com/)
   
 
 2. Try WebRTC examples
 
-  * [WebRTC Samples](https://github.com/webrtc/samples) and 
-  * [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
+   * [WebRTC Samples](https://github.com/webrtc/samples) and 
+   * [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
 
 
 
