@@ -14,9 +14,9 @@ see [protocols](protocols.md)
 
 ## WebRTC examples
 
-My WebRTC example Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book):
+My WebRTC example Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
 
-* [WebRTC Example 实例](https://www.hfrtc.top/webrtc/examples/index.html)
+* [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
 
 
 
