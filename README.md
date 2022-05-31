@@ -8,21 +8,24 @@ git clone git@github.com:walterfan/webrtc_primer.git
 cd webrtc_primer
 git submodule update --init --recursive
 ```
-## WebRTC protocols
+## WebRTC Quick Start
 
-see [protocols](protocols.md)
+1. Read Book
 
-## WebRTC examples
+  * [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
+  * [WebRTC For The Curious](https://webrtcforthecurious.com/)
+  
 
-My WebRTC example Extended from [WebRTC Samples](https://github.com/webrtc/samples) and book [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
+2. Try WebRTC examples
 
-* [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
+  * [WebRTC Samples](https://github.com/webrtc/samples) and 
+  * [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
 
 
 
-# WebRTC Tutorial
+3. Learn WebRTC API, Spec and RFC
 
-* [WebRTC Notes](https://walterfan.github.io/webrtc_note/)
+   * [WebRTC Notes](https://walterfan.github.io/webrtc_note/)
 
 
 # WebRTC related snippets
