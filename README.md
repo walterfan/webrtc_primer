@@ -18,8 +18,8 @@ git submodule update --init --recursive
 
 2. Try WebRTC examples
 
-   * [WebRTC Samples](https://github.com/webrtc/samples) and 
-   * [WebRTC Example 实例](https://www.fanyamin.com/webrtc/examples/index.html)
+   * [Offical WebRTC Samples](https://github.com/webrtc/samples)  
+   * [My WebRTC Example](https://www.fanyamin.com/webrtc/examples/index.html)
 
 
 
