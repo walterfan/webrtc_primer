@@ -12,7 +12,7 @@ git submodule update --init --recursive
 
 1. Read Book
 
-   * [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book): [中文版](https://a-wing.github.io/webrtc-book-cn/)
+   * [Real-Time Communication with WebRTC](https://github.com/spromano/WebRTC_Book), [中文版](https://a-wing.github.io/webrtc-book-cn/)
    * [WebRTC For The Curious](https://webrtcforthecurious.com/)
   
 
