@@ -17,8 +17,6 @@ stopButton.addEventListener('click', stop);
 callButton.addEventListener('click', call);
 hangupButton.addEventListener('click', hangup);
 
-sdpButton.addEventListener('click', displaySdp);
-
 let startTime;
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo')
@@ -70,7 +68,7 @@ async function start() {
   startButton.disabled = true;
   stopButton.disabled = false;
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
+    const stream = await navigator.mediaDevices.getUserMedia({audio: false, video: true});
     weblog('Received local stream');
     localVideo.srcObject = stream;
     localStream = stream;
@@ -125,10 +123,29 @@ async function start() {
     pc1.addEventListener('iceconnectionstatechange', e => onIceStateChange(pc1, e));
     pc2.addEventListener('iceconnectionstatechange', e => onIceStateChange(pc2, e));
     pc2.addEventListener('track', gotRemoteStream);
-  
-    localStream.getTracks().forEach(track => pc1.addTrack(track, localStream));
+
+    //localStream.getTracks().forEach(track => pc1.addTrack(track, localStream));
+
+
+    for(const audioTrack of localStream.getAudioTracks()) {
+      pc1.addTransceiver(audioTrack, {direction:  'sendrecv', streams: [localStream]});
+    }
+
+    var encodings = [
+        {rid: 'high', maxBitrate: 2500000, active: true},
+        {rid: 'middle', maxBitrate: 1500000, active: true, scaleResolutionDownBy: 2.0},
+        {rid: 'low', maxBitrate: 800000, active: true, scaleResolutionDownBy: 4.0}
+    ];
+
+    for(const videoTrack of localStream.getVideoTracks()) {
+
+        pc1.addTransceiver(videoTrack, {direction:  'sendrecv',
+          sendEncodings: encodings, streams: [localStream]});
+
+    }
+
     weblog('Added local stream to pc1');
-  
+
     try {
       weblog('pc1 createOffer start');
       const offer = await pc1.createOffer(offerOptions);
@@ -144,7 +161,11 @@ async function start() {
   }
   
   async function onCreateOfferSuccess(desc) {
-    weblog(`Offer from pc1\n${desc.sdp}`);
+    var strSdp =  desc.sdp.replaceAll("\r\n", "<br/>");
+    weblog(`Offer from pc1\n${strSdp}`);
+
+    //document.getElementById("sdpDiv").innerHTML = "Offer: " + desc.sdp.replaceAll("\r\n", "<br/>");
+
     weblog('pc1 setLocalDescription start');
     try {
       await pc1.setLocalDescription(desc);
@@ -184,8 +205,9 @@ async function start() {
   function onSetSessionDescriptionError(error) {
     weblog(`Failed to set session description: ${error.toString()}`);
   }
-  
+
   function gotRemoteStream(e) {
+    
     if (remoteVideo.srcObject !== e.streams[0]) {
       remoteVideo.srcObject = e.streams[0];
       weblog('pc2 received remote stream');
@@ -193,7 +215,8 @@ async function start() {
   }
   
   async function onCreateAnswerSuccess(desc) {
-    weblog(`Answer from pc2:\n${desc.sdp}`);
+    var strSdp =  desc.sdp.replaceAll("\r\n", "<br/>");
+    weblog(`Answer from pc2:\n${strSdp}`);
     weblog('pc2 setLocalDescription start');
     try {
       await pc2.setLocalDescription(desc);
@@ -231,7 +254,7 @@ async function start() {
   function onIceStateChange(pc, event) {
     if (pc) {
       weblog(`${getName(pc)} ICE state: ${pc.iceConnectionState}`);
-      weblog('ICE state change event: ', event);
+      weblog('ICE state change event: ', JSON.stringify(event));
     }
   }
   
@@ -245,11 +268,13 @@ async function start() {
     callButton.disabled = false;
   }
 
-  async function displaySdp() {
-    const configuration = getSelectedSdpSemantics();
 
-    let peerConnection = new RTCPeerConnection(configuration);
-    const offer = await peerConnection.createOffer(offerOptions);
-    await peerConnection.setLocalDescription(offer);
-    outputTextarea.value = offer.sdp;
+  function displayDivOrNot(btnElement, divElement) {
+    if(btnElement.innerText === "hide") {
+        divElement.style.display = "none";
+        btnElement.innerText = "display";
+    } else {
+        divElement.style.display = "block";
+        btnElement.innerText = "hide";
+    }
   }
