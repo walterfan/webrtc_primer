@@ -132,7 +132,7 @@ async function start() {
     }
 
     var encodings = [
-        {rid: 'high', maxBitrate: 2500000, active: true},
+        {rid: 'high', maxBitrate: 2500000, active: true, maxBitrate: 5000000000},
         {rid: 'middle', maxBitrate: 1500000, active: true, scaleResolutionDownBy: 2.0},
         {rid: 'low', maxBitrate: 800000, active: true, scaleResolutionDownBy: 4.0}
     ];
