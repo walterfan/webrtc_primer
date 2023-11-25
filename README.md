@@ -28,12 +28,13 @@ git submodule update --init --recursive
    * [WebRTC API](https://www.w3.org/TR/webrtc/)
    * [JavaScript Session Establishment Protocol (JSEP)](https://www.rfc-editor.org/rfc/rfc8829.html)
    * [RFC8825](https://datatracker.ietf.org/doc/html/rfc8825): Overview: Real-Time Protocols for Browser-Based Applications
+
+
+
+4. Summary and Practice
+   
    * [WebRTC Notes](https://walterfan.github.io/webrtc_note/) wrote by myself
-
-
-# WebRTC related snippets
-
-* [WebRTC snippets](https://walterfan.github.io/webrtc_snippets/)
+   * [WebRTC snippets](https://walterfan.github.io/webrtc_snippets/)
 
 # Materials and Tools
 
